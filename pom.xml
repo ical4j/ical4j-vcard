@@ -18,12 +18,14 @@
 		<url>https://sourceforge.net/tracker/?group_id=107024</url>
 	</issueManagement>
 	<inceptionYear>2008</inceptionYear>
+	
 	<licenses>
 		<license>
 			<name>iCal4j - License</name>
 			<url>LICENSE</url>
 		</license>
 	</licenses>
+	
 	<scm>
 		<connection>
 			scm:cvs:pserver:anonymous:@ical4j.cvs.sourceforge.net:/cvsroot/ical4j:ical4j-vcard 
@@ -33,11 +35,18 @@
 		</developerConnection>
 		<url> http://ical4j.cvs.sourceforge.net/ical4j/ical4j-vcard </url>
 	</scm>
+	
 	<dependencies>
 		<dependency>
 			<groupId>net.fortuna.ical4j</groupId>
 			<artifactId>ical4j</artifactId>
 			<version>1.0-beta5-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.4</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
