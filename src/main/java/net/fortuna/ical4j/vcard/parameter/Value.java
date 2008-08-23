@@ -48,7 +48,7 @@ public final class Value extends Parameter {
      */
     private static final long serialVersionUID = -4161095052661786246L;
 
-    public static final Value PTEXT = new Value("ptext");
+    public static final Value TEXT = new Value("text");
 
     public static final Value BINARY = new Value("binary");
 
