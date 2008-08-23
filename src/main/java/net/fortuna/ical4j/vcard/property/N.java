@@ -77,6 +77,41 @@ public final class N extends Property {
         this.suffixes = suffixes;
     }
     
+    /**
+     * @return the familyName
+     */
+    public String getFamilyName() {
+        return familyName;
+    }
+
+    /**
+     * @return the givenName
+     */
+    public String getGivenName() {
+        return givenName;
+    }
+
+    /**
+     * @return the additionalNames
+     */
+    public String[] getAdditionalNames() {
+        return additionalNames;
+    }
+
+    /**
+     * @return the prefixes
+     */
+    public String[] getPrefixes() {
+        return prefixes;
+    }
+
+    /**
+     * @return the suffixes
+     */
+    public String[] getSuffixes() {
+        return suffixes;
+    }
+
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */

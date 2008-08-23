@@ -94,6 +94,20 @@ public final class Photo extends Property {
         }
     }
     
+    /**
+     * @return the uri
+     */
+    public URI getUri() {
+        return uri;
+    }
+
+    /**
+     * @return the binary
+     */
+    public byte[] getBinary() {
+        return binary;
+    }
+
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */

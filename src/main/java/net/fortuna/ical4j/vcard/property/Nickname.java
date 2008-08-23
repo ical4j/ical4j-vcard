@@ -58,6 +58,13 @@ public final class Nickname extends Property {
         this.names = names;
     }
     
+    /**
+     * @return the names
+     */
+    public String[] getNames() {
+        return names;
+    }
+
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */

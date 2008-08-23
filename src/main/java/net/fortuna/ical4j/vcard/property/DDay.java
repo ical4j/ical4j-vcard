@@ -74,6 +74,20 @@ public final class DDay extends Property {
         getParameters().add(Value.TEXT);
     }
     
+    /**
+     * @return the date
+     */
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */

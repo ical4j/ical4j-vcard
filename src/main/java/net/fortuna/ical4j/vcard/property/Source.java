@@ -67,13 +67,6 @@ public final class Source extends Property {
         return uri;
     }
 
-    /**
-     * @param uri the uri to set
-     */
-    public void setUri(URI uri) {
-        this.uri = uri;
-    }
-
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */
