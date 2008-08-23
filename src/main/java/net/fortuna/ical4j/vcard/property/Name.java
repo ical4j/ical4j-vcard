@@ -35,9 +35,6 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import java.util.ArrayList;
-
-import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -57,7 +54,7 @@ public final class Name extends Property {
      * @param value
      */
     public Name(String value) {
-        super(Name.NAME, new ArrayList<Parameter>());
+        super(Name.NAME);
         this.value = value;
     }
     

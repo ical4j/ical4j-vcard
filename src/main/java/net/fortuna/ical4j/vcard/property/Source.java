@@ -36,9 +36,7 @@
 package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
-import java.util.ArrayList;
 
-import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -58,7 +56,7 @@ public final class Source extends Property {
      * @param uri
      */
     public Source(URI uri) {
-        super(Name.SOURCE, new ArrayList<Parameter>());
+        super(Name.SOURCE);
         this.uri = uri;
     }
     

@@ -36,6 +36,7 @@
 package net.fortuna.ical4j.vcard;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.fortuna.ical4j.model.Escapable;
@@ -85,8 +86,8 @@ public abstract class Property implements Serializable {
      * @param extendedName a non-standard property name
      * @param parameters
      */
-    public Property(String extendedName, List<Parameter> parameters) {
-        this(Name.EXTENDED, parameters);
+    public Property(String extendedName) {
+        this(Name.EXTENDED);
         this.extendedName = extendedName;
     }
     
@@ -94,11 +95,18 @@ public abstract class Property implements Serializable {
      * @param name
      * @param parameters
      */
-    public Property(Name name, List<Parameter> parameters) {
+    public Property(Name name) {
         this.name = name;
-        this.parameters = parameters;
+        this.parameters = new ArrayList<Parameter>();
     }
     
+    /**
+     * @return the parameters
+     */
+    public final List<Parameter> getParameters() {
+        return parameters;
+    }
+
     /**
      * @return a string representaion of the property value
      */
