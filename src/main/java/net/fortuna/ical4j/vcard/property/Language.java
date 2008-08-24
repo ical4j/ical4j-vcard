@@ -60,6 +60,13 @@ public final class Language extends Property {
         this.locales = locales;
     }
     
+    /**
+     * @return the locales
+     */
+    public Locale[] getLocales() {
+        return locales;
+    }
+
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */
