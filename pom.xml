@@ -33,14 +33,14 @@
 		<developerConnection>
 			scm:cvs:ext:fortuna@ical4j.cvs.sourceforge.net:/cvsroot/ical4j:ical4j-vcard 
 		</developerConnection>
-		<url> http://ical4j.cvs.sourceforge.net/ical4j/ical4j-vcard </url>
+		<url>http://ical4j.cvs.sourceforge.net/ical4j/ical4j-vcard</url>
 	</scm>
 	
 	<dependencies>
 		<dependency>
 			<groupId>net.fortuna.ical4j</groupId>
 			<artifactId>ical4j</artifactId>
-			<version>1.0-beta5-SNAPSHOT</version>
+			<version>1.0-beta5</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
