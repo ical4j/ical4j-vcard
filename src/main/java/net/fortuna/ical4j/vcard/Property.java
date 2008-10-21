@@ -39,6 +39,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.util.Strings;
 
@@ -67,13 +69,39 @@ public abstract class Property implements Serializable {
         // 7.6.  Organizational Properties
         TITLE, ROLE, LOGO, AGENT, ORG, MEMBER, RELATED,
         // 7.7.  Explanatory Properties
-        CATEGORIES, NOTE, PRODID, REV, SORT_STRING, SOUND, UID, URL, VERSION,
+        CATEGORIES, NOTE, PRODID, REV, SORT_STRING("SORT-STRING"), SOUND, UID, URL, VERSION,
         // 7.8.  Security Properties
         CLASS, KEY,
         // 7.9.  Calendar Properties
         FBURL, CALDRURI, CALURI,
         // 7.10. Extended Properties and Parameters
-        EXTENDED
+        EXTENDED;
+        
+        private String value;
+        
+        /**
+         * 
+         */
+        private Name() {
+            this(null);
+        }
+        
+        /**
+         * @param value
+         */
+        private Name(String value) {
+            this.value = value;
+        }
+        
+        /**
+         * @return
+         */
+        public String getValue() {
+            if (StringUtils.isNotEmpty(value)) {
+                return value;
+            }
+            return toString();
+        }
     };
     
     private Name name;
@@ -120,7 +148,7 @@ public abstract class Property implements Serializable {
             b.append(extendedName);
         }
         else {
-            b.append(name);
+            b.append(name.getValue());
         }
         for (Parameter param : parameters) {
             b.append(';');
