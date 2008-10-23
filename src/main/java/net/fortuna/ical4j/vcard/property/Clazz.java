@@ -48,6 +48,12 @@ public class Clazz extends Property {
      */
     private static final long serialVersionUID = -3339099487456754606L;
     
+    public static final Clazz PUBLIC = new Clazz("PUBLIC");
+    
+    public static final Clazz PRIVATE = new Clazz("PRIVATE");
+    
+    public static final Clazz CONFIDENTIAL = new Clazz("CONFIDENTIAL");
+    
     private String value;
     
     /**
