@@ -104,7 +104,7 @@ public abstract class Property implements Serializable {
         }
     };
     
-    private Name name;
+    Name name;
     
     private String extendedName;
     

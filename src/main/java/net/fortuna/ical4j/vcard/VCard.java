@@ -36,9 +36,11 @@
 package net.fortuna.ical4j.vcard;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Property.Name;
 
 /**
  * @author Ben
@@ -54,10 +56,56 @@ public final class VCard implements Serializable {
     private List<Property> properties;
     
     /**
+     * Default constructor.
+     */
+    public VCard() {
+        this(new ArrayList<Property>());
+    }
+    
+    /**
      * @param properties
      */
     public VCard(List<Property> properties) {
         this.properties = properties;
+    }
+
+    /**
+     * Returns a reference to the list of properties for the VCard instance. Note that
+     * any changes to this list are reflected in the VCard object list.  
+     * @return the properties
+     */
+    public final List<Property> getProperties() {
+        return properties;
+    }
+    
+    /**
+     * Returns a list of properties for the VCard instance with a matching name. Any modifications
+     * to this list will not effect the list referenced by the VCard instance.
+     * @param name
+     * @return
+     */
+    public final List<Property> getProperties(Name name) {
+        List<Property> matches = new ArrayList<Property>();
+        for (Property p : properties) {
+            if (p.name.equals(name)) {
+                matches.add(p);
+            }
+        }
+        return matches;
+    }
+    
+    /**
+     * Returns the first property found matching the specified name.
+     * @param name
+     * @return the first matching property, or null if no properties match
+     */
+    public final Property getProperty(Name name) {
+        for (Property p : properties) {
+            if (p.name.equals(name)) {
+                return p;
+            }
+        }
+        return null;
     }
     
     @Override

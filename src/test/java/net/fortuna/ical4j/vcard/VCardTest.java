@@ -35,38 +35,59 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import static org.junit.Assert.assertEquals;
+
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-
-import junit.framework.TestCase;
 
 import net.fortuna.ical4j.vcard.property.Kind;
 import net.fortuna.ical4j.vcard.property.Name;
 import net.fortuna.ical4j.vcard.property.Source;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 
 /**
  * @author Ben
  *
  */
-public class VCardTest extends TestCase {
-
-    private static final Log LOG = LogFactory.getLog(VCardTest.class);
+@RunWith(Parameterized.class)
+public class VCardTest {
     
+    private VCard vCard;
+    
+    private int expectedPropertyCount;
+    
+    /**
+     * @param vCard
+     * @param expectedPropertyCount
+     */
+    public VCardTest(VCard vCard, int expectedPropertyCount) {
+        this.vCard = vCard;
+        this.expectedPropertyCount = expectedPropertyCount;
+    }
+
     @Test
-    public void testVCard() {
+    public void testGetProperties() {
+        assertEquals(expectedPropertyCount, vCard.getProperties().size());
+    }
+
+    @Parameters
+    public static Collection<Object[]> parameters() {
+        List<Object[]> params = new ArrayList<Object[]>();
+        
         List<Property> props = new ArrayList<Property>();
         props.add(new Source(URI.create("ldap://ldap.example.com/cn=Babs%20Jensen,%20o=Babsco,%20c=US")));
         props.add(new Name("Babs Jensen's Contact Information"));
         props.add(Kind.INDIVIDUAL);
-        
         VCard vcard = new VCard(props);
+        params.add(new Object[] {vcard, 3});
         
-        LOG.info(vcard);
+        return params;
     }
 }
