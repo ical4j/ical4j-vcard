@@ -74,7 +74,7 @@ public final class VCard implements Serializable {
      * any changes to this list are reflected in the VCard object list.  
      * @return the properties
      */
-    public final List<Property> getProperties() {
+    public List<Property> getProperties() {
         return properties;
     }
     
@@ -84,7 +84,7 @@ public final class VCard implements Serializable {
      * @param name
      * @return
      */
-    public final List<Property> getProperties(Name name) {
+    public List<Property> getProperties(Name name) {
         List<Property> matches = new ArrayList<Property>();
         for (Property p : properties) {
             if (p.name.equals(name)) {
@@ -99,7 +99,7 @@ public final class VCard implements Serializable {
      * @param name
      * @return the first matching property, or null if no properties match
      */
-    public final Property getProperty(Name name) {
+    public Property getProperty(Name name) {
         for (Property p : properties) {
             if (p.name.equals(name)) {
                 return p;
@@ -114,7 +114,7 @@ public final class VCard implements Serializable {
      * @param name
      * @return
      */
-    public final List<Property> getExtendedProperties(String name) {
+    public List<Property> getExtendedProperties(String name) {
         List<Property> matches = new ArrayList<Property>();
         for (Property p : properties) {
             if (p.name.equals(Name.EXTENDED) && p.extendedName.equals(name)) {
@@ -129,7 +129,7 @@ public final class VCard implements Serializable {
      * @param name
      * @return the first matching property, or null if no properties match
      */
-    public final Property getExtendedProperty(String name) {
+    public Property getExtendedProperty(String name) {
         for (Property p : properties) {
             if (p.name.equals(Name.EXTENDED) && p.extendedName.equals(name)) {
                 return p;
