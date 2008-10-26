@@ -96,6 +96,27 @@ public class VCardTest {
         }
     }
 
+    @Test
+    public void testGetExtendedPropertiesName() {
+        for (Property p : vCard.getProperties()) {
+            if (p.name.equals(net.fortuna.ical4j.vcard.Property.Name.EXTENDED)) {
+                List<Property> matches = vCard.getExtendedProperties(p.extendedName);
+                assertNotNull(matches);
+                assertTrue(matches.size() >= 1);
+                assertTrue(matches.contains(p));
+            }
+        }
+    }
+
+    @Test
+    public void testGetExtendedPropertyName() {
+        for (Property p : vCard.getProperties()) {
+            if (p.name.equals(net.fortuna.ical4j.vcard.Property.Name.EXTENDED)) {
+                assertNotNull(vCard.getExtendedProperty(p.extendedName));
+            }
+        }
+    }
+
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();

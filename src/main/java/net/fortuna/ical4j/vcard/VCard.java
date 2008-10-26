@@ -108,6 +108,36 @@ public final class VCard implements Serializable {
         return null;
     }
     
+    /**
+     * Returns a list of non-standard properties for the VCard instance with a matching name. Any modifications
+     * to this list will not effect the list referenced by the VCard instance.
+     * @param name
+     * @return
+     */
+    public final List<Property> getExtendedProperties(String name) {
+        List<Property> matches = new ArrayList<Property>();
+        for (Property p : properties) {
+            if (p.name.equals(Name.EXTENDED) && p.extendedName.equals(name)) {
+                matches.add(p);
+            }
+        }
+        return matches;
+    }
+    
+    /**
+     * Returns the first non-standard property found matching the specified name.
+     * @param name
+     * @return the first matching property, or null if no properties match
+     */
+    public final Property getExtendedProperty(String name) {
+        for (Property p : properties) {
+            if (p.name.equals(Name.EXTENDED) && p.extendedName.equals(name)) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
     @Override
     public String toString() {
         StringBuilder b = new StringBuilder();
