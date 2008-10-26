@@ -72,6 +72,9 @@ public class EmailTest extends PropertyTest {
         params.add(new Object[] {new Email("test@example.com", Type.HOME), Name.EMAIL.toString(), "test@example.com", new Parameter[] {Type.HOME}});
         params.add(new Object[] {new Email("test@example.com", Type.WORK), Name.EMAIL.toString(), "test@example.com", new Parameter[] {Type.WORK}});
         params.add(new Object[] {new Email("test@example.com", Type.WORK, Type.PREF), Name.EMAIL.toString(), "test@example.com", new Parameter[] {Type.WORK, Type.PREF}});
+        
+        Type type = new Type(Type.WORK, Type.PREF);
+        params.add(new Object[] {new Email("test@example.com", type), Name.EMAIL.toString(), "test@example.com", new Parameter[] {type}});
         return params;
     }
 

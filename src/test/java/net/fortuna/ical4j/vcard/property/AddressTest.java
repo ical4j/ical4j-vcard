@@ -83,6 +83,9 @@ public class AddressTest extends PropertyTest {
 
         params.add(new Object[] {new Address(null, null, null, locality, region, postcode, country, Type.HOME), Name.ADR.toString(), ";;;" + locality + ";" + region + ";" + postcode + ";" + country + ";", new Parameter[] {Type.HOME}});
         params.add(new Object[] {new Address(null, null, null, locality, region, postcode, country, Type.HOME, Type.PREF), Name.ADR.toString(), ";;;" + locality + ";" + region + ";" + postcode + ";" + country + ";", new Parameter[] {Type.HOME, Type.PREF}});
+        
+        Type type = new Type(Type.HOME, Type.PREF);
+        params.add(new Object[] {new Address(null, null, null, locality, region, postcode, country, type), Name.ADR.toString(), ";;;" + locality + ";" + region + ";" + postcode + ";" + country + ";", new Parameter[] {type}});
 
         return params;
     }
