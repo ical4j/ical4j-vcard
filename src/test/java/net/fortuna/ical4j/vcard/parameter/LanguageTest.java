@@ -33,69 +33,45 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.fortuna.ical4j.vcard;
-
-import static org.junit.Assert.assertEquals;
+package net.fortuna.ical4j.vcard.parameter;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
+import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.vcard.ParameterTest;
+import net.fortuna.ical4j.vcard.Parameter.Name;
+
 
 /**
  * @author Ben
  *
  */
-@RunWith(Parameterized.class)
-public class ParameterTest {
+public class LanguageTest extends ParameterTest {
 
-    private Parameter parameter;
-    
-    private String expectedName;
-    
-    private String expectedValue;
-    
     /**
      * @param parameter
+     * @param expectedName
+     * @param expectedValue
      */
-    public ParameterTest(Parameter parameter, String expectedName, String expectedValue) {
-        this.parameter = parameter;
-        this.expectedName = expectedName;
-        this.expectedValue = expectedValue;
+    public LanguageTest(Parameter parameter, String expectedName,
+            String expectedValue) {
+        super(parameter, expectedName, expectedValue);
     }
 
-    @Test
-    public void testGetValue() {
-        assertEquals(expectedValue, parameter.getValue());
-    }
-    
-    /**
-     * Test method for {@link net.fortuna.ical4j.vcard.Parameter#toString()}.
-     */
-    @Test
-    public void testToString() {
-        assertEquals(expectedName + "=" + expectedValue, parameter.toString());
-    }
-    
-    /**
-     * @return
-     */
-    @SuppressWarnings("serial")
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         
-        Parameter extended = new Parameter("extended") {
-            @Override
-            public String getValue() {
-                return "value";
-            }
-        };
-        params.add(new Object[] {extended, "X-extended", "value"});
+        Locale locale = new Locale("en", "AU");
+        params.add(new Object[] {new Language(locale), Name.LANGUAGE.toString(), "en-AU"});
+
+        locale = new Locale("es", "ES", "Traditional_WIN");
+        params.add(new Object[] {new Language(locale), Name.LANGUAGE.toString(), "es-ES-Traditional_WIN"});
         return params;
     }
 }
