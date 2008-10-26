@@ -63,17 +63,22 @@ public class ParameterTest {
 
     private Parameter parameter;
     
-    private Name expectedName;
+    private String expectedName;
     
     private String expectedValue;
     
     /**
      * @param parameter
      */
-    public ParameterTest(Parameter parameter, Name expectedName, String expectedValue) {
+    public ParameterTest(Parameter parameter, String expectedName, String expectedValue) {
         this.parameter = parameter;
         this.expectedName = expectedName;
         this.expectedValue = expectedValue;
+    }
+
+    @Test
+    public void testGetValue() {
+        assertEquals(expectedValue, parameter.getValue());
     }
     
     /**
@@ -83,30 +88,37 @@ public class ParameterTest {
     public void testToString() {
         assertEquals(expectedName + "=" + expectedValue, parameter.toString());
     }
-
-    @Test
-    public void testGetValue() {
-        assertEquals(expectedValue, parameter.getValue());
-    }
     
     /**
      * @return
      */
+    @SuppressWarnings("serial")
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Encoding.B, Name.ENCODING, "b"});
+        params.add(new Object[] {Encoding.B, Name.ENCODING.toString(), "b"});
         
-        Locale locale = Locale.getDefault();
-        params.add(new Object[] {new Language(locale), Name.LANGUAGE, locale.getLanguage() + "-" + locale.getCountry()});
+        Locale locale = new Locale("en", "AU");
+        params.add(new Object[] {new Language(locale), Name.LANGUAGE.toString(), "en-AU"});
+
+        locale = new Locale("es", "ES", "Traditional_WIN");
+        params.add(new Object[] {new Language(locale), Name.LANGUAGE.toString(), "es-ES-Traditional_WIN"});
         
-        params.add(new Object[] {new Pid(1), Name.PID, "1"});
-        params.add(new Object[] {Type.HOME, Name.TYPE, "home"});
-        params.add(new Object[] {Type.PREF, Name.TYPE, "pref"});
-        params.add(new Object[] {Type.WORK, Name.TYPE, "work"});
-        params.add(new Object[] {Value.BINARY, Name.VALUE, "binary"});
-        params.add(new Object[] {Value.TEXT, Name.VALUE, "text"});
-        params.add(new Object[] {Value.URI, Name.VALUE, "uri"});
+        params.add(new Object[] {new Pid(1), Name.PID.toString(), "1"});
+        params.add(new Object[] {Type.HOME, Name.TYPE.toString(), "home"});
+        params.add(new Object[] {Type.PREF, Name.TYPE.toString(), "pref"});
+        params.add(new Object[] {Type.WORK, Name.TYPE.toString(), "work"});
+        params.add(new Object[] {Value.BINARY, Name.VALUE.toString(), "binary"});
+        params.add(new Object[] {Value.TEXT, Name.VALUE.toString(), "text"});
+        params.add(new Object[] {Value.URI, Name.VALUE.toString(), "uri"});
+        
+        Parameter extended = new Parameter("extended") {
+            @Override
+            public String getValue() {
+                return "value";
+            }
+        };
+        params.add(new Object[] {extended, "X-extended", "value"});
         return params;
     }
 }
