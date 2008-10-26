@@ -37,6 +37,7 @@ package net.fortuna.ical4j.vcard;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URI;
@@ -94,29 +95,28 @@ public class VCardTest {
         for (Property p : vCard.getProperties()) {
             assertNotNull(vCard.getProperty(p.name));
         }
+        assertNull(vCard.getProperty(null));
     }
 
     @Test
     public void testGetExtendedPropertiesName() {
-        for (Property p : vCard.getProperties()) {
-            if (p.name.equals(net.fortuna.ical4j.vcard.Property.Name.EXTENDED)) {
-                List<Property> matches = vCard.getExtendedProperties(p.extendedName);
-                assertNotNull(matches);
-                assertTrue(matches.size() >= 1);
-                assertTrue(matches.contains(p));
-            }
+        for (Property p : vCard.getProperties(net.fortuna.ical4j.vcard.Property.Name.EXTENDED)) {
+            List<Property> matches = vCard.getExtendedProperties(p.extendedName);
+            assertNotNull(matches);
+            assertTrue(matches.size() >= 1);
+            assertTrue(matches.contains(p));
         }
     }
 
     @Test
     public void testGetExtendedPropertyName() {
-        for (Property p : vCard.getProperties()) {
-            if (p.name.equals(net.fortuna.ical4j.vcard.Property.Name.EXTENDED)) {
-                assertNotNull(vCard.getExtendedProperty(p.extendedName));
-            }
+        for (Property p : vCard.getProperties(net.fortuna.ical4j.vcard.Property.Name.EXTENDED)) {
+            assertNotNull(vCard.getExtendedProperty(p.extendedName));
         }
+        assertNull(vCard.getExtendedProperty(null));
     }
 
+    @SuppressWarnings("serial")
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
@@ -127,8 +127,14 @@ public class VCardTest {
         props.add(new Source(URI.create("ldap://ldap.example.com/cn=Babs%20Jensen,%20o=Babsco,%20c=US")));
         props.add(new Name("Babs Jensen's Contact Information"));
         props.add(Kind.INDIVIDUAL);
+        props.add(new Property("test") {
+            @Override
+            public String getValue() {
+                return null;
+            }
+        });
         VCard vcard = new VCard(props);
-        params.add(new Object[] {vcard, 3});
+        params.add(new Object[] {vcard, 4});
         
         return params;
     }
