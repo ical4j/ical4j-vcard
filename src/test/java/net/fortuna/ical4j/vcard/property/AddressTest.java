@@ -71,8 +71,14 @@ public class AddressTest extends PropertyTest {
         String country = "Australia";
         params.add(new Object[] {new Address(null, null, null, null, null, null, country), Name.ADR.toString(), ";;;;;;" + country + ";", new Parameter[] {}});
 
-        String city = "Melbourne";
-        params.add(new Object[] {new Address(null, null, null, city, null, null, country), Name.ADR.toString(), ";;;" + city + ";;;" + country + ";", new Parameter[] {}});
+        String locality = "Brunswick";
+        params.add(new Object[] {new Address(null, null, null, locality, null, null, country), Name.ADR.toString(), ";;;" + locality + ";;;" + country + ";", new Parameter[] {}});
+
+        String region = "Melbourne";
+        params.add(new Object[] {new Address(null, null, null, locality, region, null, country), Name.ADR.toString(), ";;;" + locality + ";" + region + ";;" + country + ";", new Parameter[] {}});
+
+        String postcode = "3056";
+        params.add(new Object[] {new Address(null, null, null, locality, region, postcode, country), Name.ADR.toString(), ";;;" + locality + ";" + region + ";" + postcode + ";" + country + ";", new Parameter[] {}});
 
         return params;
     }
