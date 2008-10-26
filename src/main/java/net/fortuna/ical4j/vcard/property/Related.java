@@ -61,6 +61,7 @@ public class Related extends Property {
      */
     public Related(URI uri, Type...types) {
         super(Name.RELATED);
+        this.uri = uri;
         getParameters().addAll(Arrays.asList(types));
     }
     
