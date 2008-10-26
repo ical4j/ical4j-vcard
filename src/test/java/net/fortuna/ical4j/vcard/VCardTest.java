@@ -99,6 +99,8 @@ public class VCardTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
+
+        params.add(new Object[] {new VCard(), 0});
         
         List<Property> props = new ArrayList<Property>();
         props.add(new Source(URI.create("ldap://ldap.example.com/cn=Babs%20Jensen,%20o=Babsco,%20c=US")));
