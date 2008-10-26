@@ -36,6 +36,8 @@
 package net.fortuna.ical4j.vcard;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -75,6 +77,23 @@ public class VCardTest {
     @Test
     public void testGetProperties() {
         assertEquals(expectedPropertyCount, vCard.getProperties().size());
+    }
+
+    @Test
+    public void testGetPropertiesName() {
+        for (Property p : vCard.getProperties()) {
+            List<Property> matches = vCard.getProperties(p.name);
+            assertNotNull(matches);
+            assertTrue(matches.size() >= 1);
+            assertTrue(matches.contains(p));
+        }
+    }
+
+    @Test
+    public void testGetPropertyName() {
+        for (Property p : vCard.getProperties()) {
+            assertNotNull(vCard.getProperty(p.name));
+        }
     }
 
     @Parameters
