@@ -73,7 +73,7 @@ public abstract class Property implements Serializable {
         // 7.8.  Security Properties
         CLASS, KEY,
         // 7.9.  Calendar Properties
-        FBURL, CALDRURI, CALURI,
+        FBURL, CALADRURI, CALURI,
         // 7.10. Extended Properties and Parameters
         EXTENDED;
         

@@ -58,7 +58,7 @@ public class CalAdrUri extends Property {
      * @param uri
      */
     public CalAdrUri(URI uri, Type...types) {
-        super(Name.CALDRURI);
+        super(Name.CALADRURI);
         this.uri = uri;
         for (Type type : types) {
             getParameters().add(type);
