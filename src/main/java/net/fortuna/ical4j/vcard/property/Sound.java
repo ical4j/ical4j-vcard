@@ -53,7 +53,7 @@ import net.fortuna.ical4j.vcard.parameter.Value;
  * @author Ben
  *
  */
-public class Sound extends Property {
+public final class Sound extends Property {
     
     /**
      * 

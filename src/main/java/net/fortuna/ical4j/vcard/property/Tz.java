@@ -71,6 +71,13 @@ public final class Tz extends Property {
         getParameters().add(Value.TEXT);
     }
     
+    /**
+     * @return the text
+     */
+    public String getText() {
+        return text;
+    }
+
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */

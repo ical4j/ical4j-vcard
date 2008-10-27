@@ -52,7 +52,7 @@ import net.fortuna.ical4j.vcard.parameter.Type;
  * @author Ben
  *
  */
-public class Logo extends Property {
+public final class Logo extends Property {
 
     /**
      * 

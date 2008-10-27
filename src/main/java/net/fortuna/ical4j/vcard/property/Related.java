@@ -46,7 +46,7 @@ import net.fortuna.ical4j.vcard.parameter.Type;
  * @author Ben
  *
  */
-public class Related extends Property {
+public final class Related extends Property {
 
     /**
      * 
@@ -65,6 +65,13 @@ public class Related extends Property {
         getParameters().addAll(Arrays.asList(types));
     }
     
+    /**
+     * @return the uri
+     */
+    public URI getUri() {
+        return uri;
+    }
+
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */

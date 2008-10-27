@@ -89,6 +89,55 @@ public final class Address extends Property {
         }
     }
     
+    /**
+     * @return the poBox
+     */
+    public String getPoBox() {
+        return poBox;
+    }
+
+    /**
+     * @return the extended
+     */
+    public String getExtended() {
+        return extended;
+    }
+
+    /**
+     * @return the street
+     */
+    public String getStreet() {
+        return street;
+    }
+
+    /**
+     * @return the locality
+     */
+    public String getLocality() {
+        return locality;
+    }
+
+    /**
+     * @return the region
+     */
+    public String getRegion() {
+        return region;
+    }
+
+    /**
+     * @return the postcode
+     */
+    public String getPostcode() {
+        return postcode;
+    }
+
+    /**
+     * @return the country
+     */
+    public String getCountry() {
+        return country;
+    }
+
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */

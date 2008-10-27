@@ -41,7 +41,7 @@ import net.fortuna.ical4j.vcard.Property;
  * @author Ben
  *
  */
-public class Org extends Property {
+public final class Org extends Property {
 
     /**
      * 
@@ -58,6 +58,13 @@ public class Org extends Property {
         this.values = value;
     }
     
+    /**
+     * @return the values
+     */
+    public String[] getValues() {
+        return values;
+    }
+
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */

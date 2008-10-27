@@ -41,7 +41,7 @@ import net.fortuna.ical4j.vcard.Property;
  * @author Ben
  *
  */
-public class Categories extends Property {
+public final class Categories extends Property {
 
     /**
      * 
@@ -56,6 +56,13 @@ public class Categories extends Property {
     public Categories(String...categories) {
         super(Name.CATEGORIES);
         this.categories = categories;
+    }
+
+    /**
+     * @return the categories
+     */
+    public String[] getCategories() {
+        return categories;
     }
 
     /* (non-Javadoc)

@@ -45,7 +45,7 @@ import net.fortuna.ical4j.vcard.parameter.Value;
  * @author Ben
  *
  */
-public class Agent extends Property {
+public final class Agent extends Property {
 
     /**
      * 

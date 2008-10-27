@@ -50,7 +50,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Ben
  *
  */
-public class Key extends Property {
+public final class Key extends Property {
 
     /**
      * 
@@ -91,6 +91,13 @@ public class Key extends Property {
         }
     }
     
+    /**
+     * @return the binary
+     */
+    public byte[] getBinary() {
+        return binary;
+    }
+
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */

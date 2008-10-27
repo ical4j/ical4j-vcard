@@ -41,7 +41,7 @@ import net.fortuna.ical4j.vcard.Property;
  * @author Ben
  *
  */
-public class SortString extends Property {
+public final class SortString extends Property {
 
     /**
      * 

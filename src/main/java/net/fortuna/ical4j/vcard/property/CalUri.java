@@ -45,7 +45,7 @@ import net.fortuna.ical4j.vcard.parameter.Type;
  * @author Ben
  *
  */
-public class CalUri extends Property {
+public final class CalUri extends Property {
 
     /**
      * 
@@ -65,6 +65,13 @@ public class CalUri extends Property {
         }
     }
     
+    /**
+     * @return the uri
+     */
+    public URI getUri() {
+        return uri;
+    }
+
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */

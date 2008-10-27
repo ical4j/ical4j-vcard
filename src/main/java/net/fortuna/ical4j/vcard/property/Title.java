@@ -41,7 +41,7 @@ import net.fortuna.ical4j.vcard.Property;
  * @author Ben
  *
  */
-public class Title extends Property {
+public final class Title extends Property {
 
     /**
      * 

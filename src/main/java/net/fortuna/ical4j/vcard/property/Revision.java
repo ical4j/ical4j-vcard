@@ -43,7 +43,7 @@ import net.fortuna.ical4j.vcard.Property;
  * @author Ben
  *
  */
-public class Revision extends Property {
+public final class Revision extends Property {
 
     /**
      * 
@@ -60,6 +60,13 @@ public class Revision extends Property {
         this.date = date;
     }
     
+    /**
+     * @return the date
+     */
+    public Date getDate() {
+        return date;
+    }
+
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */

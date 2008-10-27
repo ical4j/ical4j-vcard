@@ -41,7 +41,7 @@ import net.fortuna.ical4j.vcard.Property;
  * @author Ben
  *
  */
-public class Version extends Property {
+public final class Version extends Property {
 
     /**
      * 
