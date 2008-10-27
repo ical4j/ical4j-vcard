@@ -39,6 +39,7 @@ import java.net.URI;
 
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.parameter.Type;
 
 /**
  * @author Ben
@@ -56,9 +57,12 @@ public class FbUrl extends Property {
     /**
      * @param uri
      */
-    public FbUrl(URI uri) {
+    public FbUrl(URI uri, Type...types) {
         super(Name.FBURL);
         this.uri = uri;
+        for (Type type : types) {
+            getParameters().add(type);
+        }
     }
     
     /* (non-Javadoc)
