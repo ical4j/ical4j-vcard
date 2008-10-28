@@ -70,7 +70,7 @@ public class LanguageTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         
-        Locale locale = new Locale("en", "AU");
+        Locale locale = new Locale("en");
         params.add(new Object[] {new Language(locale), Name.LANG.toString(), "en", new Parameter[] {}});
         return params;
     }
