@@ -69,7 +69,9 @@ public class LanguageTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Language(Locale.getDefault()), Name.LANG.toString(), "", new Parameter[] {}});
+        
+        Locale locale = new Locale("en", "AU");
+        params.add(new Object[] {new Language(locale), Name.LANG.toString(), "en", new Parameter[] {}});
         return params;
     }
 

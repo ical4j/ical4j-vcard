@@ -68,9 +68,9 @@ public class KindTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Kind.GROUP, Name.KIND.toString(), "GROUP", new Parameter[] {}});
-        params.add(new Object[] {Kind.INDIVIDUAL, Name.KIND.toString(), "INDIVIDUAL", new Parameter[] {}});
-        params.add(new Object[] {Kind.ORG, Name.KIND.toString(), "ORG", new Parameter[] {}});
+        params.add(new Object[] {Kind.GROUP, Name.KIND.toString(), "group", new Parameter[] {}});
+        params.add(new Object[] {Kind.INDIVIDUAL, Name.KIND.toString(), "individual", new Parameter[] {}});
+        params.add(new Object[] {Kind.ORG, Name.KIND.toString(), "org", new Parameter[] {}});
         return params;
     }
 
