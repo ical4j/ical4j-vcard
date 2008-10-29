@@ -35,6 +35,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import static net.fortuna.ical4j.util.Strings.escape;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -72,7 +73,7 @@ public final class Org extends Property {
     public String getValue() {
         StringBuilder b = new StringBuilder();
         for (int i = 0; i < values.length; i++) {
-            b.append(values[i]);
+            b.append(escape(values[i]));
             if (i < values.length - 1) {
                 b.append(';');
             }

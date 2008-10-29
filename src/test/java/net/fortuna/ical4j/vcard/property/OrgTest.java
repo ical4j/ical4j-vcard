@@ -69,6 +69,7 @@ public class OrgTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Org(""), Name.ORG.toString(), "", new Parameter[] {}});
+        params.add(new Object[] {new Org("ABC, Inc.", "North American Division", "Marketing"), Name.ORG.toString(), "ABC\\, Inc.;North American Division;Marketing", new Parameter[] {}});
         return params;
     }
 
