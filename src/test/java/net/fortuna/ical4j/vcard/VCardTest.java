@@ -44,6 +44,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import net.fortuna.ical4j.vcard.property.Kind;
 import net.fortuna.ical4j.vcard.property.Name;
@@ -61,6 +62,8 @@ import org.junit.runners.Parameterized.Parameters;
  */
 @RunWith(Parameterized.class)
 public class VCardTest {
+    
+    private static final Pattern VCARD_PATTERN = Pattern.compile("^BEGIN:VCARD.*END:VCARD(\\r?\\n)*$", Pattern.DOTALL);
     
     private VCard vCard;
     
@@ -116,6 +119,11 @@ public class VCardTest {
         assertNull(vCard.getExtendedProperty(null));
     }
 
+    @Test
+    public void testToString() {
+        assertTrue(VCARD_PATTERN.matcher(vCard.toString()).matches());
+    }
+    
     @SuppressWarnings("serial")
     @Parameters
     public static Collection<Object[]> parameters() {
