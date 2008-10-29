@@ -72,7 +72,7 @@ public final class N extends Property {
         super(Name.N);
         this.familyName = familyName;
         this.givenName = givenName;
-        this.additionalNames =additionalNames;
+        this.additionalNames = additionalNames;
         this.prefixes = prefixes;
         this.suffixes = suffixes;
     }
