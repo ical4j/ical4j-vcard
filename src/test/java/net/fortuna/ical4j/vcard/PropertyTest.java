@@ -35,6 +35,7 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import static net.fortuna.ical4j.util.Strings.escape;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
@@ -42,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.util.Strings;
 
 import org.junit.Test;
@@ -105,7 +107,12 @@ public class PropertyTest {
             b.append(p);
         }
         b.append(':');
-        b.append(expectedValue);
+        if (property instanceof Escapable) {
+            b.append(escape(expectedValue));
+        }
+        else {
+            b.append(expectedValue);
+        }
         b.append(Strings.LINE_SEPARATOR);
         
         assertEquals(b.toString(), property.toString());

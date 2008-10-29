@@ -67,7 +67,7 @@ public class BirthTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Birth("Mercy Hospital"), Name.BIRTH.toString(), "Mercy Hospital", new Parameter[] {}});
+        params.add(new Object[] {new Birth("Mercy Hospital, Melbourne"), Name.BIRTH.toString(), "Mercy Hospital, Melbourne", new Parameter[] {}});
         return params;
     }
 }

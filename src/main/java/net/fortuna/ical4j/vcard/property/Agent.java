@@ -37,6 +37,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
 
+import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Value;
@@ -45,7 +46,7 @@ import net.fortuna.ical4j.vcard.parameter.Value;
  * @author Ben
  *
  */
-public final class Agent extends Property {
+public final class Agent extends Property implements Escapable {
 
     /**
      * 

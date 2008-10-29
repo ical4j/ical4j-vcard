@@ -81,6 +81,7 @@ public class DDayTest extends PropertyTest {
         }
         params.add(new Object[] {new DDay(""), Name.DDAY.toString(), "", new Parameter[] {Value.TEXT}});
         params.add(new Object[] {new DDay("Unknown"), Name.DDAY.toString(), "Unknown", new Parameter[] {Value.TEXT}});
+        params.add(new Object[] {new DDay("4pm, January 9th"), Name.DDAY.toString(), "4pm, January 9th", new Parameter[] {Value.TEXT}});
         return params;
     }
 

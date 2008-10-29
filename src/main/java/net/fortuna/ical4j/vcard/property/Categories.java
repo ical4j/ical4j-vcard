@@ -35,6 +35,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.CategoryList;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -48,20 +49,20 @@ public final class Categories extends Property {
      */
     private static final long serialVersionUID = -3233034210546002366L;
     
-    private String[] categories;
+    private CategoryList categories;
     
     /**
      * @param categories
      */
     public Categories(String...categories) {
         super(Name.CATEGORIES);
-        this.categories = categories;
+        this.categories = new CategoryList(categories);
     }
 
     /**
      * @return the categories
      */
-    public String[] getCategories() {
+    public CategoryList getCategories() {
         return categories;
     }
 
@@ -70,6 +71,7 @@ public final class Categories extends Property {
      */
     @Override
     public String getValue() {
+        /*
         StringBuilder b = new StringBuilder();
         for (int i = 0; i < categories.length; i++) {
             b.append(categories[i]);
@@ -78,6 +80,8 @@ public final class Categories extends Property {
             }
         }
         return b.toString();
+        */
+        return categories.toString();
     }
 
 }

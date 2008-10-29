@@ -35,6 +35,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import static net.fortuna.ical4j.util.Strings.escape;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
@@ -145,31 +146,31 @@ public final class Address extends Property {
     public String getValue() {
         StringBuilder b = new StringBuilder();
         if (StringUtils.isNotEmpty(poBox)) {
-            b.append(poBox);
+            b.append(escape(poBox));
         }
         b.append(';');
         if (StringUtils.isNotEmpty(extended)) {
-            b.append(extended);
+            b.append(escape(extended));
         }
         b.append(';');
         if (StringUtils.isNotEmpty(street)) {
-            b.append(street);
+            b.append(escape(street));
         }
         b.append(';');
         if (StringUtils.isNotEmpty(locality)) {
-            b.append(locality);
+            b.append(escape(locality));
         }
         b.append(';');
         if (StringUtils.isNotEmpty(region)) {
-            b.append(region);
+            b.append(escape(region));
         }
         b.append(';');
         if (StringUtils.isNotEmpty(postcode)) {
-            b.append(postcode);
+            b.append(escape(postcode));
         }
         b.append(';');
         if (StringUtils.isNotEmpty(country)) {
-            b.append(country);
+            b.append(escape(country));
         }
         b.append(';');
         return b.toString();

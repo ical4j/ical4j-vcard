@@ -35,13 +35,14 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
  * @author Ben
  *
  */
-public final class Note extends Property {
+public final class Note extends Property implements Escapable {
 
     /**
      * 

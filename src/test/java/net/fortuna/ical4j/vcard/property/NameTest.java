@@ -69,6 +69,7 @@ public class NameTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new net.fortuna.ical4j.vcard.property.Name(""), Name.NAME.toString(), "", new Parameter[] {}});
+        params.add(new Object[] {new net.fortuna.ical4j.vcard.property.Name("Babs Jensen's Contact Information,"), Name.NAME.toString(), "Babs Jensen's Contact Information,", new Parameter[] {}});
         return params;
     }
 

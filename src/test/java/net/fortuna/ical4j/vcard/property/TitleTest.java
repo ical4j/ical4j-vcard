@@ -69,6 +69,7 @@ public class TitleTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Title(""), Name.TITLE.toString(), "", new Parameter[] {}});
+        params.add(new Object[] {new Title("Director, Research and Development"), Name.TITLE.toString(), "Director, Research and Development", new Parameter[] {}});
         return params;
     }
 

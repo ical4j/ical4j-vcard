@@ -68,6 +68,7 @@ public class DeathTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Death("Somewhere in the Pacific Ocean"), Name.DEATH.toString(), "Somewhere in the Pacific Ocean", new Parameter[] {}});
+        params.add(new Object[] {new Death("Lunar expedition, Moon"), Name.DEATH.toString(), "Lunar expedition, Moon", new Parameter[] {}});
         return params;
     }
 

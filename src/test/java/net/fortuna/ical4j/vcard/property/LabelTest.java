@@ -44,6 +44,7 @@ import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.parameter.Type;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -69,6 +70,7 @@ public class LabelTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Label(""), Name.LABEL.toString(), "", new Parameter[] {}});
+        params.add(new Object[] {new Label("Mr.John Q. Public, Esq.\nMail Drop: TNE QB\n123 Main Street\nAny Town, CA  91921-1234\nU.S.A.", Type.HOME), Name.LABEL.toString(), "Mr.John Q. Public, Esq.\nMail Drop: TNE QB\n123 Main Street\nAny Town, CA  91921-1234\nU.S.A.", new Parameter[] {Type.HOME}});
         return params;
     }
 

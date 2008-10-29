@@ -35,6 +35,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
@@ -42,7 +43,7 @@ import net.fortuna.ical4j.vcard.parameter.Type;
  * @author Ben
  *
  */
-public final class Label extends Property {
+public final class Label extends Property implements Escapable {
 
     /**
      * 

@@ -80,7 +80,7 @@ public class BDayTest extends PropertyTest {
             pe.printStackTrace();
         }
         params.add(new Object[] {new BDay(""), Name.BDAY.toString(), "", new Parameter[] {Value.TEXT}});
-        params.add(new Object[] {new BDay("Circa 400 bce"), Name.BDAY.toString(), "Circa 400 bce", new Parameter[] {Value.TEXT}});
+        params.add(new Object[] {new BDay("Circa 400, bce"), Name.BDAY.toString(), "Circa 400, bce", new Parameter[] {Value.TEXT}});
         return params;
     }
 }

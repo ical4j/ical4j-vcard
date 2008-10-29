@@ -70,6 +70,7 @@ public class CategoriesTest extends PropertyTest {
         params.add(new Object[] {new Categories(), Name.CATEGORIES.toString(), "", new Parameter[] {}});
         params.add(new Object[] {new Categories("TRAVEL AGENT"), Name.CATEGORIES.toString(), "TRAVEL AGENT", new Parameter[] {}});
         params.add(new Object[] {new Categories("INTERNET", "IETF", "INDUSTRY", "INFORMATION TECHNOLOGY"), Name.CATEGORIES.toString(), "INTERNET,IETF,INDUSTRY,INFORMATION TECHNOLOGY", new Parameter[] {}});
+        params.add(new Object[] {new Categories("GARDENER, LANDSCAPE"), Name.CATEGORIES.toString(), "GARDENER\\, LANDSCAPE", new Parameter[] {}});
         return params;
     }
 
