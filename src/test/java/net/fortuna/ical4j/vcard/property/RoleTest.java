@@ -69,6 +69,7 @@ public class RoleTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Role(""), Name.ROLE.toString(), "", new Parameter[] {}});
+        params.add(new Object[] {new Role("Programmer"), Name.ROLE.toString(), "Programmer", new Parameter[] {}});
         return params;
     }
 
