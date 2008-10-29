@@ -42,6 +42,7 @@ import java.util.List;
 
 import org.junit.runners.Parameterized.Parameters;
 
+import net.fortuna.ical4j.model.UtcOffset;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
@@ -70,6 +71,7 @@ public class TzTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Tz(""), Name.TZ.toString(), "", new Parameter[] {Value.TEXT}});
+        params.add(new Object[] {new Tz(new UtcOffset("+1000")), Name.TZ.toString(), "+1000", new Parameter[] {}});
         return params;
     }
 
