@@ -38,13 +38,12 @@ package net.fortuna.ical4j.vcard;
 
 /**
  * @author fortuna
- *
  */
 public interface ParameterFactory<T extends Parameter> {
 
-	/**
-	 * @param value
-	 * @return
-	 */
-	T createParameter(String value);
+    /**
+     * @param value
+     * @return
+     */
+    T createParameter(String value);
 }
