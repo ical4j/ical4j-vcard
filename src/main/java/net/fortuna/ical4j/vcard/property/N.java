@@ -35,10 +35,10 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import net.fortuna.ical4j.vcard.Property;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Ben
@@ -118,10 +118,10 @@ public final class N extends Property {
     @Override
     public String getValue() {
         StringBuilder b = new StringBuilder();
-        if (StringUtils.isNotEmpty(familyName)) {
+        if (isNotEmpty(familyName)) {
             b.append(familyName);
         }
-        if (StringUtils.isNotEmpty(givenName)) {
+        if (isNotEmpty(givenName)) {
             if (b.length() > 0) {
                 b.append(';');
             }

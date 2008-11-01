@@ -36,10 +36,9 @@
 package net.fortuna.ical4j.vcard.property;
 
 import static net.fortuna.ical4j.util.Strings.escape;
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Ben
@@ -145,31 +144,31 @@ public final class Address extends Property {
     @Override
     public String getValue() {
         StringBuilder b = new StringBuilder();
-        if (StringUtils.isNotEmpty(poBox)) {
+        if (isNotEmpty(poBox)) {
             b.append(escape(poBox));
         }
         b.append(';');
-        if (StringUtils.isNotEmpty(extended)) {
+        if (isNotEmpty(extended)) {
             b.append(escape(extended));
         }
         b.append(';');
-        if (StringUtils.isNotEmpty(street)) {
+        if (isNotEmpty(street)) {
             b.append(escape(street));
         }
         b.append(';');
-        if (StringUtils.isNotEmpty(locality)) {
+        if (isNotEmpty(locality)) {
             b.append(escape(locality));
         }
         b.append(';');
-        if (StringUtils.isNotEmpty(region)) {
+        if (isNotEmpty(region)) {
             b.append(escape(region));
         }
         b.append(';');
-        if (StringUtils.isNotEmpty(postcode)) {
+        if (isNotEmpty(postcode)) {
             b.append(escape(postcode));
         }
         b.append(';');
-        if (StringUtils.isNotEmpty(country)) {
+        if (isNotEmpty(country)) {
             b.append(escape(country));
         }
         b.append(';');

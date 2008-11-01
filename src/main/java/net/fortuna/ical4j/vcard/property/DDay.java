@@ -35,8 +35,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import org.apache.commons.lang.StringUtils;
-
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.util.Strings;
@@ -94,7 +93,7 @@ public final class DDay extends Property implements Escapable {
      */
     @Override
     public String getValue() {
-        if (StringUtils.isNotEmpty(description)) {
+        if (isNotEmpty(description)) {
             return description;
         }
         return Strings.valueOf(date);

@@ -35,6 +35,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
@@ -42,7 +43,6 @@ import net.fortuna.ical4j.vcard.parameter.Type;
 import org.apache.commons.codec.BinaryEncoder;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -103,7 +103,7 @@ public final class Key extends Property {
      */
     @Override
     public String getValue() {
-        if (StringUtils.isNotEmpty(value)) {
+        if (isNotEmpty(value)) {
             return value;
         }
         else if (binary != null) {

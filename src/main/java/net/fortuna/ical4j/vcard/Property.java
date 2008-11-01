@@ -35,11 +35,11 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.util.Strings;
@@ -97,7 +97,7 @@ public abstract class Property implements Serializable {
          * @return
          */
         public String getValue() {
-            if (StringUtils.isNotEmpty(value)) {
+            if (isNotEmpty(value)) {
                 return value;
             }
             return toString();
