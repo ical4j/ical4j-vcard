@@ -48,6 +48,9 @@ public abstract class Parameter implements Serializable {
      */
     private static final long serialVersionUID = 6858428041113700722L;
 
+    /**
+     * Enumeration of parameter types.
+     */
     public enum Name {
         // 6.  Property Parameters
         LANGUAGE, ENCODING, VALUE, PID, TYPE,
@@ -68,7 +71,7 @@ public abstract class Parameter implements Serializable {
     }
     
     /**
-     * @param name
+     * @param name the parameter type
      */
     public Parameter(Name name) {
         this.name = name;
@@ -79,6 +82,9 @@ public abstract class Parameter implements Serializable {
      */
     public abstract String getValue();
     
+    /**
+     * @return a vCard-compliant string representation of the parameter
+     */
     @Override
     public final String toString() {
         StringBuilder b = new StringBuilder();

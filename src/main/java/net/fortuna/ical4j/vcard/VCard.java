@@ -82,7 +82,7 @@ public final class VCard implements Serializable {
      * Returns a list of properties for the VCard instance with a matching name. Any modifications
      * to this list will not effect the list referenced by the VCard instance.
      * @param name
-     * @return
+     * @return a list of properties of the specified type
      */
     public List<Property> getProperties(Name name) {
         List<Property> matches = new ArrayList<Property>();
@@ -112,7 +112,7 @@ public final class VCard implements Serializable {
      * Returns a list of non-standard properties for the VCard instance with a matching name. Any modifications
      * to this list will not effect the list referenced by the VCard instance.
      * @param name
-     * @return
+     * @return a list of non-standard properties with the specified name
      */
     public List<Property> getExtendedProperties(String name) {
         List<Property> matches = new ArrayList<Property>();
@@ -138,6 +138,9 @@ public final class VCard implements Serializable {
         return null;
     }
     
+    /**
+     * @return a vCard-compliant string representation of the vCard object
+     */
     @Override
     public String toString() {
         StringBuilder b = new StringBuilder();

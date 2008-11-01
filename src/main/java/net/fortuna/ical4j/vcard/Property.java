@@ -55,6 +55,9 @@ public abstract class Property implements Serializable {
      */
     private static final long serialVersionUID = 7813173744145071469L;
 
+    /**
+     * Enumeration of valid property types.
+     */
     public enum Name {
         // 7.1.  General Properties
         SOURCE, NAME, KIND,
@@ -87,14 +90,14 @@ public abstract class Property implements Serializable {
         }
         
         /**
-         * @param value
+         * @param value the property name
          */
         private Name(String value) {
             this.value = value;
         }
         
         /**
-         * @return
+         * @return the property name
          */
         public String getValue() {
             if (isNotEmpty(value)) {
@@ -120,8 +123,7 @@ public abstract class Property implements Serializable {
     }
     
     /**
-     * @param name
-     * @param parameters
+     * @param name the property type
      */
     public Property(Name name) {
         this.name = name;
@@ -140,6 +142,9 @@ public abstract class Property implements Serializable {
      */
     public abstract String getValue();
     
+    /**
+     * @return a vCard-compliant string representation of the property
+     */
     @Override
     public final String toString() {
         StringBuilder b = new StringBuilder();
