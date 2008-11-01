@@ -43,7 +43,7 @@ import java.util.List;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -68,9 +68,9 @@ public class KindTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Kind.GROUP, Name.KIND.toString(), "group", new Parameter[] {}});
-        params.add(new Object[] {Kind.INDIVIDUAL, Name.KIND.toString(), "individual", new Parameter[] {}});
-        params.add(new Object[] {Kind.ORG, Name.KIND.toString(), "org", new Parameter[] {}});
+        params.add(new Object[] {Kind.GROUP, Id.KIND.toString(), "group", new Parameter[] {}});
+        params.add(new Object[] {Kind.INDIVIDUAL, Id.KIND.toString(), "individual", new Parameter[] {}});
+        params.add(new Object[] {Kind.ORG, Id.KIND.toString(), "org", new Parameter[] {}});
         return params;
     }
 

@@ -57,7 +57,7 @@ public final class Uid extends Property {
      * @param uri
      */
     public Uid(URI uri) {
-        super(Name.UID);
+        super(Id.UID);
         this.uri = uri;
     }
     

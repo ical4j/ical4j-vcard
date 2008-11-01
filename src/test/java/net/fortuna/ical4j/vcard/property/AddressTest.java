@@ -44,7 +44,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 
@@ -70,22 +70,22 @@ public class AddressTest extends PropertyTest {
         List<Object[]> params = new ArrayList<Object[]>();
         
         String country = "Australia";
-        params.add(new Object[] {new Address(null, null, null, null, null, null, country), Name.ADR.toString(), ";;;;;;" + country + ";", new Parameter[] {}});
+        params.add(new Object[] {new Address(null, null, null, null, null, null, country), Id.ADR.toString(), ";;;;;;" + country + ";", new Parameter[] {}});
 
         String locality = "Brunswick";
-        params.add(new Object[] {new Address(null, null, null, locality, null, null, country), Name.ADR.toString(), ";;;" + locality + ";;;" + country + ";", new Parameter[] {}});
+        params.add(new Object[] {new Address(null, null, null, locality, null, null, country), Id.ADR.toString(), ";;;" + locality + ";;;" + country + ";", new Parameter[] {}});
 
         String region = "Melbourne";
-        params.add(new Object[] {new Address(null, null, null, locality, region, null, country), Name.ADR.toString(), ";;;" + locality + ";" + region + ";;" + country + ";", new Parameter[] {}});
+        params.add(new Object[] {new Address(null, null, null, locality, region, null, country), Id.ADR.toString(), ";;;" + locality + ";" + region + ";;" + country + ";", new Parameter[] {}});
 
         String postcode = "3056";
-        params.add(new Object[] {new Address(null, null, null, locality, region, postcode, country), Name.ADR.toString(), ";;;" + locality + ";" + region + ";" + postcode + ";" + country + ";", new Parameter[] {}});
+        params.add(new Object[] {new Address(null, null, null, locality, region, postcode, country), Id.ADR.toString(), ";;;" + locality + ";" + region + ";" + postcode + ";" + country + ";", new Parameter[] {}});
 
-        params.add(new Object[] {new Address(null, null, null, locality, region, postcode, country, Type.HOME), Name.ADR.toString(), ";;;" + locality + ";" + region + ";" + postcode + ";" + country + ";", new Parameter[] {Type.HOME}});
-        params.add(new Object[] {new Address(null, null, null, locality, region, postcode, country, Type.HOME, Type.PREF), Name.ADR.toString(), ";;;" + locality + ";" + region + ";" + postcode + ";" + country + ";", new Parameter[] {Type.HOME, Type.PREF}});
+        params.add(new Object[] {new Address(null, null, null, locality, region, postcode, country, Type.HOME), Id.ADR.toString(), ";;;" + locality + ";" + region + ";" + postcode + ";" + country + ";", new Parameter[] {Type.HOME}});
+        params.add(new Object[] {new Address(null, null, null, locality, region, postcode, country, Type.HOME, Type.PREF), Id.ADR.toString(), ";;;" + locality + ";" + region + ";" + postcode + ";" + country + ";", new Parameter[] {Type.HOME, Type.PREF}});
         
         Type type = new Type(Type.HOME, Type.PREF);
-        params.add(new Object[] {new Address(null, null, null, locality, region, postcode, country, type), Name.ADR.toString(), ";;;" + locality + ";" + region + ";" + postcode + ";" + country + ";", new Parameter[] {type}});
+        params.add(new Object[] {new Address(null, null, null, locality, region, postcode, country, type), Id.ADR.toString(), ";;;" + locality + ";" + region + ";" + postcode + ";" + country + ";", new Parameter[] {type}});
 
         return params;
     }

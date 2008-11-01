@@ -53,10 +53,10 @@ public final class Language extends Parameter {
     private Locale locale;
     
     /**
-     * @param name
+     * @param id
      */
     public Language(Locale locale) {
-        super(Name.LANGUAGE);
+        super(Id.LANGUAGE);
         this.locale = locale;
     }
 

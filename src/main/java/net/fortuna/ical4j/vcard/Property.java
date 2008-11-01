@@ -56,9 +56,9 @@ public abstract class Property implements Serializable {
     private static final long serialVersionUID = 7813173744145071469L;
 
     /**
-     * Enumeration of valid property types.
+     * Enumeration of property identifiers.
      */
-    public enum Name {
+    public enum Id {
         // 7.1.  General Properties
         SOURCE, NAME, KIND,
         // 7.2.  Identification Properties
@@ -80,34 +80,34 @@ public abstract class Property implements Serializable {
         // 7.10. Extended Properties and Parameters
         EXTENDED;
         
-        private String value;
+        private String propertyName;
         
         /**
          * 
          */
-        private Name() {
+        private Id() {
             this(null);
         }
         
         /**
-         * @param value the property name
+         * @param propertyName the property name
          */
-        private Name(String value) {
-            this.value = value;
+        private Id(String propertyName) {
+            this.propertyName = propertyName;
         }
         
         /**
          * @return the property name
          */
-        public String getValue() {
-            if (isNotEmpty(value)) {
-                return value;
+        public String getPropertyName() {
+            if (isNotEmpty(propertyName)) {
+                return propertyName;
             }
             return toString();
         }
     };
     
-    Name name;
+    Id id;
     
     String extendedName;
     
@@ -115,18 +115,17 @@ public abstract class Property implements Serializable {
 
     /**
      * @param extendedName a non-standard property name
-     * @param parameters
      */
     public Property(String extendedName) {
-        this(Name.EXTENDED);
+        this(Id.EXTENDED);
         this.extendedName = extendedName;
     }
     
     /**
-     * @param name the property type
+     * @param id the property type
      */
-    public Property(Name name) {
-        this.name = name;
+    public Property(Id id) {
+        this.id = id;
         this.parameters = new ArrayList<Parameter>();
     }
     
@@ -138,7 +137,7 @@ public abstract class Property implements Serializable {
     }
 
     /**
-     * @return a string representaion of the property value
+     * @return a string representaion of the property propertyName
      */
     public abstract String getValue();
     
@@ -148,12 +147,12 @@ public abstract class Property implements Serializable {
     @Override
     public final String toString() {
         StringBuilder b = new StringBuilder();
-        if (Name.EXTENDED.equals(name)) {
+        if (Id.EXTENDED.equals(id)) {
             b.append("X-");
             b.append(extendedName);
         }
         else {
-            b.append(name.getValue());
+            b.append(id.getPropertyName());
         }
         for (Parameter param : parameters) {
             b.append(';');

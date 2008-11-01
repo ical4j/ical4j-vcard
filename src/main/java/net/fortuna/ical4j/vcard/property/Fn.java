@@ -54,7 +54,7 @@ public final class Fn extends Property {
      * @param value
      */
     public Fn(String value) {
-        super(Name.FN);
+        super(Id.FN);
         this.value = value;
     }
     

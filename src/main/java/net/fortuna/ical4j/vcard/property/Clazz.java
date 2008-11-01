@@ -60,7 +60,7 @@ public final class Clazz extends Property {
      * @param value
      */
     public Clazz(String value) {
-        super(Name.CLASS);
+        super(Id.CLASS);
         this.value = value;
     }
     

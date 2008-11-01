@@ -55,7 +55,7 @@ public final class Title extends Property implements Escapable {
      * @param value
      */
     public Title(String value) {
-        super(Name.TITLE);
+        super(Id.TITLE);
         this.value = value;
     }
 

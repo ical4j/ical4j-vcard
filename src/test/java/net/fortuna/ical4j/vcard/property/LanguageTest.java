@@ -44,7 +44,7 @@ import java.util.Locale;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -71,7 +71,7 @@ public class LanguageTest extends PropertyTest {
         List<Object[]> params = new ArrayList<Object[]>();
         
         Locale locale = new Locale("en");
-        params.add(new Object[] {new Language(locale), Name.LANG.toString(), "en", new Parameter[] {}});
+        params.add(new Object[] {new Language(locale), Id.LANG.toString(), "en", new Parameter[] {}});
         return params;
     }
 

@@ -55,7 +55,7 @@ public final class Categories extends Property {
      * @param categories
      */
     public Categories(String...categories) {
-        super(Name.CATEGORIES);
+        super(Id.CATEGORIES);
         this.categories = new CategoryList(categories);
     }
 

@@ -44,7 +44,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 
 /**
@@ -67,9 +67,9 @@ public class ClazzTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Clazz.CONFIDENTIAL, Name.CLASS.toString(), "CONFIDENTIAL", new Parameter[] {}});
-        params.add(new Object[] {Clazz.PRIVATE, Name.CLASS.toString(), "PRIVATE", new Parameter[] {}});
-        params.add(new Object[] {Clazz.PUBLIC, Name.CLASS.toString(), "PUBLIC", new Parameter[] {}});
+        params.add(new Object[] {Clazz.CONFIDENTIAL, Id.CLASS.toString(), "CONFIDENTIAL", new Parameter[] {}});
+        params.add(new Object[] {Clazz.PRIVATE, Id.CLASS.toString(), "PRIVATE", new Parameter[] {}});
+        params.add(new Object[] {Clazz.PUBLIC, Id.CLASS.toString(), "PUBLIC", new Parameter[] {}});
         return params;
     }
 

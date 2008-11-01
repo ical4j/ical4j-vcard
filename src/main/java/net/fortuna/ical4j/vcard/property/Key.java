@@ -67,7 +67,7 @@ public final class Key extends Property {
      * @param value
      */
     public Key(String value) {
-        super(Name.KEY);
+        super(Id.KEY);
         this.value = value;
     }
     
@@ -83,7 +83,7 @@ public final class Key extends Property {
      * @param contentType
      */
     public Key(byte[] binary, Type contentType) {
-        super(Name.KEY);
+        super(Id.KEY);
         this.binary = binary;
         getParameters().add(Encoding.B);
         if (contentType != null) {

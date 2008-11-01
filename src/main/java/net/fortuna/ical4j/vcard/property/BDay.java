@@ -61,7 +61,7 @@ public final class BDay extends Property implements Escapable {
      * @param date
      */
     public BDay(Date date) {
-        super(Name.BDAY);
+        super(Id.BDAY);
         this.date = date;
     }
     
@@ -69,7 +69,7 @@ public final class BDay extends Property implements Escapable {
      * @param description
      */
     public BDay(String description) {
-        super(Name.BDAY);
+        super(Id.BDAY);
         this.description = description;
         getParameters().add(Value.TEXT);
     }

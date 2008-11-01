@@ -54,7 +54,7 @@ public final class Pid extends Parameter {
      * @param pid
      */
     public Pid(Integer pid) {
-        super(Name.PID);
+        super(Id.PID);
         this.pid = pid;
     }
 

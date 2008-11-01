@@ -69,7 +69,7 @@ public final class N extends Property {
      * @param suffixes
      */
     public N(String familyName, String givenName, String[] additionalNames, String[] prefixes, String[] suffixes) {
-        super(Name.N);
+        super(Id.N);
         this.familyName = familyName;
         this.givenName = givenName;
         this.additionalNames = additionalNames;

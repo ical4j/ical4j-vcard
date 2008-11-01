@@ -58,7 +58,7 @@ public final class FbUrl extends Property {
      * @param uri
      */
     public FbUrl(URI uri, Type...types) {
-        super(Name.FBURL);
+        super(Id.FBURL);
         this.uri = uri;
         for (Type type : types) {
             getParameters().add(type);

@@ -40,12 +40,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.runners.Parameterized.Parameters;
-
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
+
+import org.junit.runners.Parameterized.Parameters;
 
 
 /**
@@ -68,7 +68,7 @@ public class SortStringTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new SortString(""), Name.SORT_STRING.getValue(), "", new Parameter[] {}});
+        params.add(new Object[] {new SortString(""), Id.SORT_STRING.getPropertyName(), "", new Parameter[] {}});
         return params;
     }
 

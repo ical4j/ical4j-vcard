@@ -56,7 +56,7 @@ public final class Version extends Property {
      * @param value
      */
     public Version(String value) {
-        super(Name.VERSION);
+        super(Id.VERSION);
         this.value = value;
     }
     

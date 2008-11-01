@@ -45,7 +45,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 
@@ -69,8 +69,8 @@ public class CalAdrUriTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new CalAdrUri(URI.create("http://example.com/calendar/jdoe")), Name.CALADRURI.toString(), "http://example.com/calendar/jdoe", new Parameter[] {}});
-        params.add(new Object[] {new CalAdrUri(URI.create("mailto:janedoe@example.com"), Type.PREF), Name.CALADRURI.toString(), "mailto:janedoe@example.com", new Parameter[] {Type.PREF}});
+        params.add(new Object[] {new CalAdrUri(URI.create("http://example.com/calendar/jdoe")), Id.CALADRURI.toString(), "http://example.com/calendar/jdoe", new Parameter[] {}});
+        params.add(new Object[] {new CalAdrUri(URI.create("mailto:janedoe@example.com"), Type.PREF), Id.CALADRURI.toString(), "mailto:janedoe@example.com", new Parameter[] {Type.PREF}});
         return params;
     }
 }

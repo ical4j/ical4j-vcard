@@ -70,7 +70,7 @@ public final class Photo extends Property {
      * @param uri
      */
     public Photo(URI uri) {
-        super(Name.PHOTO);
+        super(Id.PHOTO);
         this.uri = uri;
         getParameters().add(Value.URI);
     }
@@ -86,7 +86,7 @@ public final class Photo extends Property {
      * @param binary
      */
     public Photo(byte[] binary, Type contentType) {
-        super(Name.PHOTO);
+        super(Id.PHOTO);
         this.binary = binary;
         getParameters().add(Encoding.B);
         if (contentType != null) {

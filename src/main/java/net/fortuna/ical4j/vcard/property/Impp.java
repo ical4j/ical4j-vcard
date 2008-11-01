@@ -58,7 +58,7 @@ public final class Impp extends Property {
      * @param types
      */
     public Impp(URI uri, Type...types) {
-        super(Name.IMPP);
+        super(Id.IMPP);
         this.uri = uri;
         for (Type type : types) {
             getParameters().add(type);

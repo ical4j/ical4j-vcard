@@ -57,7 +57,7 @@ public final class Telephone extends Property {
      * @param uri
      */
     public Telephone(URI uri, Type...types) {
-        super(Name.TEL);
+        super(Id.TEL);
         this.uri = uri;
         for (Type type : types) {
             getParameters().add(type);

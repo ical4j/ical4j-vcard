@@ -55,7 +55,7 @@ public final class Note extends Property implements Escapable {
      * @param value
      */
     public Note(String value) {
-        super(Name.NOTE);
+        super(Id.NOTE);
         this.value = value;
     }
     

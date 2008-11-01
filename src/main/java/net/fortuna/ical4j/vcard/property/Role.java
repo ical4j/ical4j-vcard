@@ -54,7 +54,7 @@ public final class Role extends Property {
      * @param value
      */
     public Role(String value) {
-        super(Name.ROLE);
+        super(Id.ROLE);
         this.value = value;
     }
     

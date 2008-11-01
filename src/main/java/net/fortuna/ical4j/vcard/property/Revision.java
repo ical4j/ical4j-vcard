@@ -56,7 +56,7 @@ public final class Revision extends Property {
      * @param date
      */
     public Revision(Date date) {
-        super(Name.REV);
+        super(Id.REV);
         this.date = date;
     }
     

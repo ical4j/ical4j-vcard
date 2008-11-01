@@ -43,7 +43,7 @@ import java.util.List;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -68,10 +68,10 @@ public class NTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new N("", "", new String[0], new String[0], new String[0]), Name.N.toString(), "", new Parameter[] {}});
-        params.add(new Object[] {new N("Fortuna", "Ben", new String[0], new String[0], new String[0]), Name.N.toString(), "Fortuna;Ben", new Parameter[] {}});
-        params.add(new Object[] {new N("Public", "John", new String[] {"Quinlan"}, new String[] {"Mr."}, new String[] {"Esq."}), Name.N.toString(), "Public;John;Quinlan;Mr.;Esq.", new Parameter[] {}});
-        params.add(new Object[] {new N("Stevenson", "John", new String[] {"Philip", "Paul"}, new String[] {"Dr."}, new String[] {"Jr.", "M.D.", "A.C.P."}), Name.N.toString(), "Stevenson;John;Philip,Paul;Dr.;Jr.,M.D.,A.C.P.", new Parameter[] {}});
+        params.add(new Object[] {new N("", "", new String[0], new String[0], new String[0]), Id.N.toString(), "", new Parameter[] {}});
+        params.add(new Object[] {new N("Fortuna", "Ben", new String[0], new String[0], new String[0]), Id.N.toString(), "Fortuna;Ben", new Parameter[] {}});
+        params.add(new Object[] {new N("Public", "John", new String[] {"Quinlan"}, new String[] {"Mr."}, new String[] {"Esq."}), Id.N.toString(), "Public;John;Quinlan;Mr.;Esq.", new Parameter[] {}});
+        params.add(new Object[] {new N("Stevenson", "John", new String[] {"Philip", "Paul"}, new String[] {"Dr."}, new String[] {"Jr.", "M.D.", "A.C.P."}), Id.N.toString(), "Stevenson;John;Philip,Paul;Dr.;Jr.,M.D.,A.C.P.", new Parameter[] {}});
         return params;
     }
 

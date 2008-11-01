@@ -42,7 +42,7 @@ import java.util.List;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -67,10 +67,10 @@ public class CategoriesTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Categories(), Name.CATEGORIES.toString(), "", new Parameter[] {}});
-        params.add(new Object[] {new Categories("TRAVEL AGENT"), Name.CATEGORIES.toString(), "TRAVEL AGENT", new Parameter[] {}});
-        params.add(new Object[] {new Categories("INTERNET", "IETF", "INDUSTRY", "INFORMATION TECHNOLOGY"), Name.CATEGORIES.toString(), "INTERNET,IETF,INDUSTRY,INFORMATION TECHNOLOGY", new Parameter[] {}});
-        params.add(new Object[] {new Categories("GARDENER, LANDSCAPE"), Name.CATEGORIES.toString(), "GARDENER\\, LANDSCAPE", new Parameter[] {}});
+        params.add(new Object[] {new Categories(), Id.CATEGORIES.toString(), "", new Parameter[] {}});
+        params.add(new Object[] {new Categories("TRAVEL AGENT"), Id.CATEGORIES.toString(), "TRAVEL AGENT", new Parameter[] {}});
+        params.add(new Object[] {new Categories("INTERNET", "IETF", "INDUSTRY", "INFORMATION TECHNOLOGY"), Id.CATEGORIES.toString(), "INTERNET,IETF,INDUSTRY,INFORMATION TECHNOLOGY", new Parameter[] {}});
+        params.add(new Object[] {new Categories("GARDENER, LANDSCAPE"), Id.CATEGORIES.toString(), "GARDENER\\, LANDSCAPE", new Parameter[] {}});
         return params;
     }
 

@@ -56,7 +56,7 @@ public final class Source extends Property {
      * @param uri
      */
     public Source(URI uri) {
-        super(Name.SOURCE);
+        super(Id.SOURCE);
         this.uri = uri;
     }
     

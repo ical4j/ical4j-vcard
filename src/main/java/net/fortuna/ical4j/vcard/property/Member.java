@@ -57,7 +57,7 @@ public final class Member extends Property {
      * @param uri
      */
     public Member(URI uri) {
-        super(Name.MEMBER);
+        super(Id.MEMBER);
         this.uri = uri;
     }
     

@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 /**
  * @author Ben
@@ -79,15 +79,15 @@ public final class VCard implements Serializable {
     }
     
     /**
-     * Returns a list of properties for the VCard instance with a matching name. Any modifications
+     * Returns a list of properties for the VCard instance with a matching id. Any modifications
      * to this list will not effect the list referenced by the VCard instance.
-     * @param name
+     * @param id
      * @return a list of properties of the specified type
      */
-    public List<Property> getProperties(Name name) {
+    public List<Property> getProperties(Id name) {
         List<Property> matches = new ArrayList<Property>();
         for (Property p : properties) {
-            if (p.name.equals(name)) {
+            if (p.id.equals(name)) {
                 matches.add(p);
             }
         }
@@ -95,13 +95,13 @@ public final class VCard implements Serializable {
     }
     
     /**
-     * Returns the first property found matching the specified name.
-     * @param name
+     * Returns the first property found matching the specified id.
+     * @param id
      * @return the first matching property, or null if no properties match
      */
-    public Property getProperty(Name name) {
+    public Property getProperty(Id name) {
         for (Property p : properties) {
-            if (p.name.equals(name)) {
+            if (p.id.equals(name)) {
                 return p;
             }
         }
@@ -109,15 +109,15 @@ public final class VCard implements Serializable {
     }
     
     /**
-     * Returns a list of non-standard properties for the VCard instance with a matching name. Any modifications
+     * Returns a list of non-standard properties for the VCard instance with a matching id. Any modifications
      * to this list will not effect the list referenced by the VCard instance.
-     * @param name
-     * @return a list of non-standard properties with the specified name
+     * @param id
+     * @return a list of non-standard properties with the specified id
      */
     public List<Property> getExtendedProperties(String name) {
         List<Property> matches = new ArrayList<Property>();
         for (Property p : properties) {
-            if (p.name.equals(Name.EXTENDED) && p.extendedName.equals(name)) {
+            if (p.id.equals(Id.EXTENDED) && p.extendedName.equals(name)) {
                 matches.add(p);
             }
         }
@@ -125,13 +125,13 @@ public final class VCard implements Serializable {
     }
     
     /**
-     * Returns the first non-standard property found matching the specified name.
-     * @param name
+     * Returns the first non-standard property found matching the specified id.
+     * @param id
      * @return the first matching property, or null if no properties match
      */
     public Property getExtendedProperty(String name) {
         for (Property p : properties) {
-            if (p.name.equals(Name.EXTENDED) && p.extendedName.equals(name)) {
+            if (p.id.equals(Id.EXTENDED) && p.extendedName.equals(name)) {
                 return p;
             }
         }

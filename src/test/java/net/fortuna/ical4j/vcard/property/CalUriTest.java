@@ -45,7 +45,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 
@@ -69,8 +69,8 @@ public class CalUriTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new CalUri(URI.create("ftp://ftp.example.com/calA.ics")), Name.CALURI.toString(), "ftp://ftp.example.com/calA.ics", new Parameter[] {}});
-        params.add(new Object[] {new CalUri(URI.create("http://cal.example.com/calA"), Type.PREF), Name.CALURI.toString(), "http://cal.example.com/calA", new Parameter[] {Type.PREF}});
+        params.add(new Object[] {new CalUri(URI.create("ftp://ftp.example.com/calA.ics")), Id.CALURI.toString(), "ftp://ftp.example.com/calA.ics", new Parameter[] {}});
+        params.add(new Object[] {new CalUri(URI.create("http://cal.example.com/calA"), Type.PREF), Id.CALURI.toString(), "http://cal.example.com/calA", new Parameter[] {Type.PREF}});
         return params;
     }
 }

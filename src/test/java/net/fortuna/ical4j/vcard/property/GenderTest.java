@@ -45,7 +45,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 
 /**
@@ -68,8 +68,8 @@ public class GenderTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Gender.FEMALE, Name.GENDER.toString(), "F", new Parameter[] {}});
-        params.add(new Object[] {Gender.MALE, Name.GENDER.toString(), "M", new Parameter[] {}});
+        params.add(new Object[] {Gender.FEMALE, Id.GENDER.toString(), "F", new Parameter[] {}});
+        params.add(new Object[] {Gender.MALE, Id.GENDER.toString(), "M", new Parameter[] {}});
         return params;
     }
 

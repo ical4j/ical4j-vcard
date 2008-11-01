@@ -64,7 +64,7 @@ public final class Type extends Parameter {
      * @param types
      */
     public Type(String...types) {
-        super(Name.TYPE);
+        super(Id.TYPE);
         this.types = types;
     }
     
@@ -72,7 +72,7 @@ public final class Type extends Parameter {
      * @param types
      */
     public Type(Type...types) {
-        super(Name.TYPE);
+        super(Id.TYPE);
         List<String> typeList = new ArrayList<String>();
         for (Type type : types) {
             typeList.addAll(Arrays.asList(type.getTypes()));

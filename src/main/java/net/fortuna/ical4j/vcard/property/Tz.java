@@ -58,7 +58,7 @@ public final class Tz extends Property {
      * @param offset
      */
     public Tz(UtcOffset offset) {
-        super(Name.TZ);
+        super(Id.TZ);
         this.offset = offset;
     }
 
@@ -66,7 +66,7 @@ public final class Tz extends Property {
      * @param text
      */
     public Tz(String text) {
-        super(Name.TZ);
+        super(Id.TZ);
         this.text = text;
         getParameters().add(Value.TEXT);
     }

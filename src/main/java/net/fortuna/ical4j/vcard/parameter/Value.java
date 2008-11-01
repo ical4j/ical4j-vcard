@@ -60,7 +60,7 @@ public final class Value extends Parameter {
      * @param value
      */
     public Value(String value) {
-        super(Name.VALUE);
+        super(Id.VALUE);
         this.value = value;
     }
     

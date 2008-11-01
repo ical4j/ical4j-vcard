@@ -69,7 +69,7 @@ public final class Logo extends Property {
      * @param uri
      */
     public Logo(URI uri) {
-        super(Name.LOGO);
+        super(Id.LOGO);
         this.uri = uri;
     }
     
@@ -85,7 +85,7 @@ public final class Logo extends Property {
      * @param contentType
      */
     public Logo(byte[] binary, Type contentType) {
-        super(Name.LOGO);
+        super(Id.LOGO);
         this.binary = binary;
         getParameters().add(Encoding.B);
         if (contentType != null) {

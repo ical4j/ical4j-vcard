@@ -45,7 +45,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 
 /**
@@ -68,8 +68,8 @@ public class RoleTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Role(""), Name.ROLE.toString(), "", new Parameter[] {}});
-        params.add(new Object[] {new Role("Programmer"), Name.ROLE.toString(), "Programmer", new Parameter[] {}});
+        params.add(new Object[] {new Role(""), Id.ROLE.toString(), "", new Parameter[] {}});
+        params.add(new Object[] {new Role("Programmer"), Id.ROLE.toString(), "Programmer", new Parameter[] {}});
         return params;
     }
 

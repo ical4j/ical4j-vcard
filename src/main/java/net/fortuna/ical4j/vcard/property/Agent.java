@@ -61,7 +61,7 @@ public final class Agent extends Property implements Escapable {
      * @param uri
      */
     public Agent(URI uri) {
-        super(Name.AGENT);
+        super(Id.AGENT);
         this.uri = uri;
     }
     
@@ -69,7 +69,7 @@ public final class Agent extends Property implements Escapable {
      * @param value
      */
     public Agent(String value) {
-        super(Name.AGENT);
+        super(Id.AGENT);
         this.value = value;
         getParameters().add(Value.TEXT);
     }

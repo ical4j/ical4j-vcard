@@ -45,7 +45,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 
 /**
@@ -68,8 +68,8 @@ public class TitleTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Title(""), Name.TITLE.toString(), "", new Parameter[] {}});
-        params.add(new Object[] {new Title("Director, Research and Development"), Name.TITLE.toString(), "Director, Research and Development", new Parameter[] {}});
+        params.add(new Object[] {new Title(""), Id.TITLE.toString(), "", new Parameter[] {}});
+        params.add(new Object[] {new Title("Director, Research and Development"), Id.TITLE.toString(), "Director, Research and Development", new Parameter[] {}});
         return params;
     }
 

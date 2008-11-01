@@ -47,7 +47,7 @@ import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 
@@ -73,15 +73,15 @@ public class DDayTest extends PropertyTest {
         List<Object[]> params = new ArrayList<Object[]>();
 
         try {
-            params.add(new Object[] {new DDay(new Date("20380415")), Name.DDAY.toString(), "20380415", new Parameter[] {}});
-            params.add(new Object[] {new DDay(new DateTime("19860125T081500")), Name.DDAY.toString(), "19860125T081500", new Parameter[] {}});
+            params.add(new Object[] {new DDay(new Date("20380415")), Id.DDAY.toString(), "20380415", new Parameter[] {}});
+            params.add(new Object[] {new DDay(new DateTime("19860125T081500")), Id.DDAY.toString(), "19860125T081500", new Parameter[] {}});
         }
         catch (ParseException pe) {
             pe.printStackTrace();
         }
-        params.add(new Object[] {new DDay(""), Name.DDAY.toString(), "", new Parameter[] {Value.TEXT}});
-        params.add(new Object[] {new DDay("Unknown"), Name.DDAY.toString(), "Unknown", new Parameter[] {Value.TEXT}});
-        params.add(new Object[] {new DDay("4pm, January 9th"), Name.DDAY.toString(), "4pm, January 9th", new Parameter[] {Value.TEXT}});
+        params.add(new Object[] {new DDay(""), Id.DDAY.toString(), "", new Parameter[] {Value.TEXT}});
+        params.add(new Object[] {new DDay("Unknown"), Id.DDAY.toString(), "Unknown", new Parameter[] {Value.TEXT}});
+        params.add(new Object[] {new DDay("4pm, January 9th"), Id.DDAY.toString(), "4pm, January 9th", new Parameter[] {Value.TEXT}});
         return params;
     }
 

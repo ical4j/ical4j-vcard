@@ -46,7 +46,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 
 /**
@@ -69,7 +69,7 @@ public class MemberTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Member(URI.create("")), Name.MEMBER.toString(), "", new Parameter[] {}});
+        params.add(new Object[] {new Member(URI.create("")), Id.MEMBER.toString(), "", new Parameter[] {}});
         return params;
     }
 

@@ -58,7 +58,7 @@ public final class Gender extends Property {
      * @param value
      */
     public Gender(String value) {
-        super(Name.GENDER);
+        super(Id.GENDER);
         this.value = value;
     }
     

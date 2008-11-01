@@ -57,7 +57,7 @@ public final class Url extends Property {
      * @param uri
      */
     public Url(URI uri) {
-        super(Name.URL);
+        super(Id.URL);
         this.uri = uri;
     }
     

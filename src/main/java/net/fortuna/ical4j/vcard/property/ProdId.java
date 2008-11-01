@@ -54,7 +54,7 @@ public final class ProdId extends Property {
      * @param value
      */
     public ProdId(String value) {
-        super(Name.PRODID);
+        super(Id.PRODID);
         this.value = value;
     }
     

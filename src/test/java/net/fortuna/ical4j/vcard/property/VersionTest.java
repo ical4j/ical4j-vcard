@@ -43,7 +43,7 @@ import java.util.List;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -68,7 +68,7 @@ public class VersionTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Version.VERSION_4_0, Name.VERSION.toString(), "4.0", new Parameter[] {}});
+        params.add(new Object[] {Version.VERSION_4_0, Id.VERSION.toString(), "4.0", new Parameter[] {}});
         return params;
     }
 

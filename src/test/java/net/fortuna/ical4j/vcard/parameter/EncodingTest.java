@@ -41,7 +41,7 @@ import java.util.List;
 
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterTest;
-import net.fortuna.ical4j.vcard.Parameter.Name;
+import net.fortuna.ical4j.vcard.Parameter.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -65,7 +65,7 @@ public class EncodingTest extends ParameterTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Encoding.B, Name.ENCODING.toString(), "b"});
+        params.add(new Object[] {Encoding.B, Id.ENCODING.toString(), "b"});
         return params;
     }
 

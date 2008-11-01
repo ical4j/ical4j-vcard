@@ -46,6 +46,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.property.Kind;
 import net.fortuna.ical4j.vcard.property.Name;
 import net.fortuna.ical4j.vcard.property.Source;
@@ -86,7 +87,7 @@ public class VCardTest {
     @Test
     public void testGetPropertiesName() {
         for (Property p : vCard.getProperties()) {
-            List<Property> matches = vCard.getProperties(p.name);
+            List<Property> matches = vCard.getProperties(p.id);
             assertNotNull(matches);
             assertTrue(matches.size() >= 1);
             assertTrue(matches.contains(p));
@@ -96,14 +97,14 @@ public class VCardTest {
     @Test
     public void testGetPropertyName() {
         for (Property p : vCard.getProperties()) {
-            assertNotNull(vCard.getProperty(p.name));
+            assertNotNull(vCard.getProperty(p.id));
         }
         assertNull(vCard.getProperty(null));
     }
 
     @Test
     public void testGetExtendedPropertiesName() {
-        for (Property p : vCard.getProperties(net.fortuna.ical4j.vcard.Property.Name.EXTENDED)) {
+        for (Property p : vCard.getProperties(Id.EXTENDED)) {
             List<Property> matches = vCard.getExtendedProperties(p.extendedName);
             assertNotNull(matches);
             assertTrue(matches.size() >= 1);
@@ -113,7 +114,7 @@ public class VCardTest {
 
     @Test
     public void testGetExtendedPropertyName() {
-        for (Property p : vCard.getProperties(net.fortuna.ical4j.vcard.Property.Name.EXTENDED)) {
+        for (Property p : vCard.getProperties(Id.EXTENDED)) {
             assertNotNull(vCard.getExtendedProperty(p.extendedName));
         }
         assertNull(vCard.getExtendedProperty(null));

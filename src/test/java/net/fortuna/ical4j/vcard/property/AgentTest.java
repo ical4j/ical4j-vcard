@@ -45,7 +45,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 
@@ -69,9 +69,9 @@ public class AgentTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Agent(""), Name.AGENT.toString(), "", new Parameter[] {Value.TEXT}});
-        params.add(new Object[] {new Agent("Agent 99"), Name.AGENT.toString(), "Agent 99", new Parameter[] {Value.TEXT}});
-        params.add(new Object[] {new Agent(URI.create("http://thereisnoagent.com")), Name.AGENT.toString(), "http://thereisnoagent.com", new Parameter[] {}});
+        params.add(new Object[] {new Agent(""), Id.AGENT.toString(), "", new Parameter[] {Value.TEXT}});
+        params.add(new Object[] {new Agent("Agent 99"), Id.AGENT.toString(), "Agent 99", new Parameter[] {Value.TEXT}});
+        params.add(new Object[] {new Agent(URI.create("http://thereisnoagent.com")), Id.AGENT.toString(), "http://thereisnoagent.com", new Parameter[] {}});
         return params;
     }
 }

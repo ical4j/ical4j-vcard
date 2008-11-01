@@ -56,7 +56,7 @@ public final class Encoding extends Parameter {
      * @param value
      */
     public Encoding(String value) {
-        super(Name.ENCODING);
+        super(Id.ENCODING);
         this.value = value;
     }
     

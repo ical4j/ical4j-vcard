@@ -46,7 +46,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 
 /**
@@ -69,7 +69,7 @@ public class TelephoneTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Telephone(URI.create("")), Name.TEL.toString(), "", new Parameter[] {}});
+        params.add(new Object[] {new Telephone(URI.create("")), Id.TEL.toString(), "", new Parameter[] {}});
         return params;
     }
 

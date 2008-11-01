@@ -46,7 +46,7 @@ import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 
 /**
@@ -69,7 +69,7 @@ public class RevisionTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Revision(new Date(0)), Name.REV.toString(), "19700101", new Parameter[] {}});
+        params.add(new Object[] {new Revision(new Date(0)), Id.REV.toString(), "19700101", new Parameter[] {}});
         return params;
     }
 

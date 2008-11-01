@@ -59,7 +59,7 @@ public final class Geo extends Property {
      * @param longitude
      */
     public Geo(BigDecimal latitude, BigDecimal longitude) {
-        super(Name.GEO);
+        super(Id.GEO);
         this.latitude = latitude;
         this.longitude = longitude;
     }

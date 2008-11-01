@@ -70,7 +70,7 @@ public final class Sound extends Property {
      * @param uri
      */
     public Sound(URI uri) {
-        super(Name.SOUND);
+        super(Id.SOUND);
         this.uri = uri;
         getParameters().add(Value.URI);
     }
@@ -87,7 +87,7 @@ public final class Sound extends Property {
      * @param contentType
      */
     public Sound(byte[] binary, Type contentType) {
-        super(Name.SOUND);
+        super(Id.SOUND);
         this.binary = binary;
         getParameters().add(Encoding.B);
         if (contentType != null) {

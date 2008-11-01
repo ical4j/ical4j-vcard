@@ -46,7 +46,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 
@@ -70,8 +70,8 @@ public class FbUrlTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new FbUrl(URI.create("FTP://ftp.example.com/busy/project-a.ifb")), Name.FBURL.toString(), "FTP://ftp.example.com/busy/project-a.ifb", new Parameter[] {}});
-        params.add(new Object[] {new FbUrl(URI.create("http://www.example.com/busy/janedoe"),Type.PREF), Name.FBURL.toString(), "http://www.example.com/busy/janedoe", new Parameter[] {Type.PREF}});
+        params.add(new Object[] {new FbUrl(URI.create("FTP://ftp.example.com/busy/project-a.ifb")), Id.FBURL.toString(), "FTP://ftp.example.com/busy/project-a.ifb", new Parameter[] {}});
+        params.add(new Object[] {new FbUrl(URI.create("http://www.example.com/busy/janedoe"),Type.PREF), Id.FBURL.toString(), "http://www.example.com/busy/janedoe", new Parameter[] {Type.PREF}});
         return params;
     }
 

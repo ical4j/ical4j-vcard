@@ -45,7 +45,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 
 
@@ -69,8 +69,8 @@ public class KeyTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Key("somekey"), Name.KEY.toString(), "somekey", new Parameter[] {}});
-        params.add(new Object[] {new Key(new byte[0]), Name.KEY.toString(), "", new Parameter[] {Encoding.B}});
+        params.add(new Object[] {new Key("somekey"), Id.KEY.toString(), "somekey", new Parameter[] {}});
+        params.add(new Object[] {new Key(new byte[0]), Id.KEY.toString(), "", new Parameter[] {Encoding.B}});
         return params;
     }
 

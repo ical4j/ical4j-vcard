@@ -60,7 +60,7 @@ public final class Related extends Property {
      * @param types
      */
     public Related(URI uri, Type...types) {
-        super(Name.RELATED);
+        super(Id.RELATED);
         this.uri = uri;
         getParameters().addAll(Arrays.asList(types));
     }

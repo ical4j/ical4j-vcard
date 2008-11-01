@@ -60,7 +60,7 @@ public final class Kind extends Property {
      * @param value
      */
     public Kind(String value) {
-        super(Name.KIND);
+        super(Id.KIND);
         this.value = value;
     }
     

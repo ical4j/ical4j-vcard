@@ -44,7 +44,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 
@@ -68,13 +68,13 @@ public class EmailTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Email("test@example.com"), Name.EMAIL.toString(), "test@example.com", new Parameter[] {}});
-        params.add(new Object[] {new Email("test@example.com", Type.HOME), Name.EMAIL.toString(), "test@example.com", new Parameter[] {Type.HOME}});
-        params.add(new Object[] {new Email("test@example.com", Type.WORK), Name.EMAIL.toString(), "test@example.com", new Parameter[] {Type.WORK}});
-        params.add(new Object[] {new Email("test@example.com", Type.WORK, Type.PREF), Name.EMAIL.toString(), "test@example.com", new Parameter[] {Type.WORK, Type.PREF}});
+        params.add(new Object[] {new Email("test@example.com"), Id.EMAIL.toString(), "test@example.com", new Parameter[] {}});
+        params.add(new Object[] {new Email("test@example.com", Type.HOME), Id.EMAIL.toString(), "test@example.com", new Parameter[] {Type.HOME}});
+        params.add(new Object[] {new Email("test@example.com", Type.WORK), Id.EMAIL.toString(), "test@example.com", new Parameter[] {Type.WORK}});
+        params.add(new Object[] {new Email("test@example.com", Type.WORK, Type.PREF), Id.EMAIL.toString(), "test@example.com", new Parameter[] {Type.WORK, Type.PREF}});
         
         Type type = new Type(Type.WORK, Type.PREF);
-        params.add(new Object[] {new Email("test@example.com", type), Name.EMAIL.toString(), "test@example.com", new Parameter[] {type}});
+        params.add(new Object[] {new Email("test@example.com", type), Id.EMAIL.toString(), "test@example.com", new Parameter[] {type}});
         return params;
     }
 

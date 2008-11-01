@@ -17,7 +17,7 @@
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
  *
- *  o Neither the name of Ben Fortuna nor the names of any other contributors
+ *  o Neither the id of Ben Fortuna nor the names of any other contributors
  * may be used to endorse or promote products derived from this software
  * without specific prior written permission.
  *
@@ -55,7 +55,7 @@ public final class Name extends Property implements Escapable {
      * @param value
      */
     public Name(String value) {
-        super(Name.NAME);
+        super(Id.NAME);
         this.value = value;
     }
     

@@ -54,7 +54,7 @@ public final class Nickname extends Property {
      * @param names
      */
     public Nickname(String...names) {
-        super(Name.NICKNAME);
+        super(Id.NICKNAME);
         this.names = names;
     }
     

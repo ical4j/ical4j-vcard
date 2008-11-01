@@ -41,7 +41,7 @@ import java.util.List;
 
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterTest;
-import net.fortuna.ical4j.vcard.Parameter.Name;
+import net.fortuna.ical4j.vcard.Parameter.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -65,9 +65,9 @@ public class TypeTest extends ParameterTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Type.HOME, Name.TYPE.toString(), "home"});
-        params.add(new Object[] {Type.PREF, Name.TYPE.toString(), "pref"});
-        params.add(new Object[] {Type.WORK, Name.TYPE.toString(), "work"});
+        params.add(new Object[] {Type.HOME, Id.TYPE.toString(), "home"});
+        params.add(new Object[] {Type.PREF, Id.TYPE.toString(), "pref"});
+        params.add(new Object[] {Type.WORK, Id.TYPE.toString(), "work"});
         return params;
     }
 }

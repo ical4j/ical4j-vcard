@@ -44,7 +44,7 @@ import org.junit.runners.Parameterized.Parameters;
 
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterTest;
-import net.fortuna.ical4j.vcard.Parameter.Name;
+import net.fortuna.ical4j.vcard.Parameter.Id;
 
 
 /**
@@ -68,10 +68,10 @@ public class LanguageTest extends ParameterTest {
         List<Object[]> params = new ArrayList<Object[]>();
         
         Locale locale = new Locale("en", "AU");
-        params.add(new Object[] {new Language(locale), Name.LANGUAGE.toString(), "en-AU"});
+        params.add(new Object[] {new Language(locale), Id.LANGUAGE.toString(), "en-AU"});
 
         locale = new Locale("es", "ES", "Traditional_WIN");
-        params.add(new Object[] {new Language(locale), Name.LANGUAGE.toString(), "es-ES-Traditional_WIN"});
+        params.add(new Object[] {new Language(locale), Id.LANGUAGE.toString(), "es-ES-Traditional_WIN"});
         return params;
     }
 }

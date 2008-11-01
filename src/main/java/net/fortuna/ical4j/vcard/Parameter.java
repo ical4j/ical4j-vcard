@@ -49,32 +49,32 @@ public abstract class Parameter implements Serializable {
     private static final long serialVersionUID = 6858428041113700722L;
 
     /**
-     * Enumeration of parameter types.
+     * Enumeration of parameter identifiers.
      */
-    public enum Name {
+    public enum Id {
         // 6.  Property Parameters
         LANGUAGE, ENCODING, VALUE, PID, TYPE,
         // 7.10. Extended Properties and Parameters
         EXTENDED
     };
     
-    private Name name;
+    private Id id;
     
     private String extendedName;
     
     /**
-     * @param extendedName a non-standard parameter name
+     * @param extendedName a non-standard parameter id
      */
     public Parameter(String extendedName) {
-        this(Name.EXTENDED);
+        this(Id.EXTENDED);
         this.extendedName = extendedName;
     }
     
     /**
-     * @param name the parameter type
+     * @param id the parameter type
      */
-    public Parameter(Name name) {
-        this.name = name;
+    public Parameter(Id id) {
+        this.id = id;
     }
     
     /**
@@ -88,12 +88,12 @@ public abstract class Parameter implements Serializable {
     @Override
     public final String toString() {
         StringBuilder b = new StringBuilder();
-        if (Name.EXTENDED.equals(name)) {
+        if (Id.EXTENDED.equals(id)) {
             b.append("X-");
             b.append(extendedName);
         }
         else {
-            b.append(name);
+            b.append(id);
         }
         b.append('=');
         b.append(getValue());

@@ -57,7 +57,7 @@ public final class Label extends Property implements Escapable {
      * @param types
      */
     public Label(String value, Type...types) {
-        super(Name.LABEL);
+        super(Id.LABEL);
         this.value = value;
         for (Type type : types) {
             getParameters().add(type);

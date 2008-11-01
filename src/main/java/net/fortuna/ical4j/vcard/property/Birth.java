@@ -55,7 +55,7 @@ public final class Birth extends Property implements Escapable {
      * @param value
      */
     public Birth(String value) {
-        super(Name.BIRTH);
+        super(Id.BIRTH);
         this.value = value;
     }
     

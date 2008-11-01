@@ -55,7 +55,7 @@ public final class Death extends Property implements Escapable {
      * @param value
      */
     public Death(String value) {
-        super(Name.DEATH);
+        super(Id.DEATH);
         this.value = value;
     }
     

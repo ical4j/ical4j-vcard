@@ -41,7 +41,7 @@ import java.util.List;
 
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterTest;
-import net.fortuna.ical4j.vcard.Parameter.Name;
+import net.fortuna.ical4j.vcard.Parameter.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -65,7 +65,7 @@ public class PidTest extends ParameterTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Pid(1), Name.PID.toString(), "1"});
+        params.add(new Object[] {new Pid(1), Id.PID.toString(), "1"});
         return params;
     }
 }

@@ -54,7 +54,7 @@ public final class SortString extends Property {
      * @param value
      */
     public SortString(String value) {
-        super(Name.SORT_STRING);
+        super(Id.SORT_STRING);
         this.value = value;
     }
     

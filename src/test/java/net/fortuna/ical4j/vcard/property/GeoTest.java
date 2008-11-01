@@ -44,7 +44,7 @@ import java.util.List;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -69,7 +69,7 @@ public class GeoTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Geo(BigDecimal.ZERO, BigDecimal.ZERO), Name.GEO.toString(), "0;0", new Parameter[] {}});
+        params.add(new Object[] {new Geo(BigDecimal.ZERO, BigDecimal.ZERO), Id.GEO.toString(), "0;0", new Parameter[] {}});
         return params;
     }
 

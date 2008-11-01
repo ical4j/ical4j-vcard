@@ -76,7 +76,7 @@ public final class Address extends Property {
      */
     public Address(String poBox, String extended, String street, String locality,
             String region, String postcode, String country, Type...types) {
-        super(Name.ADR);
+        super(Id.ADR);
         this.poBox = poBox;
         this.extended = extended;
         this.street = street;

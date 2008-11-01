@@ -45,7 +45,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 
 /**
@@ -68,8 +68,8 @@ public class OrgTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Org(""), Name.ORG.toString(), "", new Parameter[] {}});
-        params.add(new Object[] {new Org("ABC, Inc.", "North American Division", "Marketing"), Name.ORG.toString(), "ABC\\, Inc.;North American Division;Marketing", new Parameter[] {}});
+        params.add(new Object[] {new Org(""), Id.ORG.toString(), "", new Parameter[] {}});
+        params.add(new Object[] {new Org("ABC, Inc.", "North American Division", "Marketing"), Id.ORG.toString(), "ABC\\, Inc.;North American Division;Marketing", new Parameter[] {}});
         return params;
     }
 

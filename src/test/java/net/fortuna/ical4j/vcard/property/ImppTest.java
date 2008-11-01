@@ -44,7 +44,7 @@ import java.util.List;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -69,7 +69,7 @@ public class ImppTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Impp(URI.create("xmpp:alice@example.com")), Name.IMPP.toString(), "xmpp:alice@example.com", new Parameter[] {}});
+        params.add(new Object[] {new Impp(URI.create("xmpp:alice@example.com")), Id.IMPP.toString(), "xmpp:alice@example.com", new Parameter[] {}});
         return params;
     }
 

@@ -56,7 +56,7 @@ public final class Language extends Property {
      * @param locales
      */
     public Language(Locale...locales) {
-        super(Name.LANG);
+        super(Id.LANG);
         this.locales = locales;
     }
     

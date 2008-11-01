@@ -56,7 +56,7 @@ public final class Email extends Property {
      * @param types
      */
     public Email(String value, Type...types) {
-        super(Name.EMAIL);
+        super(Id.EMAIL);
         this.value = value;
         for (Type type : types) {
             getParameters().add(type);

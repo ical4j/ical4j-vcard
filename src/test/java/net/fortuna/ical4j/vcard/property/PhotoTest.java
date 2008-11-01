@@ -46,7 +46,7 @@ import org.junit.runners.Parameterized.Parameters;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Name;
+import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
@@ -71,8 +71,8 @@ public class PhotoTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Photo(URI.create("")), Name.PHOTO.toString(), "", new Parameter[] {Value.URI}});
-        params.add(new Object[] {new Photo(new byte[0]), Name.PHOTO.toString(), "", new Parameter[] {Encoding.B}});
+        params.add(new Object[] {new Photo(URI.create("")), Id.PHOTO.toString(), "", new Parameter[] {Value.URI}});
+        params.add(new Object[] {new Photo(new byte[0]), Id.PHOTO.toString(), "", new Parameter[] {Encoding.B}});
         return params;
     }
 

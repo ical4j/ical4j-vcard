@@ -55,7 +55,7 @@ public final class Org extends Property {
      * @param value
      */
     public Org(String...value) {
-        super(Name.ORG);
+        super(Id.ORG);
         this.values = value;
     }
     
