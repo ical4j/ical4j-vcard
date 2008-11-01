@@ -58,9 +58,9 @@ public abstract class Parameter implements Serializable {
         EXTENDED
     };
     
-    private Id id;
+    Id id;
     
-    private String extendedName;
+    String extendedName;
     
     /**
      * @param extendedName a non-standard parameter id

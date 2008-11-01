@@ -137,6 +137,64 @@ public abstract class Property implements Serializable {
     }
 
     /**
+     * Returns a list of parameters matching the specified identifier.
+     * @param id a parameter identifier
+     * @return a list of parameters
+     */
+    public final List<Parameter> getParameters(Parameter.Id id) {
+        List<Parameter> matches = new ArrayList<Parameter>();
+        for (Parameter p : parameters) {
+            if (p.id.equals(id)) {
+                matches.add(p);
+            }
+        }
+        return matches;
+    }
+    
+    /**
+     * Returns the first parameter with a matching identifier.
+     * @param id a parameter identifier
+     * @return the first matching parameter, or null if no parameters with the specified identifier are found
+     */
+    public final Parameter getParameter(Parameter.Id id) {
+        for (Parameter p : parameters) {
+            if (p.id.equals(id)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns a list of non-standard parameters matching the specified name.
+     * @param name a non-standard parameter name
+     * @return a list of parameters
+     */
+    public final List<Parameter> getExtendedParameters(String name) {
+        List<Parameter> matches = new ArrayList<Parameter>();
+        for (Parameter p : parameters) {
+            if (p.id.equals(Parameter.Id.EXTENDED) && p.extendedName.equals(name)) {
+                matches.add(p);
+            }
+        }
+        return matches;
+    }
+    
+    /**
+     * Returns the first non-standard parameter with a matching name.
+     * @param name a non-standard parameter name
+     * @return the first matching parameter, or null if no non-standard parameters with the specified name are found
+     */
+    public final Parameter getExtendedParameter(String name) {
+        for (Parameter p : parameters) {
+            if (p.id.equals(Parameter.Id.EXTENDED) && p.extendedName.equals(name)) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
+    /**
      * @return a string representaion of the property propertyName
      */
     public abstract String getValue();
