@@ -143,7 +143,7 @@ public class VCardTest {
             }
         });
         VCard vcard = new VCard(props);
-        params.add(new Object[] {vcard, 4});
+        params.add(new Object[] {vcard, props.size()});
         
         return params;
     }
