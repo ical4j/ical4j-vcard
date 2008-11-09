@@ -35,6 +35,12 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.vcard.Parameter;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -48,9 +54,9 @@ public final class Gender extends Property {
      */
     private static final long serialVersionUID = -2739534182576803750L;
     
-    public static final Gender MALE = new Gender("M");
+    public static final Gender MALE = new Gender("M", Collections.unmodifiableList(new ArrayList<Parameter>()));
     
-    public static final Gender FEMALE = new Gender("F");
+    public static final Gender FEMALE = new Gender("F", Collections.unmodifiableList(new ArrayList<Parameter>()));
     
     private String value;
     
@@ -59,6 +65,15 @@ public final class Gender extends Property {
      */
     public Gender(String value) {
         super(Id.GENDER);
+        this.value = value;
+    }
+    
+    /**
+     * @param value
+     * @param parameters
+     */
+    private Gender(String value, List<Parameter> parameters) {
+        super(Id.GENDER, parameters);
         this.value = value;
     }
     

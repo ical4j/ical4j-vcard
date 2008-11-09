@@ -35,6 +35,11 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -48,11 +53,11 @@ public final class Kind extends Property {
      */
     private static final long serialVersionUID = -3114221975393833838L;
     
-    public static final Kind INDIVIDUAL = new Kind("individual");
+    public static final Kind INDIVIDUAL = new Kind("individual", Collections.unmodifiableList(new ArrayList<Parameter>()));
     
-    public static final Kind GROUP = new Kind("group");
+    public static final Kind GROUP = new Kind("group", Collections.unmodifiableList(new ArrayList<Parameter>()));
     
-    public static final Kind ORG = new Kind("org");
+    public static final Kind ORG = new Kind("org", Collections.unmodifiableList(new ArrayList<Parameter>()));
     
     private String value;
     
@@ -61,6 +66,15 @@ public final class Kind extends Property {
      */
     public Kind(String value) {
         super(Id.KIND);
+        this.value = value;
+    }
+    
+    /**
+     * @param value
+     * @param parameters
+     */
+    private Kind(String value, List<Parameter> parameters) {
+        super(Id.KIND, parameters);
         this.value = value;
     }
     

@@ -35,6 +35,11 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -48,7 +53,7 @@ public final class Version extends Property {
      */
     private static final long serialVersionUID = -4345025177285348717L;
     
-    public static final Version VERSION_4_0 = new Version("4.0");
+    public static final Version VERSION_4_0 = new Version("4.0", Collections.unmodifiableList(new ArrayList<Parameter>()));
     
     private String value;
     
@@ -57,6 +62,15 @@ public final class Version extends Property {
      */
     public Version(String value) {
         super(Id.VERSION);
+        this.value = value;
+    }
+    
+    /**
+     * @param value
+     * @param parameters
+     */
+    private Version(String value, List<Parameter> parameters) {
+        super(Id.VERSION, parameters);
         this.value = value;
     }
     

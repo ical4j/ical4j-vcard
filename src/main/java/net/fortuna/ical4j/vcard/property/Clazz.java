@@ -35,6 +35,11 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -48,11 +53,11 @@ public final class Clazz extends Property {
      */
     private static final long serialVersionUID = -3339099487456754606L;
     
-    public static final Clazz PUBLIC = new Clazz("PUBLIC");
+    public static final Clazz PUBLIC = new Clazz("PUBLIC", Collections.unmodifiableList(new ArrayList<Parameter>()));
     
-    public static final Clazz PRIVATE = new Clazz("PRIVATE");
+    public static final Clazz PRIVATE = new Clazz("PRIVATE", Collections.unmodifiableList(new ArrayList<Parameter>()));
     
-    public static final Clazz CONFIDENTIAL = new Clazz("CONFIDENTIAL");
+    public static final Clazz CONFIDENTIAL = new Clazz("CONFIDENTIAL", Collections.unmodifiableList(new ArrayList<Parameter>()));
     
     private String value;
     
@@ -61,6 +66,15 @@ public final class Clazz extends Property {
      */
     public Clazz(String value) {
         super(Id.CLASS);
+        this.value = value;
+    }
+    
+    /**
+     * @param value
+     * @param parameters
+     */
+    private Clazz(String value, List<Parameter> parameters) {
+        super(Id.CLASS, parameters);
         this.value = value;
     }
     
