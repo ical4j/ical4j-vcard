@@ -66,6 +66,15 @@ public final class Address extends Property {
     private String country;
     
     /**
+     * @param value a vCard-compliant string representation
+     * of an address
+     */
+    public Address(String value) {
+        super(Id.ADR);
+        // TODO: parse value
+    }
+    
+    /**
      * @param poBox
      * @param extended
      * @param street

@@ -53,6 +53,14 @@ public final class Language extends Parameter {
     private Locale locale;
     
     /**
+     * @param value a vCard-compliant string representation
+     * of a language.
+     */
+    public Language(String value) {
+    	this(new Locale(value));
+    }
+    
+    /**
      * @param id
      */
     public Language(Locale locale) {

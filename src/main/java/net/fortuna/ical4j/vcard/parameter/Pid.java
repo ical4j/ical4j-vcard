@@ -49,6 +49,14 @@ public final class Pid extends Parameter {
     private static final long serialVersionUID = -6324011073580375538L;
 
     private Integer pid;
+
+    /**
+     * @param value a vCard-compliant string representation
+     * of a PID.
+     */
+    public Pid(String value) {
+    	this(Integer.valueOf(value));
+    }
     
     /**
      * @param pid
