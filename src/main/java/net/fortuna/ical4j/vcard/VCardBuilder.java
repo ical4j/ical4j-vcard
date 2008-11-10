@@ -40,7 +40,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -265,7 +267,7 @@ public final class VCardBuilder {
     
     private static final Pattern PROPERTY_VALUE_PATTERN = Pattern.compile("(?<=[:]).*$");
 
-    private static final Pattern PARAMETER_NAME_PATTERN = Pattern.compile("(?:;)^.*(?::)");
+    private static final Pattern PARAMETERS_PATTERN = Pattern.compile("(?<=[;])[^:]*(?=[:])");
     
     private static final int BUFFER_SIZE = 1024;
     
@@ -299,8 +301,8 @@ public final class VCardBuilder {
             }
             else if (!VCARD_END.matcher(line).matches()) {
                 Property property = parseProperty(line);
-//                List<Parameter> params = parseParameter(line);
-//                property.getParameters().addAll(params);
+                List<Parameter> params = parseParameters(line);
+                property.getParameters().addAll(params);
                 vcard.getProperties().add(property);
             }
             lastLine = line;
@@ -336,9 +338,17 @@ public final class VCardBuilder {
      * @param line
      * @return
      */
-    private Parameter parseParameter(String line) {
-        String paramName = PARAMETER_NAME_PATTERN.matcher(line).group();
-        ParameterFactory<?> factory = PARAM_FACTORIES.get(Parameter.Id.valueOf(paramName));
-        return factory.createParameter("");
+    private List<Parameter> parseParameters(String line) {
+        List<Parameter> parameters = new ArrayList<Parameter>();
+        Matcher matcher = PARAMETERS_PATTERN.matcher(line);
+        if (matcher.find()) {
+            String[] params = matcher.group().split(";");
+            for (String param : params) {
+                String[] vals = param.split("=");
+                ParameterFactory<? extends Parameter> factory = PARAM_FACTORIES.get(Parameter.Id.valueOf(vals[0]));
+                parameters.add(factory.createParameter(vals[1]));
+            }
+        }
+        return parameters;
     }
 }
