@@ -72,6 +72,7 @@ public class LanguageTest extends PropertyTest {
         
         Locale locale = new Locale("en");
         params.add(new Object[] {new Language(locale), Id.LANG.toString(), "en", new Parameter[] {}});
+        params.add(new Object[] {new Language(locale, new Locale("fr")), Id.LANG.toString(), "en,fr", new Parameter[] {}});
         return params;
     }
 
