@@ -71,6 +71,7 @@ public class KindTest extends PropertyTest {
         params.add(new Object[] {Kind.GROUP, Id.KIND.toString(), "group", new Parameter[] {}});
         params.add(new Object[] {Kind.INDIVIDUAL, Id.KIND.toString(), "individual", new Parameter[] {}});
         params.add(new Object[] {Kind.ORG, Id.KIND.toString(), "org", new Parameter[] {}});
+        params.add(new Object[] {new Kind("couple"), Id.KIND.toString(), "couple", new Parameter[] {}});
         return params;
     }
 

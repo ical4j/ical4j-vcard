@@ -48,6 +48,7 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
+import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 
@@ -73,6 +74,9 @@ public class SoundTest extends PropertyTest {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Sound(URI.create("")), Id.SOUND.toString(), "", new Parameter[] {Value.URI}});
         params.add(new Object[] {new Sound(new byte[0]), Id.SOUND.toString(), "", new Parameter[] {Encoding.B}});
+        
+        Type type = new Type("application/wav");
+        params.add(new Object[] {new Sound(new byte[0], type), Id.SOUND.toString(), "", new Parameter[] {Encoding.B, type}});
         return params;
     }
 

@@ -70,6 +70,7 @@ public class GenderTest extends PropertyTest {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {Gender.FEMALE, Id.GENDER.toString(), "F", new Parameter[] {}});
         params.add(new Object[] {Gender.MALE, Id.GENDER.toString(), "M", new Parameter[] {}});
+        params.add(new Object[] {new Gender("Unknown"), Id.GENDER.toString(), "Unknown", new Parameter[] {}});
         return params;
     }
 

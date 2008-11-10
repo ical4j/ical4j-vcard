@@ -70,6 +70,7 @@ public class ClazzTest extends PropertyTest {
         params.add(new Object[] {Clazz.CONFIDENTIAL, Id.CLASS.toString(), "CONFIDENTIAL", new Parameter[] {}});
         params.add(new Object[] {Clazz.PRIVATE, Id.CLASS.toString(), "PRIVATE", new Parameter[] {}});
         params.add(new Object[] {Clazz.PUBLIC, Id.CLASS.toString(), "PUBLIC", new Parameter[] {}});
+        params.add(new Object[] {new Clazz("mammal"), Id.CLASS.toString(), "mammal", new Parameter[] {}});
         return params;
     }
 

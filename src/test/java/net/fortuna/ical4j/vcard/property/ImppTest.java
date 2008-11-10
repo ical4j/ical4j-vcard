@@ -45,6 +45,7 @@ import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.vcard.parameter.Type;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -70,6 +71,7 @@ public class ImppTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Impp(URI.create("xmpp:alice@example.com")), Id.IMPP.toString(), "xmpp:alice@example.com", new Parameter[] {}});
+        params.add(new Object[] {new Impp(URI.create("xmpp:bob@example.com"), Type.WORK), Id.IMPP.toString(), "xmpp:bob@example.com", new Parameter[] {Type.WORK}});
         return params;
     }
 
