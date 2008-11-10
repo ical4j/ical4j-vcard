@@ -55,6 +55,16 @@ public final class Geo extends Property {
     private BigDecimal longitude;
     
     /**
+     * @param value
+     */
+    public Geo(String value) {
+        super(Id.GEO);
+        String[] components = value.split(",");
+        this.latitude = new BigDecimal(components[0]);
+        this.longitude = new BigDecimal(components[1]);
+    }
+    
+    /**
      * @param latitude
      * @param longitude
      */

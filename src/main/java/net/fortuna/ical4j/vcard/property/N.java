@@ -62,6 +62,19 @@ public final class N extends Property {
     private String[] suffixes;
     
     /**
+     * @param value
+     */
+    public N(String value) {
+        super(Id.N);
+        String[] names = value.split(";");
+        this.familyName = names[0];
+        this.givenName = names[1];
+        this.additionalNames = names[2].split(",");
+        this.prefixes = names[3].split(",");
+        this.suffixes = names[4].split(",");
+    }
+    
+    /**
      * @param familyName
      * @param givenName
      * @param additionalNames

@@ -66,12 +66,18 @@ public final class Address extends Property {
     private String country;
     
     /**
-     * @param value a vCard-compliant string representation
-     * of an address
+     * @param value
      */
     public Address(String value) {
         super(Id.ADR);
-        // TODO: parse value
+        String[] components = value.split(";");
+        this.poBox = components[0];
+        this.extended = components[1];
+        this.street = components[2];
+        this.locality = components[3];
+        this.region = components[4];
+        this.postcode = components[5];
+        this.country = components[6];
     }
     
     /**
