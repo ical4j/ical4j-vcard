@@ -38,6 +38,7 @@ package net.fortuna.ical4j.vcard;
 import static net.fortuna.ical4j.util.Strings.escape;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,6 +46,7 @@ import java.util.List;
 
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.parameter.Type;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -87,6 +89,13 @@ public class PropertyTest {
         assertArrayEquals(expectedParams, property.getParameters().toArray());
     }
 
+    @Test
+    public void testGetParametersId() {
+        for (Parameter p : expectedParams) {
+            assertTrue(property.getParameters(p.id).contains(p));
+        }
+    }
+    
     /**
      * Test method for {@link net.fortuna.ical4j.vcard.Property#getValue()}.
      */
@@ -130,6 +139,16 @@ public class PropertyTest {
             }
         };
         params.add(new Object[] {extended, "X-extended", "value", new Parameter[] {}});
+
+        extended = new Property("extended2") {
+            @Override
+            public String getValue() {
+                return "value2";
+            }
+        };
+        extended.getParameters().add(Type.WORK);
+        
+        params.add(new Object[] {extended, "X-extended2", "value2", new Parameter[] {Type.WORK}});
         return params;
     }
 
