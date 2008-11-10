@@ -72,6 +72,7 @@ public class LanguageTest extends ParameterTest {
 
         locale = new Locale("es", "ES", "Traditional_WIN");
         params.add(new Object[] {new Language(locale), Id.LANGUAGE.toString(), "es-ES-Traditional_WIN"});
+        params.add(new Object[] {new Language("en"), Id.LANGUAGE.toString(), "en"});
         return params;
     }
 }

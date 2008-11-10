@@ -57,8 +57,7 @@ public class TypeTest extends ParameterTest {
      * @param expectedName
      * @param expectedValue
      */
-    public TypeTest(Parameter parameter, String expectedName,
-            String expectedValue) {
+    public TypeTest(Parameter parameter, String expectedName, String expectedValue) {
         super(parameter, expectedName, expectedValue);
     }
 
@@ -68,6 +67,9 @@ public class TypeTest extends ParameterTest {
         params.add(new Object[] {Type.HOME, Id.TYPE.toString(), "home"});
         params.add(new Object[] {Type.PREF, Id.TYPE.toString(), "pref"});
         params.add(new Object[] {Type.WORK, Id.TYPE.toString(), "work"});
+        params.add(new Object[] {new Type("home,pref"), Id.TYPE.toString(), "home,pref"});
+        params.add(new Object[] {new Type("home", "pref"), Id.TYPE.toString(), "home,pref"});
+        params.add(new Object[] {new Type(Type.HOME, Type.PREF), Id.TYPE.toString(), "home,pref"});
         return params;
     }
 }

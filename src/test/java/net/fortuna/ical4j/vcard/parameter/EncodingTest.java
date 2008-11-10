@@ -66,6 +66,7 @@ public class EncodingTest extends ParameterTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {Encoding.B, Id.ENCODING.toString(), "b"});
+        params.add(new Object[] {new Encoding("8-bit"), Id.ENCODING.toString(), "8-bit"});
         return params;
     }
 

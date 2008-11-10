@@ -68,6 +68,7 @@ public class ValueTest extends ParameterTest {
         params.add(new Object[] {Value.BINARY, Id.VALUE.toString(), "binary"});
         params.add(new Object[] {Value.TEXT, Id.VALUE.toString(), "text"});
         params.add(new Object[] {Value.URI, Id.VALUE.toString(), "uri"});
+        params.add(new Object[] {new Value("blah"), Id.VALUE.toString(), "blah"});
         return params;
     }
 }

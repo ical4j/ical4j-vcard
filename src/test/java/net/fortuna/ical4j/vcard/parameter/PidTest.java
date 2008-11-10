@@ -66,6 +66,8 @@ public class PidTest extends ParameterTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Pid(1), Id.PID.toString(), "1"});
+        params.add(new Object[] {new Pid("1"), Id.PID.toString(), "1"});
+//        params.add(new Object[] {new Pid("blah"), Id.PID.toString(), "1"});
         return params;
     }
 }
