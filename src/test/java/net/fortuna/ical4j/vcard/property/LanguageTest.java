@@ -48,31 +48,29 @@ import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
-
 /**
  * @author fortuna
- *
  */
 public class LanguageTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public LanguageTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    /**
+     * @param property
+     * @param expectedName
+     * @param expectedValue
+     * @param expectedParams
+     */
+    public LanguageTest(Property property, String expectedName,
+            String expectedValue, Parameter[] expectedParams) {
+        super(property, expectedName, expectedValue, expectedParams);
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        
+
         Locale locale = new Locale("en");
-        params.add(new Object[] {new Language(locale), Id.LANG.toString(), "en", new Parameter[] {}});
-        params.add(new Object[] {new Language(locale, new Locale("fr")), Id.LANG.toString(), "en,fr", new Parameter[] {}});
+        params.add(new Object[] { new Language(locale), Id.LANG.toString(), "en", new Parameter[] {} });
+        params.add(new Object[] { new Language(locale, new Locale("fr")), Id.LANG.toString(), "en,fr", new Parameter[] {} });
         return params;
     }
 
