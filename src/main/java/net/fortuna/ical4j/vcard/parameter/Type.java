@@ -61,6 +61,14 @@ public final class Type extends Parameter {
     private String[] types;
     
     /**
+     * @param value
+     */
+    public Type(String value) {
+        super(Id.TYPE);
+        this.types = value.split(",");
+    }
+    
+    /**
      * @param types
      */
     public Type(String...types) {
