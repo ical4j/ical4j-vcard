@@ -134,7 +134,7 @@ public abstract class Property implements Serializable {
      */
     protected Property(Id id, List<Parameter> parameters) {
         this.id = id;
-        this.parameters = new ArrayList<Parameter>();
+        this.parameters = parameters;
     }
     
     /**
