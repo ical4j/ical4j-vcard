@@ -302,7 +302,9 @@ public final class VCardBuilder {
             else if (!VCARD_END.matcher(line).matches()) {
                 Property property = parseProperty(line);
                 List<Parameter> params = parseParameters(line);
-                property.getParameters().addAll(params);
+                if (!params.isEmpty()) {
+                    property.getParameters().addAll(params);
+                }
                 vcard.getProperties().add(property);
             }
             lastLine = line;
