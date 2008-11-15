@@ -58,7 +58,7 @@ public final class Type extends Parameter {
     
     public static final Type PREF = new Type("pref");
     
-    private String[] types;
+    private final String[] types;
     
     /**
      * @param value
@@ -95,19 +95,12 @@ public final class Type extends Parameter {
         return types;
     }
 
-    /**
-     * @param types the types to set
-     */
-    public void setTypes(String[] types) {
-        this.types = types;
-    }
-
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Parameter#getValue()
      */
     @Override
     public String getValue() {
-        StringBuilder b = new StringBuilder();
+        final StringBuilder b = new StringBuilder();
         for (int i = 0; i < types.length; i++) {
             b.append(types[i]);
             if (i < types.length - 1) {

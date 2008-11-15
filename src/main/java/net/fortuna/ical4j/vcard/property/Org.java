@@ -71,7 +71,7 @@ public final class Org extends Property {
      */
     @Override
     public String getValue() {
-        StringBuilder b = new StringBuilder();
+        final StringBuilder b = new StringBuilder();
         for (int i = 0; i < values.length; i++) {
             b.append(escape(values[i]));
             if (i < values.length - 1) {

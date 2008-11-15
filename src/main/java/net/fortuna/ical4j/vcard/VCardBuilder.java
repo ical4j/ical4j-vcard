@@ -111,7 +111,7 @@ public final class VCardBuilder {
     static {
         PARAM_FACTORIES.put(Parameter.Id.ENCODING, new ParameterFactory<Encoding>() {
             @Override
-            public Encoding createParameter(String value) {
+            public Encoding createParameter(final String value) {
                 if (Encoding.B.getValue().equals(value)) {
                     return Encoding.B;
                 }
@@ -120,19 +120,19 @@ public final class VCardBuilder {
         });
         PARAM_FACTORIES.put(Parameter.Id.LANGUAGE, new ParameterFactory<Language>() {
             @Override
-            public Language createParameter(String value) {
+            public Language createParameter(final String value) {
                 return new Language(new Locale(value));
             }
         });
         PARAM_FACTORIES.put(Parameter.Id.PID, new ParameterFactory<Pid>() {
             @Override
-            public Pid createParameter(String value) {
+            public Pid createParameter(final String value) {
                 return new Pid(Integer.valueOf(value));
             }
         });
         PARAM_FACTORIES.put(Parameter.Id.TYPE, new ParameterFactory<Type>() {
             @Override
-            public Type createParameter(String value) {
+            public Type createParameter(final String value) {
                 if (Type.HOME.getValue().equals(value)) {
                     return Type.HOME;
                 }
@@ -147,7 +147,7 @@ public final class VCardBuilder {
         });
         PARAM_FACTORIES.put(Parameter.Id.VALUE, new ParameterFactory<Value>() {
             @Override
-            public Value createParameter(String value) {
+            public Value createParameter(final String value) {
                 if (Value.BINARY.getValue().equals(value)) {
                     return Value.BINARY;
                 }
@@ -166,7 +166,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Version createProperty(String value) {
+            public Version createProperty(final String value) {
                 if (Version.VERSION_4_0.getValue().equals(value)) {
                     return Version.VERSION_4_0;
                 }
@@ -178,7 +178,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Fn createProperty(String value) {
+            public Fn createProperty(final String value) {
                 return new Fn(value);
             }
         });
@@ -187,7 +187,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public N createProperty(String value) {
+            public N createProperty(final String value) {
                 return new N(value);
             }
         });
@@ -196,7 +196,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public BDay createProperty(String value) {
+            public BDay createProperty(final String value) {
                 return new BDay(value);
             }
         });
@@ -205,7 +205,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Gender createProperty(String value) {
+            public Gender createProperty(final String value) {
                 if (Gender.FEMALE.getValue().equals(value)) {
                     return Gender.FEMALE;
                 }
@@ -220,7 +220,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Org createProperty(String value) {
+            public Org createProperty(final String value) {
                 return new Org(value);
             }
         });
@@ -229,7 +229,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Address createProperty(String value) {
+            public Address createProperty(final String value) {
                 return new Address(value);
             }
         });
@@ -238,7 +238,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Telephone createProperty(String value) {
+            public Telephone createProperty(final String value) {
                 return new Telephone(URI.create(value));
             }
         });
@@ -247,7 +247,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Email createProperty(String value) {
+            public Email createProperty(final String value) {
                 return new Email(value);
             }
         });
@@ -256,7 +256,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Geo createProperty(String value) {
+            public Geo createProperty(final String value) {
                 return new Geo(value);
             }
         });
@@ -265,7 +265,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Clazz createProperty(String value) {
+            public Clazz createProperty(final String value) {
                 if (Clazz.CONFIDENTIAL.getValue().equals(value)) {
                     return Clazz.CONFIDENTIAL;
                 }
@@ -283,7 +283,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Key createProperty(String value) {
+            public Key createProperty(final String value) {
                 return new Key(value);
             }
         });
@@ -292,7 +292,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Agent createProperty(String value) {
+            public Agent createProperty(final String value) {
                 return new Agent(value);
             }
         });
@@ -301,7 +301,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Birth createProperty(String value) {
+            public Birth createProperty(final String value) {
                 return new Birth(value);
             }
         });
@@ -310,7 +310,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public CalAdrUri createProperty(String value) throws URISyntaxException {
+            public CalAdrUri createProperty(final String value) throws URISyntaxException {
                 return new CalAdrUri(value);
             }
         });
@@ -319,7 +319,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public CalUri createProperty(String value) throws URISyntaxException {
+            public CalUri createProperty(final String value) throws URISyntaxException {
                 return new CalUri(value);
             }
         });
@@ -328,7 +328,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Categories createProperty(String value) {
+            public Categories createProperty(final String value) {
                 return new Categories(value);
             }
         });
@@ -337,7 +337,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public DDay createProperty(String value) {
+            public DDay createProperty(final String value) {
                 return new DDay(value);
             }
         });
@@ -346,7 +346,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Death createProperty(String value) {
+            public Death createProperty(final String value) {
                 return new Death(value);
             }
         });
@@ -355,7 +355,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public FbUrl createProperty(String value) throws URISyntaxException {
+            public FbUrl createProperty(final String value) throws URISyntaxException {
                 return new FbUrl(value);
             }
         });
@@ -364,7 +364,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Impp createProperty(String value) throws URISyntaxException {
+            public Impp createProperty(final String value) throws URISyntaxException {
                 return new Impp(value);
             }
         });
@@ -373,7 +373,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Kind createProperty(String value) {
+            public Kind createProperty(final String value) {
                 return new Kind(value);
             }
         });
@@ -382,7 +382,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Label createProperty(String value) {
+            public Label createProperty(final String value) {
                 return new Label(value);
             }
         });
@@ -391,7 +391,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public net.fortuna.ical4j.vcard.property.Language createProperty(String value) {
+            public net.fortuna.ical4j.vcard.property.Language createProperty(final String value) {
                 return new net.fortuna.ical4j.vcard.property.Language(value);
             }
         });
@@ -400,7 +400,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Logo createProperty(String value) throws URISyntaxException {
+            public Logo createProperty(final String value) throws URISyntaxException {
                 return new Logo(value);
             }
         });
@@ -409,7 +409,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Member createProperty(String value) throws URISyntaxException {
+            public Member createProperty(final String value) throws URISyntaxException {
                 return new Member(value);
             }
         });
@@ -418,7 +418,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Name createProperty(String value) {
+            public Name createProperty(final String value) {
                 return new Name(value);
             }
         });
@@ -427,7 +427,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Nickname createProperty(String value) {
+            public Nickname createProperty(final String value) {
                 return new Nickname(value);
             }
         });
@@ -436,7 +436,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Note createProperty(String value) {
+            public Note createProperty(final String value) {
                 return new Note(value);
             }
         });
@@ -445,7 +445,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Photo createProperty(String value) throws URISyntaxException {
+            public Photo createProperty(final String value) throws URISyntaxException {
                 return new Photo(value);
             }
         });
@@ -454,7 +454,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public ProdId createProperty(String value) {
+            public ProdId createProperty(final String value) {
                 return new ProdId(value);
             }
         });
@@ -463,7 +463,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Related createProperty(String value) throws URISyntaxException {
+            public Related createProperty(final String value) throws URISyntaxException {
                 return new Related(value);
             }
         });
@@ -472,7 +472,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Revision createProperty(String value) throws ParseException {
+            public Revision createProperty(final String value) throws ParseException {
                 return new Revision(value);
             }
         });
@@ -481,7 +481,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Role createProperty(String value) {
+            public Role createProperty(final String value) {
                 return new Role(value);
             }
         });
@@ -490,7 +490,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public SortString createProperty(String value) {
+            public SortString createProperty(final String value) {
                 return new SortString(value);
             }
         });
@@ -499,7 +499,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Sound createProperty(String value) throws URISyntaxException {
+            public Sound createProperty(final String value) throws URISyntaxException {
                 return new Sound(value);
             }
         });
@@ -508,7 +508,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Source createProperty(String value) throws URISyntaxException {
+            public Source createProperty(final String value) throws URISyntaxException {
                 return new Source(value);
             }
         });
@@ -517,7 +517,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Title createProperty(String value) {
+            public Title createProperty(final String value) {
                 return new Title(value);
             }
         });
@@ -526,7 +526,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Tz createProperty(String value) {
+            public Tz createProperty(final String value) {
                 return new Tz(value);
             }
         });
@@ -535,7 +535,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Uid createProperty(String value) throws URISyntaxException {
+            public Uid createProperty(final String value) throws URISyntaxException {
                 return new Uid(value);
             }
         });
@@ -544,7 +544,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Url createProperty(String value) throws URISyntaxException {
+            public Url createProperty(final String value) throws URISyntaxException {
                 return new Url(value);
             }
         });
@@ -562,7 +562,7 @@ public final class VCardBuilder {
     
     private static final int BUFFER_SIZE = 1024;
     
-    private BufferedReader reader;
+    private final BufferedReader reader;
     
     /**
      * @param in
@@ -577,7 +577,7 @@ public final class VCardBuilder {
      * @throws ParserException 
      */
     public VCard build() throws IOException, ParserException {
-        VCard vcard = new VCard();
+        final VCard vcard = new VCard();
         
         String line = null;
         String lastLine = null;
@@ -601,7 +601,7 @@ public final class VCardBuilder {
                 catch (ParseException e) {
                     throw new ParserException("Error parsing line", lineNo, e);
                 }
-                List<Parameter> params = parseParameters(line);
+                final List<Parameter> params = parseParameters(line);
                 if (!params.isEmpty()) {
                     property.getParameters().addAll(params);
                 }
@@ -623,15 +623,15 @@ public final class VCardBuilder {
      * @throws ParseException 
      * @throws URISyntaxException 
      */
-    private Property parseProperty(String line) throws URISyntaxException, ParseException {
+    private Property parseProperty(final String line) throws URISyntaxException, ParseException {
         Matcher matcher = PROPERTY_NAME_PATTERN.matcher(line);
         if (matcher.find()) {
-            String propertyName = matcher.group();
-            PropertyFactory<?> factory = PROPERTY_FACTORIES.get(Property.Id.valueOf(propertyName));
+            final String propertyName = matcher.group();
+            final PropertyFactory<?> factory = PROPERTY_FACTORIES.get(Property.Id.valueOf(propertyName));
             
             matcher = PROPERTY_VALUE_PATTERN.matcher(line);
             if (matcher.find()) {
-                String propertyValue = matcher.group(0);
+                final String propertyValue = matcher.group(0);
                 return factory.createProperty(propertyValue);
             }
         }
@@ -642,14 +642,14 @@ public final class VCardBuilder {
      * @param line
      * @return
      */
-    private List<Parameter> parseParameters(String line) {
-        List<Parameter> parameters = new ArrayList<Parameter>();
-        Matcher matcher = PARAMETERS_PATTERN.matcher(line);
+    private List<Parameter> parseParameters(final String line) {
+        final List<Parameter> parameters = new ArrayList<Parameter>();
+        final Matcher matcher = PARAMETERS_PATTERN.matcher(line);
         if (matcher.find()) {
-            String[] params = matcher.group().split(";");
+            final String[] params = matcher.group().split(";");
             for (String param : params) {
-                String[] vals = param.split("=");
-                ParameterFactory<? extends Parameter> factory = PARAM_FACTORIES.get(Parameter.Id.valueOf(vals[0]));
+                final String[] vals = param.split("=");
+                final ParameterFactory<? extends Parameter> factory = PARAM_FACTORIES.get(Parameter.Id.valueOf(vals[0]));
                 parameters.add(factory.createParameter(vals[1]));
             }
         }

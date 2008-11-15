@@ -50,7 +50,7 @@ public final class Language extends Parameter {
      */
     private static final long serialVersionUID = 8762124184853766503L;
     
-    private Locale locale;
+    private final Locale locale;
     
     /**
      * @param value a vCard-compliant string representation
@@ -75,19 +75,12 @@ public final class Language extends Parameter {
         return locale;
     }
 
-    /**
-     * @param locale the locale to set
-     */
-    public void setLocale(Locale locale) {
-        this.locale = locale;
-    }
-
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Parameter#getValue()
      */
     @Override
     public String getValue() {
-        StringBuilder b = new StringBuilder();
+        final StringBuilder b = new StringBuilder();
         b.append(locale.getLanguage());
         if (!locale.getCountry().isEmpty()) {
             b.append('-');

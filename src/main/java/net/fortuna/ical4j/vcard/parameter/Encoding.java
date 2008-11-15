@@ -50,7 +50,7 @@ public final class Encoding extends Parameter {
     
     public static final Encoding B = new Encoding("b");
     
-    private String value;
+    private final String value;
     
     /**
      * @param value

@@ -130,7 +130,7 @@ public final class N extends Property {
      */
     @Override
     public String getValue() {
-        StringBuilder b = new StringBuilder();
+        final StringBuilder b = new StringBuilder();
         if (isNotEmpty(familyName)) {
             b.append(familyName);
         }

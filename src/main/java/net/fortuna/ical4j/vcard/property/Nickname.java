@@ -70,7 +70,7 @@ public final class Nickname extends Property {
      */
     @Override
     public String getValue() {
-        StringBuilder b = new StringBuilder();
+        final StringBuilder b = new StringBuilder();
         for (int i = 0; i < names.length; i++) {
             if (i > 0) {
                 b.append(',');

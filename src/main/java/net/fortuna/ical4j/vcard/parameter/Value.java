@@ -54,7 +54,7 @@ public final class Value extends Parameter {
 
     public static final Value URI = new Value("uri");
     
-    private String value;
+    private final String value;
     
     /**
      * @param value

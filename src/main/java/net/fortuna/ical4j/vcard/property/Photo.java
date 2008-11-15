@@ -136,7 +136,7 @@ public final class Photo extends Property {
         }
         else if (binary != null) {
             try {
-                BinaryEncoder encoder = new Base64();
+                final BinaryEncoder encoder = new Base64();
                 return new String(encoder.encode(binary));
             }
             catch (EncoderException ee) {

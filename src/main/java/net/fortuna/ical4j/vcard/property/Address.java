@@ -158,7 +158,7 @@ public final class Address extends Property {
      */
     @Override
     public String getValue() {
-        StringBuilder b = new StringBuilder();
+        final StringBuilder b = new StringBuilder();
         if (isNotEmpty(poBox)) {
             b.append(escape(poBox));
         }

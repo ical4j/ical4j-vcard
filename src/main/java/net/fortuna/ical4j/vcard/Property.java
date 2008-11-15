@@ -107,11 +107,11 @@ public abstract class Property implements Serializable {
         }
     };
     
-    Id id;
+    final Id id;
     
     String extendedName;
     
-    private List<Parameter> parameters;
+    private final List<Parameter> parameters;
 
     /**
      * @param extendedName a non-standard property name
@@ -149,8 +149,8 @@ public abstract class Property implements Serializable {
      * @param id a parameter identifier
      * @return a list of parameters
      */
-    public final List<Parameter> getParameters(Parameter.Id id) {
-        List<Parameter> matches = new ArrayList<Parameter>();
+    public final List<Parameter> getParameters(final Parameter.Id id) {
+        final List<Parameter> matches = new ArrayList<Parameter>();
         for (Parameter p : parameters) {
             if (p.id.equals(id)) {
                 matches.add(p);
@@ -164,7 +164,7 @@ public abstract class Property implements Serializable {
      * @param id a parameter identifier
      * @return the first matching parameter, or null if no parameters with the specified identifier are found
      */
-    public final Parameter getParameter(Parameter.Id id) {
+    public final Parameter getParameter(final Parameter.Id id) {
         for (Parameter p : parameters) {
             if (p.id.equals(id)) {
                 return p;
@@ -178,8 +178,8 @@ public abstract class Property implements Serializable {
      * @param name a non-standard parameter name
      * @return a list of parameters
      */
-    public final List<Parameter> getExtendedParameters(String name) {
-        List<Parameter> matches = new ArrayList<Parameter>();
+    public final List<Parameter> getExtendedParameters(final String name) {
+        final List<Parameter> matches = new ArrayList<Parameter>();
         for (Parameter p : parameters) {
             if (p.id.equals(Parameter.Id.EXTENDED) && p.extendedName.equals(name)) {
                 matches.add(p);
@@ -193,7 +193,7 @@ public abstract class Property implements Serializable {
      * @param name a non-standard parameter name
      * @return the first matching parameter, or null if no non-standard parameters with the specified name are found
      */
-    public final Parameter getExtendedParameter(String name) {
+    public final Parameter getExtendedParameter(final String name) {
         for (Parameter p : parameters) {
             if (p.id.equals(Parameter.Id.EXTENDED) && p.extendedName.equals(name)) {
                 return p;
@@ -212,7 +212,7 @@ public abstract class Property implements Serializable {
      */
     @Override
     public final String toString() {
-        StringBuilder b = new StringBuilder();
+        final StringBuilder b = new StringBuilder();
         if (Id.EXTENDED.equals(id)) {
             b.append("X-");
             b.append(extendedName);

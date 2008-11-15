@@ -58,7 +58,7 @@ public abstract class Parameter implements Serializable {
         EXTENDED
     };
     
-    Id id;
+    final Id id;
     
     String extendedName;
     
@@ -87,7 +87,7 @@ public abstract class Parameter implements Serializable {
      */
     @Override
     public final String toString() {
-        StringBuilder b = new StringBuilder();
+        final StringBuilder b = new StringBuilder();
         if (Id.EXTENDED.equals(id)) {
             b.append("X-");
             b.append(extendedName);

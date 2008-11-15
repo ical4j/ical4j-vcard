@@ -53,7 +53,7 @@ public final class VCard implements Serializable {
      */
     private static final long serialVersionUID = -4784034340843199392L;
 
-    private List<Property> properties;
+    private final List<Property> properties;
     
     /**
      * Default constructor.
@@ -84,8 +84,8 @@ public final class VCard implements Serializable {
      * @param id a property identifier
      * @return a list of properties matching the specified identifier
      */
-    public List<Property> getProperties(Id id) {
-        List<Property> matches = new ArrayList<Property>();
+    public List<Property> getProperties(final Id id) {
+        final List<Property> matches = new ArrayList<Property>();
         for (Property p : properties) {
             if (p.id.equals(id)) {
                 matches.add(p);
@@ -99,7 +99,7 @@ public final class VCard implements Serializable {
      * @param id a property identifier
      * @return the first matching property, or null if no properties match
      */
-    public Property getProperty(Id id) {
+    public Property getProperty(final Id id) {
         for (Property p : properties) {
             if (p.id.equals(id)) {
                 return p;
@@ -114,8 +114,8 @@ public final class VCard implements Serializable {
      * @param name a non-standard property name
      * @return a list of non-standard properties matching the specified name
      */
-    public List<Property> getExtendedProperties(String name) {
-        List<Property> matches = new ArrayList<Property>();
+    public List<Property> getExtendedProperties(final String name) {
+        final List<Property> matches = new ArrayList<Property>();
         for (Property p : properties) {
             if (p.id.equals(Id.EXTENDED) && p.extendedName.equals(name)) {
                 matches.add(p);
@@ -129,7 +129,7 @@ public final class VCard implements Serializable {
      * @param name a non-standard property name
      * @return the first matching property, or null if no properties match
      */
-    public Property getExtendedProperty(String name) {
+    public Property getExtendedProperty(final String name) {
         for (Property p : properties) {
             if (p.id.equals(Id.EXTENDED) && p.extendedName.equals(name)) {
                 return p;
@@ -143,7 +143,7 @@ public final class VCard implements Serializable {
      */
     @Override
     public String toString() {
-        StringBuilder b = new StringBuilder();
+        final StringBuilder b = new StringBuilder();
         b.append("BEGIN:VCARD");
         b.append(Strings.LINE_SEPARATOR);
         for (Property prop : properties) {
