@@ -35,6 +35,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import net.fortuna.ical4j.vcard.Property;
@@ -51,6 +53,15 @@ public final class Language extends Property {
     private static final long serialVersionUID = 1863658302945551760L;
     
     private Locale[] locales;
+    
+    public Language(String...values) {
+        super(Id.LANG);
+    	List<Locale> list = new ArrayList<Locale>();
+    	for (String value : values) {
+    		list.add(new Locale(value));
+    	}
+        this.locales = list.toArray(new Locale[list.size()]);
+    }
     
     /**
      * @param locales

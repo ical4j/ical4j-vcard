@@ -35,7 +35,10 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.text.ParseException;
+
 import net.fortuna.ical4j.model.Date;
+import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Property;
 
@@ -51,6 +54,19 @@ public final class Revision extends Property {
     private static final long serialVersionUID = -1342640230576672871L;
     
     private Date date;
+    
+    /**
+     * @param value
+     * @throws ParseException
+     */
+    public Revision(String value) throws ParseException {
+        super(Id.REV);
+    	try {
+			this.date = new DateTime(value);
+		} catch (ParseException e) {
+			this.date = new Date(value);
+		}
+    }
     
     /**
      * @param date

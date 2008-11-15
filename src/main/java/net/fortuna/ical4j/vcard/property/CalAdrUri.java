@@ -36,6 +36,7 @@
 package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Property;
@@ -53,6 +54,15 @@ public final class CalAdrUri extends Property {
     private static final long serialVersionUID = -6507220241297111022L;
     
     private URI uri;
+    
+    /**
+     * @param value
+     * @param types
+     * @throws URISyntaxException
+     */
+    public CalAdrUri(String value, Type...types) throws URISyntaxException {
+    	this(new URI(value), types);
+    }
     
     /**
      * @param uri

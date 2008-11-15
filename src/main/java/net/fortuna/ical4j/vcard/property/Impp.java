@@ -36,6 +36,7 @@
 package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
@@ -52,6 +53,15 @@ public final class Impp extends Property {
     private static final long serialVersionUID = 4042305605468586600L;
     
     private URI uri;
+
+    /**
+     * @param value
+     * @param types
+     * @throws URISyntaxException
+     */
+    public Impp(String value, Type...types) throws URISyntaxException {
+    	this(new URI(value), types);
+    }
     
     /**
      * @param uri
