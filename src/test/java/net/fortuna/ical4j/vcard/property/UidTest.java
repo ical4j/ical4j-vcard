@@ -36,40 +36,52 @@
 
 package net.fortuna.ical4j.vcard.property;
 
+import static org.junit.Assert.assertEquals;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.runners.Parameterized.Parameters;
-
 import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 
+import org.junit.Test;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author fortuna
- *
  */
 public class UidTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public UidTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    private Uid uid;
+    
+    private URI expectedUri;
+    
+    /**
+     * @param property
+     * @param expectedName
+     * @param expectedValue
+     * @param expectedParams
+     */
+    public UidTest(Uid uid, String expectedName,
+            String expectedValue, Parameter[] expectedParams, URI expectedUri) {
+        super(uid, expectedName, expectedValue, expectedParams);
+        this.uid = uid;
+        this.expectedUri = expectedUri;
+    }
+    
+    @Test
+    public void testGetUri() {
+        assertEquals(expectedUri, uid.getUri());
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Uid(URI.create("")), Id.UID.toString(), "", new Parameter[] {}});
+        URI uri = URI.create("");
+        params.add(new Object[] { new Uid(uri), Id.UID.toString(), "", new Parameter[] {}, uri });
         return params;
     }
 

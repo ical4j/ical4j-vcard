@@ -35,14 +35,16 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterTest;
 import net.fortuna.ical4j.vcard.Parameter.Id;
 
+import org.junit.Test;
 import org.junit.runners.Parameterized.Parameters;
 
 
@@ -52,21 +54,32 @@ import org.junit.runners.Parameterized.Parameters;
  */
 public class PidTest extends ParameterTest {
 
+    private Pid pid;
+    
+    private Integer expectedPid;
+    
     /**
      * @param parameter
      * @param expectedName
      * @param expectedValue
      */
-    public PidTest(Parameter parameter, String expectedName,
-            String expectedValue) {
-        super(parameter, expectedName, expectedValue);
+    public PidTest(Pid pid, String expectedName,
+            String expectedValue, Integer expectedPid) {
+        super(pid, expectedName, expectedValue);
+        this.pid = pid;
+        this.expectedPid = expectedPid;
+    }
+    
+    @Test
+    public void testGetPid() {
+        assertEquals(expectedPid, pid.getPid());
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Pid(1), Id.PID.toString(), "1"});
-        params.add(new Object[] {new Pid("1"), Id.PID.toString(), "1"});
+        params.add(new Object[] {new Pid(1), Id.PID.toString(), "1", 1});
+        params.add(new Object[] {new Pid("1"), Id.PID.toString(), "1", 1});
 //        params.add(new Object[] {new Pid("blah"), Id.PID.toString(), "1"});
         return params;
     }

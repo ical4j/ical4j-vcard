@@ -36,40 +36,52 @@
 
 package net.fortuna.ical4j.vcard.property;
 
+import static org.junit.Assert.assertEquals;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.runners.Parameterized.Parameters;
-
 import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 
+import org.junit.Test;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author fortuna
- *
  */
 public class MemberTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public MemberTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    private Member member;
+    
+    private URI expectedUri;
+    
+    /**
+     * @param property
+     * @param expectedName
+     * @param expectedValue
+     * @param expectedParams
+     */
+    public MemberTest(Member member, String expectedName,
+            String expectedValue, Parameter[] expectedParams, URI expectedUri) {
+        super(member, expectedName, expectedValue, expectedParams);
+        this.member = member;
+        this.expectedUri = expectedUri;
+    }
+    
+    @Test
+    public void testGetUri() {
+        assertEquals(expectedUri, member.getUri());
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Member(URI.create("")), Id.MEMBER.toString(), "", new Parameter[] {}});
+        URI uri = URI.create("");
+        params.add(new Object[] { new Member(uri), Id.MEMBER.toString(), "", new Parameter[] {}, uri });
         return params;
     }
 

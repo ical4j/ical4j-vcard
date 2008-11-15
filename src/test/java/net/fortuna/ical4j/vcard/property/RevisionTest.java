@@ -36,40 +36,54 @@
 
 package net.fortuna.ical4j.vcard.property;
 
+import static org.junit.Assert.assertEquals;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.runners.Parameterized.Parameters;
-
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 
+import org.junit.Test;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author fortuna
- *
  */
 public class RevisionTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public RevisionTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    private Revision revision;
+    
+    private Date expectedDate;
+    
+    /**
+     * @param property
+     * @param expectedName
+     * @param expectedValue
+     * @param expectedParams
+     */
+    public RevisionTest(Revision revision, String expectedName,
+            String expectedValue, Parameter[] expectedParams, Date expectedDate) {
+        super(revision, expectedName, expectedValue, expectedParams);
+        this.revision = revision;
+        this.expectedDate = expectedDate;
+    }
+    
+    @Test
+    public void testGetDate() {
+        assertEquals(expectedDate, revision.getDate());
+    }
 
     @Parameters
-    public static Collection<Object[]> parameters() {
+    public static Collection<Object[]> parameters() throws ParseException {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Revision(new Date(0)), Id.REV.toString(), "19700101", new Parameter[] {}});
+        Date date = new Date(0);
+        params.add(new Object[] { new Revision(date), Id.REV.toString(), "19700101", new Parameter[] {}, date });
+        params.add(new Object[] { new Revision("19700101"), Id.REV.toString(), "19700101", new Parameter[] {}, date });
         return params;
     }
 

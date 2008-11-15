@@ -35,16 +35,18 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-import org.junit.runners.Parameterized.Parameters;
-
-import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterTest;
 import net.fortuna.ical4j.vcard.Parameter.Id;
+
+import org.junit.Test;
+import org.junit.runners.Parameterized.Parameters;
 
 
 /**
@@ -53,14 +55,25 @@ import net.fortuna.ical4j.vcard.Parameter.Id;
  */
 public class LanguageTest extends ParameterTest {
 
+    private Language language;
+    
+    private Locale expectedLocale;
+    
     /**
      * @param parameter
      * @param expectedName
      * @param expectedValue
      */
-    public LanguageTest(Parameter parameter, String expectedName,
-            String expectedValue) {
-        super(parameter, expectedName, expectedValue);
+    public LanguageTest(Language language, String expectedName,
+            String expectedValue, Locale expectedLocale) {
+        super(language, expectedName, expectedValue);
+        this.language = language;
+        this.expectedLocale = expectedLocale;
+    }
+    
+    @Test
+    public void testGetLocale() {
+        assertEquals(expectedLocale, language.getLocale());
     }
 
     @Parameters
@@ -68,11 +81,11 @@ public class LanguageTest extends ParameterTest {
         List<Object[]> params = new ArrayList<Object[]>();
         
         Locale locale = new Locale("en", "AU");
-        params.add(new Object[] {new Language(locale), Id.LANGUAGE.toString(), "en-AU"});
+        params.add(new Object[] {new Language(locale), Id.LANGUAGE.toString(), "en-AU", locale});
 
         locale = new Locale("es", "ES", "Traditional_WIN");
-        params.add(new Object[] {new Language(locale), Id.LANGUAGE.toString(), "es-ES-Traditional_WIN"});
-        params.add(new Object[] {new Language("en"), Id.LANGUAGE.toString(), "en"});
+        params.add(new Object[] {new Language(locale), Id.LANGUAGE.toString(), "es-ES-Traditional_WIN", locale});
+        params.add(new Object[] {new Language("en"), Id.LANGUAGE.toString(), "en", new Locale("en")});
         return params;
     }
 }

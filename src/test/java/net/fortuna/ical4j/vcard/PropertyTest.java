@@ -38,6 +38,7 @@ package net.fortuna.ical4j.vcard;
 import static net.fortuna.ical4j.util.Strings.escape;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ import java.util.List;
 
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Parameter.Id;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 import org.junit.Test;
@@ -95,6 +97,31 @@ public class PropertyTest {
             assertTrue(property.getParameters(p.id).contains(p));
         }
     }
+
+    @Test
+    public void testGetParameterId() {
+        for (Parameter p : expectedParams) {
+            assertNotNull(property.getParameter(p.id));
+        }
+    }
+
+    @Test
+    public void testGetExtendedParametersId() {
+        for (Parameter p : expectedParams) {
+            if (Id.EXTENDED.equals(p.id)) {
+                assertTrue(property.getExtendedParameters(p.extendedName).contains(p));
+            }
+        }
+    }
+
+    @Test
+    public void testGetExtendedParameterId() {
+        for (Parameter p : expectedParams) {
+            if (Id.EXTENDED.equals(p.id)) {
+                assertNotNull(property.getExtendedParameter(p.extendedName));
+            }
+        }
+    }
     
     /**
      * Test method for {@link net.fortuna.ical4j.vcard.Property#getValue()}.
@@ -129,7 +156,7 @@ public class PropertyTest {
     
     @SuppressWarnings("serial")
     @Parameters
-    public static Collection<Object[]> parameters() {
+    public static Collection<Object[]> parameters() throws Exception {
         List<Object[]> params = new ArrayList<Object[]>();
 
         Property extended = new Property("extended") {
@@ -140,6 +167,13 @@ public class PropertyTest {
         };
         params.add(new Object[] {extended, "X-extended", "value", new Parameter[] {}});
 
+        Parameter extendedParam = new Parameter("extended-param") {
+            @Override
+            public String getValue() {
+                return null;
+            }
+        };
+        
         extended = new Property("extended2") {
             @Override
             public String getValue() {
@@ -147,8 +181,9 @@ public class PropertyTest {
             }
         };
         extended.getParameters().add(Type.WORK);
+        extended.getParameters().add(extendedParam);
         
-        params.add(new Object[] {extended, "X-extended2", "value2", new Parameter[] {Type.WORK}});
+        params.add(new Object[] {extended, "X-extended2", "value2", new Parameter[] {Type.WORK, extendedParam}});
         return params;
     }
 
