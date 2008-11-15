@@ -38,6 +38,8 @@ package net.fortuna.ical4j.vcard;
 
 import static org.junit.Assert.*;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -49,58 +51,61 @@ import org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author fortuna
- *
  */
 @RunWith(Parameterized.class)
 public class PropertyFactoryTest {
 
-	private PropertyFactory<Property> factory;
-	
-	private String extendedName;
-	
-	private String value;
-	
-	/**
-	 * @param factory
-	 * @param value
-	 */
-	public PropertyFactoryTest(PropertyFactory<Property> factory, String name, String value) {
-		this.factory = factory;
-		this.extendedName = name;
-		this.value = value;
-	}
+    private PropertyFactory<Property> factory;
 
-	/**
-	 * Test method for {@link net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)}.
-	 */
-	@Test
-	public void testCreateProperty() {
-		Property property = factory.createProperty(value);
-		assertEquals(extendedName, property.extendedName);
-		assertEquals(value, property.getValue());
-	}
-	
+    private String extendedName;
+
+    private String value;
+
+    /**
+     * @param factory
+     * @param value
+     */
+    public PropertyFactoryTest(PropertyFactory<Property> factory, String name,
+            String value) {
+        this.factory = factory;
+        this.extendedName = name;
+        this.value = value;
+    }
+
+    /**
+     * Test method for {@link net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)}.
+     * @throws ParseException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void testCreateProperty() throws URISyntaxException, ParseException {
+        Property property = factory.createProperty(value);
+        assertEquals(extendedName, property.extendedName);
+        assertEquals(value, property.getValue());
+    }
+
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
 
         PropertyFactory<Property> factory = new PropertyFactory<Property>() {
-        	/* (non-Javadoc)
-        	 * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
-        	 */
-        	@SuppressWarnings("serial")
-			@Override
-        	public Property createProperty(final String value) {
+            /*
+             * (non-Javadoc)
+             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+             */
+            @SuppressWarnings("serial")
+            @Override
+            public Property createProperty(final String value) {
                 return new Property("extended") {
                     @Override
                     public String getValue() {
                         return value;
                     }
                 };
-        	}
+            }
         };
-        
-        params.add(new Object[] {factory, "extended", "value"});
+
+        params.add(new Object[] { factory, "extended", "value" });
         return params;
     }
 }

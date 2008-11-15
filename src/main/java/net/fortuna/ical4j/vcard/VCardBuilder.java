@@ -40,6 +40,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -308,7 +310,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public CalAdrUri createProperty(String value) {
+            public CalAdrUri createProperty(String value) throws URISyntaxException {
                 return new CalAdrUri(value);
             }
         });
@@ -317,7 +319,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public CalUri createProperty(String value) {
+            public CalUri createProperty(String value) throws URISyntaxException {
                 return new CalUri(value);
             }
         });
@@ -353,7 +355,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public FbUrl createProperty(String value) {
+            public FbUrl createProperty(String value) throws URISyntaxException {
                 return new FbUrl(value);
             }
         });
@@ -362,7 +364,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Impp createProperty(String value) {
+            public Impp createProperty(String value) throws URISyntaxException {
                 return new Impp(value);
             }
         });
@@ -398,7 +400,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Logo createProperty(String value) {
+            public Logo createProperty(String value) throws URISyntaxException {
                 return new Logo(value);
             }
         });
@@ -407,7 +409,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Member createProperty(String value) {
+            public Member createProperty(String value) throws URISyntaxException {
                 return new Member(value);
             }
         });
@@ -443,7 +445,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Photo createProperty(String value) {
+            public Photo createProperty(String value) throws URISyntaxException {
                 return new Photo(value);
             }
         });
@@ -461,7 +463,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Related createProperty(String value) {
+            public Related createProperty(String value) throws URISyntaxException {
                 return new Related(value);
             }
         });
@@ -470,7 +472,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Revision createProperty(String value) {
+            public Revision createProperty(String value) throws ParseException {
                 return new Revision(value);
             }
         });
@@ -497,7 +499,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Sound createProperty(String value) {
+            public Sound createProperty(String value) throws URISyntaxException {
                 return new Sound(value);
             }
         });
@@ -506,7 +508,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Source createProperty(String value) {
+            public Source createProperty(String value) throws URISyntaxException {
                 return new Source(value);
             }
         });
@@ -533,7 +535,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Uid createProperty(String value) {
+            public Uid createProperty(String value) throws URISyntaxException {
                 return new Uid(value);
             }
         });
@@ -542,7 +544,7 @@ public final class VCardBuilder {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Url createProperty(String value) {
+            public Url createProperty(String value) throws URISyntaxException {
                 return new Url(value);
             }
         });
@@ -589,7 +591,16 @@ public final class VCardBuilder {
                 }
             }
             else if (!VCARD_END.matcher(line).matches()) {
-                Property property = parseProperty(line);
+                Property property;
+                try {
+                    property = parseProperty(line);
+                }
+                catch (URISyntaxException e) {
+                    throw new ParserException("Error parsing line", lineNo, e);
+                }
+                catch (ParseException e) {
+                    throw new ParserException("Error parsing line", lineNo, e);
+                }
                 List<Parameter> params = parseParameters(line);
                 if (!params.isEmpty()) {
                     property.getParameters().addAll(params);
@@ -609,8 +620,10 @@ public final class VCardBuilder {
     /**
      * @param line
      * @return
+     * @throws ParseException 
+     * @throws URISyntaxException 
      */
-    private Property parseProperty(String line) {
+    private Property parseProperty(String line) throws URISyntaxException, ParseException {
         Matcher matcher = PROPERTY_NAME_PATTERN.matcher(line);
         if (matcher.find()) {
             String propertyName = matcher.group();

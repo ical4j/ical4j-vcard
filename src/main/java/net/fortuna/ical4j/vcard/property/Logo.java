@@ -36,8 +36,11 @@
 package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
+import org.apache.commons.codec.BinaryDecoder;
 import org.apache.commons.codec.BinaryEncoder;
+import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
@@ -65,6 +68,21 @@ public final class Logo extends Property {
 
     private byte[] binary;
 
+    /**
+     * @param value
+     * @throws URISyntaxException
+     */
+    public Logo(String value) throws URISyntaxException {
+        super(Id.LOGO);
+        BinaryDecoder decoder = new Base64();
+        try {
+            this.binary = decoder.decode(value.getBytes());
+        }
+        catch (DecoderException e) {
+            this.uri = new URI(value);
+        }
+    }
+    
     /**
      * @param uri
      */

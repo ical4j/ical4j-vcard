@@ -36,6 +36,9 @@
 
 package net.fortuna.ical4j.vcard;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
+
 /**
  * @author fortuna
  */
@@ -44,6 +47,8 @@ public interface PropertyFactory<T extends Property> {
     /**
      * @param value
      * @return
+     * @throws URISyntaxException 
+     * @throws ParseException 
      */
-    T createProperty(String value);
+    T createProperty(String value) throws URISyntaxException, ParseException;
 }
