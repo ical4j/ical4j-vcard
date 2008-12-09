@@ -1,8 +1,4 @@
 /*
- * $Id$
- *
- * Created on 24/08/2008
- *
  * Copyright (c) 2008, Ben Fortuna
  * All rights reserved.
  *
@@ -42,6 +38,10 @@ import java.util.Locale;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
+ * $Id$
+ *
+ * Created on 24/08/2008
+ *
  * @author Ben
  */
 public final class Language extends Property {

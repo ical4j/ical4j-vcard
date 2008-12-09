@@ -1,8 +1,4 @@
 /*
- * $Id$
- *
- * Created on 21/08/2008
- *
  * Copyright (c) 2008, Ben Fortuna
  * All rights reserved.
  *
@@ -45,6 +41,10 @@ import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.util.Strings;
 
 /**
+ * $Id$
+ *
+ * Created on 21/08/2008
+ *
  * @author Ben
  *
  */

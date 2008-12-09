@@ -1,8 +1,4 @@
 /*
- * $Id$
- *
- * Created on 21/09/2008
- *
  * Copyright (c) 2008, Ben Fortuna
  * All rights reserved.
  *
@@ -39,6 +35,10 @@ import static net.fortuna.ical4j.util.Strings.escape;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
+ * $Id$
+ *
+ * Created on 21/09/2008
+ *
  * @author Ben
  *
  */
