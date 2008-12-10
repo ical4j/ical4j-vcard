@@ -1,8 +1,4 @@
 /*
- * $Id$
- *
- * Created on: 29/10/2008
- *
  * Copyright (c) 2008, Ben Fortuna
  * All rights reserved.
  *
@@ -52,6 +48,10 @@ import org.junit.Test;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
+ * $Id$
+ *
+ * Created on: 29/10/2008
+ *
  * @author fortuna
  */
 public class RevisionTest extends PropertyTest {

@@ -1,8 +1,4 @@
 /*
- * $Id$
- *
- * Created on 26/10/2008
- *
  * Copyright (c) 2008, Ben Fortuna
  * All rights reserved.
  *
@@ -50,6 +46,10 @@ import net.fortuna.ical4j.vcard.parameter.Value;
 
 
 /**
+ * $Id$
+ *
+ * Created on 26/10/2008
+ *
  * @author Ben
  *
  */

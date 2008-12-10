@@ -1,8 +1,4 @@
 /*
- * $Id$
- *
- * Created: [27/10/2008]
- *
  * Copyright (c) 2008, Ben Fortuna
  * All rights reserved.
  *
@@ -50,6 +46,10 @@ import org.junit.runners.Parameterized.Parameters;
 
 
 /**
+ * $Id$
+ *
+ * Created: [27/10/2008]
+ *
  * @author fortuna
  *
  */
