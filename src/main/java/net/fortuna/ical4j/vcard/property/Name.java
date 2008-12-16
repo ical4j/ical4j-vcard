@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2008, Ben Fortuna
  * All rights reserved.
  *
@@ -13,7 +13,7 @@
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
  *
- *  o Neither the id of Ben Fortuna nor the names of any other contributors
+ *  o Neither the name of Ben Fortuna nor the names of any other contributors
  * may be used to endorse or promote products derived from this software
  * without specific prior written permission.
  *
