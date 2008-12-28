@@ -35,6 +35,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Property.Id;
 
@@ -136,6 +137,13 @@ public final class VCard implements Serializable {
             }
         }
         return null;
+    }
+    
+    /**
+     * @throws ValidationException
+     */
+    public final void validate() throws ValidationException {
+        // TODO: Add validation..
     }
     
     /**
