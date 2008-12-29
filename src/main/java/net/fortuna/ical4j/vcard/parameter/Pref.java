@@ -29,78 +29,39 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.fortuna.ical4j.vcard;
 
-import static org.junit.Assert.assertEquals;
+package net.fortuna.ical4j.vcard.parameter;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import net.fortuna.ical4j.vcard.Parameter;
 
 /**
  * $Id$
  *
- * Created on 26/10/2008
+ * Created on: 30/12/2008
  *
  * @author Ben
  *
  */
-@RunWith(Parameterized.class)
-public class ParameterTest {
+public final class Pref extends Parameter {
 
-    private Parameter parameter;
-    
-    private String expectedName;
-    
-    private String expectedValue;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6246880477846039737L;
+
+    public static final Pref PREF = new Pref();
     
     /**
-     * @param parameter
      */
-    public ParameterTest(Parameter parameter, String expectedName, String expectedValue) {
-        this.parameter = parameter;
-        this.expectedName = expectedName;
-        this.expectedValue = expectedValue;
+    private Pref() {
+        super(Id.PREF);
     }
 
-    @Test
-    public void testGetValue() {
-        assertEquals(expectedValue, parameter.getValue());
-    }
-    
-    /**
-     * Test method for {@link net.fortuna.ical4j.vcard.Parameter#toString()}.
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Parameter#getValue()
      */
-    @Test
-    public void testToString() {
-        if (expectedValue != null) {
-            assertEquals(expectedName + "=" + expectedValue, parameter.toString());
-        }
-        else {
-            assertEquals(expectedName, parameter.toString());
-        }
-    }
-    
-    /**
-     * @return
-     */
-    @SuppressWarnings("serial")
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-        
-        Parameter extended = new Parameter("extended") {
-            @Override
-            public String getValue() {
-                return "value";
-            }
-        };
-        params.add(new Object[] {extended, "X-extended", "value"});
-        return params;
+    @Override
+    public String getValue() {
+        return null;
     }
 }

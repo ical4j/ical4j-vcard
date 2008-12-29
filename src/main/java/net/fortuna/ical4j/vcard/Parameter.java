@@ -53,7 +53,7 @@ public abstract class Parameter implements Serializable {
      */
     public enum Id {
         // 6.  Property Parameters
-        LANGUAGE, ENCODING, VALUE, PID, TYPE,
+        LANGUAGE, ENCODING, VALUE, PID, TYPE, PREF,
         // 7.10. Extended Properties and Parameters
         EXTENDED
     };
@@ -102,8 +102,10 @@ public abstract class Parameter implements Serializable {
         else {
             b.append(id);
         }
-        b.append('=');
-        b.append(getValue());
+        if (getValue() != null) {
+            b.append('=');
+            b.append(getValue());
+        }
         return b.toString();
     }
 }
