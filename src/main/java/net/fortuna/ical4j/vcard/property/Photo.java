@@ -34,7 +34,9 @@ package net.fortuna.ical4j.vcard.property;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
@@ -146,4 +148,13 @@ public final class Photo extends Property {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        for (Parameter param : getParameters()) {
+            assertPidParameter(param);
+        }
+    }
 }

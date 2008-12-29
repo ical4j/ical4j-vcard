@@ -33,6 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.math.BigDecimal;
 
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -94,6 +95,15 @@ public final class Geo extends Property {
      */
     public BigDecimal getLongitude() {
         return longitude;
+    }
+
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        // ; No parameters allowed
+        assertParametersEmpty();
     }
 
 }

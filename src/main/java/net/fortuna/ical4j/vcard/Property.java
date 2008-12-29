@@ -38,7 +38,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.fortuna.ical4j.model.Escapable;
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.parameter.Value;
 
 /**
  * $Id$
@@ -107,7 +109,7 @@ public abstract class Property implements Serializable {
         }
     };
     
-    final Id id;
+    private final Id id;
     
     String extendedName;
     
@@ -138,6 +140,13 @@ public abstract class Property implements Serializable {
     }
     
     /**
+     * @return the id
+     */
+    public final Id getId() {
+        return id;
+    }
+
+    /**
      * @return the parameters
      */
     public final List<Parameter> getParameters() {
@@ -152,7 +161,7 @@ public abstract class Property implements Serializable {
     public final List<Parameter> getParameters(final Parameter.Id id) {
         final List<Parameter> matches = new ArrayList<Parameter>();
         for (Parameter p : parameters) {
-            if (p.id.equals(id)) {
+            if (p.getId().equals(id)) {
                 matches.add(p);
             }
         }
@@ -166,7 +175,7 @@ public abstract class Property implements Serializable {
      */
     public final Parameter getParameter(final Parameter.Id id) {
         for (Parameter p : parameters) {
-            if (p.id.equals(id)) {
+            if (p.getId().equals(id)) {
                 return p;
             }
         }
@@ -181,7 +190,7 @@ public abstract class Property implements Serializable {
     public final List<Parameter> getExtendedParameters(final String name) {
         final List<Parameter> matches = new ArrayList<Parameter>();
         for (Parameter p : parameters) {
-            if (p.id.equals(Parameter.Id.EXTENDED) && p.extendedName.equals(name)) {
+            if (p.getId().equals(Parameter.Id.EXTENDED) && p.extendedName.equals(name)) {
                 matches.add(p);
             }
         }
@@ -195,7 +204,7 @@ public abstract class Property implements Serializable {
      */
     public final Parameter getExtendedParameter(final String name) {
         for (Parameter p : parameters) {
-            if (p.id.equals(Parameter.Id.EXTENDED) && p.extendedName.equals(name)) {
+            if (p.getId().equals(Parameter.Id.EXTENDED) && p.extendedName.equals(name)) {
                 return p;
             }
         }
@@ -206,6 +215,61 @@ public abstract class Property implements Serializable {
      * @return a string representaion of the property propertyName
      */
     public abstract String getValue();
+    
+    /**
+     * @throws ValidationException
+     */
+    public abstract void validate() throws ValidationException;
+    
+    /**
+     * @throws ValidationException
+     */
+    protected final void assertParametersEmpty() throws ValidationException {
+        if (!getParameters().isEmpty()) {
+            throw new ValidationException("No parameters allowed for property: " + id);
+        }
+    }
+    
+    /**
+     * @param param
+     * @throws ValidationException
+     */
+    protected final void assertTextParameter(Parameter param) throws ValidationException {
+        if (!Value.TEXT.equals(param) && !Parameter.Id.LANGUAGE.equals(param.getId())
+                && !Parameter.Id.EXTENDED.equals(param.getId())) {
+            throw new ValidationException("Illegal parameter [" + param.getId() + "]");
+        }
+    }
+    
+    /**
+     * @param param
+     * @throws ValidationException
+     */
+    protected final void assertTypeParameter(Parameter param) throws ValidationException {
+        if (!Parameter.Id.TYPE.equals(param.getId())) {
+            throw new ValidationException("Illegal parameter [" + param.getId() + "]");
+        }
+    }
+    
+    /**
+     * @param param
+     * @throws ValidationException
+     */
+    protected final void assertPidParameter(Parameter param) throws ValidationException {
+        if (!Parameter.Id.PID.equals(param.getId())) {
+            throw new ValidationException("Illegal parameter [" + param.getId() + "]");
+        }
+    }
+    
+    /**
+     * @param paramId
+     * @throws ValidationException
+     */
+    protected final void assertOneOrLess(Parameter.Id paramId) throws ValidationException {
+        if (getParameters(paramId).size() > 1) {
+            throw new ValidationException("Parameter [" + paramId + "] exceeds allowable count");
+        }
+    }
     
     /**
      * @return a vCard-compliant string representation of the property

@@ -34,7 +34,9 @@ package net.fortuna.ical4j.vcard.property;
 import java.net.URI;
 
 import net.fortuna.ical4j.model.Escapable;
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
@@ -90,6 +92,21 @@ public final class Agent extends Property implements Escapable {
             return Strings.valueOf(uri);
         }
         return value;
+    }
+
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        for (Parameter param : getParameters()) {
+            try {
+                assertTextParameter(param);
+            }
+            catch (ValidationException ve) {
+                assertPidParameter(param);
+            }
+        }
     }
 
 }

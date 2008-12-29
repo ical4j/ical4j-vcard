@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.UtcOffset;
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
@@ -94,6 +95,15 @@ public final class Tz extends Property {
      */
     public UtcOffset getOffset() {
         return offset;
+    }
+
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        // ; No parameters allowed
+        assertParametersEmpty();
     }
 
 }

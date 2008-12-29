@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -94,6 +95,15 @@ public final class Language extends Property {
             b.append(locales[i].getLanguage());
         }
         return b.toString();
+    }
+
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        // TODO Auto-generated method stub
+        
     }
 
 }

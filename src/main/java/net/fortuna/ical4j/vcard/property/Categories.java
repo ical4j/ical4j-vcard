@@ -32,6 +32,8 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.CategoryList;
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -82,6 +84,22 @@ public final class Categories extends Property {
         return b.toString();
         */
         return categories.toString();
+    }
+
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        // ; Text parameters allowed
+        for (Parameter param : getParameters()) {
+            try {
+                assertTextParameter(param);
+            }
+            catch (ValidationException ve) {
+                assertPidParameter(param);
+            }
+        }
     }
 
 }

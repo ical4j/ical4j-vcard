@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
@@ -69,6 +71,21 @@ public final class Email extends Property {
     @Override
     public String getValue() {
         return value;
+    }
+
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        for (Parameter param : getParameters()) {
+            try {
+                assertTypeParameter(param);
+            }
+            catch (ValidationException ve) {
+                assertPidParameter(param);
+            }
+        }
     }
 
 }

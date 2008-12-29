@@ -34,7 +34,9 @@ package net.fortuna.ical4j.vcard.property;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -83,6 +85,16 @@ public final class Member extends Property {
     @Override
     public String getValue() {
         return Strings.valueOf(uri);
+    }
+
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        for (Parameter param : getParameters()) {
+            assertPidParameter(param);
+        }
     }
 
 }

@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Parameter;
 
 import java.util.ArrayList;
@@ -83,6 +84,15 @@ public final class Gender extends Property {
     @Override
     public String getValue() {
         return value;
+    }
+
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        // TODO Auto-generated method stub
+        
     }
 
 }

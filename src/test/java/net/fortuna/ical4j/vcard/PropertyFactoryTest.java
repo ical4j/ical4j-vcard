@@ -40,6 +40,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import net.fortuna.ical4j.model.ValidationException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -100,6 +102,12 @@ public class PropertyFactoryTest {
                     @Override
                     public String getValue() {
                         return value;
+                    }
+                    /* (non-Javadoc)
+                     * @see net.fortuna.ical4j.vcard.Property#validate()
+                     */
+                    @Override
+                    public void validate() throws ValidationException {
                     }
                 };
             }

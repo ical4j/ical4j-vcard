@@ -58,7 +58,7 @@ public abstract class Parameter implements Serializable {
         EXTENDED
     };
     
-    final Id id;
+    private final Id id;
     
     String extendedName;
     
@@ -77,6 +77,13 @@ public abstract class Parameter implements Serializable {
         this.id = id;
     }
     
+    /**
+     * @return the id
+     */
+    public final Id getId() {
+        return id;
+    }
+
     /**
      * @return a string representation of the value of the parameter
      */

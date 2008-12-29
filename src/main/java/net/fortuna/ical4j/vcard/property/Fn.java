@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -66,4 +68,14 @@ public final class Fn extends Property {
         return value;
     }
 
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        // ; Text parameters allowed
+        for (Parameter param : getParameters()) {
+            assertTextParameter(param);
+        }
+    }
 }

@@ -35,7 +35,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
@@ -88,6 +90,21 @@ public final class Related extends Property {
     @Override
     public String getValue() {
         return Strings.valueOf(uri);
+    }
+
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        for (Parameter param : getParameters()) {
+            try {
+                assertTypeParameter(param);
+            }
+            catch (ValidationException ve) {
+                assertPidParameter(param);
+            }
+        }
     }
 
 }

@@ -33,6 +33,8 @@ package net.fortuna.ical4j.vcard.property;
 
 import static net.fortuna.ical4j.util.Strings.escape;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
@@ -190,4 +192,23 @@ public final class Address extends Property {
         return b.toString();
     }
 
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        for (Parameter param : getParameters()) {
+            try {
+                assertTypeParameter(param);
+            }
+            catch (ValidationException ve) {
+                try {
+                    assertTextParameter(param);
+                }
+                catch (ValidationException ve2) {
+                    assertPidParameter(param);
+                }
+            }
+        }
+    }
 }

@@ -42,6 +42,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.property.Kind;
 import net.fortuna.ical4j.vcard.property.Name;
@@ -87,7 +88,7 @@ public class VCardTest {
     @Test
     public void testGetPropertiesName() {
         for (Property p : vCard.getProperties()) {
-            List<Property> matches = vCard.getProperties(p.id);
+            List<Property> matches = vCard.getProperties(p.getId());
             assertNotNull(matches);
             assertTrue(matches.size() >= 1);
             assertTrue(matches.contains(p));
@@ -97,7 +98,7 @@ public class VCardTest {
     @Test
     public void testGetPropertyName() {
         for (Property p : vCard.getProperties()) {
-            assertNotNull(vCard.getProperty(p.id));
+            assertNotNull(vCard.getProperty(p.getId()));
         }
         assertNull(vCard.getProperty(null));
     }
@@ -140,6 +141,12 @@ public class VCardTest {
             @Override
             public String getValue() {
                 return null;
+            }
+            /* (non-Javadoc)
+             * @see net.fortuna.ical4j.vcard.Property#validate()
+             */
+            @Override
+            public void validate() throws ValidationException {
             }
         });
         VCard vcard = new VCard(props);

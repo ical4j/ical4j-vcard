@@ -34,7 +34,10 @@ package net.fortuna.ical4j.vcard.property;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.parameter.Value;
 
 /**
  * $Id$
@@ -84,4 +87,16 @@ public final class Source extends Property {
         return uri.toString();
     }
 
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        // ; Only source parameters allowed
+        for (Parameter param : getParameters()) {
+            if (!Value.URI.equals(param) && !Parameter.Id.EXTENDED.equals(param.getId())) {
+                throw new ValidationException("Illegal parameter [" + param.getId() + "]");
+            }
+        }
+    }
 }

@@ -34,7 +34,9 @@ package net.fortuna.ical4j.vcard.property;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.Escapable;
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
@@ -97,6 +99,25 @@ public final class DDay extends Property implements Escapable {
             return description;
         }
         return Strings.valueOf(date);
+    }
+
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        // ; Only value parameter allowed
+        assertOneOrLess(Parameter.Id.VALUE);
+        
+        if (getParameters().size() > 1) {
+            throw new ValidationException("Illegal parameter count");
+        }
+        
+        for (Parameter param : getParameters()) {
+            if (!Value.TEXT.equals(param)) {
+                throw new ValidationException("Illegal parameter [" + param.getId() + "]");
+            }
+        }
     }
 
 }

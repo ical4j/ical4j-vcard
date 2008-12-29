@@ -88,7 +88,7 @@ public final class VCard implements Serializable {
     public List<Property> getProperties(final Id id) {
         final List<Property> matches = new ArrayList<Property>();
         for (Property p : properties) {
-            if (p.id.equals(id)) {
+            if (p.getId().equals(id)) {
                 matches.add(p);
             }
         }
@@ -102,7 +102,7 @@ public final class VCard implements Serializable {
      */
     public Property getProperty(final Id id) {
         for (Property p : properties) {
-            if (p.id.equals(id)) {
+            if (p.getId().equals(id)) {
                 return p;
             }
         }
@@ -118,7 +118,7 @@ public final class VCard implements Serializable {
     public List<Property> getExtendedProperties(final String name) {
         final List<Property> matches = new ArrayList<Property>();
         for (Property p : properties) {
-            if (p.id.equals(Id.EXTENDED) && p.extendedName.equals(name)) {
+            if (p.getId().equals(Id.EXTENDED) && p.extendedName.equals(name)) {
                 matches.add(p);
             }
         }
@@ -132,7 +132,7 @@ public final class VCard implements Serializable {
      */
     public Property getExtendedProperty(final String name) {
         for (Property p : properties) {
-            if (p.id.equals(Id.EXTENDED) && p.extendedName.equals(name)) {
+            if (p.getId().equals(Id.EXTENDED) && p.extendedName.equals(name)) {
                 return p;
             }
         }
@@ -143,7 +143,22 @@ public final class VCard implements Serializable {
      * @throws ValidationException
      */
     public final void validate() throws ValidationException {
-        // TODO: Add validation..
+        // ;A vCard object MUST include the VERSION and FN properties.
+        assertOne(Property.Id.VERSION);
+        assertOne(Property.Id.FN);
+        assertOne(Property.Id.N);
+    }
+    
+    
+    /**
+     * @param propertyId
+     * @throws ValidationException
+     */
+    private void assertOne(Property.Id propertyId) throws ValidationException {
+        List<Property> properties = getProperties(propertyId);
+        if (properties.size() != 1) {
+            throw new ValidationException("Property [" + propertyId + "] must be specified once");
+        }
     }
     
     /**

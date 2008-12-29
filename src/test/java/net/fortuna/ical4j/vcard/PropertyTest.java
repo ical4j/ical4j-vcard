@@ -42,6 +42,7 @@ import java.util.Collection;
 import java.util.List;
 
 import net.fortuna.ical4j.model.Escapable;
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Parameter.Id;
 import net.fortuna.ical4j.vcard.parameter.Type;
@@ -94,21 +95,21 @@ public class PropertyTest {
     @Test
     public void testGetParametersId() {
         for (Parameter p : expectedParams) {
-            assertTrue(property.getParameters(p.id).contains(p));
+            assertTrue(property.getParameters(p.getId()).contains(p));
         }
     }
 
     @Test
     public void testGetParameterId() {
         for (Parameter p : expectedParams) {
-            assertNotNull(property.getParameter(p.id));
+            assertNotNull(property.getParameter(p.getId()));
         }
     }
 
     @Test
     public void testGetExtendedParametersId() {
         for (Parameter p : expectedParams) {
-            if (Id.EXTENDED.equals(p.id)) {
+            if (Id.EXTENDED.equals(p.getId())) {
                 assertTrue(property.getExtendedParameters(p.extendedName).contains(p));
             }
         }
@@ -117,7 +118,7 @@ public class PropertyTest {
     @Test
     public void testGetExtendedParameterId() {
         for (Parameter p : expectedParams) {
-            if (Id.EXTENDED.equals(p.id)) {
+            if (Id.EXTENDED.equals(p.getId())) {
                 assertNotNull(property.getExtendedParameter(p.extendedName));
             }
         }
@@ -164,6 +165,12 @@ public class PropertyTest {
             public String getValue() {
                 return "value";
             }
+            /* (non-Javadoc)
+             * @see net.fortuna.ical4j.vcard.Property#validate()
+             */
+            @Override
+            public void validate() throws ValidationException {
+            }
         };
         params.add(new Object[] {extended, "X-extended", "value", new Parameter[] {}});
 
@@ -178,6 +185,12 @@ public class PropertyTest {
             @Override
             public String getValue() {
                 return "value2";
+            }
+            /* (non-Javadoc)
+             * @see net.fortuna.ical4j.vcard.Property#validate()
+             */
+            @Override
+            public void validate() throws ValidationException {
             }
         };
         extended.getParameters().add(Type.WORK);

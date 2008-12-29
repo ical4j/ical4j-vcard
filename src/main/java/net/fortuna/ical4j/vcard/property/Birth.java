@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Escapable;
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -67,4 +68,12 @@ public final class Birth extends Property implements Escapable {
         return value;
     }
 
+    /* (non-Javadoc)
+     * @see net.fortuna.ical4j.vcard.Property#validate()
+     */
+    @Override
+    public void validate() throws ValidationException {
+        // TODO Auto-generated method stub
+        
+    }
 }
