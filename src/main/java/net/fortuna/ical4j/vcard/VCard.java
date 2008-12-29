@@ -81,7 +81,7 @@ public final class VCard implements Serializable {
     
     /**
      * Returns a list of properties for the VCard instance with a matching identifier. Any modifications
-     * to this list will not effect the list referenced by the VCard instance.
+     * to this list will not affect the list referenced by the VCard instance.
      * @param id a property identifier
      * @return a list of properties matching the specified identifier
      */
@@ -111,7 +111,7 @@ public final class VCard implements Serializable {
     
     /**
      * Returns a list of non-standard properties for the VCard instance with a matching name. Any modifications
-     * to this list will not effect the list referenced by the VCard instance.
+     * to this list will not affect the list referenced by the VCard instance.
      * @param name a non-standard property name
      * @return a list of non-standard properties matching the specified name
      */
@@ -147,6 +147,10 @@ public final class VCard implements Serializable {
         assertOne(Property.Id.VERSION);
         assertOne(Property.Id.FN);
         assertOne(Property.Id.N);
+        
+        for (Property property : getProperties()) {
+            property.validate();
+        }
     }
     
     
