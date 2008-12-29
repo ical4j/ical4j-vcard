@@ -109,9 +109,11 @@ public abstract class Property implements Serializable {
         }
     };
     
+    private final Group group;
+    
     private final Id id;
     
-    String extendedName;
+    String extendedName = "";
     
     private final List<Parameter> parameters;
 
@@ -119,7 +121,15 @@ public abstract class Property implements Serializable {
      * @param extendedName a non-standard property name
      */
     public Property(String extendedName) {
-        this(Id.EXTENDED);
+        this(null, extendedName);
+    }
+    
+    /**
+     * @param group
+     * @param extendedName
+     */
+    public Property(Group group, String extendedName) {
+        this(group, Id.EXTENDED);
         this.extendedName = extendedName;
     }
     
@@ -127,6 +137,14 @@ public abstract class Property implements Serializable {
      * @param id the property type
      */
     public Property(Id id) {
+        this(null, id);
+    }
+
+    /**
+     * @param group
+     * @param id
+     */
+    public Property(Group group, Id id) {
         this(id, new ArrayList<Parameter>());
     }
     
@@ -135,10 +153,27 @@ public abstract class Property implements Serializable {
      * @param parameters
      */
     protected Property(Id id, List<Parameter> parameters) {
+        this(null, id, parameters);
+    }
+
+    /**
+     * @param group
+     * @param id
+     * @param parameters
+     */
+    protected Property(Group group, Id id, List<Parameter> parameters) {
+        this.group = group;
         this.id = id;
         this.parameters = parameters;
     }
     
+    /**
+     * @return the group
+     */
+    public final Group getGroup() {
+        return group;
+    }
+
     /**
      * @return the id
      */
@@ -277,6 +312,10 @@ public abstract class Property implements Serializable {
     @Override
     public final String toString() {
         final StringBuilder b = new StringBuilder();
+        if (group != null) {
+            b.append(group);
+            b.append('.');
+        }
         if (Id.EXTENDED.equals(id)) {
             b.append("X-");
             b.append(extendedName);
