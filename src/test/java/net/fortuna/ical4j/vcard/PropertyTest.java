@@ -71,6 +71,8 @@ public class PropertyTest {
     
     private Parameter[] expectedParams;
     
+    private Property expectedEqualTo;
+    
     /**
      * @param property
      * @param expectedName
@@ -82,6 +84,8 @@ public class PropertyTest {
         this.expectedName = expectedName;
         this.expectedValue = expectedValue;
         this.expectedParams = expectedParams;
+        // XXX: insert proper copy here..
+        this.expectedEqualTo = property;
     }
     
     /**
@@ -153,6 +157,11 @@ public class PropertyTest {
         b.append(Strings.LINE_SEPARATOR);
         
         assertEquals(b.toString(), property.toString());
+    }
+
+    @Test
+    public void testEquals() {
+        assertTrue(property.equals(expectedEqualTo));
     }
     
     @SuppressWarnings("serial")

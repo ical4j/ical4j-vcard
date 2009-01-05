@@ -37,6 +37,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
@@ -145,7 +148,7 @@ public abstract class Property implements Serializable {
      * @param id
      */
     public Property(Group group, Id id) {
-        this(id, new ArrayList<Parameter>());
+        this(group, id, new ArrayList<Parameter>());
     }
     
     /**
@@ -304,6 +307,22 @@ public abstract class Property implements Serializable {
         if (getParameters(paramId).size() > 1) {
             throw new ValidationException("Parameter [" + paramId + "] exceeds allowable count");
         }
+    }
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
     
     /**

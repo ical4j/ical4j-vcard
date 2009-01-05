@@ -33,6 +33,7 @@
 package net.fortuna.ical4j.vcard;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -59,13 +60,16 @@ public class GroupTest {
     
     private String expectedString;
     
+    private Group expectedEqualTo;
+    
     /**
      * @param group
      * @param expectedString
      */
-    public GroupTest(Group group, String expectedString) {
+    public GroupTest(Group group, String expectedString, Group expectedEqualTo) {
         this.group = group;
         this.expectedString = expectedString;
+        this.expectedEqualTo = expectedEqualTo;
     }
     
     @Test
@@ -73,12 +77,17 @@ public class GroupTest {
         assertEquals(expectedString, group.toString());
     }
     
+    @Test
+    public void testEquals() {
+        assertTrue(group.equals(expectedEqualTo));
+    }
+    
     @Parameters
     public static Collection<Object[]> parameters() throws Exception {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Group.HOME, "HOME"});
-        params.add(new Object[] {Group.WORK, "WORK"});
-        params.add(new Object[] {new Group("test"), "X-test"});
+        params.add(new Object[] {Group.HOME, "HOME", new Group(Group.Id.HOME)});
+        params.add(new Object[] {Group.WORK, "WORK", new Group(Group.Id.WORK)});
+        params.add(new Object[] {new Group("test"), "X-test", new Group("test")});
         return params;
     }
 }

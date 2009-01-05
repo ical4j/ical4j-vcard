@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -59,6 +60,8 @@ public class ParameterTest {
     
     private String expectedValue;
     
+    private Parameter expectedEqualTo;
+    
     /**
      * @param parameter
      */
@@ -66,6 +69,8 @@ public class ParameterTest {
         this.parameter = parameter;
         this.expectedName = expectedName;
         this.expectedValue = expectedValue;
+        // XXX: insert proper copy here..
+        this.expectedEqualTo = parameter;
     }
 
     @Test
@@ -84,6 +89,11 @@ public class ParameterTest {
         else {
             assertEquals(expectedName, parameter.toString());
         }
+    }
+
+    @Test
+    public void testEquals() {
+        assertTrue(parameter.equals(expectedEqualTo));
     }
     
     /**
