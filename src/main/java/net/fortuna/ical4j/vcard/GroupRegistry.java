@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, Ben Fortuna
+ * Copyright (c) 2009, Ben Fortuna
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,32 +32,55 @@
 
 package net.fortuna.ical4j.vcard;
 
-import java.net.URISyntaxException;
-import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
+
+import net.fortuna.ical4j.vcard.Group.Id;
 
 /**
  * $Id$
  *
- * Created on: 30/10/2008
+ * Created on: 05/01/2009
  *
- * @author fortuna
+ * @author Ben
+ *
  */
-public interface PropertyFactory<T extends Property> {
+public class GroupRegistry {
 
-    /**
-     * @param value
-     * @return
-     * @throws URISyntaxException 
-     * @throws ParseException 
-     */
-    T createProperty(String value) throws URISyntaxException, ParseException;
+    private Map<Id, Group> defaultGroups;
+    
+    private Map<String, Group> extendedGroups;
     
     /**
-     * @param group
+     * 
+     */
+    public GroupRegistry() {
+        defaultGroups = new HashMap<Id, Group>();
+        defaultGroups.put(Id.HOME, Group.HOME);
+        defaultGroups.put(Id.WORK, Group.WORK);
+        extendedGroups = new HashMap<String, Group>();
+    }
+    
+    /**
      * @param value
      * @return
-     * @throws URISyntaxException
-     * @throws ParseException
      */
-    T createProperty(Group group, String value) throws URISyntaxException, ParseException;
+    public Group getGroup(String value) {
+        Group group = null;
+        try {
+            group = defaultGroups.get(Id.valueOf(value));
+        }
+        catch (Exception e) {
+            group = extendedGroups.get(value);
+        }
+        return group;
+    }
+    
+    /**
+     * @param extendedName
+     * @param factory
+     */
+    public void register(String extendedName, Group group) {
+        extendedGroups.put(extendedName, group);
+    }
 }

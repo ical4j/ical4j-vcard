@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, Ben Fortuna
+ * Copyright (c) 2009, Ben Fortuna
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,11 +32,14 @@
 
 package net.fortuna.ical4j.vcard;
 
-import static org.junit.Assert.*;
+import static junit.framework.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import net.fortuna.ical4j.vcard.parameter.Pref;
+import net.fortuna.ical4j.vcard.parameter.Type;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,62 +47,50 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
- * $Id$ Created on: 07/11/2008
- * @author fortuna
+ * $Id$
+ *
+ * Created on: 05/01/2009
+ *
+ * @author Ben
+ *
  */
 @RunWith(Parameterized.class)
-public class ParameterFactoryTest {
+public class ParameterFactoryRegistryTest {
 
-    private ParameterFactory<Parameter> factory;
-
-    private String extendedName;
-
-    private String value;
-
+    private ParameterFactoryRegistry registry;
+    
+    private String paramName;
+    
+    private String paramValue;
+    
+    private Parameter expectedParam;
+    
     /**
-     * @param factory
-     * @param value
+     * @param registry
+     * @param paramName
+     * @param expectedParam
      */
-    public ParameterFactoryTest(ParameterFactory<Parameter> factory, String name, String value) {
-        this.factory = factory;
-        this.extendedName = name;
-        this.value = value;
+    public ParameterFactoryRegistryTest(ParameterFactoryRegistry registry, String paramName,
+            String paramValue, Parameter expectedParam) {
+        this.registry = registry;
+        this.paramName = paramName;
+        this.paramValue = paramValue;
+        this.expectedParam = expectedParam;
     }
-
-    /**
-     * Test method for {@link net.fortuna.ical4j.vcard.ParameterFactory#createParameter(java.lang.String)}.
-     */
+    
     @Test
-    public void testCreateParameter() {
-        Parameter param = factory.createParameter(value);
-        assertEquals(extendedName, param.extendedName);
-        assertEquals(value, param.getValue());
+    public void testGetFactoryCreateParameter() {
+        ParameterFactory<? extends Parameter> factory = registry.getFactory(paramName);
+        assertEquals(expectedParam, factory.createParameter(paramValue));
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-
-        ParameterFactory<Parameter> factory = new ParameterFactory<Parameter>() {
-            /*
-             * (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.ParameterFactory#createParameter(java.lang.String)
-             */
-            @SuppressWarnings("serial")
-            @Override
-            public Parameter createParameter(final String value) {
-                return new Parameter("extended") {
-                    @Override
-                    public String getValue() {
-                        return value;
-                    }
-                };
-            }
-        };
-
-        params.add(new Object[] { factory, "extended", "value" });
-        params.add(new Object[] { factory, "extended", null });
+        
+        ParameterFactoryRegistry registry = new ParameterFactoryRegistry();
+        params.add(new Object[] {registry, Type.PREF.getId().toString(), Type.PREF.getValue(), Type.PREF});
+        params.add(new Object[] {registry, Pref.PREF.getId().toString(), Pref.PREF.getValue(), Pref.PREF});
         return params;
     }
-
 }

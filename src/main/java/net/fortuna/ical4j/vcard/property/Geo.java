@@ -34,6 +34,7 @@ package net.fortuna.ical4j.vcard.property;
 import java.math.BigDecimal;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -59,7 +60,15 @@ public final class Geo extends Property {
      * @param value
      */
     public Geo(String value) {
-        super(Id.GEO);
+        this(null, value);
+    }
+    
+    /**
+     * @param group
+     * @param value
+     */
+    public Geo(Group group, String value) {
+        super(group, Id.GEO);
         String[] components = value.split(",");
         this.latitude = new BigDecimal(components[0]);
         this.longitude = new BigDecimal(components[1]);

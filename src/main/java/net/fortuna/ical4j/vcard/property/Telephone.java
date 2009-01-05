@@ -34,6 +34,7 @@ package net.fortuna.ical4j.vcard.property;
 import java.net.URI;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
@@ -56,10 +57,36 @@ public final class Telephone extends Property {
     private URI uri;
     
     /**
+     * @param value
+     */
+    public Telephone(String value) {
+        this(null, value);
+    }
+    
+    /**
+     * @param group
+     * @param value
+     */
+    public Telephone(Group group, String value) {
+        super(group, Id.TEL);
+        this.uri = URI.create(value);
+    }
+    
+    /**
      * @param uri
+     * @param types
      */
     public Telephone(URI uri, Type...types) {
-        super(Id.TEL);
+        this(null, uri, types);
+    }
+    
+    /**
+     * @param group
+     * @param uri
+     * @param types
+     */
+    public Telephone(Group group, URI uri, Type...types) {
+        super(group, Id.TEL);
         this.uri = uri;
         for (Type type : types) {
             getParameters().add(type);

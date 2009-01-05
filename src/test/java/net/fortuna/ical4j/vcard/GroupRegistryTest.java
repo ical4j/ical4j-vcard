@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, Ben Fortuna
+ * Copyright (c) 2009, Ben Fortuna
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,11 +32,14 @@
 
 package net.fortuna.ical4j.vcard;
 
-import static org.junit.Assert.*;
+import static junit.framework.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import net.fortuna.ical4j.data.ParserException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,62 +47,52 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
- * $Id$ Created on: 07/11/2008
- * @author fortuna
+ * $Id$
+ *
+ * Created on: 05/01/2009
+ *
+ * @author Ben
+ *
  */
 @RunWith(Parameterized.class)
-public class ParameterFactoryTest {
+public class GroupRegistryTest {
 
-    private ParameterFactory<Parameter> factory;
-
-    private String extendedName;
-
-    private String value;
-
+    private GroupRegistry registry;
+    
+    private String groupName;
+    
+    private Group expectedGroup;
+    
     /**
-     * @param factory
-     * @param value
+     * @param registry
+     * @param groupName
+     * @param expectedGroup
      */
-    public ParameterFactoryTest(ParameterFactory<Parameter> factory, String name, String value) {
-        this.factory = factory;
-        this.extendedName = name;
-        this.value = value;
+    public GroupRegistryTest(GroupRegistry registry, String groupName, Group expectedGroup) {
+        this.registry = registry;
+        this.groupName = groupName;
+        this.expectedGroup = expectedGroup;
     }
-
+    
     /**
-     * Test method for {@link net.fortuna.ical4j.vcard.ParameterFactory#createParameter(java.lang.String)}.
+     * 
      */
     @Test
-    public void testCreateParameter() {
-        Parameter param = factory.createParameter(value);
-        assertEquals(extendedName, param.extendedName);
-        assertEquals(value, param.getValue());
+    public void testGetGroup() {
+        assertEquals(expectedGroup, registry.getGroup(groupName));
     }
+
 
     @Parameters
-    public static Collection<Object[]> parameters() {
+    public static Collection<Object[]> parameters() throws IOException, ParserException {
         List<Object[]> params = new ArrayList<Object[]>();
-
-        ParameterFactory<Parameter> factory = new ParameterFactory<Parameter>() {
-            /*
-             * (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.ParameterFactory#createParameter(java.lang.String)
-             */
-            @SuppressWarnings("serial")
-            @Override
-            public Parameter createParameter(final String value) {
-                return new Parameter("extended") {
-                    @Override
-                    public String getValue() {
-                        return value;
-                    }
-                };
-            }
-        };
-
-        params.add(new Object[] { factory, "extended", "value" });
-        params.add(new Object[] { factory, "extended", null });
+        
+        GroupRegistry registry = new GroupRegistry();
+        Group ext = new Group("EXT");
+        registry.register("EXT", ext);
+        params.add(new Object[] {registry, "HOME", Group.HOME});
+        params.add(new Object[] {registry, "WORK", Group.WORK});
+        params.add(new Object[] {registry, "EXT", ext});
         return params;
     }
-
 }

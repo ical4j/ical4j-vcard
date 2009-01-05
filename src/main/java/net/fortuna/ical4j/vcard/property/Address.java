@@ -34,6 +34,7 @@ package net.fortuna.ical4j.vcard.property;
 import static net.fortuna.ical4j.util.Strings.escape;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
@@ -71,7 +72,15 @@ public final class Address extends Property {
      * @param value
      */
     public Address(String value) {
-        super(Id.ADR);
+        this(null, value);
+    }
+    
+    /**
+     * @param group
+     * @param value
+     */
+    public Address(Group group, String value) {
+        super(group, Id.ADR);
         String[] components = value.split(";");
         this.poBox = components[0];
         this.extended = components[1];

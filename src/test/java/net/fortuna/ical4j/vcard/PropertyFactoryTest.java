@@ -59,6 +59,8 @@ public class PropertyFactoryTest {
 
     private PropertyFactory<Property> factory;
 
+    private Group group;
+    
     private String extendedName;
 
     private String value;
@@ -67,9 +69,9 @@ public class PropertyFactoryTest {
      * @param factory
      * @param value
      */
-    public PropertyFactoryTest(PropertyFactory<Property> factory, String name,
-            String value) {
+    public PropertyFactoryTest(PropertyFactory<Property> factory, Group group, String name, String value) {
         this.factory = factory;
+        this.group = group;
         this.extendedName = name;
         this.value = value;
     }
@@ -82,6 +84,14 @@ public class PropertyFactoryTest {
     @Test
     public void testCreateProperty() throws URISyntaxException, ParseException {
         Property property = factory.createProperty(value);
+        assertEquals(extendedName, property.extendedName);
+        assertEquals(value, property.getValue());
+    }
+    
+    @Test
+    public void testCreateGroupProperty() throws URISyntaxException, ParseException {
+        Property property = factory.createProperty(group, value);
+        assertEquals(group, property.getGroup());
         assertEquals(extendedName, property.extendedName);
         assertEquals(value, property.getValue());
     }
@@ -111,9 +121,30 @@ public class PropertyFactoryTest {
                     }
                 };
             }
+            /* (non-Javadoc)
+             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+             */
+            @SuppressWarnings("serial")
+            @Override
+            public Property createProperty(Group group, final String value)
+                    throws URISyntaxException, ParseException {
+                return new Property(group, "extended") {
+                    @Override
+                    public String getValue() {
+                        return value;
+                    }
+                    /* (non-Javadoc)
+                     * @see net.fortuna.ical4j.vcard.Property#validate()
+                     */
+                    @Override
+                    public void validate() throws ValidationException {
+                    }
+                };
+            }
         };
 
-        params.add(new Object[] { factory, "extended", "value" });
+        params.add(new Object[] { factory, null, "extended", "value" });
+        params.add(new Object[] { factory, Group.HOME, "extended", "value" });
         return params;
     }
 }

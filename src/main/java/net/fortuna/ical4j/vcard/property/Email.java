@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
@@ -58,7 +59,16 @@ public final class Email extends Property {
      * @param types
      */
     public Email(String value, Type...types) {
-        super(Id.EMAIL);
+        this(null, value, types);
+    }
+    
+    /**
+     * @param group
+     * @param value
+     * @param types
+     */
+    public Email(Group group, String value, Type...types) {
+        super(group, Id.EMAIL);
         this.value = value;
         for (Type type : types) {
             getParameters().add(type);

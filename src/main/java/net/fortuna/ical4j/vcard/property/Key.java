@@ -33,6 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
@@ -69,7 +70,15 @@ public final class Key extends Property {
      * @param value
      */
     public Key(String value) {
-        super(Id.KEY);
+        this(null, value);
+    }
+    
+    /**
+     * @param group
+     * @param value
+     */
+    public Key(Group group, String value) {
+        super(group, Id.KEY);
         this.value = value;
     }
     

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, Ben Fortuna
+ * Copyright (c) 2009, Ben Fortuna
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,11 +32,16 @@
 
 package net.fortuna.ical4j.vcard;
 
-import static org.junit.Assert.*;
+import static junit.framework.Assert.assertEquals;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import net.fortuna.ical4j.vcard.property.Org;
+import net.fortuna.ical4j.vcard.property.Version;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,62 +49,66 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
- * $Id$ Created on: 07/11/2008
- * @author fortuna
+ * $Id$
+ *
+ * Created on: 05/01/2009
+ *
+ * @author Ben
+ *
  */
 @RunWith(Parameterized.class)
-public class ParameterFactoryTest {
+public class PropertyFactoryRegistryTest {
 
-    private ParameterFactory<Parameter> factory;
-
-    private String extendedName;
-
-    private String value;
-
+    private PropertyFactoryRegistry registry;
+    
+    private Group group;
+    
+    private String propertyName;
+    
+    private String propertyValue;
+    
+    private Property expectedProperty;
+    
     /**
-     * @param factory
-     * @param value
+     * @param registry
+     * @param propertyName
+     * @param propertyValue
+     * @param expectedProperty
      */
-    public ParameterFactoryTest(ParameterFactory<Parameter> factory, String name, String value) {
-        this.factory = factory;
-        this.extendedName = name;
-        this.value = value;
+    public PropertyFactoryRegistryTest(PropertyFactoryRegistry registry, Group group, String propertyName,
+            String propertyValue, Property expectedProperty) {
+        this.registry = registry;
+        this.group = group;
+        this.propertyName = propertyName;
+        this.propertyValue = propertyValue;
+        this.expectedProperty = expectedProperty;
     }
-
+    
     /**
-     * Test method for {@link net.fortuna.ical4j.vcard.ParameterFactory#createParameter(java.lang.String)}.
+     * @throws URISyntaxException
+     * @throws ParseException
      */
     @Test
-    public void testCreateParameter() {
-        Parameter param = factory.createParameter(value);
-        assertEquals(extendedName, param.extendedName);
-        assertEquals(value, param.getValue());
+    public void testGetFactoryCreateProperty() throws URISyntaxException, ParseException {
+        PropertyFactory<? extends Property> factory = registry.getFactory(propertyName);
+        if (group != null) {
+            assertEquals(expectedProperty, factory.createProperty(group, propertyValue));
+        }
+        else {
+            assertEquals(expectedProperty, factory.createProperty(propertyValue));
+        }
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-
-        ParameterFactory<Parameter> factory = new ParameterFactory<Parameter>() {
-            /*
-             * (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.ParameterFactory#createParameter(java.lang.String)
-             */
-            @SuppressWarnings("serial")
-            @Override
-            public Parameter createParameter(final String value) {
-                return new Parameter("extended") {
-                    @Override
-                    public String getValue() {
-                        return value;
-                    }
-                };
-            }
-        };
-
-        params.add(new Object[] { factory, "extended", "value" });
-        params.add(new Object[] { factory, "extended", null });
+        
+        PropertyFactoryRegistry registry = new PropertyFactoryRegistry();
+        params.add(new Object[] {registry, null, Version.VERSION_4_0.getId().toString(), Version.VERSION_4_0.getValue(), Version.VERSION_4_0});
+        
+        Org org = new Org(Group.WORK, "iCal4j");
+        params.add(new Object[] {registry, org.getGroup(), org.getId().toString(), org.getValue(), org});
+        
         return params;
     }
-
 }

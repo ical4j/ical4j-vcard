@@ -33,6 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import static net.fortuna.ical4j.util.Strings.escape;
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
@@ -57,7 +58,15 @@ public final class Org extends Property {
      * @param value
      */
     public Org(String...value) {
-        super(Id.ORG);
+        this(null, value);
+    }
+    
+    /**
+     * @param group
+     * @param value
+     */
+    public Org(Group group, String...value) {
+        super(group, Id.ORG);
         this.values = value;
     }
     
