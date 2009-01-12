@@ -9,7 +9,7 @@
 	<groupId>net.fortuna.ical4j</groupId>
 	<artifactId>ical4j-vcard</artifactId>
 	<name>iCal4j VCard</name>
-	<version>0.9</version>
+	<version>0.9.1-SNAPSHOT</version>
 	<description>Support for the vCard specification</description>
 	<url>http://ical4j.sourceforge.net</url>
 	<issueManagement>
@@ -26,14 +26,9 @@
 	</licenses>
 	
 	<scm>
-		<connection>
-			scm:cvs:pserver:anonymous:@ical4j.cvs.sourceforge.net:/cvsroot/ical4j:ical4j-vcard 
-		</connection>
-		<developerConnection>
-			scm:cvs:ext:fortuna@ical4j.cvs.sourceforge.net:/cvsroot/ical4j:ical4j-vcard 
-		</developerConnection>
+		<connection>scm:cvs:pserver:anonymous:@ical4j.cvs.sourceforge.net:/cvsroot/ical4j:ical4j-vcard</connection>
+		<developerConnection>scm:cvs:ext:fortuna@ical4j.cvs.sourceforge.net:/cvsroot/ical4j:ical4j-vcard</developerConnection>
 		<url>http://ical4j.cvs.sourceforge.net/ical4j/ical4j-vcard</url>
-	  <tag>ical4j-vcard-0_9</tag>
   </scm>
 	
 	<build>
