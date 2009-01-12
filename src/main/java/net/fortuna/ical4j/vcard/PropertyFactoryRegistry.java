@@ -849,7 +849,7 @@ public class PropertyFactoryRegistry {
      * @param value
      * @return
      */
-    public PropertyFactory<? extends Property> getFactory(String value) {
+    public PropertyFactory<? extends Property> getFactory(final String value) {
         return defaultFactories.get(Id.valueOf(value));
     }
 }
