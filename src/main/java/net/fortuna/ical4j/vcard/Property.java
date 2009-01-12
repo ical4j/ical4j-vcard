@@ -272,7 +272,7 @@ public abstract class Property implements Serializable {
      * @param param
      * @throws ValidationException
      */
-    protected final void assertTextParameter(Parameter param) throws ValidationException {
+    protected final void assertTextParameter(final Parameter param) throws ValidationException {
         if (!Value.TEXT.equals(param) && !Parameter.Id.LANGUAGE.equals(param.getId())
                 && !Parameter.Id.EXTENDED.equals(param.getId())) {
             throw new ValidationException("Illegal parameter [" + param.getId() + "]");
@@ -283,7 +283,7 @@ public abstract class Property implements Serializable {
      * @param param
      * @throws ValidationException
      */
-    protected final void assertTypeParameter(Parameter param) throws ValidationException {
+    protected final void assertTypeParameter(final Parameter param) throws ValidationException {
         if (!Parameter.Id.TYPE.equals(param.getId())) {
             throw new ValidationException("Illegal parameter [" + param.getId() + "]");
         }
@@ -293,7 +293,7 @@ public abstract class Property implements Serializable {
      * @param param
      * @throws ValidationException
      */
-    protected final void assertPidParameter(Parameter param) throws ValidationException {
+    protected final void assertPidParameter(final Parameter param) throws ValidationException {
         if (!Parameter.Id.PID.equals(param.getId())) {
             throw new ValidationException("Illegal parameter [" + param.getId() + "]");
         }
@@ -303,7 +303,7 @@ public abstract class Property implements Serializable {
      * @param paramId
      * @throws ValidationException
      */
-    protected final void assertOneOrLess(Parameter.Id paramId) throws ValidationException {
+    protected final void assertOneOrLess(final Parameter.Id paramId) throws ValidationException {
         if (getParameters(paramId).size() > 1) {
             throw new ValidationException("Parameter [" + paramId + "] exceeds allowable count");
         }
@@ -313,7 +313,7 @@ public abstract class Property implements Serializable {
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
     }
 

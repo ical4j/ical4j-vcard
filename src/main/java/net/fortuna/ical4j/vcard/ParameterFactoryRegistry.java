@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 2009, Ben Fortuna
+/**
+ * Copyright (c) 2008, Ben Fortuna
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,7 +29,6 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package net.fortuna.ical4j.vcard;
 
 import java.util.HashMap;
@@ -114,7 +113,7 @@ public class ParameterFactoryRegistry {
              * @see net.fortuna.ical4j.vcard.ParameterFactory#createParameter(java.lang.String)
              */
             @Override
-            public Pref createParameter(String value) {
+            public Pref createParameter(final String value) {
                 return Pref.PREF;
             }
         });
@@ -124,7 +123,7 @@ public class ParameterFactoryRegistry {
      * @param value
      * @return
      */
-    public ParameterFactory<? extends Parameter> getFactory(String value) {
+    public ParameterFactory<? extends Parameter> getFactory(final String value) {
         return defaultFactories.get(Id.valueOf(value));
     }
 }

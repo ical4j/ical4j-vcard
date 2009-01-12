@@ -152,7 +152,7 @@ public final class VCardBuilder {
             
             final String propertyName = matcher.group();
             if (propertyName.indexOf('.') >= 0) {
-                String[] groupProperty = propertyName.split("\\.");
+                final String[] groupProperty = propertyName.split("\\.");
                 group = groupRegistry.getGroup(groupProperty[0]);
                 factory = propertyFactoryRegistry.getFactory(groupProperty[1]);
             }

@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 2009, Ben Fortuna
+/**
+ * Copyright (c) 2008, Ben Fortuna
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,7 +29,6 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package net.fortuna.ical4j.vcard;
 
 import java.util.HashMap;
@@ -65,7 +64,7 @@ public class GroupRegistry {
      * @param value
      * @return
      */
-    public Group getGroup(String value) {
+    public Group getGroup(final String value) {
         Group group = null;
         try {
             group = defaultGroups.get(Id.valueOf(value));
@@ -80,7 +79,7 @@ public class GroupRegistry {
      * @param extendedName
      * @param factory
      */
-    public void register(String extendedName, Group group) {
+    public void register(final String extendedName, final Group group) {
         extendedGroups.put(extendedName, group);
     }
 }

@@ -142,7 +142,7 @@ public final class VCard implements Serializable {
     /**
      * @throws ValidationException
      */
-    public final void validate() throws ValidationException {
+    public void validate() throws ValidationException {
         // ;A vCard object MUST include the VERSION and FN properties.
         assertOne(Property.Id.VERSION);
         assertOne(Property.Id.FN);
@@ -158,8 +158,8 @@ public final class VCard implements Serializable {
      * @param propertyId
      * @throws ValidationException
      */
-    private void assertOne(Property.Id propertyId) throws ValidationException {
-        List<Property> properties = getProperties(propertyId);
+    private void assertOne(final Property.Id propertyId) throws ValidationException {
+        final List<Property> properties = getProperties(propertyId);
         if (properties.size() != 1) {
             throw new ValidationException("Property [" + propertyId + "] must be specified once");
         }
