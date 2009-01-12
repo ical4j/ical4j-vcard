@@ -41,7 +41,9 @@
 	<fileSets>
 		<fileSet>
 			<includes>
+				<include>README</include>
 				<include>LICENSE</include>
+				<include>CHANGELOG</include>
 				<include>pom.xml</include>
 			</includes>
 		</fileSet>
