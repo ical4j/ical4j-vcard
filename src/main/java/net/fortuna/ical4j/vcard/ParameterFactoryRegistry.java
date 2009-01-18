@@ -35,6 +35,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import net.fortuna.ical4j.vcard.Parameter.Id;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Language;
@@ -53,7 +56,11 @@ import net.fortuna.ical4j.vcard.parameter.Value;
  */
 public class ParameterFactoryRegistry {
 
+    private static final Log LOG = LogFactory.getLog(ParameterFactoryRegistry.class);
+    
     private Map<Id, ParameterFactory<? extends Parameter>> defaultFactories;
+
+    private Map<String, ParameterFactory<? extends Parameter>> extendedFactories;
     
     public ParameterFactoryRegistry() {
         defaultFactories = new HashMap<Id, ParameterFactory<? extends Parameter>>();
@@ -117,6 +124,8 @@ public class ParameterFactoryRegistry {
                 return Pref.PREF;
             }
         });
+        
+        extendedFactories = new HashMap<String, ParameterFactory<? extends Parameter>>();
     }
     
     /**
@@ -124,6 +133,20 @@ public class ParameterFactoryRegistry {
      * @return
      */
     public ParameterFactory<? extends Parameter> getFactory(final String value) {
-        return defaultFactories.get(Id.valueOf(value));
+        try {
+            return defaultFactories.get(Id.valueOf(value));
+        }
+        catch (Exception e) {
+            LOG.info("Not a default parameter: [" + value + "]");
+        }
+        return extendedFactories.get(value);
+    }
+    
+    /**
+     * @param extendedName
+     * @param factory
+     */
+    public void register(String extendedName, ParameterFactory<Parameter> factory) {
+        extendedFactories.put(extendedName, factory);
     }
 }

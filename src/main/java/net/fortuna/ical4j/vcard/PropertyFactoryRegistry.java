@@ -79,6 +79,9 @@ import net.fortuna.ical4j.vcard.property.Uid;
 import net.fortuna.ical4j.vcard.property.Url;
 import net.fortuna.ical4j.vcard.property.Version;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * $Id$
  *
@@ -89,7 +92,11 @@ import net.fortuna.ical4j.vcard.property.Version;
  */
 public class PropertyFactoryRegistry {
 
+    private static final Log LOG = LogFactory.getLog(PropertyFactoryRegistry.class);
+    
     private Map<Id, PropertyFactory<? extends Property>> defaultFactories;
+
+    private Map<String, PropertyFactory<? extends Property>> extendedFactories;
     
     public PropertyFactoryRegistry() {
         defaultFactories = new HashMap<Id, PropertyFactory<? extends Property>>();
@@ -843,6 +850,8 @@ public class PropertyFactoryRegistry {
                 return null;
             }
         });
+        
+        extendedFactories = new HashMap<String, PropertyFactory<? extends Property>>();
     }
     
     /**
@@ -850,6 +859,20 @@ public class PropertyFactoryRegistry {
      * @return
      */
     public PropertyFactory<? extends Property> getFactory(final String value) {
-        return defaultFactories.get(Id.valueOf(value));
+        try {
+            return defaultFactories.get(Id.valueOf(value));
+        }
+        catch (Exception e) {
+            LOG.info("Not a default property: [" + value + "]");
+        }
+        return extendedFactories.get(value);
+    }
+    
+    /**
+     * @param extendedName
+     * @param factory
+     */
+    public void register(String extendedName, PropertyFactory<Property> factory) {
+        extendedFactories.put(extendedName, factory);
     }
 }

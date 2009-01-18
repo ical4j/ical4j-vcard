@@ -34,6 +34,9 @@ package net.fortuna.ical4j.vcard;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import net.fortuna.ical4j.vcard.Group.Id;
 
 /**
@@ -46,6 +49,8 @@ import net.fortuna.ical4j.vcard.Group.Id;
  */
 public class GroupRegistry {
 
+    private static final Log LOG = LogFactory.getLog(GroupRegistry.class);
+    
     private Map<Id, Group> defaultGroups;
     
     private Map<String, Group> extendedGroups;
@@ -65,14 +70,13 @@ public class GroupRegistry {
      * @return
      */
     public Group getGroup(final String value) {
-        Group group = null;
         try {
-            group = defaultGroups.get(Id.valueOf(value));
+            return defaultGroups.get(Id.valueOf(value));
         }
         catch (Exception e) {
-            group = extendedGroups.get(value);
+            LOG.info("Not a default group: [" + value + "]");
         }
-        return group;
+        return extendedGroups.get(value);
     }
     
     /**
