@@ -33,6 +33,8 @@ package net.fortuna.ical4j.vcard;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -74,6 +76,13 @@ public final class VCardBuilder {
     
     private final ParameterFactoryRegistry parameterFactoryRegistry;
 
+    /**
+     * @param in
+     */
+    public VCardBuilder(InputStream in) {
+        this(new InputStreamReader(in));
+    }
+    
     /**
      * @param in
      */
