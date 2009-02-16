@@ -82,7 +82,7 @@ public class VCardOutputterTest {
     public void testOutput() throws IOException, ValidationException {
         StringWriter out = new StringWriter();
         outputter.output(card, out);
-        assertEquals(expectedOutput, out.toString());
+        assertEquals(expectedOutput, out.toString().replaceAll("\\r\\n ", ""));
     }
 
     @Parameters
