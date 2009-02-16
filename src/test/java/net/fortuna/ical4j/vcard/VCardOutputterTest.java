@@ -45,8 +45,6 @@ import java.util.List;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.ValidationException;
 
-import org.apache.commons.io.filefilter.DirectoryFileFilter;
-import org.apache.commons.io.filefilter.NotFileFilter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -89,10 +87,10 @@ public class VCardOutputterTest {
 
     @Parameters
     public static Collection<Object[]> parameters() throws IOException, ParserException {
-        VCardOutputter outputter = new VCardOutputter(false, 100);
+        VCardOutputter outputter = new VCardOutputter(false, 1000);
         VCardBuilder builder = null;
         List<Object[]> params = new ArrayList<Object[]>();
-        File[] testFiles = new File("src/test/resources/samples/valid").listFiles((FileFilter) new NotFileFilter(DirectoryFileFilter.INSTANCE));
+        File[] testFiles = new File("src/test/resources/samples/valid").listFiles((FileFilter) VCardFileFilter.INSTANCE);
         for (int i = 0; i < testFiles.length; i++) {
             builder = new VCardBuilder(new FileReader(testFiles[i]));
             VCard card = builder.build();

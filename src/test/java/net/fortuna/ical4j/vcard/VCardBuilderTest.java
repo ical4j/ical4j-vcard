@@ -31,7 +31,8 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -44,8 +45,6 @@ import java.util.List;
 
 import net.fortuna.ical4j.data.ParserException;
 
-import org.apache.commons.io.filefilter.DirectoryFileFilter;
-import org.apache.commons.io.filefilter.NotFileFilter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -87,7 +86,7 @@ public class VCardBuilderTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        File[] testFiles = new File("src/test/resources/samples/valid").listFiles((FileFilter) new NotFileFilter(DirectoryFileFilter.INSTANCE));
+        File[] testFiles = new File("src/test/resources/samples/valid").listFiles((FileFilter) VCardFileFilter.INSTANCE);
         for (int i = 0; i < testFiles.length; i++) {
             params.add(new Object[] {testFiles[i].getPath()});
         }

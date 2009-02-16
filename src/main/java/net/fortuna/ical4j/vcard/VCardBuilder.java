@@ -137,7 +137,9 @@ public final class VCardBuilder {
                 }
                 vcard.getProperties().add(property);
             }
-            lastLine = line;
+            if (line.trim().length() > 0) {
+                lastLine = line;
+            }
         }
         
         if (lineNo <= 1 || !VCARD_END.matcher(lastLine).matches()) {
