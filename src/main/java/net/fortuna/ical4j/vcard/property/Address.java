@@ -87,8 +87,12 @@ public final class Address extends Property {
         this.street = components[2];
         this.locality = components[3];
         this.region = components[4];
-        this.postcode = components[5];
-        this.country = components[6];
+        
+        // support VCARD 3.0 by allowing optional section..
+        if (components.length > 5) {
+            this.postcode = components[5];
+            this.country = components[6];
+        }
     }
     
     /**

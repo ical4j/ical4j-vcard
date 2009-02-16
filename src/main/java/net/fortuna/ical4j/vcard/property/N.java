@@ -71,9 +71,13 @@ public final class N extends Property {
         String[] names = value.split(";");
         this.familyName = names[0];
         this.givenName = names[1];
-        this.additionalNames = names[2].split(",");
-        this.prefixes = names[3].split(",");
-        this.suffixes = names[4].split(",");
+        
+        // support VCARD 3.0 by allowing optional section..
+        if (names.length > 2) {
+            this.additionalNames = names[2].split(",");
+            this.prefixes = names[3].split(",");
+            this.suffixes = names[4].split(",");
+        }
     }
     
     /**
