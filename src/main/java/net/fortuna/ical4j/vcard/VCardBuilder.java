@@ -103,22 +103,55 @@ public final class VCardBuilder {
     
     /**
      * @return
+     * @throws IOException
+     * @throws ParserException
+     */
+    public VCard build() throws IOException, ParserException {
+    	return build(true);
+    }
+    
+    /**
+     * @return
+     * @throws IOException
+     * @throws ParserException
+     */
+    public List<VCard> buildAll() throws IOException, ParserException {
+    	List<VCard> cards = new ArrayList<VCard>();
+    	while (true) {
+    	    VCard card = build(false);
+    	    if (card == null) {
+    	        return cards;
+    	    } else {
+    	        cards.add(card);
+    	    }
+    	}
+    }
+    
+    /**
+     * @return
      * @throws IOException 
      * @throws ParserException 
      */
-    public VCard build() throws IOException, ParserException {
-        final VCard vcard = new VCard();
+    private VCard build(boolean single) throws IOException, ParserException {
+        VCard vcard = null;
         
         String line = null;
         String lastLine = null;
-        int lineNo = 0;
+        int nonBlankLineNo = 0;
+        int totalLineNo = 0;
+        boolean end = false;
         
-        while ((line = reader.readLine()) != null) {
-            lineNo++;
-            if (lineNo == 1) {
+        while ((single || !end) && (line = reader.readLine()) != null) {
+        	totalLineNo++;
+        	if (line.trim().length() == 0) {
+        		continue; // ignore blank lines
+        	}
+            nonBlankLineNo++;
+            if (nonBlankLineNo == 1) {
                 if (!VCARD_BEGIN.matcher(line).matches()) {
-                    throw new ParserException(lineNo);
+                    throw new ParserException(nonBlankLineNo);
                 }
+                vcard = new VCard();
             }
             else if (!VCARD_END.matcher(line).matches()) {
                 Property property;
@@ -126,24 +159,28 @@ public final class VCardBuilder {
                     property = parseProperty(line);
                 }
                 catch (URISyntaxException e) {
-                    throw new ParserException("Error parsing line", lineNo, e);
+                    throw new ParserException("Error parsing line", totalLineNo, e);
                 }
                 catch (ParseException e) {
-                    throw new ParserException("Error parsing line", lineNo, e);
+                    throw new ParserException("Error parsing line", totalLineNo, e);
                 }
                 final List<Parameter> params = parseParameters(line);
                 if (!params.isEmpty()) {
                     property.getParameters().addAll(params);
                 }
-                vcard.getProperties().add(property);
+                if (property != null) {
+                	vcard.getProperties().add(property);
+                }
+            } else if (VCARD_END.matcher(line).matches()) {
+            	end = true;
             }
             if (line.trim().length() > 0) {
                 lastLine = line;
             }
         }
         
-        if (lineNo <= 1 || !VCARD_END.matcher(lastLine).matches()) {
-            throw new ParserException(lineNo);
+        if (single && (nonBlankLineNo <= 1 || !VCARD_END.matcher(lastLine).matches())) {
+            throw new ParserException(totalLineNo);
         }
         
         return vcard;
@@ -161,7 +198,7 @@ public final class VCardBuilder {
             PropertyFactory<?> factory = null;
             Group group = null;
             
-            final String propertyName = matcher.group();
+            final String propertyName = matcher.group().toUpperCase();
             if (propertyName.indexOf('.') >= 0) {
                 final String[] groupProperty = propertyName.split("\\.");
                 group = groupRegistry.getGroup(groupProperty[0]);
@@ -169,6 +206,10 @@ public final class VCardBuilder {
             }
             else {
                 factory = propertyFactoryRegistry.getFactory(propertyName);
+            }
+            
+            if (factory == null) {
+                return null;
             }
             
             matcher = PROPERTY_VALUE_PATTERN.matcher(line);
@@ -196,7 +237,12 @@ public final class VCardBuilder {
             final String[] params = matcher.group().split(";");
             for (String param : params) {
                 final String[] vals = param.split("=");
-                final ParameterFactory<? extends Parameter> factory = parameterFactoryRegistry.getFactory(vals[0]);
+                final ParameterFactory<? extends Parameter> factory = parameterFactoryRegistry.getFactory(vals[0].toUpperCase());
+                
+                if (factory == null) {
+                	continue;
+                }
+                
                 if (vals.length > 1) {
                     parameters.add(factory.createParameter(vals[1]));
                 }
