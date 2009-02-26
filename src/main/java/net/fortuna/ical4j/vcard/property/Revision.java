@@ -72,7 +72,12 @@ public final class Revision extends Property {
                 this.date = new Date(value);
     	    }
     	    catch (ParseException e2) {
-    	        this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
+    	        try {
+                    this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
+    	        }
+    	        catch (ParseException e3) {
+                    this.date = new Date(value, "yyyy'-'MM'-'dd");
+    	        }
     	    }
 		}
     }
