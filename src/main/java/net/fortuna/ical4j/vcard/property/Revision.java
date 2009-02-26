@@ -62,10 +62,18 @@ public final class Revision extends Property {
      */
     public Revision(String value) throws ParseException {
         super(Id.REV);
+        
+        // try default patterns first, then fall back on vCard-specific patterns
     	try {
 			this.date = new DateTime(value);
-		} catch (ParseException e) {
-			this.date = new Date(value);
+		}
+    	catch (ParseException e) {
+    	    try {
+                this.date = new Date(value);
+    	    }
+    	    catch (ParseException e2) {
+    	        this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
+    	    }
 		}
     }
     
