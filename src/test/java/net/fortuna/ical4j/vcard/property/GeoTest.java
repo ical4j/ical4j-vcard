@@ -70,7 +70,7 @@ public class GeoTest extends PropertyTest {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Geo(BigDecimal.ZERO, BigDecimal.ZERO), Id.GEO.toString(), "0;0", new Parameter[] {}});
         params.add(new Object[] {new Geo("34.15345;-12.34523"), Id.GEO.toString(), "34.15345;-12.34523", new Parameter[] {}});
-        params.add(new Object[] {new Geo("34.15345,-12.34523"), Id.GEO.toString(), "34.15345,-12.34523", new Parameter[] {}});
+        params.add(new Object[] {new Geo("34.15345,-12.34523"), Id.GEO.toString(), "34.15345;-12.34523", new Parameter[] {}});
         return params;
     }
 
