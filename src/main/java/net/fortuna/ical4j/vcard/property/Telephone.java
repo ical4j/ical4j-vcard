@@ -59,17 +59,16 @@ public final class Telephone extends Property {
     /**
      * @param value
      */
-    public Telephone(String value) {
-        this(null, value);
+    public Telephone(String value, Type...types) {
+        this(null, value, types);
     }
     
     /**
      * @param group
      * @param value
      */
-    public Telephone(Group group, String value) {
-        super(group, Id.TEL);
-        this.uri = URI.create(value);
+    public Telephone(Group group, String value, Type...types) {
+        this(group, URI.create(value.replaceAll("\\s", "-")), types);
     }
     
     /**
