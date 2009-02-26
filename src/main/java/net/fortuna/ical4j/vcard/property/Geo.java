@@ -69,7 +69,7 @@ public final class Geo extends Property {
      */
     public Geo(Group group, String value) {
         super(group, Id.GEO);
-        String[] components = value.split(",");
+        String[] components = value.split(";");
         this.latitude = new BigDecimal(components[0]);
         this.longitude = new BigDecimal(components[1]);
     }

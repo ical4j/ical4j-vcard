@@ -69,6 +69,7 @@ public class GeoTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Geo(BigDecimal.ZERO, BigDecimal.ZERO), Id.GEO.toString(), "0;0", new Parameter[] {}});
+        params.add(new Object[] {new Geo("0;0"), Id.GEO.toString(), "0;0", new Parameter[] {}});
         return params;
     }
 
