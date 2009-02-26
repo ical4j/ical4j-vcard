@@ -57,6 +57,23 @@ public final class Org extends Property {
     /**
      * @param value
      */
+    public Org(String value) {
+        this(null, value);
+    }
+    
+    /**
+     * @param group
+     * @param value
+     */
+    public Org(Group group, String value) {
+        // this regex has been stolen from:
+        // http://stackoverflow.com/questions/56554/what-is-the-proper-regular-expression-for-an-unescaped-backslash-before-a-chara
+        this(group, value.split("(?<!\\\\)(?>\\\\\\\\)*;"));
+    }
+    
+    /**
+     * @param value
+     */
     public Org(String...value) {
         this(null, value);
     }

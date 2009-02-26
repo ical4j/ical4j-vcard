@@ -42,33 +42,38 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 
-
 /**
- * $Id$
- *
- * Created on: 29/10/2008
- *
+ * $Id$ Created on: 29/10/2008
  * @author fortuna
- *
  */
 public class OrgTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public OrgTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    /**
+     * @param property
+     * @param expectedName
+     * @param expectedValue
+     * @param expectedParams
+     */
+    public OrgTest(Property property, String expectedName,
+            String expectedValue, Parameter[] expectedParams) {
+        super(property, expectedName, expectedValue, expectedParams);
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Org(""), Id.ORG.toString(), "", new Parameter[] {}});
-        params.add(new Object[] {new Org("ABC, Inc.", "North American Division", "Marketing"), Id.ORG.toString(), "ABC\\, Inc.;North American Division;Marketing", new Parameter[] {}});
+        params.add(new Object[] { new Org(""), Id.ORG.toString(), "",
+                new Parameter[] {} });
+        params.add(new Object[] {
+                new Org("ABC, Inc.", "North American Division", "Marketing"),
+                Id.ORG.toString(),
+                "ABC\\, Inc.;North American Division;Marketing",
+                new Parameter[] {} });
+        params.add(new Object[] {
+                new Org("ABC, Inc.;North American Division;Marketing"),
+                Id.ORG.toString(),
+                "ABC\\, Inc.;North American Division;Marketing",
+                new Parameter[] {} });
         return params;
     }
 
