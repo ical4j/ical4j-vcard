@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009, Ben Fortuna
  * All rights reserved.
  *
@@ -29,51 +29,59 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.fortuna.ical4j.vcard.property;
 
-import java.net.URI;
-import java.util.ArrayList;
+package net.fortuna.ical4j.vcard;
+
+import static org.junit.Assert.assertEquals;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.Collection;
-import java.util.List;
 
-import org.junit.runners.Parameterized.Parameters;
+import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.ValidationException;
 
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-import net.fortuna.ical4j.vcard.parameter.Type;
-
+import org.apache.commons.codec.DecoderException;
+import org.junit.Test;
 
 /**
+ * 
  * $Id$
  *
- * Created on: 29/10/2008
+ * Created on: 2009-02-26
  *
- * @author fortuna
+ * @author antheque
  *
  */
-public class TelephoneTest extends PropertyTest {
+public class VCardsSAPTest {
 
 	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
+	 * The vcards file has been prepared for the Nepomuk Social Semantic
+	 * Desktop Project. The interesting thing about it is that it uses
+	 * the TYPE parameter written in lowercase. Even though the specification
+	 * 
+	 *  draft-ietf-vcarddav-vcardrev-05.txt
+	 *  
+	 * says that property names and parameter names are case-insensitive 
+	 * (section 4.2)
+	 * 
+	 * @throws ParserException 
+	 * @throws IOException 
+	 * @throws ValidationException 
+	 * @throws DecoderException 
 	 */
-	public TelephoneTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
+	@Test
+	public void testVcardsSAPExample() throws IOException, ParserException,
+			ValidationException, DecoderException {
+		File file = new File(
+				"src/test/resources/samples/vcard-vCards-SAP.vcf");
+		Reader reader = new FileReader(file);
+		VCardBuilder builder = 
+				new VCardBuilder(reader);
+
+		Collection<VCard> cards = builder.buildAll();
+		assertEquals(30, cards.size());
 	}
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Telephone(URI.create("")), Id.TEL.toString(), "", new Parameter[] {}});
-        params.add(new Object[] {new Telephone(URI.create(""), Type.HOME), Id.TEL.toString(), "", new Parameter[] {Type.HOME}});
-        params.add(new Object[] {new Telephone("+1 555 3423 2342", Type.HOME), Id.TEL.toString(), "+1-555-3423-2342", new Parameter[] {Type.HOME}});
-        params.add(new Object[] {new Telephone("49 631 234 341", Type.HOME), Id.TEL.toString(), "49-631-234-341", new Parameter[] {Type.HOME}});
-        return params;
-    }
-
 }

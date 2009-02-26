@@ -68,7 +68,7 @@ public final class Telephone extends Property {
      * @param value
      */
     public Telephone(Group group, String value, Type...types) {
-        this(group, URI.create(value.replaceAll("\\s", "-")), types);
+        this(group, URI.create(value.trim().replaceAll("\\s+", "-")), types);
     }
     
     /**
