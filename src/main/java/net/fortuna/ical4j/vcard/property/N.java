@@ -70,8 +70,9 @@ public final class N extends Property {
         super(Id.N);
         String[] names = value.split(";");
         this.familyName = names[0];
-        this.givenName = names[1];
-        
+        if (names.length >= 2) {
+            this.givenName = names[1];
+        }
         // support VCARD 3.0 by allowing optional section..
         if (names.length > 2) {
             this.additionalNames = names[2].split(",");
