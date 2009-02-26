@@ -44,7 +44,6 @@ import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.apache.commons.codec.DecoderException;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
