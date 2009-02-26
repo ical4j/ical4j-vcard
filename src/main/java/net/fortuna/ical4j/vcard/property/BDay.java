@@ -32,7 +32,11 @@
 package net.fortuna.ical4j.vcard.property;
 
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
+
+import java.text.ParseException;
+
 import net.fortuna.ical4j.model.Date;
+import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
@@ -41,12 +45,8 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 /**
- * $Id$
- *
- * Created on 23/08/2008
- *
+ * $Id$ Created on 23/08/2008
  * @author Ben
- *
  */
 public final class BDay extends Property implements Escapable {
 
@@ -54,11 +54,11 @@ public final class BDay extends Property implements Escapable {
      * 
      */
     private static final long serialVersionUID = 4298026868242865633L;
-    
+
     private Date date;
-    
+
     private String description;
-    
+
     /**
      * @param date
      */
@@ -66,16 +66,29 @@ public final class BDay extends Property implements Escapable {
         super(Id.BDAY);
         this.date = date;
     }
-    
+
     /**
-     * @param description
+     * @param value
      */
-    public BDay(String description) {
+    public BDay(String value) {
         super(Id.BDAY);
-        this.description = description;
-        getParameters().add(Value.TEXT);
+        try {
+            this.date = new DateTime(value);
+        }
+        catch (ParseException e) {
+            try {
+                this.date = new Date(value);
+            }
+            catch (ParseException e2) {
+                // this is not a problem, the description may be textual
+                // like "Circa 400 BC", though if we can parse the string
+                // we should do it now
+                this.description = value;
+                getParameters().add(Value.TEXT);
+            }
+        }
     }
-    
+
     /**
      * @return the date
      */
@@ -90,7 +103,8 @@ public final class BDay extends Property implements Escapable {
         return description;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */
     @Override
@@ -101,21 +115,23 @@ public final class BDay extends Property implements Escapable {
         return Strings.valueOf(date);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#validate()
      */
     @Override
     public void validate() throws ValidationException {
         // ; Only value parameter allowed
         assertOneOrLess(Parameter.Id.VALUE);
-        
+
         if (getParameters().size() > 1) {
             throw new ValidationException("Illegal parameter count");
         }
-        
+
         for (Parameter param : getParameters()) {
             if (!Value.TEXT.equals(param)) {
-                throw new ValidationException("Illegal parameter [" + param.getId() + "]");
+                throw new ValidationException("Illegal parameter ["
+                        + param.getId() + "]");
             }
         }
     }

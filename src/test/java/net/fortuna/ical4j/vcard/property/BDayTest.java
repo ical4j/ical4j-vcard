@@ -31,20 +31,25 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.runners.Parameterized.Parameters;
-
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Value;
+
+import org.junit.Test;
+import org.junit.runners.Parameterized.Parameters;
 
 
 /**
@@ -57,15 +62,40 @@ import net.fortuna.ical4j.vcard.parameter.Value;
  */
 public class BDayTest extends PropertyTest {
 
+    private BDay property;
+    
+    private Class<?> expectedDateType;
+    
     /**
      * @param property
      * @param expectedName
      * @param expectedValue
      * @param expectedParams
+     * @param expectedDateType
      */
-    public BDayTest(Property property, String expectedName,
-            String expectedValue, Parameter[] expectedParams) {
+    public BDayTest(BDay property, String expectedName,
+            String expectedValue, Parameter[] expectedParams, Class<?> expectedDateType) {
+
         super(property, expectedName, expectedValue, expectedParams);
+        this.property = property;
+        this.expectedDateType = expectedDateType;
+    }
+    
+    @Test
+    public void testDateType() {
+        if (expectedDateType != null) {
+            assertNull(property.getDescription());
+            assertNotNull(property.getDate());
+            assertTrue(expectedDateType.isInstance(property.getDate()));
+            // bit of a hack..
+            if (Date.class.equals(expectedDateType)) {
+                assertFalse(property.getDate() instanceof DateTime);
+            }
+        }
+        else {
+            assertNull(property.getDate());
+            assertNotNull(property.getDescription());
+        }
     }
 
     @Parameters
@@ -73,14 +103,16 @@ public class BDayTest extends PropertyTest {
         List<Object[]> params = new ArrayList<Object[]>();
 
         try {
-            params.add(new Object[] {new BDay(new Date("19690415")), Id.BDAY.toString(), "19690415", new Parameter[] {}});
-            params.add(new Object[] {new BDay(new DateTime("15730125T180322Z")), Id.BDAY.toString(), "15730125T180322Z", new Parameter[] {}});
+            params.add(new Object[] {new BDay(new Date("19690415")), Id.BDAY.toString(), "19690415", new Parameter[] {}, Date.class});
+            params.add(new Object[] {new BDay(new DateTime("15730125T180322Z")), Id.BDAY.toString(), "15730125T180322Z", new Parameter[] {}, DateTime.class});
         }
         catch (ParseException pe) {
             pe.printStackTrace();
         }
-        params.add(new Object[] {new BDay(""), Id.BDAY.toString(), "", new Parameter[] {Value.TEXT}});
-        params.add(new Object[] {new BDay("Circa 400, bce"), Id.BDAY.toString(), "Circa 400, bce", new Parameter[] {Value.TEXT}});
+        params.add(new Object[] {new BDay("19690415"), Id.BDAY.toString(), "19690415", new Parameter[] {}, Date.class});
+        params.add(new Object[] {new BDay("15730125T180322Z"), Id.BDAY.toString(), "15730125T180322Z", new Parameter[] {}, DateTime.class});
+        params.add(new Object[] {new BDay(""), Id.BDAY.toString(), "", new Parameter[] {Value.TEXT}, null});
+        params.add(new Object[] {new BDay("Circa 400, bce"), Id.BDAY.toString(), "Circa 400, bce", new Parameter[] {Value.TEXT}, null});
         return params;
     }
 }
