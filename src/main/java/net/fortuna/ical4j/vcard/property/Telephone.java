@@ -32,6 +32,9 @@
 package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
+import java.net.URISyntaxException;
+
+import org.apache.commons.lang.StringUtils;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Group;
@@ -86,7 +89,17 @@ public final class Telephone extends Property {
      */
     public Telephone(Group group, URI uri, Type...types) {
         super(group, Id.TEL);
-        this.uri = uri;
+        if (uri.getScheme() == null && StringUtils.isNotEmpty(uri.getSchemeSpecificPart())) {
+            try {
+                this.uri = new URI("tel", uri.getSchemeSpecificPart(), uri.getFragment());
+            }
+            catch (URISyntaxException e) {
+                this.uri = uri;
+            }
+        }
+        else {
+            this.uri = uri;
+        }
         for (Type type : types) {
             getParameters().add(type);
         }
