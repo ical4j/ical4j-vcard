@@ -66,10 +66,15 @@ public final class Tz extends Property {
     /**
      * @param text
      */
-    public Tz(String text) {
+    public Tz(String value) {
         super(Id.TZ);
-        this.text = text;
-        getParameters().add(Value.TEXT);
+        try {
+            this.offset = new UtcOffset(value);
+        }
+        catch (IllegalArgumentException iae) {
+            this.text = value;
+            getParameters().add(Value.TEXT);
+        }
     }
     
     /**

@@ -83,6 +83,7 @@ public final class Photo extends Property {
         }
         catch (DecoderException e) {
             this.uri = new URI(value);
+            getParameters().add(Value.URI);
         }
     }
     

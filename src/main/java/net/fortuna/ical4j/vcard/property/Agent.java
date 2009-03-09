@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
@@ -72,8 +73,13 @@ public final class Agent extends Property implements Escapable {
      */
     public Agent(String value) {
         super(Id.AGENT);
-        this.value = value;
-        getParameters().add(Value.TEXT);
+        try {
+            this.uri = new URI(value);
+        }
+        catch (URISyntaxException e) {
+            this.value = value;
+            getParameters().add(Value.TEXT);
+        }
     }
     
     /**

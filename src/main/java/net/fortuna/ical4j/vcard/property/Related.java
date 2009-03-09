@@ -40,6 +40,7 @@ import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
+import net.fortuna.ical4j.vcard.parameter.Value;
 
 /**
  * $Id$
@@ -58,13 +59,23 @@ public final class Related extends Property {
     
     private URI uri;
     
+    private String value;
+    
     /**
      * @param value
      * @param types
      * @throws URISyntaxException
      */
-    public Related(String value, Type...types) throws URISyntaxException {
-    	this(new URI(value), types);
+    public Related(String value, Type...types) {
+        super(Id.RELATED);
+        try {
+            this.uri = new URI(value);
+        }
+        catch (URISyntaxException e) {
+            this.value = value;
+            getParameters().add(Value.TEXT);
+        }
+        getParameters().addAll(Arrays.asList(types));
     }
     
     /**
@@ -89,7 +100,10 @@ public final class Related extends Property {
      */
     @Override
     public String getValue() {
-        return Strings.valueOf(uri);
+        if (uri != null) {
+            return Strings.valueOf(uri);
+        }
+        return value;
     }
 
     /* (non-Javadoc)
