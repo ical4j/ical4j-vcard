@@ -300,6 +300,16 @@ public abstract class Property implements Serializable {
     }
     
     /**
+     * @param param
+     * @throws ValidationException
+     */
+    protected final void assertPrefParameter(final Parameter param) throws ValidationException {
+        if (!Parameter.Id.PREF.equals(param.getId())) {
+            throw new ValidationException("Illegal parameter [" + param.getId() + "]");
+        }
+    }
+    
+    /**
      * @param paramId
      * @throws ValidationException
      */

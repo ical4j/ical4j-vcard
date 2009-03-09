@@ -94,7 +94,8 @@ public final class Source extends Property {
     public void validate() throws ValidationException {
         // ; Only source parameters allowed
         for (Parameter param : getParameters()) {
-            if (!Value.URI.equals(param) && !Parameter.Id.EXTENDED.equals(param.getId())) {
+            if (!Value.URI.equals(param) && !Parameter.Id.EXTENDED.equals(param.getId())
+                    && !Parameter.Id.PID.equals(param.getId())) {
                 throw new ValidationException("Illegal parameter [" + param.getId() + "]");
             }
         }

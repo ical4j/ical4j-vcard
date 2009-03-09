@@ -48,12 +48,24 @@ public final class Pref extends Parameter {
      */
     private static final long serialVersionUID = -6246880477846039737L;
 
-    public static final Pref PREF = new Pref();
+    private final Integer level;
     
     /**
+     * @param value
      */
-    private Pref() {
+    public Pref(String value) {
+        this(Integer.valueOf(value));
+    }
+    
+    /**
+     * @param level
+     */
+    public Pref(Integer level) {
         super(Id.PREF);
+        if (level <= 0) {
+            throw new IllegalArgumentException("The level of preferredness must be a positive integer");
+        }
+        this.level = level;
     }
 
     /* (non-Javadoc)
@@ -61,6 +73,6 @@ public final class Pref extends Parameter {
      */
     @Override
     public String getValue() {
-        return null;
+        return level.toString();
     }
 }

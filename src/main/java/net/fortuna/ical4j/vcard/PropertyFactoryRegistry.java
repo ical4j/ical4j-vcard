@@ -316,7 +316,7 @@ public class PropertyFactoryRegistry {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Key createProperty(final String value) {
+            public Key createProperty(final String value) throws URISyntaxException {
                 return new Key(value);
             }
             /* (non-Javadoc)

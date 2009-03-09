@@ -31,15 +31,21 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static org.apache.commons.lang.StringUtils.isNotEmpty;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
+import net.fortuna.ical4j.vcard.parameter.Value;
 
+import org.apache.commons.codec.BinaryDecoder;
 import org.apache.commons.codec.BinaryEncoder;
+import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
@@ -59,8 +65,8 @@ public final class Key extends Property {
      * 
      */
     private static final long serialVersionUID = -6645173064940148955L;
-
-    private String value;
+    
+    private URI uri;
     
     private byte[] binary;
 
@@ -68,18 +74,36 @@ public final class Key extends Property {
     
     /**
      * @param value
+     * @throws URISyntaxException 
      */
-    public Key(String value) {
+    public Key(String value) throws URISyntaxException {
         this(null, value);
     }
     
     /**
      * @param group
      * @param value
+     * @throws URISyntaxException 
      */
-    public Key(Group group, String value) {
+    public Key(Group group, String value) throws URISyntaxException {
         super(group, Id.KEY);
-        this.value = value;
+        BinaryDecoder decoder = new Base64();
+        try {
+            this.binary = decoder.decode(value.getBytes());
+        }
+        catch (DecoderException e) {
+            this.uri = new URI(value);
+            getParameters().add(Value.URI);
+        }
+    }
+    
+    /**
+     * @param uri
+     */
+    public Key(URI uri) {
+        super(Id.KEY);
+        this.uri = uri;
+        getParameters().add(Value.URI);
     }
     
     /**
@@ -114,8 +138,8 @@ public final class Key extends Property {
      */
     @Override
     public String getValue() {
-        if (isNotEmpty(value)) {
-            return value;
+        if (uri != null) {
+            return Strings.valueOf(uri);
         }
         else if (binary != null) {
             try {

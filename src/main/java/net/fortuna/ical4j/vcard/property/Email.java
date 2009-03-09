@@ -35,7 +35,6 @@ import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.parameter.Type;
 
 /**
  * $Id$
@@ -56,23 +55,18 @@ public final class Email extends Property {
     
     /**
      * @param value
-     * @param types
      */
-    public Email(String value, Type...types) {
-        this(null, value, types);
+    public Email(String value) {
+        this(null, value);
     }
     
     /**
      * @param group
      * @param value
-     * @param types
      */
-    public Email(Group group, String value, Type...types) {
+    public Email(Group group, String value) {
         super(group, Id.EMAIL);
         this.value = value;
-        for (Type type : types) {
-            getParameters().add(type);
-        }
     }
     
     /* (non-Javadoc)
@@ -90,7 +84,7 @@ public final class Email extends Property {
     public void validate() throws ValidationException {
         for (Parameter param : getParameters()) {
             try {
-                assertTypeParameter(param);
+                assertPrefParameter(param);
             }
             catch (ValidationException ve) {
                 assertPidParameter(param);

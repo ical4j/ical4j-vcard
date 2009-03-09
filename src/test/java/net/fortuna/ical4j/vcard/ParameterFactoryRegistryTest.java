@@ -90,7 +90,7 @@ public class ParameterFactoryRegistryTest {
         
         ParameterFactoryRegistry registry = new ParameterFactoryRegistry();
         params.add(new Object[] {registry, Type.PREF.getId().toString(), Type.PREF.getValue(), Type.PREF});
-        params.add(new Object[] {registry, Pref.PREF.getId().toString(), Pref.PREF.getValue(), Pref.PREF});
+        params.add(new Object[] {registry, Parameter.Id.PREF.toString(), "1", new Pref(1)});
         return params;
     }
 }

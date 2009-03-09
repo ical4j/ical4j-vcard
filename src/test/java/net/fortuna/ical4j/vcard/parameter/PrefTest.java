@@ -63,7 +63,7 @@ public class PrefTest extends ParameterTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Pref.PREF, Id.PREF.toString(), null});
+        params.add(new Object[] {new Pref(1), Id.PREF.toString(), "1"});
         return params;
     }
 
