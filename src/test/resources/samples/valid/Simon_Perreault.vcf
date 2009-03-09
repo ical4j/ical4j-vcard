@@ -7,7 +7,7 @@ GENDER:M
 WORK.ORG:Viagenie
 WORK.ADR:;;2600 boul. Laurier\, suite 625;
  Quebec;QC;G1V 4W1;Canada
-WORK.TEL;TYPE=voice;PREF:tel:+1-418-656-9254;ext=102
+WORK.TEL;TYPE=voice;PREF=1:tel:+1-418-656-9254;ext=102
 WORK.TEL;TYPE=cell,voice,video,text:tel:+1-418-262-6501
 WORK.TEL;TYPE=fax:tel:+1-418-656-9257
 WORK.EMAIL;TYPE=internet:simon.perreault@viagenie.ca

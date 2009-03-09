@@ -17,6 +17,6 @@ LABEL;HOME;ENCODING=QUOTED-PRINTABLE:Budryka 2/1110=0D=0AKrak=F3w, ma=B3opolskie
 URL;WORK:http://antoni.mylka.com
 ROLE:Software-Developer
 BDAY:19800118
-EMAIL;PREF;INTERNET:antoni_mylka@somedomain.com
+EMAIL;PREF=1;INTERNET:antoni_mylka@somedomain.com
 REV:20080128T135515Z
 END:VCARD
