@@ -33,6 +33,9 @@ package net.fortuna.ical4j.vcard;
 
 import java.net.URISyntaxException;
 import java.text.ParseException;
+import java.util.List;
+
+import org.apache.commons.codec.DecoderException;
 
 /**
  * $Id$
@@ -49,7 +52,7 @@ public interface PropertyFactory<T extends Property> {
      * @throws URISyntaxException 
      * @throws ParseException 
      */
-    T createProperty(String value) throws URISyntaxException, ParseException;
+    T createProperty(List<Parameter> params, String value) throws URISyntaxException, ParseException, DecoderException;
     
     /**
      * @param group
@@ -58,5 +61,5 @@ public interface PropertyFactory<T extends Property> {
      * @throws URISyntaxException
      * @throws ParseException
      */
-    T createProperty(Group group, String value) throws URISyntaxException, ParseException;
+    T createProperty(Group group, List<Parameter> params, String value) throws URISyntaxException, ParseException, DecoderException;
 }
