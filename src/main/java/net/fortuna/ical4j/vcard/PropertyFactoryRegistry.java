@@ -317,15 +317,15 @@ public class PropertyFactoryRegistry {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Key createProperty(final List<Parameter> params, final String value) throws DecoderException {
-                return new Key(value);
+            public Key createProperty(final List<Parameter> params, final String value) throws DecoderException, URISyntaxException {
+                return new Key(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
              */
             @Override
-            public Key createProperty(final Group group, final List<Parameter> params, final String value) throws DecoderException {
-                return new Key(group, value);
+            public Key createProperty(final Group group, final List<Parameter> params, final String value) throws DecoderException, URISyntaxException {
+                return new Key(group, params, value);
             }
         });
         defaultFactories.put(Property.Id.BIRTH, new PropertyFactory<Birth>() {
@@ -406,7 +406,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public DDay createProperty(final List<Parameter> params, final String value) {
-                return new DDay(value);
+                return new DDay(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)

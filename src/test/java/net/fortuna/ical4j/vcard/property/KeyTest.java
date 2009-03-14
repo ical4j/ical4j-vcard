@@ -31,12 +31,9 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.junit.runners.Parameterized.Parameters;
 
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
@@ -44,6 +41,9 @@ import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
+
+import org.apache.commons.codec.DecoderException;
+import org.junit.runners.Parameterized.Parameters;
 
 
 /**
@@ -68,9 +68,9 @@ public class KeyTest extends PropertyTest {
 	}
 
     @Parameters
-    public static Collection<Object[]> parameters() throws URISyntaxException {
+    public static Collection<Object[]> parameters() throws DecoderException {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Key("somekey"), Id.KEY.toString(), "somekey", new Parameter[] {}});
+        params.add(new Object[] {new Key("somekey".getBytes()), Id.KEY.toString(), "somekey", new Parameter[] {}});
         params.add(new Object[] {new Key(new byte[0]), Id.KEY.toString(), "", new Parameter[] {Encoding.B}});
         
         Type type = new Type("application/pgp");

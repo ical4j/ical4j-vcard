@@ -33,6 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
@@ -73,31 +74,6 @@ public final class Key extends Property {
     private Log log = LogFactory.getLog(Key.class);
     
     /**
-     * @param value
-     * @throws URISyntaxException 
-     */
-    public Key(String value) throws URISyntaxException {
-        this(null, value);
-    }
-    
-    /**
-     * @param group
-     * @param value
-     * @throws URISyntaxException 
-     */
-    public Key(Group group, String value) throws URISyntaxException {
-        super(group, Id.KEY);
-        BinaryDecoder decoder = new Base64();
-        try {
-            this.binary = decoder.decode(value.getBytes());
-        }
-        catch (DecoderException e) {
-            this.uri = new URI(value);
-            getParameters().add(Value.URI);
-        }
-    }
-    
-    /**
      * @param uri
      */
     public Key(URI uri) {
@@ -123,6 +99,36 @@ public final class Key extends Property {
         getParameters().add(Encoding.B);
         if (contentType != null) {
             getParameters().add(contentType);
+        }
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     * @throws DecoderException
+     * @throws URISyntaxException 
+     */
+    public Key(List<Parameter> params, String value) throws DecoderException, URISyntaxException {
+        this(null, params, value);
+    }
+    
+    /**
+     * Factory constructor.
+     * @param group
+     * @param params
+     * @param value
+     * @throws DecoderException
+     * @throws URISyntaxException
+     */
+    public Key(Group group, List<Parameter> params, String value) throws DecoderException, URISyntaxException {
+        super(group, Id.KEY, params);
+        if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
+            this.uri = new URI(value);
+        }
+        else {
+            BinaryDecoder decoder = new Base64();
+            this.binary = decoder.decode(value.getBytes());
         }
     }
     

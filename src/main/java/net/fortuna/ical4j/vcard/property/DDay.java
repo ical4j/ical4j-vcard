@@ -34,6 +34,7 @@ package net.fortuna.ical4j.vcard.property;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 
 import java.text.ParseException;
+import java.util.List;
 
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
@@ -74,9 +75,19 @@ public final class DDay extends Property implements Escapable {
     /**
      * @param description
      */
-    public DDay(String value) {
+    public DDay(String description) {
         super(Id.DDAY);
+        this.description = description;
         getParameters().add(Value.TEXT);
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public DDay(List<Parameter> params, String value) {
+        super(Id.DDAY);
         try {
             this.date = new DateTime(value);
         }
