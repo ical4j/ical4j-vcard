@@ -43,6 +43,7 @@ import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Base64;
 import org.junit.runners.Parameterized.Parameters;
 
 
@@ -70,7 +71,7 @@ public class KeyTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() throws DecoderException {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Key("somekey".getBytes()), Id.KEY.toString(), "somekey", new Parameter[] {}});
+        params.add(new Object[] {new Key("somekey".getBytes()), Id.KEY.toString(), new String(new Base64().encode("somekey".getBytes())), new Parameter[] {Encoding.B}});
         params.add(new Object[] {new Key(new byte[0]), Id.KEY.toString(), "", new Parameter[] {Encoding.B}});
         
         Type type = new Type("application/pgp");
