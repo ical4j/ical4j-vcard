@@ -48,6 +48,11 @@ public final class Pref extends Parameter {
      */
     private static final long serialVersionUID = -6246880477846039737L;
 
+    /**
+     * Support for pre-vCard 4.0 PREF parameter.
+     */
+    public static final Pref PREF = new Pref();
+    
     private final Integer level;
     
     /**
@@ -68,11 +73,22 @@ public final class Pref extends Parameter {
         this.level = level;
     }
 
+    /**
+     * Internal constructor.
+     */
+    private Pref() {
+        super(Id.PREF);
+        this.level = null;
+    }
+    
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Parameter#getValue()
      */
     @Override
     public String getValue() {
-        return level.toString();
+        if (level > 0) {
+            return level.toString();
+        }
+        return null;
     }
 }

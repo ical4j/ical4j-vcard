@@ -121,7 +121,10 @@ public class ParameterFactoryRegistry {
              */
             @Override
             public Pref createParameter(final String value) {
-                return new Pref(value);
+                if (value != null) {
+                    return new Pref(value);
+                }
+                return Pref.PREF;
             }
         });
         
