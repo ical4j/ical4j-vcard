@@ -33,6 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
@@ -58,7 +59,7 @@ public final class Agent extends Property implements Escapable {
 
     private URI uri;
     
-    private String value;
+    private String text;
     
     /**
      * @param uri
@@ -69,16 +70,27 @@ public final class Agent extends Property implements Escapable {
     }
     
     /**
-     * @param value
+     * @param text
      */
-    public Agent(String value) {
+    public Agent(String text) {
         super(Id.AGENT);
-        try {
-            this.uri = new URI(value);
+        this.text = text;
+        getParameters().add(Value.TEXT);
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     * @throws URISyntaxException 
+     */
+    public Agent(List<Parameter> params, String value) throws URISyntaxException {
+        super(Id.AGENT, params);
+        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+            this.text = value;
         }
-        catch (URISyntaxException e) {
-            this.value = value;
-            getParameters().add(Value.TEXT);
+        else {
+            this.uri = new URI(value);
         }
     }
     
@@ -89,6 +101,13 @@ public final class Agent extends Property implements Escapable {
         return uri;
     }
 
+    /**
+     * @return the text
+     */
+    public String getText() {
+        return text;
+    }
+
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */
@@ -97,7 +116,7 @@ public final class Agent extends Property implements Escapable {
         if (uri != null) {
             return Strings.valueOf(uri);
         }
-        return value;
+        return text;
     }
 
     /* (non-Javadoc)
