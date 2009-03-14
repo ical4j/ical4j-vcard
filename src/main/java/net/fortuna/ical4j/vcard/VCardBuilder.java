@@ -43,6 +43,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.codec.DecoderException;
+
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.data.UnfoldingReader;
 
@@ -164,9 +166,8 @@ public final class VCardBuilder {
                 catch (ParseException e) {
                     throw new ParserException("Error parsing line", totalLineNo, e);
                 }
-                final List<Parameter> params = parseParameters(line);
-                if (!params.isEmpty()) {
-                    property.getParameters().addAll(params);
+                catch (DecoderException e) {
+                    throw new ParserException("Error parsing line", totalLineNo, e);
                 }
                 if (property != null) {
                 	vcard.getProperties().add(property);
@@ -191,8 +192,9 @@ public final class VCardBuilder {
      * @return
      * @throws ParseException 
      * @throws URISyntaxException 
+     * @throws DecoderException 
      */
-    private Property parseProperty(final String line) throws URISyntaxException, ParseException {
+    private Property parseProperty(final String line) throws URISyntaxException, ParseException, DecoderException {
         Matcher matcher = PROPERTY_NAME_PATTERN.matcher(line);
         if (matcher.find()) {
             PropertyFactory<?> factory = null;
@@ -215,11 +217,12 @@ public final class VCardBuilder {
             matcher = PROPERTY_VALUE_PATTERN.matcher(line);
             if (matcher.find()) {
                 final String propertyValue = matcher.group(0);
+                final List<Parameter> params = parseParameters(line);
                 if (group != null) {
-                    return factory.createProperty(group, propertyValue);
+                    return factory.createProperty(group, params, propertyValue);
                 }
                 else {
-                    return factory.createProperty(propertyValue);
+                    return factory.createProperty(params, propertyValue);
                 }
             }
         }

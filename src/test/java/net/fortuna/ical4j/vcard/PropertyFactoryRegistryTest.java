@@ -43,6 +43,7 @@ import java.util.List;
 import net.fortuna.ical4j.vcard.property.Org;
 import net.fortuna.ical4j.vcard.property.Version;
 
+import org.apache.commons.codec.DecoderException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -87,15 +88,16 @@ public class PropertyFactoryRegistryTest {
     /**
      * @throws URISyntaxException
      * @throws ParseException
+     * @throws DecoderException 
      */
     @Test
-    public void testGetFactoryCreateProperty() throws URISyntaxException, ParseException {
+    public void testGetFactoryCreateProperty() throws URISyntaxException, ParseException, DecoderException {
         PropertyFactory<? extends Property> factory = registry.getFactory(propertyName);
         if (group != null) {
-            assertEquals(expectedProperty, factory.createProperty(group, propertyValue));
+            assertEquals(expectedProperty, factory.createProperty(group, new ArrayList<Parameter>(), propertyValue));
         }
         else {
-            assertEquals(expectedProperty, factory.createProperty(propertyValue));
+            assertEquals(expectedProperty, factory.createProperty(new ArrayList<Parameter>(), propertyValue));
         }
     }
 

@@ -41,6 +41,7 @@ import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
 
+import org.apache.commons.codec.DecoderException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -79,17 +80,18 @@ public class PropertyFactoryTest {
      * Test method for {@link net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)}.
      * @throws ParseException
      * @throws URISyntaxException
+     * @throws DecoderException 
      */
     @Test
-    public void testCreateProperty() throws URISyntaxException, ParseException {
-        Property property = factory.createProperty(value);
+    public void testCreateProperty() throws URISyntaxException, ParseException, DecoderException {
+        Property property = factory.createProperty(new ArrayList<Parameter>(), value);
         assertEquals(extendedName, property.extendedName);
         assertEquals(value, property.getValue());
     }
     
     @Test
-    public void testCreateGroupProperty() throws URISyntaxException, ParseException {
-        Property property = factory.createProperty(group, value);
+    public void testCreateGroupProperty() throws URISyntaxException, ParseException, DecoderException {
+        Property property = factory.createProperty(group, new ArrayList<Parameter>(), value);
         assertEquals(group, property.getGroup());
         assertEquals(extendedName, property.extendedName);
         assertEquals(value, property.getValue());
@@ -106,7 +108,7 @@ public class PropertyFactoryTest {
              */
             @SuppressWarnings("serial")
             @Override
-            public Property createProperty(final String value) {
+            public Property createProperty(final List<Parameter> params, final String value) {
                 return new Property("extended") {
                     @Override
                     public String getValue() {
@@ -125,7 +127,7 @@ public class PropertyFactoryTest {
              */
             @SuppressWarnings("serial")
             @Override
-            public Property createProperty(Group group, final String value)
+            public Property createProperty(Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 return new Property(group, "extended") {
                     @Override
