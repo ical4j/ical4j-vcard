@@ -42,6 +42,7 @@ import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.vcard.parameter.Value;
 
 
 /**
@@ -69,6 +70,7 @@ public class RelatedTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Related(URI.create("")), Id.RELATED.toString(), "", new Parameter[] {}});
+        params.add(new Object[] {new Related(""), Id.RELATED.toString(), "", new Parameter[] {Value.TEXT}});
         return params;
     }
 
