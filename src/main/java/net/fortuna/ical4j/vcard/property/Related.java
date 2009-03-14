@@ -34,6 +34,7 @@ package net.fortuna.ical4j.vcard.property;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
@@ -59,22 +60,16 @@ public final class Related extends Property {
     
     private URI uri;
     
-    private String value;
+    private String text;
     
     /**
-     * @param value
+     * @param text
      * @param types
-     * @throws URISyntaxException
      */
-    public Related(String value, Type...types) {
+    public Related(String text, Type...types) {
         super(Id.RELATED);
-        try {
-            this.uri = new URI(value);
-        }
-        catch (URISyntaxException e) {
-            this.value = value;
-            getParameters().add(Value.TEXT);
-        }
+        this.text = text;
+        getParameters().add(Value.TEXT);
         getParameters().addAll(Arrays.asList(types));
     }
     
@@ -86,6 +81,22 @@ public final class Related extends Property {
         super(Id.RELATED);
         this.uri = uri;
         getParameters().addAll(Arrays.asList(types));
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     * @throws URISyntaxException
+     */
+    public Related(List<Parameter> params, String value) throws URISyntaxException {
+        super(Id.RELATED, params);
+        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+            this.text = value;
+        }
+        else {
+            this.uri = new URI(value);
+        }
     }
     
     /**
@@ -103,7 +114,7 @@ public final class Related extends Property {
         if (uri != null) {
             return Strings.valueOf(uri);
         }
-        return value;
+        return text;
     }
 
     /* (non-Javadoc)

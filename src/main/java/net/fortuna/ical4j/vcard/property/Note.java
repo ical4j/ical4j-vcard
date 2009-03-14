@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.List;
+
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Parameter;
@@ -58,6 +60,16 @@ public final class Note extends Property implements Escapable {
      */
     public Note(String value) {
         super(Id.NOTE);
+        this.value = value;
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public Note(List<Parameter> params, String value) {
+        super(Id.NOTE, params);
         this.value = value;
     }
     

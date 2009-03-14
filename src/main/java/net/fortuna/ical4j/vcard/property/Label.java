@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.List;
+
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Parameter;
@@ -64,6 +66,16 @@ public final class Label extends Property implements Escapable {
         for (Type type : types) {
             getParameters().add(type);
         }
+    }
+
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public Label(List<Parameter> params, String value) {
+        super(Id.LABEL, params);
+        this.value = value;
     }
     
     /* (non-Javadoc)

@@ -33,6 +33,9 @@ package net.fortuna.ical4j.vcard.property;
 
 import static net.fortuna.ical4j.util.Strings.escape;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
+
+import java.util.List;
+
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
@@ -69,18 +72,62 @@ public final class Address extends Property {
     private String country;
     
     /**
-     * @param value
+     * @param poBox
+     * @param extended
+     * @param street
+     * @param locality
+     * @param region
+     * @param postcode
+     * @param country
      */
-    public Address(String value) {
-        this(null, value);
+    public Address(String poBox, String extended, String street, String locality,
+            String region, String postcode, String country, Type...types) {
+        this(null, poBox, extended, street, locality, region, postcode, country, types);
     }
-    
+
     /**
      * @param group
+     * @param poBox
+     * @param extended
+     * @param street
+     * @param locality
+     * @param region
+     * @param postcode
+     * @param country
+     * @param types
+     */
+    public Address(Group group, String poBox, String extended, String street, String locality,
+            String region, String postcode, String country, Type...types) {
+
+        super(group, Id.ADR);
+        this.poBox = poBox;
+        this.extended = extended;
+        this.street = street;
+        this.locality = locality;
+        this.region = region;
+        this.postcode = postcode;
+        this.country = country;
+        for (Type type : types) {
+            getParameters().add(type);
+        }
+    }
+
+    /**
+     * @param params
      * @param value
      */
-    public Address(Group group, String value) {
-        super(group, Id.ADR);
+    public Address(List<Parameter> params, String value) {
+        this(null, params, value);
+    }
+
+    /**
+     * Factory constructor.
+     * @param group
+     * @param params
+     * @param value
+     */
+    public Address(Group group, List<Parameter> params, String value) {
+        super(group, Id.ADR, params);
         String[] components = value.split(";");
         this.poBox = components[0];
         this.extended = components[1];
@@ -92,30 +139,6 @@ public final class Address extends Property {
         if (components.length > 5) {
             this.postcode = components[5];
             this.country = components[6];
-        }
-    }
-    
-    /**
-     * @param poBox
-     * @param extended
-     * @param street
-     * @param locality
-     * @param region
-     * @param postcode
-     * @param country
-     */
-    public Address(String poBox, String extended, String street, String locality,
-            String region, String postcode, String country, Type...types) {
-        super(Id.ADR);
-        this.poBox = poBox;
-        this.extended = extended;
-        this.street = street;
-        this.locality = locality;
-        this.region = region;
-        this.postcode = postcode;
-        this.country = country;
-        for (Type type : types) {
-            getParameters().add(type);
         }
     }
     
