@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.List;
+
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
@@ -58,6 +60,16 @@ public final class Nickname extends Property {
     public Nickname(String...names) {
         super(Id.NICKNAME);
         this.names = names;
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public Nickname(List<Parameter> params, String value) {
+        super(Id.NICKNAME, params);
+        this.names = value.split(",");
     }
     
     /**

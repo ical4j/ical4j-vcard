@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.List;
+
 import net.fortuna.ical4j.model.CategoryList;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Parameter;
@@ -61,6 +63,16 @@ public final class Categories extends Property {
         this.categories = new CategoryList(categories);
     }
 
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public Categories(List<Parameter> params, String value) {
+        super(Id.CATEGORIES);
+        this.categories = new CategoryList(value);
+    }
+    
     /**
      * @return the categories
      */

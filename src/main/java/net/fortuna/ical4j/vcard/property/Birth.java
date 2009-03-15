@@ -31,8 +31,11 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.List;
+
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -57,6 +60,16 @@ public final class Birth extends Property implements Escapable {
      */
     public Birth(String value) {
         super(Id.BIRTH);
+        this.value = value;
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public Birth(List<Parameter> params, String value) {
+        super(Id.BIRTH, params);
         this.value = value;
     }
     

@@ -31,8 +31,6 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static org.apache.commons.lang.StringUtils.isNotEmpty;
-
 import java.text.ParseException;
 import java.util.List;
 
@@ -62,7 +60,7 @@ public final class DDay extends Property implements Escapable {
 
     private Date date;
     
-    private String description;
+    private String text;
     
     /**
      * @param date
@@ -73,11 +71,11 @@ public final class DDay extends Property implements Escapable {
     }
     
     /**
-     * @param description
+     * @param text
      */
     public DDay(String description) {
         super(Id.DDAY);
-        this.description = description;
+        this.text = description;
         getParameters().add(Value.TEXT);
     }
     
@@ -85,22 +83,20 @@ public final class DDay extends Property implements Escapable {
      * Factory constructor.
      * @param params
      * @param value
+     * @throws ParseException 
      */
-    public DDay(List<Parameter> params, String value) {
+    public DDay(List<Parameter> params, String value) throws ParseException {
         super(Id.DDAY);
-        try {
-            this.date = new DateTime(value);
+        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+            this.text = value;
+            getParameters().add(Value.TEXT);
         }
-        catch (ParseException e) {
+        else {
             try {
                 this.date = new Date(value);
             }
-            catch (ParseException e2) {
-                // this is not a problem, the description may be textual
-                // like "Circa 400 BC", though if we can parse the string
-                // we should do it now
-                this.description = value;
-                getParameters().add(Value.TEXT);
+            catch (ParseException e) {
+                this.date = new DateTime(value);
             }
         }
     }
@@ -113,10 +109,10 @@ public final class DDay extends Property implements Escapable {
     }
 
     /**
-     * @return the description
+     * @return the text
      */
-    public String getDescription() {
-        return description;
+    public String getText() {
+        return text;
     }
 
     /* (non-Javadoc)
@@ -124,8 +120,8 @@ public final class DDay extends Property implements Escapable {
      */
     @Override
     public String getValue() {
-        if (isNotEmpty(description)) {
-            return description;
+        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+            return text;
         }
         return Strings.valueOf(date);
     }

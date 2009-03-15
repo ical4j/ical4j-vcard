@@ -33,6 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
@@ -57,19 +58,22 @@ public final class Member extends Property {
     private URI uri;
     
     /**
-     * @param value
-     * @throws URISyntaxException
-     */
-    public Member(String value) throws URISyntaxException {
-    	this(new URI(value));
-    }
-    
-    /**
      * @param uri
      */
     public Member(URI uri) {
         super(Id.MEMBER);
         this.uri = uri;
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     * @throws URISyntaxException
+     */
+    public Member(List<Parameter> params, String value) throws URISyntaxException {
+        super(Id.MEMBER, params);
+        this.uri = new URI(value);
     }
     
     /**

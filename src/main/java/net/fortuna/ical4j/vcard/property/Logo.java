@@ -33,6 +33,15 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
+
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.parameter.Encoding;
+import net.fortuna.ical4j.vcard.parameter.Type;
+import net.fortuna.ical4j.vcard.parameter.Value;
 
 import org.apache.commons.codec.BinaryDecoder;
 import org.apache.commons.codec.BinaryEncoder;
@@ -41,13 +50,6 @@ import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.parameter.Encoding;
-import net.fortuna.ical4j.vcard.parameter.Type;
 
 /**
  * $Id$
@@ -69,21 +71,6 @@ public final class Logo extends Property {
     private URI uri;
 
     private byte[] binary;
-
-    /**
-     * @param value
-     * @throws URISyntaxException
-     */
-    public Logo(String value) throws URISyntaxException {
-        super(Id.LOGO);
-        BinaryDecoder decoder = new Base64();
-        try {
-            this.binary = decoder.decode(value.getBytes());
-        }
-        catch (DecoderException e) {
-            this.uri = new URI(value);
-        }
-    }
     
     /**
      * @param uri
@@ -91,6 +78,7 @@ public final class Logo extends Property {
     public Logo(URI uri) {
         super(Id.LOGO);
         this.uri = uri;
+        getParameters().add(Value.URI);
     }
     
     /**
@@ -110,6 +98,24 @@ public final class Logo extends Property {
         getParameters().add(Encoding.B);
         if (contentType != null) {
             getParameters().add(contentType);
+        }
+    }
+
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     * @throws URISyntaxException
+     * @throws DecoderException
+     */
+    public Logo(List<Parameter> params, String value) throws URISyntaxException, DecoderException {
+        super(Id.LOGO, params);
+        if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
+            this.uri = new URI(value);
+        }
+        else {
+            BinaryDecoder decoder = new Base64();
+            this.binary = decoder.decode(value.getBytes());
         }
     }
     
@@ -132,7 +138,7 @@ public final class Logo extends Property {
      */
     @Override
     public String getValue() {
-        if (uri != null) {
+        if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
             return Strings.valueOf(uri);
         }
         else if (binary != null) {

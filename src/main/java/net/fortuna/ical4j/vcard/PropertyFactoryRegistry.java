@@ -146,7 +146,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public N createProperty(final List<Parameter> params, final String value) {
-                return new N(value);
+                return new N(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -163,8 +163,8 @@ public class PropertyFactoryRegistry {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public BDay createProperty(final List<Parameter> params, final String value) {
-                return new BDay(value);
+            public BDay createProperty(final List<Parameter> params, final String value) throws ParseException {
+                return new BDay(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -239,8 +239,8 @@ public class PropertyFactoryRegistry {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Telephone createProperty(final List<Parameter> params, final String value) {
-                return new Telephone(value);
+            public Telephone createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
+                return new Telephone(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -248,7 +248,7 @@ public class PropertyFactoryRegistry {
             @Override
             public Telephone createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
-                return new Telephone(group, value);
+                return new Telephone(group, params, value);
             }
         });
         defaultFactories.put(Property.Id.EMAIL, new PropertyFactory<Email>() {
@@ -257,7 +257,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Email createProperty(final List<Parameter> params, final String value) {
-                return new Email(value);
+                return new Email(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -265,7 +265,7 @@ public class PropertyFactoryRegistry {
             @Override
             public Email createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
-                return new Email(group, value);
+                return new Email(group, params, value);
             }
         });
         defaultFactories.put(Property.Id.GEO, new PropertyFactory<Geo>() {
@@ -274,7 +274,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Geo createProperty(final List<Parameter> params, final String value) {
-                return new Geo(value);
+                return new Geo(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -282,7 +282,7 @@ public class PropertyFactoryRegistry {
             @Override
             public Geo createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
-                return new Geo(group, value);
+                return new Geo(group, params, value);
             }
         });
         defaultFactories.put(Property.Id.CLASS, new PropertyFactory<Clazz>() {
@@ -300,7 +300,7 @@ public class PropertyFactoryRegistry {
                 else if (Clazz.PUBLIC.getValue().equals(value)) {
                     return Clazz.PUBLIC;
                 }
-                return new Clazz(value);
+                return new Clazz(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -334,7 +334,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Birth createProperty(final List<Parameter> params, final String value) {
-                return new Birth(value);
+                return new Birth(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -352,7 +352,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public CalAdrUri createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
-                return new CalAdrUri(value);
+                return new CalAdrUri(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -370,7 +370,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public CalUri createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
-                return new CalUri(value);
+                return new CalUri(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -388,7 +388,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Categories createProperty(final List<Parameter> params, final String value) {
-                return new Categories(value);
+                return new Categories(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -405,7 +405,7 @@ public class PropertyFactoryRegistry {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public DDay createProperty(final List<Parameter> params, final String value) {
+            public DDay createProperty(final List<Parameter> params, final String value) throws ParseException {
                 return new DDay(params, value);
             }
             /* (non-Javadoc)
@@ -424,7 +424,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Death createProperty(final List<Parameter> params, final String value) {
-                return new Death(value);
+                return new Death(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -442,7 +442,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public FbUrl createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
-                return new FbUrl(value);
+                return new FbUrl(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -460,7 +460,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Impp createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
-                return new Impp(value);
+                return new Impp(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -478,7 +478,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Kind createProperty(final List<Parameter> params, final String value) {
-                return new Kind(value);
+                return new Kind(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -514,7 +514,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Language createProperty(final List<Parameter> params, final String value) {
-                return new net.fortuna.ical4j.vcard.property.Language(value);
+                return new net.fortuna.ical4j.vcard.property.Language(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -531,8 +531,8 @@ public class PropertyFactoryRegistry {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Logo createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
-                return new Logo(value);
+            public Logo createProperty(final List<Parameter> params, final String value) throws URISyntaxException, DecoderException {
+                return new Logo(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -550,7 +550,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Member createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
-                return new Member(value);
+                return new Member(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -568,7 +568,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Name createProperty(final List<Parameter> params, final String value) {
-                return new Name(value);
+                return new Name(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -586,7 +586,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Nickname createProperty(final List<Parameter> params, final String value) {
-                return new Nickname(value);
+                return new Nickname(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -621,8 +621,8 @@ public class PropertyFactoryRegistry {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Photo createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
-                return new Photo(value);
+            public Photo createProperty(final List<Parameter> params, final String value) throws URISyntaxException, DecoderException {
+                return new Photo(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -640,7 +640,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public ProdId createProperty(final List<Parameter> params, final String value) {
-                return new ProdId(value);
+                return new ProdId(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -676,7 +676,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Revision createProperty(final List<Parameter> params, final String value) throws ParseException {
-                return new Revision(value);
+                return new Revision(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -694,7 +694,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Role createProperty(final List<Parameter> params, final String value) {
-                return new Role(value);
+                return new Role(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -712,7 +712,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public SortString createProperty(final List<Parameter> params, final String value) {
-                return new SortString(value);
+                return new SortString(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -729,8 +729,8 @@ public class PropertyFactoryRegistry {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @Override
-            public Sound createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
-                return new Sound(value);
+            public Sound createProperty(final List<Parameter> params, final String value) throws URISyntaxException, DecoderException {
+                return new Sound(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -748,7 +748,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Source createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
-                return new Source(value);
+                return new Source(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -766,7 +766,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Title createProperty(final List<Parameter> params, final String value) {
-                return new Title(value);
+                return new Title(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -784,7 +784,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Tz createProperty(final List<Parameter> params, final String value) {
-                return new Tz(value);
+                return new Tz(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -802,7 +802,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Uid createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
-                return new Uid(value);
+                return new Uid(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -820,7 +820,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Url createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
-                return new Url(value);
+                return new Url(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)

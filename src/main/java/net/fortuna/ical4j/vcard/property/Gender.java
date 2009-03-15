@@ -55,9 +55,9 @@ public final class Gender extends Property {
      */
     private static final long serialVersionUID = -2739534182576803750L;
     
-    public static final Gender MALE = new Gender("M", Collections.unmodifiableList(new ArrayList<Parameter>()));
+    public static final Gender MALE = new Gender(Collections.unmodifiableList(new ArrayList<Parameter>()), "M");
     
-    public static final Gender FEMALE = new Gender("F", Collections.unmodifiableList(new ArrayList<Parameter>()));
+    public static final Gender FEMALE = new Gender(Collections.unmodifiableList(new ArrayList<Parameter>()), "F");
     
     private String value;
     
@@ -70,11 +70,12 @@ public final class Gender extends Property {
     }
     
     /**
+     * Factory constructor.
      * @param value
-     * @param parameters
+     * @param params
      */
-    private Gender(String value, List<Parameter> parameters) {
-        super(Id.GENDER, parameters);
+    private Gender(List<Parameter> params, String value) {
+        super(Id.GENDER, params);
         this.value = value;
     }
     

@@ -111,10 +111,10 @@ public final class Related extends Property {
      */
     @Override
     public String getValue() {
-        if (uri != null) {
-            return Strings.valueOf(uri);
+        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+            return text;
         }
-        return text;
+        return Strings.valueOf(uri);
     }
 
     /* (non-Javadoc)

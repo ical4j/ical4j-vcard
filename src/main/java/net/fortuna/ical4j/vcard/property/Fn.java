@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.List;
+
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
@@ -57,6 +59,16 @@ public final class Fn extends Property {
      */
     public Fn(String value) {
         super(Id.FN);
+        this.value = value;
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public Fn(List<Parameter> params, String value) {
+        super(Id.FN, params);
         this.value = value;
     }
     

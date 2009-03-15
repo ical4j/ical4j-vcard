@@ -32,9 +32,12 @@
 package net.fortuna.ical4j.vcard.property;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -57,26 +60,6 @@ public final class Geo extends Property {
     private BigDecimal longitude;
     
     /**
-     * @param value
-     */
-    public Geo(String value) {
-        this(null, value);
-    }
-    
-    /**
-     * @param group
-     * @param value
-     */
-    public Geo(Group group, String value) {
-        super(group, Id.GEO);
-        // XXX: shouldn't really allow comma as a separator.
-        // Review if support for Compatibility Hints is added later..
-        String[] components = value.split(";|,");
-        this.latitude = new BigDecimal(components[0]);
-        this.longitude = new BigDecimal(components[1]);
-    }
-    
-    /**
      * @param latitude
      * @param longitude
      */
@@ -84,6 +67,35 @@ public final class Geo extends Property {
         super(Id.GEO);
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public Geo(List<Parameter> params, String value) {
+        this(null, params, value);
+    }
+    
+    /**
+     * Factory constructor.
+     * @param group
+     * @param params
+     * @param value
+     */
+    public Geo(Group group, List<Parameter> params, String value) {
+        super(group, Id.GEO, params);
+        // Allow comma as a separator if relaxed parsing enabled..
+        String[] components = null;
+        if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
+            components = value.split(";|,");
+        }
+        else {
+            components = value.split(";");
+        }
+        this.latitude = new BigDecimal(components[0]);
+        this.longitude = new BigDecimal(components[1]);
     }
     
     /* (non-Javadoc)

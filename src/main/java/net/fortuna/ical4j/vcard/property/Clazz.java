@@ -54,11 +54,11 @@ public final class Clazz extends Property {
      */
     private static final long serialVersionUID = -3339099487456754606L;
     
-    public static final Clazz PUBLIC = new Clazz("PUBLIC", Collections.unmodifiableList(new ArrayList<Parameter>()));
+    public static final Clazz PUBLIC = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()), "PUBLIC");
     
-    public static final Clazz PRIVATE = new Clazz("PRIVATE", Collections.unmodifiableList(new ArrayList<Parameter>()));
+    public static final Clazz PRIVATE = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()), "PRIVATE");
     
-    public static final Clazz CONFIDENTIAL = new Clazz("CONFIDENTIAL", Collections.unmodifiableList(new ArrayList<Parameter>()));
+    public static final Clazz CONFIDENTIAL = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()), "CONFIDENTIAL");
     
     private String value;
     
@@ -71,11 +71,12 @@ public final class Clazz extends Property {
     }
     
     /**
+     * Factory constructor.
      * @param value
-     * @param parameters
+     * @param params
      */
-    private Clazz(String value, List<Parameter> parameters) {
-        super(Id.CLASS, parameters);
+    public Clazz(List<Parameter> params, String value) {
+        super(Id.CLASS, params);
         this.value = value;
     }
     

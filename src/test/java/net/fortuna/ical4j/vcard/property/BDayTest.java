@@ -84,7 +84,7 @@ public class BDayTest extends PropertyTest {
     @Test
     public void testDateType() {
         if (expectedDateType != null) {
-            assertNull(property.getDescription());
+            assertNull(property.getText());
             assertNotNull(property.getDate());
             assertTrue(expectedDateType.isInstance(property.getDate()));
             // bit of a hack..
@@ -94,7 +94,7 @@ public class BDayTest extends PropertyTest {
         }
         else {
             assertNull(property.getDate());
-            assertNotNull(property.getDescription());
+            assertNotNull(property.getText());
         }
     }
 

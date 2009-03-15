@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Locale;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -55,23 +56,25 @@ public final class Language extends Property {
     private Locale[] locales;
 
     /**
-     * @param values
-     */
-    public Language(String... values) {
-        super(Id.LANG);
-        List<Locale> list = new ArrayList<Locale>();
-        for (String value : values) {
-            list.add(new Locale(value));
-        }
-        this.locales = list.toArray(new Locale[list.size()]);
-    }
-
-    /**
      * @param locales
      */
     public Language(Locale... locales) {
         super(Id.LANG);
         this.locales = locales;
+    }
+
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public Language(List<Parameter> params, String value) {
+        super(Id.LANG, params);
+        List<Locale> list = new ArrayList<Locale>();
+        for (String langString : value.split(",")) {
+            list.add(new Locale(langString));
+        }
+        this.locales = list.toArray(new Locale[list.size()]);
     }
 
     /**

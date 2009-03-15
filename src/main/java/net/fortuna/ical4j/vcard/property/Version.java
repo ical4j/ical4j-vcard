@@ -54,7 +54,7 @@ public final class Version extends Property {
      */
     private static final long serialVersionUID = -4345025177285348717L;
     
-    public static final Version VERSION_4_0 = new Version("4.0", Collections.unmodifiableList(new ArrayList<Parameter>()));
+    public static final Version VERSION_4_0 = new Version(Collections.unmodifiableList(new ArrayList<Parameter>()), "4.0");
     
     private String value;
     
@@ -67,11 +67,12 @@ public final class Version extends Property {
     }
     
     /**
+     * Factory constructor.
+     * @param params
      * @param value
-     * @param parameters
      */
-    private Version(String value, List<Parameter> parameters) {
-        super(Id.VERSION, parameters);
+    private Version(List<Parameter> params, String value) {
+        super(Id.VERSION, params);
         this.value = value;
     }
     

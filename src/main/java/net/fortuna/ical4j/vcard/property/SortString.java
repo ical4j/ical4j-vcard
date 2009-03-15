@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.List;
+
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
@@ -57,6 +59,16 @@ public final class SortString extends Property {
      */
     public SortString(String value) {
         super(Id.SORT_STRING);
+        this.value = value;
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public SortString(List<Parameter> params, String value) {
+        super(Id.SORT_STRING, params);
         this.value = value;
     }
     

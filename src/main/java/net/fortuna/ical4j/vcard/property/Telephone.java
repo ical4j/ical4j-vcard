@@ -33,6 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -58,21 +59,6 @@ public final class Telephone extends Property {
     private static final long serialVersionUID = -7747040131815077325L;
     
     private URI uri;
-    
-    /**
-     * @param value
-     */
-    public Telephone(String value, Type...types) {
-        this(null, value, types);
-    }
-    
-    /**
-     * @param group
-     * @param value
-     */
-    public Telephone(Group group, String value, Type...types) {
-        this(group, URI.create(value.trim().replaceAll("\\s+", "-")), types);
-    }
     
     /**
      * @param uri
@@ -103,6 +89,28 @@ public final class Telephone extends Property {
         for (Type type : types) {
             getParameters().add(type);
         }
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     * @throws URISyntaxException
+     */
+    public Telephone(List<Parameter> params, String value) throws URISyntaxException {
+        this(null, params, value);
+    }
+    
+    /**
+     * Factory constructor.
+     * @param group
+     * @param params
+     * @param value
+     * @throws URISyntaxException
+     */
+    public Telephone(Group group, List<Parameter> params, String value) throws URISyntaxException {
+        super(group, Id.TEL, params);
+        this.uri = new URI(value.trim().replaceAll("\\s+", "-"));
     }
     
     /**

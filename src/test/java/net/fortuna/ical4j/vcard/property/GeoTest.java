@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
@@ -69,8 +70,13 @@ public class GeoTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Geo(BigDecimal.ZERO, BigDecimal.ZERO), Id.GEO.toString(), "0;0", new Parameter[] {}});
-        params.add(new Object[] {new Geo("34.15345;-12.34523"), Id.GEO.toString(), "34.15345;-12.34523", new Parameter[] {}});
-        params.add(new Object[] {new Geo("34.15345,-12.34523"), Id.GEO.toString(), "34.15345;-12.34523", new Parameter[] {}});
+        params.add(new Object[] {new Geo(new ArrayList<Parameter>(), "34.15345;-12.34523"), Id.GEO.toString(), "34.15345;-12.34523", new Parameter[] {}});
+        
+        // enable relaxed parsing for non-standard GEO support..
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
+        params.add(new Object[] {new Geo(new ArrayList<Parameter>(), "34.15345,-12.34523"), Id.GEO.toString(), "34.15345;-12.34523", new Parameter[] {}});
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
+        
         return params;
     }
 

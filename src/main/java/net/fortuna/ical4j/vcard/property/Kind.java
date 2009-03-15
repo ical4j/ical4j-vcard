@@ -54,11 +54,11 @@ public final class Kind extends Property {
      */
     private static final long serialVersionUID = -3114221975393833838L;
     
-    public static final Kind INDIVIDUAL = new Kind("individual", Collections.unmodifiableList(new ArrayList<Parameter>()));
+    public static final Kind INDIVIDUAL = new Kind(Collections.unmodifiableList(new ArrayList<Parameter>()), "individual");
     
-    public static final Kind GROUP = new Kind("group", Collections.unmodifiableList(new ArrayList<Parameter>()));
+    public static final Kind GROUP = new Kind(Collections.unmodifiableList(new ArrayList<Parameter>()), "group");
     
-    public static final Kind ORG = new Kind("org", Collections.unmodifiableList(new ArrayList<Parameter>()));
+    public static final Kind ORG = new Kind(Collections.unmodifiableList(new ArrayList<Parameter>()), "org");
     
     private String value;
     
@@ -71,11 +71,12 @@ public final class Kind extends Property {
     }
     
     /**
+     * Factory constructor.
      * @param value
-     * @param parameters
+     * @param params
      */
-    private Kind(String value, List<Parameter> parameters) {
-        super(Id.KIND, parameters);
+    public Kind(List<Parameter> params, String value) {
+        super(Id.KIND, params);
         this.value = value;
     }
     

@@ -31,8 +31,11 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.List;
+
 import net.fortuna.ical4j.model.UtcOffset;
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
@@ -66,15 +69,32 @@ public final class Tz extends Property {
     /**
      * @param text
      */
-    public Tz(String value) {
+    public Tz(String text) {
         super(Id.TZ);
-        try {
+        this.text = text;
+        getParameters().add(Value.TEXT);
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public Tz(List<Parameter> params, String value) {
+        super(Id.TZ, params);
+        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+            this.text = value;
+        }
+        else {
             this.offset = new UtcOffset(value);
         }
-        catch (IllegalArgumentException iae) {
-            this.text = value;
-            getParameters().add(Value.TEXT);
-        }
+    }
+
+    /**
+     * @return the offset
+     */
+    public UtcOffset getOffset() {
+        return offset;
     }
     
     /**
@@ -89,17 +109,13 @@ public final class Tz extends Property {
      */
     @Override
     public String getValue() {
-        if (offset != null) {
+        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+            return text;
+        }
+        else if (offset != null) {
             return offset.toString();
         }
-        return text;
-    }
-
-    /**
-     * @return the offset
-     */
-    public UtcOffset getOffset() {
-        return offset;
+        return null;
     }
 
     /* (non-Javadoc)

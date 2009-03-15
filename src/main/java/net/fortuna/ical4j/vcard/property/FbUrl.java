@@ -33,9 +33,11 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
@@ -55,15 +57,6 @@ public final class FbUrl extends Property {
     private static final long serialVersionUID = 7406097765207265428L;
     
     private URI uri;
-
-    /**
-     * @param value
-     * @param types
-     * @throws URISyntaxException
-     */
-    public FbUrl(String value, Type...types) throws URISyntaxException {
-    	this(new URI(value), types);
-    }
     
     /**
      * @param uri
@@ -74,6 +67,17 @@ public final class FbUrl extends Property {
         for (Type type : types) {
             getParameters().add(type);
         }
+    }
+
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     * @throws URISyntaxException
+     */
+    public FbUrl(List<Parameter> params, String value) throws URISyntaxException {
+        super(Id.FBURL, params);
+        this.uri = new URI(value);
     }
     
     /**

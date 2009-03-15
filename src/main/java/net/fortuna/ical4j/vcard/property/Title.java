@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.List;
+
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Parameter;
@@ -61,6 +63,16 @@ public final class Title extends Property implements Escapable {
         this.value = value;
     }
 
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public Title(List<Parameter> params, String value) {
+        super(Id.TITLE, params);
+        this.value = value;
+    }
+    
     /* (non-Javadoc)
      * @see net.fortuna.ical4j.vcard.Property#getValue()
      */

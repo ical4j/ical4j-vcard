@@ -31,7 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.List;
+
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -56,6 +59,16 @@ public final class ProdId extends Property {
      */
     public ProdId(String value) {
         super(Id.PRODID);
+        this.value = value;
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public ProdId(List<Parameter> params, String value) {
+        super(Id.PRODID, params);
         this.value = value;
     }
     

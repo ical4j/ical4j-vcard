@@ -33,6 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
@@ -70,22 +71,6 @@ public final class Photo extends Property {
     private URI uri;
 
     private byte[] binary;
-
-    /**
-     * @param value
-     * @throws URISyntaxException
-     */
-    public Photo(String value) throws URISyntaxException {
-        super(Id.PHOTO);
-        BinaryDecoder decoder = new Base64();
-        try {
-            this.binary = decoder.decode(value.getBytes());
-        }
-        catch (DecoderException e) {
-            this.uri = new URI(value);
-            getParameters().add(Value.URI);
-        }
-    }
     
     /**
      * @param uri
@@ -112,6 +97,24 @@ public final class Photo extends Property {
         getParameters().add(Encoding.B);
         if (contentType != null) {
             getParameters().add(contentType);
+        }
+    }
+
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     * @throws URISyntaxException
+     * @throws DecoderException
+     */
+    public Photo(List<Parameter> params, String value) throws URISyntaxException, DecoderException {
+        super(Id.PHOTO, params);
+        if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
+            this.uri = new URI(value);
+        }
+        else {
+            BinaryDecoder decoder = new Base64();
+            this.binary = decoder.decode(value.getBytes());
         }
     }
     

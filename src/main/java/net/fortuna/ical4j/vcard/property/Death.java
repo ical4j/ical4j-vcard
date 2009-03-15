@@ -31,8 +31,11 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.List;
+
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -57,6 +60,16 @@ public final class Death extends Property implements Escapable {
      */
     public Death(String value) {
         super(Id.DEATH);
+        this.value = value;
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public Death(List<Parameter> params, String value) {
+        super(Id.DEATH, params);
         this.value = value;
     }
     

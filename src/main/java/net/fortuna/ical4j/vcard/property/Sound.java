@@ -33,6 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
@@ -70,22 +71,6 @@ public final class Sound extends Property {
     private byte[] binary;
 
     private Log log = LogFactory.getLog(Sound.class);
-
-    /**
-     * @param value
-     * @throws URISyntaxException
-     */
-    public Sound(String value) throws URISyntaxException {
-        super(Id.SOUND);
-        BinaryDecoder decoder = new Base64();
-        try {
-            this.binary = decoder.decode(value.getBytes());
-        }
-        catch (DecoderException e) {
-            this.uri = new URI(value);
-            getParameters().add(Value.URI);
-        }
-    }
     
     /**
      * @param uri
@@ -115,6 +100,24 @@ public final class Sound extends Property {
             getParameters().add(contentType);
         }
     }
+
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     * @throws URISyntaxException
+     * @throws DecoderException
+     */
+    public Sound(List<Parameter> params, String value) throws URISyntaxException, DecoderException {
+        super(Id.SOUND, params);
+        if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
+            this.uri = new URI(value);
+        }
+        else {
+            BinaryDecoder decoder = new Base64();
+            this.binary = decoder.decode(value.getBytes());
+        }
+    }
     
     /**
      * @return the uri
@@ -135,7 +138,7 @@ public final class Sound extends Property {
      */
     @Override
     public String getValue() {
-        if (uri != null) {
+        if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
             return Strings.valueOf(uri);
         }
         else if (binary != null) {

@@ -32,11 +32,13 @@
 package net.fortuna.ical4j.vcard.property;
 
 import java.text.ParseException;
+import java.util.List;
 
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
@@ -57,37 +59,39 @@ public final class Revision extends Property {
     private Date date;
     
     /**
-     * @param value
-     * @throws ParseException
-     */
-    public Revision(String value) throws ParseException {
-        super(Id.REV);
-        
-        // try default patterns first, then fall back on vCard-specific patterns
-    	try {
-			this.date = new DateTime(value);
-		}
-    	catch (ParseException e) {
-    	    try {
-                this.date = new Date(value);
-    	    }
-    	    catch (ParseException e2) {
-    	        try {
-                    this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
-    	        }
-    	        catch (ParseException e3) {
-                    this.date = new Date(value, "yyyy'-'MM'-'dd");
-    	        }
-    	    }
-		}
-    }
-    
-    /**
      * @param date
      */
     public Revision(Date date) {
         super(Id.REV);
         this.date = date;
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     * @throws ParseException
+     */
+    public Revision(List<Parameter> params, String value) throws ParseException {
+        super(Id.REV, params);
+        
+        // try default patterns first, then fall back on vCard-specific patterns
+        try {
+            this.date = new DateTime(value);
+        }
+        catch (ParseException e) {
+            try {
+                this.date = new Date(value);
+            }
+            catch (ParseException e2) {
+                try {
+                    this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
+                }
+                catch (ParseException e3) {
+                    this.date = new Date(value, "yyyy'-'MM'-'dd");
+                }
+            }
+        }
     }
     
     /**

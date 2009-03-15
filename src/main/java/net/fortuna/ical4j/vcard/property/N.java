@@ -32,6 +32,9 @@
 package net.fortuna.ical4j.vcard.property;
 
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
+
+import java.util.List;
+
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
@@ -64,24 +67,6 @@ public final class N extends Property {
     private String[] suffixes;
     
     /**
-     * @param value
-     */
-    public N(String value) {
-        super(Id.N);
-        String[] names = value.split(";");
-        this.familyName = names[0];
-        if (names.length >= 2) {
-            this.givenName = names[1];
-        }
-        // support VCARD 3.0 by allowing optional section..
-        if (names.length > 2) {
-            this.additionalNames = names[2].split(",");
-            this.prefixes = names[3].split(",");
-            this.suffixes = names[4].split(",");
-        }
-    }
-    
-    /**
      * @param familyName
      * @param givenName
      * @param additionalNames
@@ -95,6 +80,26 @@ public final class N extends Property {
         this.additionalNames = additionalNames;
         this.prefixes = prefixes;
         this.suffixes = suffixes;
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public N(List<Parameter> params, String value) {
+        super(Id.N, params);
+        String[] names = value.split(";");
+        this.familyName = names[0];
+        if (names.length >= 2) {
+            this.givenName = names[1];
+        }
+        // support VCARD 3.0 by allowing optional section..
+        if (names.length > 2) {
+            this.additionalNames = names[2].split(",");
+            this.prefixes = names[3].split(",");
+            this.suffixes = names[4].split(",");
+        }
     }
     
     /**

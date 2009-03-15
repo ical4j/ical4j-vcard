@@ -32,6 +32,9 @@
 package net.fortuna.ical4j.vcard.property;
 
 import static net.fortuna.ical4j.util.Strings.escape;
+
+import java.util.List;
+
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
@@ -57,23 +60,6 @@ public final class Org extends Property {
     /**
      * @param value
      */
-    public Org(String value) {
-        this(null, value);
-    }
-    
-    /**
-     * @param group
-     * @param value
-     */
-    public Org(Group group, String value) {
-        // this regex has been stolen from:
-        // http://stackoverflow.com/questions/56554/what-is-the-proper-regular-expression-for-an-unescaped-backslash-before-a-chara
-        this(group, value.split("(?<!\\\\)(?>\\\\\\\\)*;"));
-    }
-    
-    /**
-     * @param value
-     */
     public Org(String...value) {
         this(null, value);
     }
@@ -85,6 +71,28 @@ public final class Org extends Property {
     public Org(Group group, String...value) {
         super(group, Id.ORG);
         this.values = value;
+    }
+    
+    /**
+     * Factory constructor
+     * @param params
+     * @param value
+     */
+    public Org(List<Parameter> params, String value) {
+        this(null, params, value);
+    }
+    
+    /**
+     * Factory constructor.
+     * @param group
+     * @param params
+     * @param value
+     */
+    public Org(Group group, List<Parameter> params, String value) {
+        super(group, Id.ORG, params);
+        // this regex has been stolen from:
+        // http://stackoverflow.com/questions/56554/what-is-the-proper-regular-expression-for-an-unescaped-backslash-before-a-chara
+        this.values = value.split("(?<!\\\\)(?>\\\\\\\\)*;");
     }
     
     /**

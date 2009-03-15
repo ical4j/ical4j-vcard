@@ -144,7 +144,7 @@ public final class Key extends Property {
      */
     @Override
     public String getValue() {
-        if (uri != null) {
+        if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
             return Strings.valueOf(uri);
         }
         else if (binary != null) {

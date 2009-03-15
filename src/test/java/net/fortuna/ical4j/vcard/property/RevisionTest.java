@@ -82,7 +82,7 @@ public class RevisionTest extends PropertyTest {
         List<Object[]> params = new ArrayList<Object[]>();
         Date date = new Date(0);
         params.add(new Object[] { new Revision(date), Id.REV.toString(), "19700101", new Parameter[] {}, date });
-        params.add(new Object[] { new Revision("19700101"), Id.REV.toString(), "19700101", new Parameter[] {}, date });
+        params.add(new Object[] { new Revision(new ArrayList<Parameter>(), "19700101"), Id.REV.toString(), "19700101", new Parameter[] {}, date });
         return params;
     }
 

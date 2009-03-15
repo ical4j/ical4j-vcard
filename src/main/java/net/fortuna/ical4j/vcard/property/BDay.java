@@ -31,9 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static org.apache.commons.lang.StringUtils.isNotEmpty;
-
 import java.text.ParseException;
+import java.util.List;
 
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
@@ -57,7 +56,7 @@ public final class BDay extends Property implements Escapable {
 
     private Date date;
 
-    private String description;
+    private String text;
 
     /**
      * @param date
@@ -68,27 +67,47 @@ public final class BDay extends Property implements Escapable {
     }
 
     /**
-     * @param value
+     * @param text
      */
-    public BDay(String value) {
+    public BDay(String text) {
         super(Id.BDAY);
-        try {
-            this.date = new Date(value);
+        this.text = text;
+        getParameters().add(Value.TEXT);
+    }
+
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     * @throws ParseException 
+     */
+    public BDay(List<Parameter> params, String value) throws ParseException {
+        super(Id.BDAY, params);
+        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+            this.text = value;
         }
-        catch (ParseException e) {
+        else {
+            
+            // try default patterns first, then fall back on vCard-specific patterns
             try {
-                this.date = new DateTime(value);
+                this.date = new Date(value);
             }
-            catch (ParseException e2) {
-                // this is not a problem, the description may be textual
-                // like "Circa 400 BC", though if we can parse the string
-                // we should do it now
-                this.description = value;
-                getParameters().add(Value.TEXT);
+            catch (ParseException e) {
+                try {
+                    this.date = new DateTime(value);
+                }
+                catch (ParseException e2) {
+                    try {
+                        this.date = new Date(value, "yyyy'-'MM'-'dd");
+                    }
+                    catch (ParseException e3) {
+                        this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
+                    }
+                }
             }
         }
     }
-
+    
     /**
      * @return the date
      */
@@ -97,10 +116,10 @@ public final class BDay extends Property implements Escapable {
     }
 
     /**
-     * @return the description
+     * @return the text
      */
-    public String getDescription() {
-        return description;
+    public String getText() {
+        return text;
     }
 
     /*
@@ -109,8 +128,8 @@ public final class BDay extends Property implements Escapable {
      */
     @Override
     public String getValue() {
-        if (isNotEmpty(description)) {
-            return description;
+        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+            return text;
         }
         return Strings.valueOf(date);
     }

@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.util.List;
+
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
@@ -57,7 +59,7 @@ public final class Email extends Property {
      * @param value
      */
     public Email(String value) {
-        this(null, value);
+        this((Group) null, value);
     }
     
     /**
@@ -66,6 +68,26 @@ public final class Email extends Property {
      */
     public Email(Group group, String value) {
         super(group, Id.EMAIL);
+        this.value = value;
+    }
+    
+    /**
+     * Factory constructor.
+     * @param params
+     * @param value
+     */
+    public Email(List<Parameter> params, String value) {
+        this(null, params, value);
+    }
+    
+    /**
+     * Factory constructor.
+     * @param group
+     * @param params
+     * @param value
+     */
+    public Email(Group group, List<Parameter> params, String value) {
+        super(group, Id.EMAIL, params);
         this.value = value;
     }
     
