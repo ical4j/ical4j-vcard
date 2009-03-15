@@ -73,11 +73,11 @@ public final class BDay extends Property implements Escapable {
     public BDay(String value) {
         super(Id.BDAY);
         try {
-            this.date = new DateTime(value);
+            this.date = new Date(value);
         }
         catch (ParseException e) {
             try {
-                this.date = new Date(value);
+                this.date = new DateTime(value);
             }
             catch (ParseException e2) {
                 // this is not a problem, the description may be textual
