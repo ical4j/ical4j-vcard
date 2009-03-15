@@ -41,12 +41,15 @@ import java.io.Reader;
 
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.net.QuotedPrintableCodec;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -59,6 +62,16 @@ import org.junit.Test;
  *
  */
 public class DirkTest {
+
+    @Before
+    public void setUp() {
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
+    }
+    
+    @After
+    public void tearDown() {
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
+    }
 
 	/**
 	 * The dirk example file has been prepared for the Nepomuk Social Semantic

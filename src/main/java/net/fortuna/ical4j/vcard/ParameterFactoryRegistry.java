@@ -38,6 +38,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.Parameter.Id;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Language;
@@ -121,10 +122,10 @@ public class ParameterFactoryRegistry {
              */
             @Override
             public Pref createParameter(final String value) {
-                if (value != null) {
-                    return new Pref(value);
+                if (value == null && CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
+                    return Pref.PREF;
                 }
-                return Pref.PREF;
+                return new Pref(value);
             }
         });
         
