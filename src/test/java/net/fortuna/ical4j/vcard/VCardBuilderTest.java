@@ -44,7 +44,10 @@ import java.util.Collection;
 import java.util.List;
 
 import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.util.CompatibilityHints;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -69,6 +72,16 @@ public class VCardBuilderTest {
      */
     public VCardBuilderTest(String filename) throws FileNotFoundException {
         builder = new VCardBuilder(new FileReader(filename));
+    }
+
+    @Before
+    public void setUp() {
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
+    }
+    
+    @After
+    public void tearDown() {
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
     }
     
     /**

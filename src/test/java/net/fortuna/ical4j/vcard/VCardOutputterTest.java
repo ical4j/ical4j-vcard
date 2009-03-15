@@ -44,6 +44,7 @@ import java.util.List;
 
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.CompatibilityHints;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -91,11 +92,14 @@ public class VCardOutputterTest {
         VCardBuilder builder = null;
         List<Object[]> params = new ArrayList<Object[]>();
         File[] testFiles = new File("src/test/resources/samples/valid").listFiles((FileFilter) VCardFileFilter.INSTANCE);
+        // enable relaxed parsing for non-standard GEO support..
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
         for (int i = 0; i < testFiles.length; i++) {
             builder = new VCardBuilder(new FileReader(testFiles[i]));
             VCard card = builder.build();
             params.add(new Object[] {outputter, card, card.toString()});
         }
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
         return params;
     }
 }
