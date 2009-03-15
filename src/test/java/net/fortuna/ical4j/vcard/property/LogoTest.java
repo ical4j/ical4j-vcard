@@ -42,6 +42,7 @@ import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
+import net.fortuna.ical4j.vcard.parameter.Value;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -70,7 +71,7 @@ public class LogoTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Logo(URI.create("")), Id.LOGO.toString(), "", new Parameter[] {}});
+        params.add(new Object[] {new Logo(URI.create("")), Id.LOGO.toString(), "", new Parameter[] {Value.URI}});
         params.add(new Object[] {new Logo(new byte[0]), Id.LOGO.toString(), "", new Parameter[] {Encoding.B}});
         
         Type type = new Type("image/jpeg");

@@ -72,7 +72,7 @@ public class TelephoneTest extends PropertyTest {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Telephone(URI.create("")), Id.TEL.toString(), "", new Parameter[] {}});
         params.add(new Object[] {new Telephone(URI.create(""), Type.HOME), Id.TEL.toString(), "", new Parameter[] {Type.HOME}});
-        params.add(new Object[] {new Telephone(new ArrayList<Parameter>(), "+1 555 3423 2342"), Id.TEL.toString(), "tel:+1-555-3423-2342", new Parameter[] {Type.HOME}});
+        params.add(new Object[] {new Telephone(new ArrayList<Parameter>(), "+1 555 3423 2342"), Id.TEL.toString(), "tel:+1-555-3423-2342", new Parameter[] {}});
         params.add(new Object[] {new Telephone(new ArrayList<Parameter>(), "49 631 234 341"), Id.TEL.toString(), "tel:49-631-234-341", new Parameter[] {}});
         params.add(new Object[] {new Telephone(new ArrayList<Parameter>(), "+61 (0) 3 9283 8374"), Id.TEL.toString(), "tel:+61-(0)-3-9283-8374", new Parameter[] {}});
         return params;

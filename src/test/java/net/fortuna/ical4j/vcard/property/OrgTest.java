@@ -70,7 +70,7 @@ public class OrgTest extends PropertyTest {
                 "ABC\\, Inc.;North American Division;Marketing",
                 new Parameter[] {} });
         params.add(new Object[] {
-                new Org("ABC, Inc.;North American Division;Marketing"),
+                new Org(new ArrayList<Parameter>(), "ABC, Inc.;North American Division;Marketing"),
                 Id.ORG.toString(),
                 "ABC\\, Inc.;North American Division;Marketing",
                 new Parameter[] {} });

@@ -99,7 +99,7 @@ public class BDayTest extends PropertyTest {
     }
 
     @Parameters
-    public static Collection<Object[]> parameters() {
+    public static Collection<Object[]> parameters() throws ParseException {
         List<Object[]> params = new ArrayList<Object[]>();
 
         try {
@@ -109,10 +109,12 @@ public class BDayTest extends PropertyTest {
         catch (ParseException pe) {
             pe.printStackTrace();
         }
-        params.add(new Object[] {new BDay("19690415"), Id.BDAY.toString(), "19690415", new Parameter[] {}, Date.class});
-        params.add(new Object[] {new BDay("15730125T180322Z"), Id.BDAY.toString(), "15730125T180322Z", new Parameter[] {}, DateTime.class});
+        params.add(new Object[] {new BDay(new ArrayList<Parameter>(), "19690415"), Id.BDAY.toString(), "19690415", new Parameter[] {}, Date.class});
+        params.add(new Object[] {new BDay(new ArrayList<Parameter>(), "15730125T180322Z"), Id.BDAY.toString(), "15730125T180322Z", new Parameter[] {}, DateTime.class});
         params.add(new Object[] {new BDay(""), Id.BDAY.toString(), "", new Parameter[] {Value.TEXT}, null});
-        params.add(new Object[] {new BDay("Circa 400, bce"), Id.BDAY.toString(), "Circa 400, bce", new Parameter[] {Value.TEXT}, null});
+        List<Parameter> bdayParams = new ArrayList<Parameter>();
+        bdayParams.add(Value.TEXT);
+        params.add(new Object[] {new BDay(bdayParams, "Circa 400, bce"), Id.BDAY.toString(), "Circa 400, bce", new Parameter[] {Value.TEXT}, null});
         return params;
     }
 }

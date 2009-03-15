@@ -38,6 +38,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
@@ -111,6 +112,9 @@ public final class Telephone extends Property {
     public Telephone(Group group, List<Parameter> params, String value) throws URISyntaxException {
         super(group, Id.TEL, params);
         this.uri = new URI(value.trim().replaceAll("\\s+", "-"));
+        if (uri.getScheme() == null && StringUtils.isNotEmpty(uri.getSchemeSpecificPart())) {
+            this.uri = new URI("tel", uri.getSchemeSpecificPart(), uri.getFragment());
+        }
     }
     
     /**
@@ -125,7 +129,7 @@ public final class Telephone extends Property {
      */
     @Override
     public String getValue() {
-        return uri.toString();
+        return Strings.valueOf(uri);
     }
 
     /* (non-Javadoc)
