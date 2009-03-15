@@ -86,7 +86,7 @@ public final class Pref extends Parameter {
      */
     @Override
     public String getValue() {
-        if (level > 0) {
+        if (level != null) {
             return level.toString();
         }
         return null;
