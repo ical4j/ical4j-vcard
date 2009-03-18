@@ -206,7 +206,7 @@ public class PropertyFactoryRegistry {
              */
             @Override
             public Org createProperty(final List<Parameter> params, final String value) {
-                return new Org(value);
+                return new Org(params, value);
             }
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
@@ -214,7 +214,7 @@ public class PropertyFactoryRegistry {
             @Override
             public Org createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
-                return new Org(group, value);
+                return new Org(group, params, value);
             }
         });
         defaultFactories.put(Property.Id.ADR, new PropertyFactory<Address>() {
