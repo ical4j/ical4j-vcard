@@ -48,6 +48,7 @@ import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.property.BDay;
+import net.fortuna.ical4j.vcard.property.Org;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.net.QuotedPrintableCodec;
@@ -162,6 +163,15 @@ public class Outlook2003Test {
 		assertNotNull(bday.getDate());
 		assertEquals("19800118",bday.getValue());
 		
+		/*
+		 * Yet another issue. The entry in PropertyFactoryRegistry for the ORG
+		 * property was invalid. There should be TWO values for this file
+		 * and the org property.
+		 */
+		String [] vals = ((Org)card.getProperty(Id.ORG)).getValues();
+		assertEquals(2,vals.length);
+		assertEquals("DFKI",vals[0]);
+		assertEquals("Knowledge-Management",vals[1]);
 	}
 	
 	/**

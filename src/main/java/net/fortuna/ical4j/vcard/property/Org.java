@@ -55,6 +55,10 @@ public final class Org extends Property {
      */
     private static final long serialVersionUID = -1435956318814896568L;
     
+    // this regex has been stolen from:
+    // http://stackoverflow.com/questions/56554/what-is-the-proper-regular-expression-for-an-unescaped-backslash-before-a-chara
+    private static final String VALUES_SPLIT_REGEX = "(?<!\\\\)(?>\\\\\\\\)*;"; 
+    
     private String[] values;
     
     /**
@@ -90,9 +94,7 @@ public final class Org extends Property {
      */
     public Org(Group group, List<Parameter> params, String value) {
         super(group, Id.ORG, params);
-        // this regex has been stolen from:
-        // http://stackoverflow.com/questions/56554/what-is-the-proper-regular-expression-for-an-unescaped-backslash-before-a-chara
-        this.values = value.split("(?<!\\\\)(?>\\\\\\\\)*;");
+        this.values = value.split(VALUES_SPLIT_REGEX);
     }
     
     /**
