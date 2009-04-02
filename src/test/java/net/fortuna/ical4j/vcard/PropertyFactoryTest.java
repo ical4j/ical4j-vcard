@@ -107,7 +107,6 @@ public class PropertyFactoryTest {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @SuppressWarnings("serial")
-            @Override
             public Property createProperty(final List<Parameter> params, final String value) {
                 return new Property("extended") {
                     @Override
@@ -126,7 +125,6 @@ public class PropertyFactoryTest {
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
              */
             @SuppressWarnings("serial")
-            @Override
             public Property createProperty(Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 return new Property(group, "extended") {

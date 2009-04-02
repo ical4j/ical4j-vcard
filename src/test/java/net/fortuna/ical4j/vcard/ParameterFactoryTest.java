@@ -85,7 +85,6 @@ public class ParameterFactoryTest {
              * @see net.fortuna.ical4j.vcard.ParameterFactory#createParameter(java.lang.String)
              */
             @SuppressWarnings("serial")
-            @Override
             public Parameter createParameter(final String value) {
                 return new Parameter("extended") {
                     @Override

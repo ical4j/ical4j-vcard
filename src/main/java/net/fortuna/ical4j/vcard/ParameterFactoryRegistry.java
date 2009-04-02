@@ -66,7 +66,6 @@ public class ParameterFactoryRegistry {
     public ParameterFactoryRegistry() {
         defaultFactories = new HashMap<Id, ParameterFactory<? extends Parameter>>();
         defaultFactories.put(Parameter.Id.ENCODING, new ParameterFactory<Encoding>() {
-            @Override
             public Encoding createParameter(final String value) {
                 if (Encoding.B.getValue().equals(value)) {
                     return Encoding.B;
@@ -75,19 +74,16 @@ public class ParameterFactoryRegistry {
             }
         });
         defaultFactories.put(Parameter.Id.LANGUAGE, new ParameterFactory<Language>() {
-            @Override
             public Language createParameter(final String value) {
                 return new Language(new Locale(value));
             }
         });
         defaultFactories.put(Parameter.Id.PID, new ParameterFactory<Pid>() {
-            @Override
             public Pid createParameter(final String value) {
                 return new Pid(Integer.valueOf(value));
             }
         });
         defaultFactories.put(Parameter.Id.TYPE, new ParameterFactory<Type>() {
-            @Override
             public Type createParameter(final String value) {
                 if (Type.HOME.getValue().equals(value)) {
                     return Type.HOME;
@@ -102,7 +98,6 @@ public class ParameterFactoryRegistry {
             }
         });
         defaultFactories.put(Parameter.Id.VALUE, new ParameterFactory<Value>() {
-            @Override
             public Value createParameter(final String value) {
                 if (Value.BINARY.getValue().equals(value)) {
                     return Value.BINARY;
@@ -120,7 +115,6 @@ public class ParameterFactoryRegistry {
             /* (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.ParameterFactory#createParameter(java.lang.String)
              */
-            @Override
             public Pref createParameter(final String value) {
                 if (value == null && CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
                     return Pref.PREF;
