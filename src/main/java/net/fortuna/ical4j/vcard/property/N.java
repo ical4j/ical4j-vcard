@@ -89,7 +89,7 @@ public final class N extends Property {
      */
     public N(List<Parameter> params, String value) {
         super(Id.N, params);
-        String[] names = value.split(";");
+        String[] names = value.split(";", -1);
         this.familyName = names[0];
         if (names.length >= 2) {
             this.givenName = names[1];

@@ -72,6 +72,8 @@ public class NTest extends PropertyTest {
         params.add(new Object[] {new N("Public", "John", new String[] {"Quinlan"}, new String[] {"Mr."}, new String[] {"Esq."}), Id.N.toString(), "Public;John;Quinlan;Mr.;Esq.", new Parameter[] {}});
         params.add(new Object[] {new N("Stevenson", "John", new String[] {"Philip", "Paul"}, new String[] {"Dr."}, new String[] {"Jr.", "M.D.", "A.C.P."}), Id.N.toString(), "Stevenson;John;Philip,Paul;Dr.;Jr.,M.D.,A.C.P.", new Parameter[] {}});
         params.add(new Object[] {new N(new ArrayList<Parameter>(), "dirk"), Id.N.toString(), "dirk", new Parameter[] {}});
+        params.add(new Object[] {new N(new ArrayList<Parameter>(), "Ruhsert;Patrick;;;"), Id.N.toString(), "Ruhsert;Patrick;;;", new Parameter[] {}});
+        
         return params;
     }
 
