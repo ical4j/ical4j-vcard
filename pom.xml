@@ -9,7 +9,7 @@
 	<groupId>net.fortuna.ical4j</groupId>
 	<artifactId>ical4j-vcard</artifactId>
 	<name>iCal4j VCard</name>
-	<version>0.9.2-SNAPSHOT</version>
+	<version>0.9.1</version>
 	<description>Support for the vCard specification</description>
 	<url>http://ical4j.sourceforge.net</url>
 	<issueManagement>
@@ -29,6 +29,7 @@
 		<connection>scm:cvs:pserver:anonymous:@ical4j.cvs.sourceforge.net:/cvsroot/ical4j:ical4j-vcard</connection>
 		<developerConnection>scm:cvs:ext:fortuna@ical4j.cvs.sourceforge.net:/cvsroot/ical4j:ical4j-vcard</developerConnection>
 		<url>http://ical4j.cvs.sourceforge.net/ical4j/ical4j-vcard</url>
+    <tag>ical4j-vcard-0_9_1</tag>
   </scm>
 	
 	<build>
@@ -156,7 +157,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changelog-plugin</artifactId>
@@ -181,7 +181,6 @@
 					</reportSet>
 				</reportSets>
 			</plugin>
-			 -->
 		</plugins>
 	</reporting>
 </project>
