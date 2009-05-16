@@ -8,6 +8,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.fortuna.ical4j</groupId>
 	<artifactId>ical4j-vcard</artifactId>
+	<packaging>bundle</packaging>
 	<name>iCal4j VCard</name>
 	<version>0.9.2-SNAPSHOT</version>
 	<description>Support for the vCard specification</description>
@@ -33,6 +34,18 @@
 	
 	<build>
 		<plugins>
+			<plugin>   
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Export-Package>net.fortuna.ical4j.vcard.*</Export-Package>
+						<Import-Package>net.fortuna.ical4j.*,org.apache.commons.lang.*,org.apache.commons.logging,*;resolution:=optional</Import-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clover-plugin</artifactId>
