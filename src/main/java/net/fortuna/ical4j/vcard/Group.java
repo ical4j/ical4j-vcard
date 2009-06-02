@@ -51,15 +51,35 @@ public class Group implements Serializable {
      */
     private static final long serialVersionUID = -424118146831940666L;
 
+    /**
+     * The pre-defined work group.
+     */
     public static final Group WORK = new Group(Id.WORK);
 
+    /**
+     * The pre-defined home group.
+     */
     public static final Group HOME = new Group(Id.HOME);
     
     /**
      * Enumeration of group identifiers.
      */
     public enum Id {
-        WORK, HOME, EXTENDED
+        
+        /**
+         * Work group identifier.
+         */
+        WORK,
+        
+        /**
+         * Home group identifier.
+         */
+        HOME,
+        
+        /**
+         * Non-standard group identifier.
+         */
+        EXTENDED
     }
     
     private final Id id;
@@ -81,16 +101,16 @@ public class Group implements Serializable {
         this.id = id;
     }
     
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(final Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {

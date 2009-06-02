@@ -66,8 +66,9 @@ public class GroupRegistry {
     }
     
     /**
-     * @param value
-     * @return
+     * @param value a string representation of a group identifier
+     * @return a registered group with the specified identifier. If no such group
+     * is found null is returned
      */
     public Group getGroup(final String value) {
         try {
@@ -80,8 +81,9 @@ public class GroupRegistry {
     }
     
     /**
-     * @param extendedName
-     * @param factory
+     * Registers a non-standard group.
+     * @param extendedName the extended name of the group
+     * @param group the group
      */
     public void register(final String extendedName, final Group group) {
         extendedGroups.put(extendedName, group);

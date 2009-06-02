@@ -63,6 +63,9 @@ public class ParameterFactoryRegistry {
 
     private Map<String, ParameterFactory<? extends Parameter>> extendedFactories;
     
+    /**
+     * 
+     */
     public ParameterFactoryRegistry() {
         defaultFactories = new HashMap<Id, ParameterFactory<? extends Parameter>>();
         defaultFactories.put(Parameter.Id.ENCODING, new ParameterFactory<Encoding>() {
@@ -127,8 +130,8 @@ public class ParameterFactoryRegistry {
     }
     
     /**
-     * @param value
-     * @return
+     * @param value a string representation of a parameter id
+     * @return a factory for the specified parameter id
      */
     public ParameterFactory<? extends Parameter> getFactory(final String value) {
         try {
@@ -141,8 +144,9 @@ public class ParameterFactoryRegistry {
     }
     
     /**
-     * @param extendedName
-     * @param factory
+     * Registers a non-standard parameter factory.
+     * @param extendedName the non-standard parameter name
+     * @param factory a non-standard parameter factory
      */
     public void register(String extendedName, ParameterFactory<Parameter> factory) {
         extendedFactories.put(extendedName, factory);

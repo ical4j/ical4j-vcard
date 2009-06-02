@@ -56,8 +56,42 @@ public abstract class Parameter implements Serializable {
      */
     public enum Id {
         // 6.  Property Parameters
-        LANGUAGE, ENCODING, VALUE, PID, TYPE, PREF,
+        
+        /**
+         * Language parameter identifier.
+         */
+        LANGUAGE, 
+        
+        /**
+         * Encoding parameter identifier.
+         */
+        ENCODING,
+        
+        /**
+         * Value parameter identifier.
+         */
+        VALUE, 
+        
+        /**
+         * PID parameter identifier.
+         */
+        PID,
+        
+        /**
+         * Type parameter identifier.
+         */
+        TYPE,
+        
+        /**
+         * Pref parameter identifier.
+         */
+        PREF,
+        
         // 7.10. Extended Properties and Parameters
+        
+        /**
+         * Non-standard parameter identifier.
+         */
         EXTENDED
     };
     
@@ -92,16 +126,16 @@ public abstract class Parameter implements Serializable {
      */
     public abstract String getValue();
     
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(final Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {
