@@ -38,6 +38,8 @@ import java.util.List;
 import org.apache.commons.codec.DecoderException;
 
 /**
+ * @param <T> the property type created by the factory
+ * 
  * $Id$
  *
  * Created on: 30/10/2008
@@ -47,19 +49,24 @@ import org.apache.commons.codec.DecoderException;
 public interface PropertyFactory<T extends Property> {
 
     /**
-     * @param value
-     * @return
-     * @throws URISyntaxException 
-     * @throws ParseException 
+     * @param params property parameters used to construct a new instance
+     * @param value a property value used to construct a new instance
+     * @return a new property instance
+     * @throws URISyntaxException where an invalid URL is specified in the property value
+     * @throws ParseException where an invalid date string is specified in the property value
+     * @throws DecoderException where an invalid encoded value is specified in the property value
      */
     T createProperty(List<Parameter> params, String value) throws URISyntaxException, ParseException, DecoderException;
     
     /**
-     * @param group
-     * @param value
-     * @return
-     * @throws URISyntaxException
-     * @throws ParseException
+     * @param group the property group
+     * @param params property parameters used to construct a new instance
+     * @param value a property value used to construct a new instance
+     * @return a new property instance
+     * @throws URISyntaxException where an invalid URL is specified in the property value
+     * @throws ParseException where an invalid date string is specified in the property value
+     * @throws DecoderException where an invalid encoded value is specified in the property value
      */
-    T createProperty(Group group, List<Parameter> params, String value) throws URISyntaxException, ParseException, DecoderException;
+    T createProperty(Group group, List<Parameter> params, String value) throws URISyntaxException,
+        ParseException, DecoderException;
 }
