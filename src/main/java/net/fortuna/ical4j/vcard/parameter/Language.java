@@ -61,7 +61,7 @@ public final class Language extends Parameter {
     }
     
     /**
-     * @param id
+     * @param locale the locale for the language
      */
     public Language(Locale locale) {
         super(Id.LANGUAGE);
@@ -75,8 +75,8 @@ public final class Language extends Parameter {
         return locale;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Parameter#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {

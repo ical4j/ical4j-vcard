@@ -48,20 +48,23 @@ public final class Encoding extends Parameter {
      */
     private static final long serialVersionUID = -6912042752317640817L;
     
+    /**
+     * Binary encoding instance.
+     */
     public static final Encoding B = new Encoding("b");
     
     private final String value;
     
     /**
-     * @param value
+     * @param value encoding parameter value
      */
     public Encoding(String value) {
         super(Id.ENCODING);
         this.value = value;
     }
     
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Parameter#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {

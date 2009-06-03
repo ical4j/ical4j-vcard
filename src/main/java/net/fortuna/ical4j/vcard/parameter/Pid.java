@@ -59,7 +59,7 @@ public final class Pid extends Parameter {
     }
     
     /**
-     * @param pid
+     * @param pid integer representation of a PID
      */
     public Pid(Integer pid) {
         super(Id.PID);
@@ -73,8 +73,8 @@ public final class Pid extends Parameter {
         return pid;
     }
     
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Parameter#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {

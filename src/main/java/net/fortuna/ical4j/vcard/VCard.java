@@ -140,7 +140,7 @@ public final class VCard implements Serializable {
     }
     
     /**
-     * @throws ValidationException
+     * @throws ValidationException where validation fails
      */
     public void validate() throws ValidationException {
         // ;A vCard object MUST include the VERSION and FN properties.

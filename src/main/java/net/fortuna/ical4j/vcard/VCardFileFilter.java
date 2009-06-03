@@ -39,27 +39,26 @@ import org.apache.commons.io.filefilter.SuffixFileFilter;
 
 /**
  * $Id$
- *
+ * 
  * Created on: 05/02/2009
- *
+ * 
  * @author fortuna
- *
+ * 
  */
 public final class VCardFileFilter extends AndFileFilter {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8748884254181947028L;
+    private static final long serialVersionUID = -8748884254181947028L;
 
-	public static final VCardFileFilter INSTANCE = new VCardFileFilter();
-	
-	/**
-	 * 
-	 */
-	private VCardFileFilter() {
-		super(new NotFileFilter(DirectoryFileFilter.INSTANCE),
-        		new SuffixFileFilter(".vcf"));
-	}
+    /**
+     * A shared file filter instance.
+     */
+    public static final VCardFileFilter INSTANCE = new VCardFileFilter();
+
+    /**
+     * 
+     */
+    private VCardFileFilter() {
+        super(new NotFileFilter(DirectoryFileFilter.INSTANCE), new SuffixFileFilter(".vcf"));
+    }
 
 }

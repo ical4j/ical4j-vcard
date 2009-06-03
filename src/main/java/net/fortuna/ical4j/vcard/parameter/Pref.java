@@ -56,14 +56,14 @@ public final class Pref extends Parameter {
     private final Integer level;
     
     /**
-     * @param value
+     * @param value a string representation of a pref parameter value
      */
     public Pref(String value) {
         this(Integer.valueOf(value));
     }
     
     /**
-     * @param level
+     * @param level priority level for the pref parameter
      */
     public Pref(Integer level) {
         super(Id.PREF);
@@ -81,8 +81,8 @@ public final class Pref extends Parameter {
         this.level = null;
     }
     
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Parameter#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {

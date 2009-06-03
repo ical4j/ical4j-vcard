@@ -52,16 +52,25 @@ public final class Type extends Parameter {
      */
     private static final long serialVersionUID = -3644362129355908795L;
     
+    /**
+     * Home type parameter.
+     */
     public static final Type HOME = new Type("home");
     
+    /**
+     * Work type parameter.
+     */
     public static final Type WORK = new Type("work");
     
+    /**
+     * Pref type parameter.
+     */
     public static final Type PREF = new Type("pref");
     
     private final String[] types;
     
     /**
-     * @param value
+     * @param value string representation of type parameter
      */
     public Type(String value) {
         super(Id.TYPE);
@@ -69,7 +78,7 @@ public final class Type extends Parameter {
     }
     
     /**
-     * @param types
+     * @param types string representations of multiple nested types
      */
     public Type(String...types) {
         super(Id.TYPE);
@@ -77,7 +86,7 @@ public final class Type extends Parameter {
     }
     
     /**
-     * @param types
+     * @param types multiple nested types
      */
     public Type(Type...types) {
         super(Id.TYPE);
@@ -95,8 +104,8 @@ public final class Type extends Parameter {
         return types;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Parameter#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {

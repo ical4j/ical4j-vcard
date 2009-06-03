@@ -48,24 +48,33 @@ public final class Value extends Parameter {
      */
     private static final long serialVersionUID = -4161095052661786246L;
 
+    /**
+     * Text value parameter.
+     */
     public static final Value TEXT = new Value("text");
 
+    /**
+     * Binary value parameter.
+     */
     public static final Value BINARY = new Value("binary");
 
+    /**
+     * URI value parameter.
+     */
     public static final Value URI = new Value("uri");
     
     private final String value;
     
     /**
-     * @param value
+     * @param value string representation of a value parameter
      */
     public Value(String value) {
         super(Id.VALUE);
         this.value = value;
     }
     
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Parameter#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {

@@ -72,13 +72,14 @@ public final class Address extends Property {
     private String country;
     
     /**
-     * @param poBox
-     * @param extended
-     * @param street
-     * @param locality
-     * @param region
-     * @param postcode
-     * @param country
+     * @param poBox post office box address component
+     * @param extended extended address component
+     * @param street street address component
+     * @param locality locality address component
+     * @param region region address component
+     * @param postcode postal code address component
+     * @param country country address component
+     * @param types optional address types
      */
     public Address(String poBox, String extended, String street, String locality,
             String region, String postcode, String country, Type...types) {
@@ -86,15 +87,15 @@ public final class Address extends Property {
     }
 
     /**
-     * @param group
-     * @param poBox
-     * @param extended
-     * @param street
-     * @param locality
-     * @param region
-     * @param postcode
-     * @param country
-     * @param types
+     * @param group property group
+     * @param poBox post office box address component
+     * @param extended extended address component
+     * @param street street address component
+     * @param locality locality address component
+     * @param region region address component
+     * @param postcode postal code address component
+     * @param country country address component
+     * @param types optional address types
      */
     public Address(Group group, String poBox, String extended, String street, String locality,
             String region, String postcode, String country, Type...types) {
@@ -113,8 +114,8 @@ public final class Address extends Property {
     }
 
     /**
-     * @param params
-     * @param value
+     * @param params property parameters
+     * @param value string representation of an address value
      */
     public Address(List<Parameter> params, String value) {
         this(null, params, value);
@@ -122,9 +123,9 @@ public final class Address extends Property {
 
     /**
      * Factory constructor.
-     * @param group
-     * @param params
-     * @param value
+     * @param group property group
+     * @param params property parameters
+     * @param value string representation of an address value
      */
     public Address(Group group, List<Parameter> params, String value) {
         super(group, Id.ADR, params);
@@ -191,8 +192,8 @@ public final class Address extends Property {
         return country;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -228,8 +229,8 @@ public final class Address extends Property {
         return b.toString();
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {
