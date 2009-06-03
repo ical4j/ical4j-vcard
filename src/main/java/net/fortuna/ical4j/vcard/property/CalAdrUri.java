@@ -59,7 +59,8 @@ public final class CalAdrUri extends Property {
     private URI uri;
     
     /**
-     * @param uri
+     * @param uri calendar URI
+     * @param types options calendar types
      */
     public CalAdrUri(URI uri, Type...types) {
         super(Id.CALADRURI);
@@ -70,9 +71,9 @@ public final class CalAdrUri extends Property {
     }
 
     /**
-     * @param params
-     * @param value
-     * @throws URISyntaxException 
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws URISyntaxException where the specified value is not a valid URI
      */
     public CalAdrUri(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.CALADRURI);
@@ -86,16 +87,16 @@ public final class CalAdrUri extends Property {
         return uri;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
         return Strings.valueOf(uri);
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {
