@@ -59,7 +59,7 @@ public final class BDay extends Property implements Escapable {
     private String text;
 
     /**
-     * @param date
+     * @param date date of birth
      */
     public BDay(Date date) {
         super(Id.BDAY);
@@ -67,7 +67,7 @@ public final class BDay extends Property implements Escapable {
     }
 
     /**
-     * @param text
+     * @param text non-structured date of birth
      */
     public BDay(String text) {
         super(Id.BDAY);
@@ -77,9 +77,9 @@ public final class BDay extends Property implements Escapable {
 
     /**
      * Factory constructor.
-     * @param params
-     * @param value
-     * @throws ParseException 
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws ParseException if the property value is an invalid date
      */
     public BDay(List<Parameter> params, String value) throws ParseException {
         super(Id.BDAY, params);
@@ -122,9 +122,8 @@ public final class BDay extends Property implements Escapable {
         return text;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -134,9 +133,8 @@ public final class BDay extends Property implements Escapable {
         return Strings.valueOf(date);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {
