@@ -44,33 +44,33 @@ import net.fortuna.ical4j.vcard.parameter.Type;
 
 import org.junit.runners.Parameterized.Parameters;
 
-
 /**
  * $Id$
- *
+ * 
  * Created: [27/10/2008]
- *
+ * 
  * @author fortuna
- *
+ * 
  */
 public class ImppTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public ImppTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    /**
+     * @param property
+     * @param expectedName
+     * @param expectedValue
+     * @param expectedParams
+     */
+    public ImppTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
+        super(property, expectedName, expectedValue, expectedParams);
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Impp(URI.create("xmpp:alice@example.com")), Id.IMPP.toString(), "xmpp:alice@example.com", new Parameter[] {}});
-        params.add(new Object[] {new Impp(URI.create("xmpp:bob@example.com"), Type.WORK), Id.IMPP.toString(), "xmpp:bob@example.com", new Parameter[] {Type.WORK}});
+        params.add(new Object[] { new Impp(URI.create("xmpp:alice@example.com")), Id.IMPP.toString(),
+                "xmpp:alice@example.com", new Parameter[] {} });
+        params.add(new Object[] { new Impp(URI.create("xmpp:bob@example.com"), Type.WORK), Id.IMPP.toString(),
+                "xmpp:bob@example.com", new Parameter[] { Type.WORK } });
         return params;
     }
 

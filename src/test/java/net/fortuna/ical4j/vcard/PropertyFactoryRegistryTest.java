@@ -106,7 +106,8 @@ public class PropertyFactoryRegistryTest {
         List<Object[]> params = new ArrayList<Object[]>();
         
         PropertyFactoryRegistry registry = new PropertyFactoryRegistry();
-        params.add(new Object[] {registry, null, Version.VERSION_4_0.getId().toString(), Version.VERSION_4_0.getValue(), Version.VERSION_4_0});
+        params.add(new Object[] {registry, null, Version.VERSION_4_0.getId().toString(),
+                Version.VERSION_4_0.getValue(), Version.VERSION_4_0});
         
         Org org = new Org(Group.WORK, "iCal4j");
         params.add(new Object[] {registry, org.getGroup(), org.getId().toString(), org.getValue(), org});

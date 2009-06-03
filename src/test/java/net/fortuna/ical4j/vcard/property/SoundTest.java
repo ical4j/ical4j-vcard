@@ -46,36 +46,35 @@ import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
-
 /**
  * $Id$
- *
+ * 
  * Created on: 29/10/2008
- *
+ * 
  * @author fortuna
- *
+ * 
  */
 public class SoundTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public SoundTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    /**
+     * @param property
+     * @param expectedName
+     * @param expectedValue
+     * @param expectedParams
+     */
+    public SoundTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
+        super(property, expectedName, expectedValue, expectedParams);
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Sound(URI.create("")), Id.SOUND.toString(), "", new Parameter[] {Value.URI}});
-        params.add(new Object[] {new Sound(new byte[0]), Id.SOUND.toString(), "", new Parameter[] {Encoding.B}});
-        
+        params.add(new Object[] { new Sound(URI.create("")), Id.SOUND.toString(), "", new Parameter[] { Value.URI } });
+        params.add(new Object[] { new Sound(new byte[0]), Id.SOUND.toString(), "", new Parameter[] { Encoding.B } });
+
         Type type = new Type("application/wav");
-        params.add(new Object[] {new Sound(new byte[0], type), Id.SOUND.toString(), "", new Parameter[] {Encoding.B, type}});
+        params.add(new Object[] { new Sound(new byte[0], type), Id.SOUND.toString(), "",
+                new Parameter[] { Encoding.B, type } });
         return params;
     }
 

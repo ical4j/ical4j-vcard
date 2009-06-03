@@ -42,33 +42,33 @@ import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
-
 /**
  * $Id$
- *
+ * 
  * Created on: 28/10/2008
- *
+ * 
  * @author fortuna
- *
+ * 
  */
 public class NameTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public NameTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    /**
+     * @param property
+     * @param expectedName
+     * @param expectedValue
+     * @param expectedParams
+     */
+    public NameTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
+        super(property, expectedName, expectedValue, expectedParams);
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new net.fortuna.ical4j.vcard.property.Name(""), Id.NAME.toString(), "", new Parameter[] {}});
-        params.add(new Object[] {new net.fortuna.ical4j.vcard.property.Name("Babs Jensen's Contact Information,"), Id.NAME.toString(), "Babs Jensen's Contact Information,", new Parameter[] {}});
+        params.add(new Object[] { new net.fortuna.ical4j.vcard.property.Name(""), Id.NAME.toString(), "",
+                new Parameter[] {} });
+        params.add(new Object[] { new net.fortuna.ical4j.vcard.property.Name("Babs Jensen's Contact Information,"),
+                Id.NAME.toString(), "Babs Jensen's Contact Information,", new Parameter[] {} });
         return params;
     }
 

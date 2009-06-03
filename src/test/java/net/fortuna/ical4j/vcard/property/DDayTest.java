@@ -46,14 +46,13 @@ import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
-
 /**
  * $Id$
- *
+ * 
  * Created on 26/10/2008
- *
+ * 
  * @author Ben
- *
+ * 
  */
 public class DDayTest extends PropertyTest {
 
@@ -63,8 +62,7 @@ public class DDayTest extends PropertyTest {
      * @param expectedValue
      * @param expectedParams
      */
-    public DDayTest(Property property, String expectedName,
-            String expectedValue, Parameter[] expectedParams) {
+    public DDayTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
@@ -73,15 +71,17 @@ public class DDayTest extends PropertyTest {
         List<Object[]> params = new ArrayList<Object[]>();
 
         try {
-            params.add(new Object[] {new DDay(new Date("20380415")), Id.DDAY.toString(), "20380415", new Parameter[] {}});
-            params.add(new Object[] {new DDay(new DateTime("19860125T081500")), Id.DDAY.toString(), "19860125T081500", new Parameter[] {}});
-        }
-        catch (ParseException pe) {
+            params.add(new Object[] { new DDay(new Date("20380415")), Id.DDAY.toString(), "20380415",
+                    new Parameter[] {} });
+            params.add(new Object[] { new DDay(new DateTime("19860125T081500")), Id.DDAY.toString(), "19860125T081500",
+                    new Parameter[] {} });
+        } catch (ParseException pe) {
             pe.printStackTrace();
         }
-        params.add(new Object[] {new DDay(""), Id.DDAY.toString(), "", new Parameter[] {Value.TEXT}});
-        params.add(new Object[] {new DDay("Unknown"), Id.DDAY.toString(), "Unknown", new Parameter[] {Value.TEXT}});
-        params.add(new Object[] {new DDay("4pm, January 9th"), Id.DDAY.toString(), "4pm, January 9th", new Parameter[] {Value.TEXT}});
+        params.add(new Object[] { new DDay(""), Id.DDAY.toString(), "", new Parameter[] { Value.TEXT } });
+        params.add(new Object[] { new DDay("Unknown"), Id.DDAY.toString(), "Unknown", new Parameter[] { Value.TEXT } });
+        params.add(new Object[] { new DDay("4pm, January 9th"), Id.DDAY.toString(), "4pm, January 9th",
+                new Parameter[] { Value.TEXT } });
         return params;
     }
 

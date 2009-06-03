@@ -91,7 +91,8 @@ public class VCardOutputterTest {
         VCardOutputter outputter = new VCardOutputter(false, 1000);
         VCardBuilder builder = null;
         List<Object[]> params = new ArrayList<Object[]>();
-        File[] testFiles = new File("src/test/resources/samples/valid").listFiles((FileFilter) VCardFileFilter.INSTANCE);
+        File[] testFiles = new File("src/test/resources/samples/valid").listFiles(
+                (FileFilter) VCardFileFilter.INSTANCE);
         // enable relaxed parsing for non-standard GEO support..
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
         for (int i = 0; i < testFiles.length; i++) {

@@ -44,14 +44,13 @@ import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
-
 /**
  * $Id$
- *
+ * 
  * Created on 26/10/2008
- *
+ * 
  * @author Ben
- *
+ * 
  */
 public class AgentTest extends PropertyTest {
 
@@ -61,17 +60,18 @@ public class AgentTest extends PropertyTest {
      * @param expectedValue
      * @param expectedParams
      */
-    public AgentTest(Property property, String expectedName,
-            String expectedValue, Parameter[] expectedParams) {
+    public AgentTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Agent(""), Id.AGENT.toString(), "", new Parameter[] {Value.TEXT}});
-        params.add(new Object[] {new Agent("Agent 99"), Id.AGENT.toString(), "Agent 99", new Parameter[] {Value.TEXT}});
-        params.add(new Object[] {new Agent(URI.create("http://thereisnoagent.com")), Id.AGENT.toString(), "http://thereisnoagent.com", new Parameter[] {}});
+        params.add(new Object[] { new Agent(""), Id.AGENT.toString(), "", new Parameter[] { Value.TEXT } });
+        params.add(new Object[] { new Agent("Agent 99"), Id.AGENT.toString(), "Agent 99",
+                new Parameter[] { Value.TEXT } });
+        params.add(new Object[] { new Agent(URI.create("http://thereisnoagent.com")), Id.AGENT.toString(),
+                "http://thereisnoagent.com", new Parameter[] {} });
         return params;
     }
 }

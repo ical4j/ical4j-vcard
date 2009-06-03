@@ -42,14 +42,13 @@ import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
-
 /**
  * $Id$
- *
+ * 
  * Created on 26/10/2008
- *
+ * 
  * @author Ben
- *
+ * 
  */
 public class CategoriesTest extends PropertyTest {
 
@@ -59,18 +58,20 @@ public class CategoriesTest extends PropertyTest {
      * @param expectedValue
      * @param expectedParams
      */
-    public CategoriesTest(Property property, String expectedName,
-            String expectedValue, Parameter[] expectedParams) {
+    public CategoriesTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Categories(), Id.CATEGORIES.toString(), "", new Parameter[] {}});
-        params.add(new Object[] {new Categories("TRAVEL AGENT"), Id.CATEGORIES.toString(), "TRAVEL AGENT", new Parameter[] {}});
-        params.add(new Object[] {new Categories("INTERNET", "IETF", "INDUSTRY", "INFORMATION TECHNOLOGY"), Id.CATEGORIES.toString(), "INTERNET,IETF,INDUSTRY,INFORMATION TECHNOLOGY", new Parameter[] {}});
-        params.add(new Object[] {new Categories("GARDENER, LANDSCAPE"), Id.CATEGORIES.toString(), "GARDENER\\, LANDSCAPE", new Parameter[] {}});
+        params.add(new Object[] { new Categories(), Id.CATEGORIES.toString(), "", new Parameter[] {} });
+        params.add(new Object[] { new Categories("TRAVEL AGENT"), Id.CATEGORIES.toString(), "TRAVEL AGENT",
+                new Parameter[] {} });
+        params.add(new Object[] { new Categories("INTERNET", "IETF", "INDUSTRY", "INFORMATION TECHNOLOGY"),
+                Id.CATEGORIES.toString(), "INTERNET,IETF,INDUSTRY,INFORMATION TECHNOLOGY", new Parameter[] {} });
+        params.add(new Object[] { new Categories("GARDENER, LANDSCAPE"), Id.CATEGORIES.toString(),
+                "GARDENER\\, LANDSCAPE", new Parameter[] {} });
         return params;
     }
 

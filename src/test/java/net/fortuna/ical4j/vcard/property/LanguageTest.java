@@ -45,9 +45,9 @@ import org.junit.runners.Parameterized.Parameters;
 
 /**
  * $Id$
- *
+ * 
  * Created on: 28/10/2008
- *
+ * 
  * @author fortuna
  */
 public class LanguageTest extends PropertyTest {
@@ -58,8 +58,7 @@ public class LanguageTest extends PropertyTest {
      * @param expectedValue
      * @param expectedParams
      */
-    public LanguageTest(Property property, String expectedName,
-            String expectedValue, Parameter[] expectedParams) {
+    public LanguageTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
@@ -69,7 +68,8 @@ public class LanguageTest extends PropertyTest {
 
         Locale locale = new Locale("en");
         params.add(new Object[] { new Language(locale), Id.LANG.toString(), "en", new Parameter[] {} });
-        params.add(new Object[] { new Language(locale, new Locale("fr")), Id.LANG.toString(), "en,fr", new Parameter[] {} });
+        params.add(new Object[] { new Language(locale, new Locale("fr")), Id.LANG.toString(), "en,fr",
+                new Parameter[] {} });
         return params;
     }
 

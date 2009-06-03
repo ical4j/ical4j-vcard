@@ -42,33 +42,32 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 
-
 /**
  * $Id$
- *
+ * 
  * Created on: 29/10/2008
- *
+ * 
  * @author fortuna
- *
+ * 
  */
 public class NoteTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public NoteTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    /**
+     * @param property
+     * @param expectedName
+     * @param expectedValue
+     * @param expectedParams
+     */
+    public NoteTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
+        super(property, expectedName, expectedValue, expectedParams);
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Note(""), Id.NOTE.toString(), "", new Parameter[] {}});
-        params.add(new Object[] {new Note("This fax number is operational 0800 to 1715 EST, Mon-Fri."), Id.NOTE.toString(), "This fax number is operational 0800 to 1715 EST, Mon-Fri.", new Parameter[] {}});
+        params.add(new Object[] { new Note(""), Id.NOTE.toString(), "", new Parameter[] {} });
+        params.add(new Object[] { new Note("This fax number is operational 0800 to 1715 EST, Mon-Fri."),
+                Id.NOTE.toString(), "This fax number is operational 0800 to 1715 EST, Mon-Fri.", new Parameter[] {} });
         return params;
     }
 

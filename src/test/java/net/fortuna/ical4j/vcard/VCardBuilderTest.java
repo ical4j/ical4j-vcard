@@ -99,7 +99,8 @@ public class VCardBuilderTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        File[] testFiles = new File("src/test/resources/samples/valid").listFiles((FileFilter) VCardFileFilter.INSTANCE);
+        File[] testFiles = new File("src/test/resources/samples/valid").listFiles(
+                (FileFilter) VCardFileFilter.INSTANCE);
         for (int i = 0; i < testFiles.length; i++) {
             params.add(new Object[] {testFiles[i].getPath()});
         }

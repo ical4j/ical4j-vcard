@@ -46,36 +46,36 @@ import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.runners.Parameterized.Parameters;
 
-
 /**
  * $Id$
- *
+ * 
  * Created on: 27/10/2008
- *
+ * 
  * @author fortuna
- *
+ * 
  */
 public class KeyTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public KeyTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    /**
+     * @param property
+     * @param expectedName
+     * @param expectedValue
+     * @param expectedParams
+     */
+    public KeyTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
+        super(property, expectedName, expectedValue, expectedParams);
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() throws DecoderException {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Key("somekey".getBytes()), Id.KEY.toString(), new String(new Base64().encode("somekey".getBytes())), new Parameter[] {Encoding.B}});
-        params.add(new Object[] {new Key(new byte[0]), Id.KEY.toString(), "", new Parameter[] {Encoding.B}});
-        
+        params.add(new Object[] { new Key("somekey".getBytes()), Id.KEY.toString(),
+                new String(new Base64().encode("somekey".getBytes())), new Parameter[] { Encoding.B } });
+        params.add(new Object[] { new Key(new byte[0]), Id.KEY.toString(), "", new Parameter[] { Encoding.B } });
+
         Type type = new Type("application/pgp");
-        params.add(new Object[] {new Key(new byte[0], type), Id.KEY.toString(), "", new Parameter[] {Encoding.B, type}});
+        params.add(new Object[] { new Key(new byte[0], type), Id.KEY.toString(), "",
+                new Parameter[] { Encoding.B, type } });
         return params;
     }
 

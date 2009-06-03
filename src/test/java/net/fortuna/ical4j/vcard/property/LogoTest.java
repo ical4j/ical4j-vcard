@@ -46,36 +46,35 @@ import net.fortuna.ical4j.vcard.parameter.Value;
 
 import org.junit.runners.Parameterized.Parameters;
 
-
 /**
  * $Id$
- *
+ * 
  * Created on: 28/10/2008
- *
+ * 
  * @author fortuna
- *
+ * 
  */
 public class LogoTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public LogoTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    /**
+     * @param property
+     * @param expectedName
+     * @param expectedValue
+     * @param expectedParams
+     */
+    public LogoTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
+        super(property, expectedName, expectedValue, expectedParams);
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Logo(URI.create("")), Id.LOGO.toString(), "", new Parameter[] {Value.URI}});
-        params.add(new Object[] {new Logo(new byte[0]), Id.LOGO.toString(), "", new Parameter[] {Encoding.B}});
-        
+        params.add(new Object[] { new Logo(URI.create("")), Id.LOGO.toString(), "", new Parameter[] { Value.URI } });
+        params.add(new Object[] { new Logo(new byte[0]), Id.LOGO.toString(), "", new Parameter[] { Encoding.B } });
+
         Type type = new Type("image/jpeg");
-        params.add(new Object[] {new Logo(new byte[0], type), Id.LOGO.toString(), "", new Parameter[] {Encoding.B, type}});
+        params.add(new Object[] { new Logo(new byte[0], type), Id.LOGO.toString(), "",
+                new Parameter[] { Encoding.B, type } });
         return params;
     }
 

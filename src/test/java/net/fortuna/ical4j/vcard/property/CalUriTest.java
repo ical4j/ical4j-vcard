@@ -44,14 +44,13 @@ import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
-
 /**
  * $Id$
- *
+ * 
  * Created on 26/10/2008
- *
+ * 
  * @author Ben
- *
+ * 
  */
 public class CalUriTest extends PropertyTest {
 
@@ -61,16 +60,17 @@ public class CalUriTest extends PropertyTest {
      * @param expectedValue
      * @param expectedParams
      */
-    public CalUriTest(Property property, String expectedName,
-            String expectedValue, Parameter[] expectedParams) {
+    public CalUriTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new CalUri(URI.create("ftp://ftp.example.com/calA.ics")), Id.CALURI.toString(), "ftp://ftp.example.com/calA.ics", new Parameter[] {}});
-        params.add(new Object[] {new CalUri(URI.create("http://cal.example.com/calA"), Type.PREF), Id.CALURI.toString(), "http://cal.example.com/calA", new Parameter[] {Type.PREF}});
+        params.add(new Object[] { new CalUri(URI.create("ftp://ftp.example.com/calA.ics")), Id.CALURI.toString(),
+                "ftp://ftp.example.com/calA.ics", new Parameter[] {} });
+        params.add(new Object[] { new CalUri(URI.create("http://cal.example.com/calA"), Type.PREF),
+                Id.CALURI.toString(), "http://cal.example.com/calA", new Parameter[] { Type.PREF } });
         return params;
     }
 }

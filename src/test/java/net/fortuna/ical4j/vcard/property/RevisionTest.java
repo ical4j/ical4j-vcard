@@ -48,30 +48,30 @@ import org.junit.runners.Parameterized.Parameters;
 
 /**
  * $Id$
- *
+ * 
  * Created on: 29/10/2008
- *
+ * 
  * @author fortuna
  */
 public class RevisionTest extends PropertyTest {
 
     private Revision revision;
-    
+
     private Date expectedDate;
-    
+
     /**
      * @param property
      * @param expectedName
      * @param expectedValue
      * @param expectedParams
      */
-    public RevisionTest(Revision revision, String expectedName,
-            String expectedValue, Parameter[] expectedParams, Date expectedDate) {
+    public RevisionTest(Revision revision, String expectedName, String expectedValue, Parameter[] expectedParams,
+            Date expectedDate) {
         super(revision, expectedName, expectedValue, expectedParams);
         this.revision = revision;
         this.expectedDate = expectedDate;
     }
-    
+
     @Test
     public void testGetDate() {
         assertEquals(expectedDate, revision.getDate());
@@ -82,7 +82,8 @@ public class RevisionTest extends PropertyTest {
         List<Object[]> params = new ArrayList<Object[]>();
         Date date = new Date(0);
         params.add(new Object[] { new Revision(date), Id.REV.toString(), "19700101", new Parameter[] {}, date });
-        params.add(new Object[] { new Revision(new ArrayList<Parameter>(), "19700101"), Id.REV.toString(), "19700101", new Parameter[] {}, date });
+        params.add(new Object[] { new Revision(new ArrayList<Parameter>(), "19700101"), Id.REV.toString(), "19700101",
+                new Parameter[] {}, date });
         return params;
     }
 

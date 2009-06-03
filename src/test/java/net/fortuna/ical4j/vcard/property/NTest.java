@@ -42,38 +42,45 @@ import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
-
 /**
  * $Id$
- *
+ * 
  * Created on: 28/10/2008
- *
+ * 
  * @author fortuna
- *
+ * 
  */
 public class NTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public NTest(Property property, String expectedName, String expectedValue,
-			Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    /**
+     * @param property
+     * @param expectedName
+     * @param expectedValue
+     * @param expectedParams
+     */
+    public NTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
+        super(property, expectedName, expectedValue, expectedParams);
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new N("", "", new String[0], new String[0], new String[0]), Id.N.toString(), "", new Parameter[] {}});
-        params.add(new Object[] {new N("Fortuna", "Ben", new String[0], new String[0], new String[0]), Id.N.toString(), "Fortuna;Ben", new Parameter[] {}});
-        params.add(new Object[] {new N("Public", "John", new String[] {"Quinlan"}, new String[] {"Mr."}, new String[] {"Esq."}), Id.N.toString(), "Public;John;Quinlan;Mr.;Esq.", new Parameter[] {}});
-        params.add(new Object[] {new N("Stevenson", "John", new String[] {"Philip", "Paul"}, new String[] {"Dr."}, new String[] {"Jr.", "M.D.", "A.C.P."}), Id.N.toString(), "Stevenson;John;Philip,Paul;Dr.;Jr.,M.D.,A.C.P.", new Parameter[] {}});
-        params.add(new Object[] {new N(new ArrayList<Parameter>(), "dirk"), Id.N.toString(), "dirk", new Parameter[] {}});
-        params.add(new Object[] {new N(new ArrayList<Parameter>(), "Ruhsert;Patrick;;;"), Id.N.toString(), "Ruhsert;Patrick;;;", new Parameter[] {}});
-        
+        params.add(new Object[] { new N("", "", new String[0], new String[0], new String[0]), Id.N.toString(), "",
+                new Parameter[] {} });
+        params.add(new Object[] { new N("Fortuna", "Ben", new String[0], new String[0], new String[0]),
+                Id.N.toString(), "Fortuna;Ben", new Parameter[] {} });
+        params.add(new Object[] {
+                new N("Public", "John", new String[] { "Quinlan" }, new String[] { "Mr." }, new String[] { "Esq." }),
+                Id.N.toString(), "Public;John;Quinlan;Mr.;Esq.", new Parameter[] {} });
+        params.add(new Object[] {
+                new N("Stevenson", "John", new String[] { "Philip", "Paul" }, new String[] { "Dr." }, new String[] {
+                        "Jr.", "M.D.", "A.C.P." }), Id.N.toString(), "Stevenson;John;Philip,Paul;Dr.;Jr.,M.D.,A.C.P.",
+                new Parameter[] {} });
+        params.add(new Object[] { new N(new ArrayList<Parameter>(), "dirk"), Id.N.toString(), "dirk",
+                new Parameter[] {} });
+        params.add(new Object[] { new N(new ArrayList<Parameter>(), "Ruhsert;Patrick;;;"), Id.N.toString(),
+                "Ruhsert;Patrick;;;", new Parameter[] {} });
+
         return params;
     }
 

@@ -121,8 +121,9 @@ public class PropertyFactoryTest {
                     }
                 };
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
             @SuppressWarnings("serial")
             public Property createProperty(Group group, final List<Parameter> params, final String value)

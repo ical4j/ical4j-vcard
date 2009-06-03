@@ -42,33 +42,32 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 
-
 /**
  * $Id$
- *
+ * 
  * Created on: 29/10/2008
- *
+ * 
  * @author fortuna
- *
+ * 
  */
 public class TitleTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public TitleTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    /**
+     * @param property
+     * @param expectedName
+     * @param expectedValue
+     * @param expectedParams
+     */
+    public TitleTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
+        super(property, expectedName, expectedValue, expectedParams);
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Title(""), Id.TITLE.toString(), "", new Parameter[] {}});
-        params.add(new Object[] {new Title("Director, Research and Development"), Id.TITLE.toString(), "Director, Research and Development", new Parameter[] {}});
+        params.add(new Object[] { new Title(""), Id.TITLE.toString(), "", new Parameter[] {} });
+        params.add(new Object[] { new Title("Director, Research and Development"), Id.TITLE.toString(),
+                "Director, Research and Development", new Parameter[] {} });
         return params;
     }
 

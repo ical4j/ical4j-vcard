@@ -42,14 +42,13 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 
-
 /**
  * $Id$
- *
+ * 
  * Created on 26/10/2008
- *
+ * 
  * @author Ben
- *
+ * 
  */
 public class DeathTest extends PropertyTest {
 
@@ -59,16 +58,17 @@ public class DeathTest extends PropertyTest {
      * @param expectedValue
      * @param expectedParams
      */
-    public DeathTest(Property property, String expectedName,
-            String expectedValue, Parameter[] expectedParams) {
+    public DeathTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Death("Somewhere in the Pacific Ocean"), Id.DEATH.toString(), "Somewhere in the Pacific Ocean", new Parameter[] {}});
-        params.add(new Object[] {new Death("Lunar expedition, Moon"), Id.DEATH.toString(), "Lunar expedition, Moon", new Parameter[] {}});
+        params.add(new Object[] { new Death("Somewhere in the Pacific Ocean"), Id.DEATH.toString(),
+                "Somewhere in the Pacific Ocean", new Parameter[] {} });
+        params.add(new Object[] { new Death("Lunar expedition, Moon"), Id.DEATH.toString(), "Lunar expedition, Moon",
+                new Parameter[] {} });
         return params;
     }
 
