@@ -55,14 +55,20 @@ public final class Gender extends Property {
      */
     private static final long serialVersionUID = -2739534182576803750L;
     
+    /**
+     * Standard gender.
+     */
     public static final Gender MALE = new Gender(Collections.unmodifiableList(new ArrayList<Parameter>()), "M");
     
+    /**
+     * Standard gender.
+     */
     public static final Gender FEMALE = new Gender(Collections.unmodifiableList(new ArrayList<Parameter>()), "F");
     
     private String value;
     
     /**
-     * @param value
+     * @param value string representation of a property value
      */
     public Gender(String value) {
         super(Id.GENDER);
@@ -71,24 +77,24 @@ public final class Gender extends Property {
     
     /**
      * Factory constructor.
-     * @param value
-     * @param params
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     private Gender(List<Parameter> params, String value) {
         super(Id.GENDER, params);
         this.value = value;
     }
     
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
         return value;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

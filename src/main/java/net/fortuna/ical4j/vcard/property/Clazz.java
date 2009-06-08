@@ -54,16 +54,26 @@ public final class Clazz extends Property {
      */
     private static final long serialVersionUID = -3339099487456754606L;
     
+    /**
+     * Standard classification.
+     */
     public static final Clazz PUBLIC = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()), "PUBLIC");
     
+    /**
+     * Standard classification.
+     */
     public static final Clazz PRIVATE = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()), "PRIVATE");
     
-    public static final Clazz CONFIDENTIAL = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()), "CONFIDENTIAL");
+    /**
+     * Standard classification.
+     */
+    public static final Clazz CONFIDENTIAL = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()),
+            "CONFIDENTIAL");
     
     private String value;
     
     /**
-     * @param value
+     * @param value a classification value
      */
     public Clazz(String value) {
         super(Id.CLASS);
@@ -72,24 +82,24 @@ public final class Clazz extends Property {
     
     /**
      * Factory constructor.
-     * @param value
-     * @param params
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     public Clazz(List<Parameter> params, String value) {
         super(Id.CLASS, params);
         this.value = value;
     }
     
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
         return value;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

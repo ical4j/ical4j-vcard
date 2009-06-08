@@ -56,7 +56,7 @@ public final class Death extends Property implements Escapable {
     private String value;
     
     /**
-     * @param value
+     * @param value a death string value
      */
     public Death(String value) {
         super(Id.DEATH);
@@ -65,24 +65,24 @@ public final class Death extends Property implements Escapable {
     
     /**
      * Factory constructor.
-     * @param params
-     * @param value
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     public Death(List<Parameter> params, String value) {
         super(Id.DEATH, params);
         this.value = value;
     }
     
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
         return value;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

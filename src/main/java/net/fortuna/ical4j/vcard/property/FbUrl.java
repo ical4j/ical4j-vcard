@@ -59,7 +59,8 @@ public final class FbUrl extends Property {
     private URI uri;
     
     /**
-     * @param uri
+     * @param uri a free/busy URI
+     * @param types optional property classifiers
      */
     public FbUrl(URI uri, Type...types) {
         super(Id.FBURL);
@@ -71,9 +72,9 @@ public final class FbUrl extends Property {
 
     /**
      * Factory constructor.
-     * @param params
-     * @param value
-     * @throws URISyntaxException
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws URISyntaxException where the specified value is not a valid URI
      */
     public FbUrl(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.FBURL, params);
@@ -87,16 +88,16 @@ public final class FbUrl extends Property {
         return uri;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
         return Strings.valueOf(uri);
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

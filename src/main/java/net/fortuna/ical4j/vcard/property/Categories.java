@@ -56,17 +56,20 @@ public final class Categories extends Property {
     private CategoryList categories;
     
     /**
-     * @param categories
+     * @param categories one or more category values
      */
     public Categories(String...categories) {
         super(Id.CATEGORIES);
+        if (categories.length == 0) {
+            throw new IllegalArgumentException("Must specify at least category value");
+        }
         this.categories = new CategoryList(categories);
     }
 
     /**
      * Factory constructor.
-     * @param params
-     * @param value
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     public Categories(List<Parameter> params, String value) {
         super(Id.CATEGORIES);
@@ -80,8 +83,8 @@ public final class Categories extends Property {
         return categories;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -98,8 +101,8 @@ public final class Categories extends Property {
         return categories.toString();
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

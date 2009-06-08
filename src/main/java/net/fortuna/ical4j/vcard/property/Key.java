@@ -74,7 +74,7 @@ public final class Key extends Property {
     private Log log = LogFactory.getLog(Key.class);
     
     /**
-     * @param uri
+     * @param uri a key URI
      */
     public Key(URI uri) {
         super(Id.KEY);
@@ -83,15 +83,15 @@ public final class Key extends Property {
     }
     
     /**
-     * @param binary
+     * @param binary binary key data
      */
     public Key(byte[] binary) {
         this(binary, null);
     }
     
     /**
-     * @param binary
-     * @param contentType
+     * @param binary binary key data
+     * @param contentType key MIME type
      */
     public Key(byte[] binary, Type contentType) {
         super(Id.KEY);
@@ -104,10 +104,10 @@ public final class Key extends Property {
     
     /**
      * Factory constructor.
-     * @param params
-     * @param value
-     * @throws DecoderException
-     * @throws URISyntaxException 
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws DecoderException if the specified string is not a valid key encoding
+     * @throws URISyntaxException where the specified string is not a valid URI
      */
     public Key(List<Parameter> params, String value) throws DecoderException, URISyntaxException {
         this(null, params, value);
@@ -115,11 +115,11 @@ public final class Key extends Property {
     
     /**
      * Factory constructor.
-     * @param group
-     * @param params
-     * @param value
-     * @throws DecoderException
-     * @throws URISyntaxException
+     * @param group property group
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws DecoderException if the specified string is not a valid key encoding
+     * @throws URISyntaxException where the specified string is not a valid URI
      */
     public Key(Group group, List<Parameter> params, String value) throws DecoderException, URISyntaxException {
         super(group, Id.KEY, params);
@@ -139,8 +139,8 @@ public final class Key extends Property {
         return binary;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -159,8 +159,8 @@ public final class Key extends Property {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

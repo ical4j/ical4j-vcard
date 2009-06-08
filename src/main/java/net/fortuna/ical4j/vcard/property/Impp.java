@@ -59,8 +59,8 @@ public final class Impp extends Property {
     private URI uri;
     
     /**
-     * @param uri
-     * @param types
+     * @param uri instant messaging URI
+     * @param types optional property classifiers
      */
     public Impp(URI uri, Type...types) {
         super(Id.IMPP);
@@ -71,9 +71,9 @@ public final class Impp extends Property {
     }
 
     /**
-     * @param params
-     * @param value
-     * @throws URISyntaxException
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws URISyntaxException where the specified value is not a valid URI
      */
     public Impp(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.IMPP, params);
@@ -87,16 +87,16 @@ public final class Impp extends Property {
         return uri;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
         return Strings.valueOf(uri);
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

@@ -60,8 +60,8 @@ public final class Geo extends Property {
     private BigDecimal longitude;
     
     /**
-     * @param latitude
-     * @param longitude
+     * @param latitude a latitude value
+     * @param longitude a longitude value
      */
     public Geo(BigDecimal latitude, BigDecimal longitude) {
         super(Id.GEO);
@@ -71,8 +71,8 @@ public final class Geo extends Property {
     
     /**
      * Factory constructor.
-     * @param params
-     * @param value
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     public Geo(List<Parameter> params, String value) {
         this(null, params, value);
@@ -80,9 +80,9 @@ public final class Geo extends Property {
     
     /**
      * Factory constructor.
-     * @param group
-     * @param params
-     * @param value
+     * @param group property group
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     public Geo(Group group, List<Parameter> params, String value) {
         super(group, Id.GEO, params);
@@ -98,8 +98,8 @@ public final class Geo extends Property {
         this.longitude = new BigDecimal(components[1]);
     }
     
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -120,8 +120,8 @@ public final class Geo extends Property {
         return longitude;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

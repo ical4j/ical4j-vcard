@@ -63,7 +63,7 @@ public final class DDay extends Property implements Escapable {
     private String text;
     
     /**
-     * @param date
+     * @param date date of death
      */
     public DDay(Date date) {
         super(Id.DDAY);
@@ -71,7 +71,7 @@ public final class DDay extends Property implements Escapable {
     }
     
     /**
-     * @param text
+     * @param description unstructured time of death
      */
     public DDay(String description) {
         super(Id.DDAY);
@@ -81,9 +81,9 @@ public final class DDay extends Property implements Escapable {
     
     /**
      * Factory constructor.
-     * @param params
-     * @param value
-     * @throws ParseException 
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws ParseException where the specified value is not a valid date representation
      */
     public DDay(List<Parameter> params, String value) throws ParseException {
         super(Id.DDAY);
@@ -115,8 +115,8 @@ public final class DDay extends Property implements Escapable {
         return text;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -126,8 +126,8 @@ public final class DDay extends Property implements Escapable {
         return Strings.valueOf(date);
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

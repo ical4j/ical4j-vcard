@@ -56,15 +56,15 @@ public final class Email extends Property {
     private String value;
     
     /**
-     * @param value
+     * @param value an email address string
      */
     public Email(String value) {
         this((Group) null, value);
     }
     
     /**
-     * @param group
-     * @param value
+     * @param group property group
+     * @param value an email address string
      */
     public Email(Group group, String value) {
         super(group, Id.EMAIL);
@@ -73,8 +73,8 @@ public final class Email extends Property {
     
     /**
      * Factory constructor.
-     * @param params
-     * @param value
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     public Email(List<Parameter> params, String value) {
         this(null, params, value);
@@ -82,25 +82,25 @@ public final class Email extends Property {
     
     /**
      * Factory constructor.
-     * @param group
-     * @param params
-     * @param value
+     * @param group property group
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     public Email(Group group, List<Parameter> params, String value) {
         super(group, Id.EMAIL, params);
         this.value = value;
     }
     
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
         return value;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {
