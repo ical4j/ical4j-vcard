@@ -73,7 +73,7 @@ public final class Logo extends Property {
     private byte[] binary;
     
     /**
-     * @param uri
+     * @param uri a URI that specifies the location of a logo
      */
     public Logo(URI uri) {
         super(Id.LOGO);
@@ -82,15 +82,15 @@ public final class Logo extends Property {
     }
     
     /**
-     * @param binary
+     * @param binary a byte array of logo data
      */
     public Logo(byte[] binary) {
         this(binary, null);
     }
 
     /**
-     * @param binary
-     * @param contentType
+     * @param binary a byte array of logo data
+     * @param contentType the MIME type of the logo data
      */
     public Logo(byte[] binary, Type contentType) {
         super(Id.LOGO);
@@ -103,10 +103,10 @@ public final class Logo extends Property {
 
     /**
      * Factory constructor.
-     * @param params
-     * @param value
-     * @throws URISyntaxException
-     * @throws DecoderException
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws URISyntaxException where the specified URI value is an invalid URI
+     * @throws DecoderException where the specified logo data value cannot be decoded
      */
     public Logo(List<Parameter> params, String value) throws URISyntaxException, DecoderException {
         super(Id.LOGO, params);
@@ -133,8 +133,8 @@ public final class Logo extends Property {
         return binary;
     }
     
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -153,8 +153,8 @@ public final class Logo extends Property {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

@@ -57,8 +57,8 @@ public final class Label extends Property implements Escapable {
     private String value;
     
     /**
-     * @param value
-     * @param types
+     * @param value a string representation of a label value
+     * @param types optional property types
      */
     public Label(String value, Type...types) {
         super(Id.LABEL);
@@ -70,24 +70,24 @@ public final class Label extends Property implements Escapable {
 
     /**
      * Factory constructor.
-     * @param params
-     * @param value
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     public Label(List<Parameter> params, String value) {
         super(Id.LABEL, params);
         this.value = value;
     }
     
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
         return value;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

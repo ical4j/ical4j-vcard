@@ -67,11 +67,11 @@ public final class N extends Property {
     private String[] suffixes;
     
     /**
-     * @param familyName
-     * @param givenName
-     * @param additionalNames
-     * @param prefixes
-     * @param suffixes
+     * @param familyName the family name component of a name
+     * @param givenName the given name component of a name
+     * @param additionalNames additional names component of a name
+     * @param prefixes prefix components of a name
+     * @param suffixes suffix components of a name
      */
     public N(String familyName, String givenName, String[] additionalNames, String[] prefixes, String[] suffixes) {
         super(Id.N);
@@ -84,8 +84,8 @@ public final class N extends Property {
     
     /**
      * Factory constructor.
-     * @param params
-     * @param value
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     public N(List<Parameter> params, String value) {
         super(Id.N, params);
@@ -137,8 +137,8 @@ public final class N extends Property {
         return suffixes;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -188,8 +188,8 @@ public final class N extends Property {
         return b.toString();
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

@@ -56,17 +56,20 @@ public final class Language extends Property {
     private Locale[] locales;
 
     /**
-     * @param locales
+     * @param locales one or more locales that define the language instance
      */
     public Language(Locale... locales) {
         super(Id.LANG);
+        if (locales.length == 0) {
+            throw new IllegalArgumentException("Must have at least one locale");
+        }
         this.locales = locales;
     }
 
     /**
      * Factory constructor.
-     * @param params
-     * @param value
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     public Language(List<Parameter> params, String value) {
         super(Id.LANG, params);
@@ -84,9 +87,8 @@ public final class Language extends Property {
         return locales;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -100,8 +102,8 @@ public final class Language extends Property {
         return b.toString();
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

@@ -62,17 +62,17 @@ public final class Telephone extends Property {
     private URI uri;
     
     /**
-     * @param uri
-     * @param types
+     * @param uri specifies the URI of a telephone definition
+     * @param types optional parameter types
      */
     public Telephone(URI uri, Type...types) {
         this(null, uri, types);
     }
     
     /**
-     * @param group
-     * @param uri
-     * @param types
+     * @param group a property group
+     * @param uri specifies the URI of a telephone definition
+     * @param types optional parameter types
      */
     public Telephone(Group group, URI uri, Type...types) {
         super(group, Id.TEL);
@@ -94,9 +94,9 @@ public final class Telephone extends Property {
     
     /**
      * Factory constructor.
-     * @param params
-     * @param value
-     * @throws URISyntaxException
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws URISyntaxException where the specified value is not a valid URI
      */
     public Telephone(List<Parameter> params, String value) throws URISyntaxException {
         this(null, params, value);
@@ -104,10 +104,10 @@ public final class Telephone extends Property {
     
     /**
      * Factory constructor.
-     * @param group
-     * @param params
-     * @param value
-     * @throws URISyntaxException
+     * @param group a property group
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws URISyntaxException where the specified value is not a valid URI
      */
     public Telephone(Group group, List<Parameter> params, String value) throws URISyntaxException {
         super(group, Id.TEL, params);
@@ -124,16 +124,16 @@ public final class Telephone extends Property {
         return uri;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
         return Strings.valueOf(uri);
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

@@ -55,17 +55,20 @@ public final class Nickname extends Property {
     private String[] names;
     
     /**
-     * @param names
+     * @param names one or more nickname values
      */
     public Nickname(String...names) {
         super(Id.NICKNAME);
+        if (names.length == 0) {
+            throw new IllegalArgumentException("Must specify at least one nickname");
+        }
         this.names = names;
     }
     
     /**
      * Factory constructor.
-     * @param params
-     * @param value
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     public Nickname(List<Parameter> params, String value) {
         super(Id.NICKNAME, params);
@@ -79,8 +82,8 @@ public final class Nickname extends Property {
         return names;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -94,8 +97,8 @@ public final class Nickname extends Property {
         return b.toString();
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

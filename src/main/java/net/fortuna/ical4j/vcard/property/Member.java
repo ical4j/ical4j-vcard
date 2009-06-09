@@ -58,7 +58,7 @@ public final class Member extends Property {
     private URI uri;
     
     /**
-     * @param uri
+     * @param uri a URI that represents a member
      */
     public Member(URI uri) {
         super(Id.MEMBER);
@@ -67,9 +67,9 @@ public final class Member extends Property {
     
     /**
      * Factory constructor.
-     * @param params
-     * @param value
-     * @throws URISyntaxException
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws URISyntaxException where the specified value is an invalid URI
      */
     public Member(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.MEMBER, params);
@@ -83,16 +83,16 @@ public final class Member extends Property {
         return uri;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
         return Strings.valueOf(uri);
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

@@ -63,8 +63,8 @@ public final class Related extends Property {
     private String text;
     
     /**
-     * @param text
-     * @param types
+     * @param text a related text value
+     * @param types optional types of the text value
      */
     public Related(String text, Type...types) {
         super(Id.RELATED);
@@ -74,8 +74,8 @@ public final class Related extends Property {
     }
     
     /**
-     * @param uri
-     * @param types
+     * @param uri a URI that defines a relationship
+     * @param types optional types of the URI value
      */
     public Related(URI uri, Type...types) {
         super(Id.RELATED);
@@ -85,9 +85,9 @@ public final class Related extends Property {
     
     /**
      * Factory constructor.
-     * @param params
-     * @param value
-     * @throws URISyntaxException
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws URISyntaxException if the specified URI value is not a valid URI
      */
     public Related(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.RELATED, params);
@@ -106,8 +106,8 @@ public final class Related extends Property {
         return uri;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -117,8 +117,8 @@ public final class Related extends Property {
         return Strings.valueOf(uri);
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

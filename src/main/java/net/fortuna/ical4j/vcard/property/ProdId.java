@@ -55,7 +55,7 @@ public final class ProdId extends Property {
     private String value;
     
     /**
-     * @param value
+     * @param value a product identifier value
      */
     public ProdId(String value) {
         super(Id.PRODID);
@@ -64,24 +64,24 @@ public final class ProdId extends Property {
     
     /**
      * Factory constructor.
-     * @param params
-     * @param value
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     public ProdId(List<Parameter> params, String value) {
         super(Id.PRODID, params);
         this.value = value;
     }
     
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
         return value;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

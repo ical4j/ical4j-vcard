@@ -59,7 +59,7 @@ public final class Tz extends Property {
     private String text;
     
     /**
-     * @param offset
+     * @param offset the offset from UTC for the timezone
      */
     public Tz(UtcOffset offset) {
         super(Id.TZ);
@@ -67,7 +67,7 @@ public final class Tz extends Property {
     }
 
     /**
-     * @param text
+     * @param text an unstructured timezone value
      */
     public Tz(String text) {
         super(Id.TZ);
@@ -77,8 +77,8 @@ public final class Tz extends Property {
     
     /**
      * Factory constructor.
-     * @param params
-     * @param value
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     public Tz(List<Parameter> params, String value) {
         super(Id.TZ, params);
@@ -104,8 +104,8 @@ public final class Tz extends Property {
         return text;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -118,8 +118,8 @@ public final class Tz extends Property {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

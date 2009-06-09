@@ -73,7 +73,7 @@ public final class Photo extends Property {
     private byte[] binary;
     
     /**
-     * @param uri
+     * @param uri a URI that specifies the location of a photo
      */
     public Photo(URI uri) {
         super(Id.PHOTO);
@@ -82,14 +82,15 @@ public final class Photo extends Property {
     }
     
     /**
-     * @param binary
+     * @param binary a byte array of photo data
      */
     public Photo(byte[] binary) {
         this(binary, null);
     }
     
     /**
-     * @param binary
+     * @param binary a byte array of photo data
+     * @param contentType the MIME type of the photo data
      */
     public Photo(byte[] binary, Type contentType) {
         super(Id.PHOTO);
@@ -102,10 +103,10 @@ public final class Photo extends Property {
 
     /**
      * Factory constructor.
-     * @param params
-     * @param value
-     * @throws URISyntaxException
-     * @throws DecoderException
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws URISyntaxException where the specified URI value is not a valid URI
+     * @throws DecoderException where the specified photo data value cannot be decoded
      */
     public Photo(List<Parameter> params, String value) throws URISyntaxException, DecoderException {
         super(Id.PHOTO, params);
@@ -132,8 +133,8 @@ public final class Photo extends Property {
         return binary;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -152,8 +153,8 @@ public final class Photo extends Property {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

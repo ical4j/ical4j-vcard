@@ -41,11 +41,11 @@ import net.fortuna.ical4j.vcard.Property;
 
 /**
  * $Id$
- *
+ * 
  * Created on 22/08/2008
- *
+ * 
  * @author Ben
- *
+ * 
  */
 public final class Kind extends Property {
 
@@ -53,43 +53,57 @@ public final class Kind extends Property {
      * 
      */
     private static final long serialVersionUID = -3114221975393833838L;
-    
-    public static final Kind INDIVIDUAL = new Kind(Collections.unmodifiableList(new ArrayList<Parameter>()), "individual");
-    
+
+    /**
+     * Standard kind.
+     */
+    public static final Kind INDIVIDUAL = new Kind(
+            Collections.unmodifiableList(new ArrayList<Parameter>()), "individual");
+
+    /**
+     * Standard kind.
+     */
     public static final Kind GROUP = new Kind(Collections.unmodifiableList(new ArrayList<Parameter>()), "group");
-    
+
+    /**
+     * Standard kind.
+     */
     public static final Kind ORG = new Kind(Collections.unmodifiableList(new ArrayList<Parameter>()), "org");
-    
+
     private String value;
-    
+
     /**
      * @param value
+     *            a string representation of a kind value
      */
     public Kind(String value) {
         super(Id.KIND);
         this.value = value;
     }
-    
+
     /**
      * Factory constructor.
-     * @param value
+     * 
      * @param params
+     *            property parameters
+     * @param value
+     *            string representation of a property value
      */
     public Kind(List<Parameter> params, String value) {
         super(Id.KIND, params);
         this.value = value;
     }
-    
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
         return value;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

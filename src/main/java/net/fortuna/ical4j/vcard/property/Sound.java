@@ -73,7 +73,7 @@ public final class Sound extends Property {
     private Log log = LogFactory.getLog(Sound.class);
     
     /**
-     * @param uri
+     * @param uri a URI specifying a sound location
      */
     public Sound(URI uri) {
         super(Id.SOUND);
@@ -82,15 +82,15 @@ public final class Sound extends Property {
     }
     
     /**
-     * @param binary
+     * @param binary a byte array of sound data
      */
     public Sound(byte[] binary) {
         this(binary, null);
     }
     
     /**
-     * @param binary
-     * @param contentType
+     * @param binary a byte array of sound data
+     * @param contentType the MIME type of the sound data
      */
     public Sound(byte[] binary, Type contentType) {
         super(Id.SOUND);
@@ -103,10 +103,10 @@ public final class Sound extends Property {
 
     /**
      * Factory constructor.
-     * @param params
-     * @param value
-     * @throws URISyntaxException
-     * @throws DecoderException
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws URISyntaxException where the specified string is not a valid URI
+     * @throws DecoderException where the specified data string cannot be decoded
      */
     public Sound(List<Parameter> params, String value) throws URISyntaxException, DecoderException {
         super(Id.SOUND, params);
@@ -133,8 +133,8 @@ public final class Sound extends Property {
         return binary;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -153,8 +153,8 @@ public final class Sound extends Property {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

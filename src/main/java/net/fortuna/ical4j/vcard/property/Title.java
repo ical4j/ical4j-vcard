@@ -56,7 +56,7 @@ public final class Title extends Property implements Escapable {
     private String value;
     
     /**
-     * @param value
+     * @param value a title string
      */
     public Title(String value) {
         super(Id.TITLE);
@@ -65,24 +65,24 @@ public final class Title extends Property implements Escapable {
 
     /**
      * Factory constructor.
-     * @param params
-     * @param value
+     * @param params property parameters
+     * @param value string representation of a property value
      */
     public Title(List<Parameter> params, String value) {
         super(Id.TITLE, params);
         this.value = value;
     }
     
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
         return value;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {

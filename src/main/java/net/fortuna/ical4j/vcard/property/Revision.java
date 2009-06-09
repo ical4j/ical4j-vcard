@@ -59,7 +59,7 @@ public final class Revision extends Property {
     private Date date;
     
     /**
-     * @param date
+     * @param date a revision date
      */
     public Revision(Date date) {
         super(Id.REV);
@@ -68,9 +68,9 @@ public final class Revision extends Property {
     
     /**
      * Factory constructor.
-     * @param params
-     * @param value
-     * @throws ParseException
+     * @param params property parameters
+     * @param value string representation of a property value
+     * @throws ParseException if the specified string is not a valid date
      */
     public Revision(List<Parameter> params, String value) throws ParseException {
         super(Id.REV, params);
@@ -101,16 +101,16 @@ public final class Revision extends Property {
         return date;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
         return Strings.valueOf(date);
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {
