@@ -65,7 +65,7 @@ public class CategoriesTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { new Categories(), Id.CATEGORIES.toString(), "", new Parameter[] {} });
+        params.add(new Object[] { new Categories(""), Id.CATEGORIES.toString(), "", new Parameter[] {} });
         params.add(new Object[] { new Categories("TRAVEL AGENT"), Id.CATEGORIES.toString(), "TRAVEL AGENT",
                 new Parameter[] {} });
         params.add(new Object[] { new Categories("INTERNET", "IETF", "INDUSTRY", "INFORMATION TECHNOLOGY"),
