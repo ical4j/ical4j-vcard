@@ -79,21 +79,26 @@ public final class VCardBuilder {
     private final ParameterFactoryRegistry parameterFactoryRegistry;
 
     /**
-     * @param in
+     * @param in an input stream providing vCard data
      */
     public VCardBuilder(InputStream in) {
         this(new InputStreamReader(in));
     }
     
     /**
-     * @param in
+     * @param in a reader providing vCard data
      */
     public VCardBuilder(Reader in) {
         this(in, new GroupRegistry(), new PropertyFactoryRegistry(), new ParameterFactoryRegistry());
     }
     
     /**
-     * @param in
+     * @param in a reader providing vCard data
+     * @param registry a group registry used to construct vCard objects
+     * @param propertyFactoryRegistry a property factory registry used to construct
+     * vCard objects
+     * @param parameterFactoryRegistry a parameter factory registry used to construct
+     * vCard objects
      */
     public VCardBuilder(Reader in, GroupRegistry registry, PropertyFactoryRegistry propertyFactoryRegistry,
             ParameterFactoryRegistry parameterFactoryRegistry) {
@@ -104,18 +109,18 @@ public final class VCardBuilder {
     }
     
     /**
-     * @return
-     * @throws IOException
-     * @throws ParserException
+     * @return a new vCard object instance
+     * @throws IOException where a problem occurs reading vCard data
+     * @throws ParserException where parsing vCard data fails
      */
     public VCard build() throws IOException, ParserException {
     	return build(true);
     }
     
     /**
-     * @return
-     * @throws IOException
-     * @throws ParserException
+     * @return a list of vCard object instances
+     * @throws IOException where a problem occurs reading vCard data
+     * @throws ParserException where parsing vCard data fails
      */
     public List<VCard> buildAll() throws IOException, ParserException {
     	List<VCard> cards = new ArrayList<VCard>();
@@ -240,7 +245,8 @@ public final class VCardBuilder {
             final String[] params = matcher.group().split(";");
             for (String param : params) {
                 final String[] vals = param.split("=");
-                final ParameterFactory<? extends Parameter> factory = parameterFactoryRegistry.getFactory(vals[0].toUpperCase());
+                final ParameterFactory<? extends Parameter> factory = parameterFactoryRegistry.getFactory(
+                        vals[0].toUpperCase());
                 
                 if (factory == null) {
                 	continue;

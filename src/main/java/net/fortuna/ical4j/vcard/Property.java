@@ -128,8 +128,8 @@ public abstract class Property implements Serializable {
     }
     
     /**
-     * @param group
-     * @param extendedName
+     * @param group a property group
+     * @param extendedName the non-standard property name
      */
     public Property(Group group, String extendedName) {
         this(group, Id.EXTENDED);
@@ -144,25 +144,25 @@ public abstract class Property implements Serializable {
     }
 
     /**
-     * @param group
-     * @param id
+     * @param group a property group
+     * @param id a standard property identifier
      */
     public Property(Group group, Id id) {
         this(group, id, new ArrayList<Parameter>());
     }
     
     /**
-     * @param id
-     * @param parameters
+     * @param id a standard property identifier
+     * @param parameters property parameters
      */
     protected Property(Id id, List<Parameter> parameters) {
         this(null, id, parameters);
     }
 
     /**
-     * @param group
-     * @param id
-     * @param parameters
+     * @param group a property group
+     * @param id a standard property identifier
+     * @param parameters property parameters
      */
     protected Property(Group group, Id id, List<Parameter> parameters) {
         this.group = group;
@@ -255,12 +255,12 @@ public abstract class Property implements Serializable {
     public abstract String getValue();
     
     /**
-     * @throws ValidationException
+     * @throws ValidationException where the property fails validation rules
      */
     public abstract void validate() throws ValidationException;
     
     /**
-     * @throws ValidationException
+     * @throws ValidationException where the parameter list is not empty
      */
     protected final void assertParametersEmpty() throws ValidationException {
         if (!getParameters().isEmpty()) {
@@ -269,8 +269,8 @@ public abstract class Property implements Serializable {
     }
     
     /**
-     * @param param
-     * @throws ValidationException
+     * @param param a parameter to validate
+     * @throws ValidationException where the specified parameter is not a text parameter
      */
     protected final void assertTextParameter(final Parameter param) throws ValidationException {
         if (!Value.TEXT.equals(param) && !Parameter.Id.LANGUAGE.equals(param.getId())
@@ -280,8 +280,8 @@ public abstract class Property implements Serializable {
     }
     
     /**
-     * @param param
-     * @throws ValidationException
+     * @param param a parameter to validate
+     * @throws ValidationException where the specified parameter is not a type parameter
      */
     protected final void assertTypeParameter(final Parameter param) throws ValidationException {
         if (!Parameter.Id.TYPE.equals(param.getId())) {
@@ -290,8 +290,8 @@ public abstract class Property implements Serializable {
     }
     
     /**
-     * @param param
-     * @throws ValidationException
+     * @param param a parameter to validate
+     * @throws ValidationException where the specified parameter is not a PID parameter
      */
     protected final void assertPidParameter(final Parameter param) throws ValidationException {
         if (!Parameter.Id.PID.equals(param.getId())) {
@@ -300,8 +300,8 @@ public abstract class Property implements Serializable {
     }
     
     /**
-     * @param param
-     * @throws ValidationException
+     * @param param a parameter to validate
+     * @throws ValidationException where the specified parameter is not a Pref parameter
      */
     protected final void assertPrefParameter(final Parameter param) throws ValidationException {
         if (!Parameter.Id.PREF.equals(param.getId())) {
@@ -310,8 +310,9 @@ public abstract class Property implements Serializable {
     }
     
     /**
-     * @param paramId
-     * @throws ValidationException
+     * @param paramId a parameter identifier to validate from
+     * @throws ValidationException where there is not one or less of the specified
+     *  parameter in the parameter list
      */
     protected final void assertOneOrLess(final Parameter.Id paramId) throws ValidationException {
         if (getParameters(paramId).size() > 1) {
@@ -319,16 +320,16 @@ public abstract class Property implements Serializable {
         }
     }
     
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(final Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {

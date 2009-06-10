@@ -58,15 +58,15 @@ public class VCardOutputter extends AbstractOutputter {
     }
 
     /**
-     * @param validating
+     * @param validating specifies whether to validate vCard objects prior to output
      */
     public VCardOutputter(boolean validating) {
         super(validating);
     }
 
     /**
-     * @param validating
-     * @param foldLength
+     * @param validating specifies whether to validate vCard objects prior to output
+     * @param foldLength specifies the maximum line length
      */
     public VCardOutputter(boolean validating, int foldLength) {
         super(validating, foldLength);
@@ -74,9 +74,10 @@ public class VCardOutputter extends AbstractOutputter {
 
     /**
      * Outputs an iCalender string to the specified output stream.
-     * @param calendar calendar to write to ouput stream
-     * @param out an output stream
+     * @param card a vCard object to output as a string
+     * @param out an output stream the output stream to write the vCard string to
      * @throws IOException thrown when unable to write to output stream
+     * @throws ValidationException where the specified vCard is not valid
      */
     public final void output(final VCard card, final OutputStream out) throws IOException, ValidationException {
         output(card, new OutputStreamWriter(out, DEFAULT_CHARSET));
@@ -84,9 +85,10 @@ public class VCardOutputter extends AbstractOutputter {
 
     /**
      * Outputs an iCalender string to the specified writer.
-     * @param calendar calendar to write to writer
-     * @param out a writer
+     * @param card a vCard object to output as a string
+     * @param out a writer to write the output string to
      * @throws IOException thrown when unable to write to writer
+     * @throws ValidationException where the specified vCard is not valid
      */
     public final void output(final VCard card, final Writer out) throws IOException, ValidationException {
         if (isValidating()) {

@@ -99,23 +99,26 @@ public class PropertyFactoryRegistry {
 
     private Map<String, PropertyFactory<? extends Property>> extendedFactories;
     
+    /**
+     * 
+     */
     public PropertyFactoryRegistry() {
         defaultFactories = new HashMap<Id, PropertyFactory<? extends Property>>();
         defaultFactories.put(Property.Id.VERSION, new PropertyFactory<Version>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Version createProperty(final List<Parameter> params, final String value) {
                 if (Version.VERSION_4_0.getValue().equals(value)) {
                     return Version.VERSION_4_0;
                 }
                 return new Version(value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Version createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -123,17 +126,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.FN, new PropertyFactory<Fn>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Fn createProperty(final List<Parameter> params, final String value) {
                 return new Fn(value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Fn createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -141,17 +144,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.N, new PropertyFactory<N>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public N createProperty(final List<Parameter> params, final String value) {
                 return new N(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public N createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -159,17 +162,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.BDAY, new PropertyFactory<BDay>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public BDay createProperty(final List<Parameter> params, final String value) throws ParseException {
                 return new BDay(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public BDay createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -177,10 +180,10 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.GENDER, new PropertyFactory<Gender>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Gender createProperty(final List<Parameter> params, final String value) {
                 if (Gender.FEMALE.getValue().equals(value)) {
                     return Gender.FEMALE;
@@ -190,10 +193,10 @@ public class PropertyFactoryRegistry {
                 }
                 return new Gender(value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Gender createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -201,95 +204,97 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.ORG, new PropertyFactory<Org>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Org createProperty(final List<Parameter> params, final String value) {
                 return new Org(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Org createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 return new Org(group, params, value);
             }
         });
         defaultFactories.put(Property.Id.ADR, new PropertyFactory<Address>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Address createProperty(final List<Parameter> params, final String value) {
                 return new Address(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Address createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 return new Address(group, params, value);
             }
         });
         defaultFactories.put(Property.Id.TEL, new PropertyFactory<Telephone>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
-            public Telephone createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
+            public Telephone createProperty(final List<Parameter> params, final String value)
+                throws URISyntaxException {
+                
                 return new Telephone(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Telephone createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 return new Telephone(group, params, value);
             }
         });
         defaultFactories.put(Property.Id.EMAIL, new PropertyFactory<Email>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Email createProperty(final List<Parameter> params, final String value) {
                 return new Email(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Email createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 return new Email(group, params, value);
             }
         });
         defaultFactories.put(Property.Id.GEO, new PropertyFactory<Geo>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Geo createProperty(final List<Parameter> params, final String value) {
                 return new Geo(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Geo createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 return new Geo(group, params, value);
             }
         });
         defaultFactories.put(Property.Id.CLASS, new PropertyFactory<Clazz>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Clazz createProperty(final List<Parameter> params, final String value) {
                 if (Clazz.CONFIDENTIAL.getValue().equals(value)) {
                     return Clazz.CONFIDENTIAL;
@@ -302,10 +307,10 @@ public class PropertyFactoryRegistry {
                 }
                 return new Clazz(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Clazz createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -313,33 +318,37 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.KEY, new PropertyFactory<Key>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
-            public Key createProperty(final List<Parameter> params, final String value) throws DecoderException, URISyntaxException {
+            public Key createProperty(final List<Parameter> params, final String value) throws DecoderException,
+                URISyntaxException {
+                
                 return new Key(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
-            public Key createProperty(final Group group, final List<Parameter> params, final String value) throws DecoderException, URISyntaxException {
+            public Key createProperty(final Group group, final List<Parameter> params, final String value)
+                throws DecoderException, URISyntaxException {
+                
                 return new Key(group, params, value);
             }
         });
         defaultFactories.put(Property.Id.BIRTH, new PropertyFactory<Birth>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Birth createProperty(final List<Parameter> params, final String value) {
                 return new Birth(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Birth createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -347,17 +356,19 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.CALADRURI, new PropertyFactory<CalAdrUri>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
-            public CalAdrUri createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
+            public CalAdrUri createProperty(final List<Parameter> params, final String value)
+                throws URISyntaxException {
+                
                 return new CalAdrUri(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public CalAdrUri createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -365,17 +376,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.CALURI, new PropertyFactory<CalUri>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public CalUri createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
                 return new CalUri(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public CalUri createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -383,17 +394,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.CATEGORIES, new PropertyFactory<Categories>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Categories createProperty(final List<Parameter> params, final String value) {
                 return new Categories(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Categories createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -401,17 +412,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.DDAY, new PropertyFactory<DDay>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public DDay createProperty(final List<Parameter> params, final String value) throws ParseException {
                 return new DDay(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public DDay createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -419,17 +430,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.DEATH, new PropertyFactory<Death>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Death createProperty(final List<Parameter> params, final String value) {
                 return new Death(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Death createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -437,17 +448,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.FBURL, new PropertyFactory<FbUrl>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public FbUrl createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
                 return new FbUrl(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public FbUrl createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -455,17 +466,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.IMPP, new PropertyFactory<Impp>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Impp createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
                 return new Impp(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Impp createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -473,17 +484,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.KIND, new PropertyFactory<Kind>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Kind createProperty(final List<Parameter> params, final String value) {
                 return new Kind(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Kind createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -491,17 +502,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.LABEL, new PropertyFactory<Label>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Label createProperty(final List<Parameter> params, final String value) {
                 return new Label(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Label createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -509,17 +520,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.LANG, new PropertyFactory<net.fortuna.ical4j.vcard.property.Language>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Language createProperty(final List<Parameter> params, final String value) {
                 return new net.fortuna.ical4j.vcard.property.Language(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Language createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -527,17 +538,19 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.LOGO, new PropertyFactory<Logo>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
-            public Logo createProperty(final List<Parameter> params, final String value) throws URISyntaxException, DecoderException {
+            public Logo createProperty(final List<Parameter> params, final String value) throws URISyntaxException,
+                DecoderException {
+                
                 return new Logo(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Logo createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -545,17 +558,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.MEMBER, new PropertyFactory<Member>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Member createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
                 return new Member(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Member createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -563,17 +576,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.NAME, new PropertyFactory<Name>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Name createProperty(final List<Parameter> params, final String value) {
                 return new Name(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Name createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -581,17 +594,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.NICKNAME, new PropertyFactory<Nickname>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Nickname createProperty(final List<Parameter> params, final String value) {
                 return new Nickname(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Nickname createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -599,17 +612,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.NOTE, new PropertyFactory<Note>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Note createProperty(final List<Parameter> params, final String value) {
                 return new Note(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Note createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -617,17 +630,19 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.PHOTO, new PropertyFactory<Photo>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
-            public Photo createProperty(final List<Parameter> params, final String value) throws URISyntaxException, DecoderException {
+            public Photo createProperty(final List<Parameter> params, final String value) throws URISyntaxException,
+                DecoderException {
+                
                 return new Photo(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Photo createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -635,17 +650,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.PRODID, new PropertyFactory<ProdId>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public ProdId createProperty(final List<Parameter> params, final String value) {
                 return new ProdId(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public ProdId createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -653,17 +668,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.RELATED, new PropertyFactory<Related>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Related createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
                 return new Related(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Related createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -671,17 +686,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.REV, new PropertyFactory<Revision>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Revision createProperty(final List<Parameter> params, final String value) throws ParseException {
                 return new Revision(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Revision createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -689,17 +704,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.ROLE, new PropertyFactory<Role>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Role createProperty(final List<Parameter> params, final String value) {
                 return new Role(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Role createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -707,17 +722,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.SORT_STRING, new PropertyFactory<SortString>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public SortString createProperty(final List<Parameter> params, final String value) {
                 return new SortString(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public SortString createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -725,17 +740,19 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.SOUND, new PropertyFactory<Sound>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
-            public Sound createProperty(final List<Parameter> params, final String value) throws URISyntaxException, DecoderException {
+            public Sound createProperty(final List<Parameter> params, final String value) throws URISyntaxException,
+                DecoderException {
+                
                 return new Sound(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Sound createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -743,17 +760,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.SOURCE, new PropertyFactory<Source>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Source createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
                 return new Source(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Source createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -761,17 +778,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.TITLE, new PropertyFactory<Title>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Title createProperty(final List<Parameter> params, final String value) {
                 return new Title(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Title createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -779,17 +796,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.TZ, new PropertyFactory<Tz>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Tz createProperty(final List<Parameter> params, final String value) {
                 return new Tz(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Tz createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -797,17 +814,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.UID, new PropertyFactory<Uid>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Uid createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
                 return new Uid(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Uid createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -815,17 +832,17 @@ public class PropertyFactoryRegistry {
             }
         });
         defaultFactories.put(Property.Id.URL, new PropertyFactory<Url>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Url createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
                 return new Url(params, value);
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(net.fortuna.ical4j.vcard.Group, java.lang.String)
+
+            /**
+             * {@inheritDoc}
              */
-            
             public Url createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
@@ -837,8 +854,8 @@ public class PropertyFactoryRegistry {
     }
     
     /**
-     * @param value
-     * @return
+     * @param value a string representation of a property identifier
+     * @return a property factory for creating a property of the resolved type
      */
     public PropertyFactory<? extends Property> getFactory(final String value) {
         try {
@@ -851,8 +868,9 @@ public class PropertyFactoryRegistry {
     }
     
     /**
-     * @param extendedName
-     * @param factory
+     * @param extendedName a non-standard property name to register
+     * @param factory a property factory for creating instances of the non-standard
+     * property type
      */
     public void register(String extendedName, PropertyFactory<Property> factory) {
         extendedFactories.put(extendedName, factory);

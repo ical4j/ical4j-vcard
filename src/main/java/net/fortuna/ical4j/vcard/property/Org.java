@@ -42,11 +42,11 @@ import net.fortuna.ical4j.vcard.Property;
 
 /**
  * $Id$
- *
+ * 
  * Created on 21/09/2008
- *
+ * 
  * @author Ben
- *
+ * 
  */
 public final class Org extends Property {
 
@@ -54,49 +54,63 @@ public final class Org extends Property {
      * 
      */
     private static final long serialVersionUID = -1435956318814896568L;
-    
+
     // this regex has been stolen from:
-    // http://stackoverflow.com/questions/56554/what-is-the-proper-regular-expression-for-an-unescaped-backslash-before-a-chara
-    private static final String VALUES_SPLIT_REGEX = "(?<!\\\\)(?>\\\\\\\\)*;"; 
-    
+    // http://stackoverflow.com/questions/56554/
+    // + what-is-the-proper-regular-expression-for-an-unescaped-backslash-before-a-chara
+    private static final String VALUES_SPLIT_REGEX = "(?<!\\\\)(?>\\\\\\\\)*;";
+
     private String[] values;
-    
+
     /**
      * @param value
+     *            one or more organization values
      */
-    public Org(String...value) {
+    public Org(String... value) {
         this(null, value);
     }
-    
+
     /**
      * @param group
+     *            a property group
      * @param value
+     *            one or more organization values
      */
-    public Org(Group group, String...value) {
+    public Org(Group group, String... value) {
         super(group, Id.ORG);
+        if (value.length == 0) {
+            throw new IllegalArgumentException("Must specify at least one organization");
+        }
         this.values = value;
     }
-    
+
     /**
      * Factory constructor
+     * 
      * @param params
+     *            property parameters
      * @param value
+     *            string representation of a property value
      */
     public Org(List<Parameter> params, String value) {
         this(null, params, value);
     }
-    
+
     /**
      * Factory constructor.
+     * 
      * @param group
+     *            a property group
      * @param params
+     *            property parameters
      * @param value
+     *            string representation of a property value
      */
     public Org(Group group, List<Parameter> params, String value) {
         super(group, Id.ORG, params);
         this.values = value.split(VALUES_SPLIT_REGEX);
     }
-    
+
     /**
      * @return the values
      */
@@ -104,8 +118,8 @@ public final class Org extends Property {
         return values;
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#getValue()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getValue() {
@@ -115,13 +129,13 @@ public final class Org extends Property {
             if (i < values.length - 1) {
                 b.append(';');
             }
-            
+
         }
         return b.toString();
     }
 
-    /* (non-Javadoc)
-     * @see net.fortuna.ical4j.vcard.Property#validate()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void validate() throws ValidationException {
@@ -129,8 +143,7 @@ public final class Org extends Property {
         for (Parameter param : getParameters()) {
             try {
                 assertTextParameter(param);
-            }
-            catch (ValidationException ve) {
+            } catch (ValidationException ve) {
                 assertPidParameter(param);
             }
         }
