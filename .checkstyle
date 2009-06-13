@@ -3,7 +3,14 @@
     <local-check-config name="iCal4j Checks" location="etc/checkstyle.xml" type="project" description="">
         <additional-data name="protect-config-file" value="false"/>
     </local-check-config>
-    <fileset name="all" enabled="true" check-config-name="iCal4j Checks" local="true">
+    <local-check-config name="Micronode Checks" location="http://svn.mnode.org/tools/checkstyle/mnode_checks.xml" type="remote" description="">
+        <property name="checkstyle.suppressions.file" value="${project_loc}/etc/checkstyle-suppressions.xml"/>
+        <additional-data name="cache-file" value="true"/>
+        <additional-data name="cache-props-file-location" value="null_1244870056874_cache.properties"/>
+        <additional-data name="cache-file-location" value="null_1244870056874_cache.xml"/>
+    </local-check-config>
+    <fileset name="all" enabled="true" check-config-name="Micronode Checks" local="true">
         <file-match-pattern match-pattern="." include-pattern="true"/>
     </fileset>
+    <filter name="NonSrcDirs" enabled="true"/>
 </fileset-config>
