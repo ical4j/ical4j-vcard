@@ -54,9 +54,9 @@ import org.junit.runners.Parameterized.Parameters;
  */
 public class UidTest extends PropertyTest {
 
-    private Uid uid;
+    private final Uid uid;
     
-    private URI expectedUri;
+    private final URI expectedUri;
     
     /**
      * @param property

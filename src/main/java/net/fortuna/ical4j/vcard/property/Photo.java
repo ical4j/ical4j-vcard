@@ -66,7 +66,7 @@ public final class Photo extends Property {
      */
     private static final long serialVersionUID = 5927040228596008262L;
 
-    private Log log = LogFactory.getLog(Photo.class);
+    private final Log log = LogFactory.getLog(Photo.class);
     
     private URI uri;
 

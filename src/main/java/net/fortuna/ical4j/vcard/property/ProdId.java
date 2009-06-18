@@ -52,7 +52,7 @@ public final class ProdId extends Property {
      */
     private static final long serialVersionUID = 8104072716649404803L;
     
-    private String value;
+    private final String value;
     
     /**
      * @param value a product identifier value

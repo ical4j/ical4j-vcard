@@ -63,15 +63,15 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class PropertyTest {
 
-    private Property property;
+    private final Property property;
     
-    private String expectedName;
+    private final String expectedName;
     
-    private String expectedValue;
+    private final String expectedValue;
     
-    private Parameter[] expectedParams;
+    private final Parameter[] expectedParams;
     
-    private Property expectedEqualTo;
+    private final Property expectedEqualTo;
     
     /**
      * @param property

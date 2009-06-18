@@ -62,11 +62,11 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class VCardOutputterTest {
 
-    private VCardOutputter outputter;
+    private final VCardOutputter outputter;
     
-    private VCard card;
+    private final VCard card;
     
-    private String expectedOutput;
+    private final String expectedOutput;
     
     /**
      * @param outputter

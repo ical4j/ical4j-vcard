@@ -52,7 +52,7 @@ public final class Fn extends Property {
      */
     private static final long serialVersionUID = -3576886478408668365L;
     
-    private String value;
+    private final String value;
     
     /**
      * @param value string representation of a property value

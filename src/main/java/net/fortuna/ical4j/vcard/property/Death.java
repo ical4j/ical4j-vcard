@@ -53,7 +53,7 @@ public final class Death extends Property implements Escapable {
      */
     private static final long serialVersionUID = 3009228294165154307L;
     
-    private String value;
+    private final String value;
     
     /**
      * @param value a death string value

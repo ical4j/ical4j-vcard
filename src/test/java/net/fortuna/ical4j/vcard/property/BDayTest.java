@@ -61,9 +61,9 @@ import org.junit.runners.Parameterized.Parameters;
  */
 public class BDayTest extends PropertyTest {
 
-    private BDay property;
+    private final BDay property;
 
-    private Class<?> expectedDateType;
+    private final Class<?> expectedDateType;
 
     /**
      * @param property

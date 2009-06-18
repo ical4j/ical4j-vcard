@@ -70,7 +70,7 @@ public final class Sound extends Property {
 
     private byte[] binary;
 
-    private Log log = LogFactory.getLog(Sound.class);
+    private final Log log = LogFactory.getLog(Sound.class);
     
     /**
      * @param uri a URI specifying a sound location

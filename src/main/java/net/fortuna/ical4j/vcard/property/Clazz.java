@@ -70,7 +70,7 @@ public final class Clazz extends Property {
     public static final Clazz CONFIDENTIAL = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()),
             "CONFIDENTIAL");
     
-    private String value;
+    private final String value;
     
     /**
      * @param value a classification value

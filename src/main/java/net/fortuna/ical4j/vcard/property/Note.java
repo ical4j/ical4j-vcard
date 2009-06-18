@@ -53,7 +53,7 @@ public final class Note extends Property implements Escapable {
      */
     private static final long serialVersionUID = -1435219426295284759L;
     
-    private String value;
+    private final String value;
     
     /**
      * @param value a note value

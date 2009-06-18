@@ -55,7 +55,7 @@ public final class Member extends Property {
      */
     private static final long serialVersionUID = 6622845049765958916L;
     
-    private URI uri;
+    private final URI uri;
     
     /**
      * @param uri a URI that represents a member

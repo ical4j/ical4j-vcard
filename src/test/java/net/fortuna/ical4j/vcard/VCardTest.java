@@ -67,9 +67,9 @@ public class VCardTest {
     
     private static final Pattern VCARD_PATTERN = Pattern.compile("^BEGIN:VCARD.*END:VCARD(\\r?\\n)*$", Pattern.DOTALL);
     
-    private VCard vCard;
+    private final VCard vCard;
     
-    private int expectedPropertyCount;
+    private final int expectedPropertyCount;
     
     /**
      * @param vCard

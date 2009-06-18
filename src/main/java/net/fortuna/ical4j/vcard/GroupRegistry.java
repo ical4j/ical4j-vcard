@@ -51,9 +51,9 @@ public class GroupRegistry {
 
     private static final Log LOG = LogFactory.getLog(GroupRegistry.class);
     
-    private Map<Id, Group> defaultGroups;
+    private final Map<Id, Group> defaultGroups;
     
-    private Map<String, Group> extendedGroups;
+    private final Map<String, Group> extendedGroups;
     
     /**
      * 

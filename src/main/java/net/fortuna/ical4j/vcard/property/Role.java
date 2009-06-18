@@ -52,7 +52,7 @@ public final class Role extends Property {
      */
     private static final long serialVersionUID = -2967228242683105498L;
     
-    private String value;
+    private final String value;
     
     /**
      * @param value a role string value

@@ -54,9 +54,9 @@ import org.junit.runners.Parameterized.Parameters;
  */
 public class UrlTest extends PropertyTest {
 
-    private Url url;
+    private final Url url;
     
-    private URI expectedUri;
+    private final URI expectedUri;
     
     /**
      * @param property

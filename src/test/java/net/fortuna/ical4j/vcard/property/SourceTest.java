@@ -54,9 +54,9 @@ import org.junit.runners.Parameterized.Parameters;
  */
 public class SourceTest extends PropertyTest {
 
-    private Source source;
+    private final Source source;
     
-    private URI expectedUri;
+    private final URI expectedUri;
     
     /**
      * @param property

@@ -56,7 +56,7 @@ public final class CalAdrUri extends Property {
      */
     private static final long serialVersionUID = -6507220241297111022L;
     
-    private URI uri;
+    private final URI uri;
     
     /**
      * @param uri calendar URI

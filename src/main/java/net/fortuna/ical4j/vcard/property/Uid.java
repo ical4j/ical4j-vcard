@@ -55,7 +55,7 @@ public final class Uid extends Property {
      */
     private static final long serialVersionUID = -7120539613021006347L;
     
-    private URI uri;
+    private final URI uri;
     
     /**
      * @param uri a URI for a uid definition

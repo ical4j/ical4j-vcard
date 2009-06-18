@@ -53,7 +53,7 @@ public final class Name extends Property implements Escapable {
      */
     private static final long serialVersionUID = -3524639290151277814L;
     
-    private String value;
+    private final String value;
     
     /**
      * @param value a name value

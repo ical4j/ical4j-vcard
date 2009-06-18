@@ -59,9 +59,9 @@ public class ParameterFactoryRegistry {
 
     private static final Log LOG = LogFactory.getLog(ParameterFactoryRegistry.class);
     
-    private Map<Id, ParameterFactory<? extends Parameter>> defaultFactories;
+    private final Map<Id, ParameterFactory<? extends Parameter>> defaultFactories;
 
-    private Map<String, ParameterFactory<? extends Parameter>> extendedFactories;
+    private final Map<String, ParameterFactory<? extends Parameter>> extendedFactories;
     
     /**
      * 

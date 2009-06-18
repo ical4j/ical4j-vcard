@@ -60,15 +60,15 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class PropertyFactoryRegistryTest {
 
-    private PropertyFactoryRegistry registry;
+    private final PropertyFactoryRegistry registry;
     
-    private Group group;
+    private final Group group;
     
-    private String propertyName;
+    private final String propertyName;
     
-    private String propertyValue;
+    private final String propertyValue;
     
-    private Property expectedProperty;
+    private final Property expectedProperty;
     
     /**
      * @param registry

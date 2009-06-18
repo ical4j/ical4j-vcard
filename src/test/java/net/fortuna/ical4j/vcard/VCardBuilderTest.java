@@ -64,7 +64,7 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class VCardBuilderTest {
 
-    private VCardBuilder builder;
+    private final VCardBuilder builder;
     
     /**
      * @param filename

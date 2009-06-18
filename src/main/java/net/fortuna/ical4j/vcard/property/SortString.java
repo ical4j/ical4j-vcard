@@ -52,7 +52,7 @@ public final class SortString extends Property {
      */
     private static final long serialVersionUID = 980796364808362907L;
     
-    private String value;
+    private final String value;
     
     /**
      * @param value a sort string value

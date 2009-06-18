@@ -53,7 +53,7 @@ public final class Categories extends Property {
      */
     private static final long serialVersionUID = -3233034210546002366L;
     
-    private CategoryList categories;
+    private final CategoryList categories;
     
     /**
      * @param categories one or more category values

@@ -56,7 +56,7 @@ public final class N extends Property {
      */
     private static final long serialVersionUID = 1117450875931318523L;
 
-    private String familyName;
+    private final String familyName;
 
     private String givenName;
 

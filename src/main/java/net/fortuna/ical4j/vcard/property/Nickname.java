@@ -52,7 +52,7 @@ public final class Nickname extends Property {
      */
     private static final long serialVersionUID = 2512809288464680577L;
     
-    private String[] names;
+    private final String[] names;
     
     /**
      * @param names one or more nickname values

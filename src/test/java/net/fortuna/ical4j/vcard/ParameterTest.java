@@ -54,13 +54,13 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class ParameterTest {
 
-    private Parameter parameter;
+    private final Parameter parameter;
     
-    private String expectedName;
+    private final String expectedName;
     
-    private String expectedValue;
+    private final String expectedValue;
     
-    private Parameter expectedEqualTo;
+    private final Parameter expectedEqualTo;
     
     /**
      * @param parameter

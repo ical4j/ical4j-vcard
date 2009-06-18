@@ -57,13 +57,13 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class ParameterFactoryRegistryTest {
 
-    private ParameterFactoryRegistry registry;
+    private final ParameterFactoryRegistry registry;
     
-    private String paramName;
+    private final String paramName;
     
-    private String paramValue;
+    private final String paramValue;
     
-    private Parameter expectedParam;
+    private final Parameter expectedParam;
     
     /**
      * @param registry

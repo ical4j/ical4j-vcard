@@ -53,7 +53,7 @@ public final class Language extends Property {
      */
     private static final long serialVersionUID = 1863658302945551760L;
 
-    private Locale[] locales;
+    private final Locale[] locales;
 
     /**
      * @param locales one or more locales that define the language instance

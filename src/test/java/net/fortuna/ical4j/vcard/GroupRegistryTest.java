@@ -57,11 +57,11 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class GroupRegistryTest {
 
-    private GroupRegistry registry;
+    private final GroupRegistry registry;
     
-    private String groupName;
+    private final String groupName;
     
-    private Group expectedGroup;
+    private final Group expectedGroup;
     
     /**
      * @param registry

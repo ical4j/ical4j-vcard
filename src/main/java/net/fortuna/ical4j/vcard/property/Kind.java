@@ -70,7 +70,7 @@ public final class Kind extends Property {
      */
     public static final Kind ORG = new Kind(Collections.unmodifiableList(new ArrayList<Parameter>()), "org");
 
-    private String value;
+    private final String value;
 
     /**
      * @param value

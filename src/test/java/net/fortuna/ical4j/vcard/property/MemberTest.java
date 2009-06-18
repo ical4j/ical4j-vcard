@@ -54,9 +54,9 @@ import org.junit.runners.Parameterized.Parameters;
  */
 public class MemberTest extends PropertyTest {
 
-    private Member member;
+    private final Member member;
     
-    private URI expectedUri;
+    private final URI expectedUri;
     
     /**
      * @param property

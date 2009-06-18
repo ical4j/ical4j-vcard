@@ -55,9 +55,9 @@ import org.junit.runners.Parameterized.Parameters;
  */
 public class RevisionTest extends PropertyTest {
 
-    private Revision revision;
+    private final Revision revision;
 
-    private Date expectedDate;
+    private final Date expectedDate;
 
     /**
      * @param property

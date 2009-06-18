@@ -54,7 +54,7 @@ public final class Label extends Property implements Escapable {
      */
     private static final long serialVersionUID = -3634101566227652040L;
     
-    private String value;
+    private final String value;
     
     /**
      * @param value a string representation of a label value

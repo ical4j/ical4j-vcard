@@ -49,11 +49,11 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class ParameterFactoryTest {
 
-    private ParameterFactory<Parameter> factory;
+    private final ParameterFactory<Parameter> factory;
 
-    private String extendedName;
+    private final String extendedName;
 
-    private String value;
+    private final String value;
 
     /**
      * @param factory

@@ -56,7 +56,7 @@ public final class Impp extends Property {
      */
     private static final long serialVersionUID = 4042305605468586600L;
     
-    private URI uri;
+    private final URI uri;
     
     /**
      * @param uri instant messaging URI

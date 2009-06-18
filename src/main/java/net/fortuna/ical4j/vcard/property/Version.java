@@ -60,7 +60,7 @@ public final class Version extends Property {
     public static final Version VERSION_4_0 = new Version(
             Collections.unmodifiableList(new ArrayList<Parameter>()), "4.0");
     
-    private String value;
+    private final String value;
     
     /**
      * @param value a version value

@@ -55,9 +55,9 @@ import org.junit.runners.Parameterized.Parameters;
  */
 public class LanguageTest extends ParameterTest {
 
-    private Language language;
+    private final Language language;
     
-    private Locale expectedLocale;
+    private final Locale expectedLocale;
     
     /**
      * @param parameter

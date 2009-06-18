@@ -71,7 +71,7 @@ public final class Key extends Property {
     
     private byte[] binary;
 
-    private Log log = LogFactory.getLog(Key.class);
+    private final Log log = LogFactory.getLog(Key.class);
     
     /**
      * @param uri a key URI

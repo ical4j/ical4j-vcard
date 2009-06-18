@@ -95,9 +95,9 @@ public class PropertyFactoryRegistry {
 
     private static final Log LOG = LogFactory.getLog(PropertyFactoryRegistry.class);
     
-    private Map<Id, PropertyFactory<? extends Property>> defaultFactories;
+    private final Map<Id, PropertyFactory<? extends Property>> defaultFactories;
 
-    private Map<String, PropertyFactory<? extends Property>> extendedFactories;
+    private final Map<String, PropertyFactory<? extends Property>> extendedFactories;
     
     /**
      * 

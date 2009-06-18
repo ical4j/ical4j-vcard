@@ -55,7 +55,7 @@ public final class Source extends Property {
      */
     private static final long serialVersionUID = -8097388189864368448L;
     
-    private URI uri;
+    private final URI uri;
     
     /**
      * @param uri a URI specifying a source location

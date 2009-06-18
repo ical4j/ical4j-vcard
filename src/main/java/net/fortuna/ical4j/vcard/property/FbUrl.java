@@ -56,7 +56,7 @@ public final class FbUrl extends Property {
      */
     private static final long serialVersionUID = 7406097765207265428L;
     
-    private URI uri;
+    private final URI uri;
     
     /**
      * @param uri a free/busy URI

@@ -57,13 +57,13 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class PropertyFactoryTest {
 
-    private PropertyFactory<Property> factory;
+    private final PropertyFactory<Property> factory;
 
-    private Group group;
+    private final Group group;
     
-    private String extendedName;
+    private final String extendedName;
 
-    private String value;
+    private final String value;
 
     /**
      * @param factory

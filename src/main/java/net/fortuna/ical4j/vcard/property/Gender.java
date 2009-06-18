@@ -65,7 +65,7 @@ public final class Gender extends Property {
      */
     public static final Gender FEMALE = new Gender(Collections.unmodifiableList(new ArrayList<Parameter>()), "F");
     
-    private String value;
+    private final String value;
     
     /**
      * @param value string representation of a property value

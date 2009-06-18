@@ -53,7 +53,7 @@ public final class Birth extends Property implements Escapable {
      */
     private static final long serialVersionUID = -3204898745557127754L;
     
-    private String value;
+    private final String value;
     
     /**
      * @param value string representation of a birth value

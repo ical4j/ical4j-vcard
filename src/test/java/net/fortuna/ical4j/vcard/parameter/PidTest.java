@@ -54,9 +54,9 @@ import org.junit.runners.Parameterized.Parameters;
  */
 public class PidTest extends ParameterTest {
 
-    private Pid pid;
+    private final Pid pid;
     
-    private Integer expectedPid;
+    private final Integer expectedPid;
     
     /**
      * @param parameter

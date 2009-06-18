@@ -55,11 +55,11 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class GroupTest {
 
-    private Group group;
+    private final Group group;
     
-    private String expectedString;
+    private final String expectedString;
     
-    private Group expectedEqualTo;
+    private final Group expectedEqualTo;
     
     /**
      * @param group
