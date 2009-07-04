@@ -35,6 +35,8 @@ import java.util.Locale;
 
 import net.fortuna.ical4j.vcard.Parameter;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * $Id$
  *
@@ -82,11 +84,11 @@ public final class Language extends Parameter {
     public String getValue() {
         final StringBuilder b = new StringBuilder();
         b.append(locale.getLanguage());
-        if (!locale.getCountry().isEmpty()) {
+        if (!StringUtils.isEmpty(locale.getCountry())) {
             b.append('-');
             b.append(locale.getCountry());
         }
-        if (!locale.getVariant().isEmpty()) {
+        if (!StringUtils.isEmpty(locale.getVariant())) {
             b.append('-');
             b.append(locale.getVariant());
         }
