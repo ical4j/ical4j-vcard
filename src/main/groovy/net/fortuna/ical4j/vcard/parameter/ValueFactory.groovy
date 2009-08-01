@@ -41,7 +41,7 @@ package net.fortuna.ical4j.vcard.parameter
  * @author fortuna
  *
  */
-public class ValueFactory extends AbstractFactory{
+public class ValueFactory extends AbstractParameterFactory{
 
 
     public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
@@ -62,10 +62,6 @@ public class ValueFactory extends AbstractFactory{
             valueParam = new Value(value)
         }
         return valueParam
-    }
-    
-    public boolean isLeaf() {
-        return true;
     }
     
 }

@@ -31,8 +31,9 @@
  */
 package net.fortuna.ical4j.vcard.parameter
 
-import groovy.util.AbstractFactory
-/**
+
+
+/**
  * $Id$
  *
  * Created on: 02/08/2009
@@ -40,20 +41,10 @@ import groovy.util.AbstractFactory
  * @author fortuna
  *
  */
-public class EncodingFactory extends AbstractParameterFactory {
+public abstract class AbstractParameterFactory extends AbstractFactory{
 
-    public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
-        Encoding encoding
-        if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, Encoding.class)) {
-            encoding = (Encoding) value
-        }
-        else if (Encoding.B.getValue().equals(value)) {
-            encoding = Encoding.B
-        }
-        else {
-            encoding = new Encoding(value)
-        }
-        return encoding
-    }
     
+    public boolean isLeaf() {
+        return true;
+    }
 }
