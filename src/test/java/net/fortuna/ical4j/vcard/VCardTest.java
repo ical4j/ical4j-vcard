@@ -142,9 +142,7 @@ public class VCardTest {
             public String getValue() {
                 return null;
             }
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.Property#validate()
-             */
+
             @Override
             public void validate() throws ValidationException {
             }

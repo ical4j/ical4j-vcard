@@ -158,8 +158,9 @@ public final class Photo extends Property {
      */
     @Override
     public void validate() throws ValidationException {
-        for (Parameter param : getParameters()) {
-            assertPidParameter(param);
-        }
+//        for (Parameter param : getParameters()) {
+//            assertPidParameter(param);
+//        }
+        assertOneOrLess(net.fortuna.ical4j.vcard.Parameter.Id.VALUE);
     }
 }
