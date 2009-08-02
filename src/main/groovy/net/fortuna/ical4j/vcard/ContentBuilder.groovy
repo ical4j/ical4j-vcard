@@ -32,7 +32,7 @@
 package net.fortuna.ical4j.vcard
 
 import groovy.util.FactoryBuilderSupportimport net.fortuna.ical4j.vcard.parameter.EncodingFactoryimport net.fortuna.ical4j.vcard.property.PhotoFactoryimport net.fortuna.ical4j.vcard.parameter.ValueFactoryimport net.fortuna.ical4j.vcard.property.VersionFactoryimport net.fortuna.ical4j.vcard.property.FnFactoryimport net.fortuna.ical4j.vcard.property.NFactory
-/**
+import net.fortuna.ical4j.vcard.parameter.LanguageFactoryimport net.fortuna.ical4j.vcard.parameter.PidFactoryimport net.fortuna.ical4j.vcard.parameter.PrefFactoryimport net.fortuna.ical4j.vcard.parameter.TypeFactory/**
  * $Id$
  *
  * Created on: 02/08/2009
@@ -51,6 +51,10 @@ public class ContentBuilder extends FactoryBuilderSupport {
         registerFactory('version', new VersionFactory())
         // parameters..
         registerFactory('encoding', new EncodingFactory())
+        registerFactory('language', new LanguageFactory())
+        registerFactory('pid', new PidFactory())
+        registerFactory('pref', new PrefFactory())
+        registerFactory('type', new TypeFactory())
         registerFactory('value', new ValueFactory())
     }
     
