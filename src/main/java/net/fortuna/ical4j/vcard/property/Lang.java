@@ -32,45 +32,83 @@
 package net.fortuna.ical4j.vcard.property;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-
-import org.junit.runners.Parameterized.Parameters;
 
 /**
  * $Id$
- * 
- * Created on: 28/10/2008
- * 
- * @author fortuna
+ *
+ * Created on 24/08/2008
+ *
+ * @author Ben
  */
-public class LanguageTest extends PropertyTest {
+public final class Lang extends Property {
 
     /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
+     * 
      */
-    public LanguageTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
+    private static final long serialVersionUID = 1863658302945551760L;
+
+    private final Locale[] locales;
+
+    /**
+     * @param locales one or more locales that define the language instance
+     */
+    public Lang(Locale... locales) {
+        super(Id.LANG);
+        if (locales.length == 0) {
+            throw new IllegalArgumentException("Must have at least one locale");
+        }
+        this.locales = locales;
     }
 
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+    /**
+     * Factory constructor.
+     * @param params property parameters
+     * @param value string representation of a property value
+     */
+    public Lang(List<Parameter> params, String value) {
+        super(Id.LANG, params);
+        List<Locale> list = new ArrayList<Locale>();
+        for (String langString : value.split(",")) {
+            list.add(new Locale(langString));
+        }
+        this.locales = list.toArray(new Locale[list.size()]);
+    }
 
-        Locale locale = new Locale("en");
-        params.add(new Object[] { new Language(locale), Id.LANG.toString(), "en", new Parameter[] {} });
-        params.add(new Object[] { new Language(locale, new Locale("fr")), Id.LANG.toString(), "en,fr",
-                new Parameter[] {} });
-        return params;
+    /**
+     * @return the locales
+     */
+    public Locale[] getLocales() {
+        return locales;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getValue() {
+        final StringBuilder b = new StringBuilder();
+        for (int i = 0; i < locales.length; i++) {
+            if (i > 0) {
+                b.append(',');
+            }
+            b.append(locales[i].getLanguage());
+        }
+        return b.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void validate() throws ValidationException {
+        // TODO Auto-generated method stub
+        
     }
 
 }

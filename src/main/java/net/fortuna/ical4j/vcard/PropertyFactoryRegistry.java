@@ -56,7 +56,7 @@ import net.fortuna.ical4j.vcard.property.Impp;
 import net.fortuna.ical4j.vcard.property.Key;
 import net.fortuna.ical4j.vcard.property.Kind;
 import net.fortuna.ical4j.vcard.property.Label;
-import net.fortuna.ical4j.vcard.property.Language;
+import net.fortuna.ical4j.vcard.property.Lang;
 import net.fortuna.ical4j.vcard.property.Logo;
 import net.fortuna.ical4j.vcard.property.Member;
 import net.fortuna.ical4j.vcard.property.N;
@@ -519,19 +519,19 @@ public class PropertyFactoryRegistry {
                 return null;
             }
         });
-        defaultFactories.put(Property.Id.LANG, new PropertyFactory<net.fortuna.ical4j.vcard.property.Language>() {
+        defaultFactories.put(Property.Id.LANG, new PropertyFactory<net.fortuna.ical4j.vcard.property.Lang>() {
 
             /**
              * {@inheritDoc}
              */
-            public Language createProperty(final List<Parameter> params, final String value) {
-                return new net.fortuna.ical4j.vcard.property.Language(params, value);
+            public Lang createProperty(final List<Parameter> params, final String value) {
+                return new net.fortuna.ical4j.vcard.property.Lang(params, value);
             }
 
             /**
              * {@inheritDoc}
              */
-            public Language createProperty(final Group group, final List<Parameter> params, final String value)
+            public Lang createProperty(final Group group, final List<Parameter> params, final String value)
                     throws URISyntaxException, ParseException {
                 // TODO Auto-generated method stub
                 return null;
