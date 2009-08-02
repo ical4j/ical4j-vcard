@@ -10,7 +10,7 @@
 	<artifactId>ical4j-vcard</artifactId>
 	<packaging>bundle</packaging>
 	<name>iCal4j VCard</name>
-	<version>0.9.2</version>
+	<version>0.9.3-SNAPSHOT</version>
 	<description>Support for the vCard specification</description>
 	<url>http://ical4j.sourceforge.net</url>
 	<issueManagement>
@@ -30,7 +30,6 @@
 		<connection>scm:cvs:pserver:anonymous:@ical4j.cvs.sourceforge.net:/cvsroot/ical4j:ical4j-vcard</connection>
 		<developerConnection>scm:cvs:ext:fortuna@ical4j.cvs.sourceforge.net:/cvsroot/ical4j:ical4j-vcard</developerConnection>
 		<url>http://ical4j.cvs.sourceforge.net/ical4j/ical4j-vcard</url>
-    <tag>ical4j-vcard-0_9_2</tag>
   </scm>
 	
 	<build>
@@ -171,10 +170,6 @@
 					<licenseLocation>
 						etc/clover.license
 					</licenseLocation>
-					<excludes>
-					   <exclude>**/*Factory.java</exclude>
-                       <exclude>**/ContentBuilder.java</exclude>
-					</excludes>
 				</configuration>
 			</plugin>
 
