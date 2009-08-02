@@ -170,7 +170,8 @@
 						etc/clover.license
 					</licenseLocation>
 					<excludes>
-					   <exclude>**</exclude>
+					   <exclude>**/*Factory.java</exclude>
+                       <exclude>**/ContentBuilder.java</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
