@@ -32,7 +32,7 @@
 package net.fortuna.ical4j.vcard
 
 import net.fortuna.ical4j.vcard.parameter.Encoding
-/**
+import net.fortuna.ical4j.vcard.property.Genderimport net.fortuna.ical4j.vcard.property.Version/**
  * $Id$
  *
  * Created on: 02/08/2009
@@ -60,5 +60,15 @@ public class ContentBuilderTest extends GroovyTestCase {
     void testBuildEncoding() {
         def encoding = new ContentBuilder().encoding('b')
         assert encoding == Encoding.B
+    }
+    
+    void testBuildGender() {
+        def gender = new ContentBuilder().gender(value: 'F')
+        assert gender == Gender.FEMALE
+    }
+    
+    void testBuildVersion() {
+        def version = new ContentBuilder().version(value: '4.0')
+        assert version == Version.VERSION_4_0
     }
 }
