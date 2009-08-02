@@ -31,8 +31,9 @@
  */
 package net.fortuna.ical4j.vcard
 
-import groovy.util.FactoryBuilderSupportimport net.fortuna.ical4j.vcard.parameter.EncodingFactoryimport net.fortuna.ical4j.vcard.property.PhotoFactoryimport net.fortuna.ical4j.vcard.parameter.ValueFactoryimport net.fortuna.ical4j.vcard.property.VersionFactoryimport net.fortuna.ical4j.vcard.property.FnFactoryimport net.fortuna.ical4j.vcard.property.NFactory
-import net.fortuna.ical4j.vcard.parameter.LanguageFactoryimport net.fortuna.ical4j.vcard.parameter.PidFactoryimport net.fortuna.ical4j.vcard.parameter.PrefFactoryimport net.fortuna.ical4j.vcard.parameter.TypeFactory/**
+
+
+/**
  * $Id$
  *
  * Created on: 02/08/2009
@@ -40,21 +41,21 @@ import net.fortuna.ical4j.vcard.parameter.LanguageFactoryimport net.fortuna.ica
  * @author fortuna
  *
  */
-public class ContentBuilder extends FactoryBuilderSupport {
+public class ContentBuilderTest extends GroovyTestCase {
 
-    public ContentBuilder() {
-        registerFactory('vcard', new VCardFactory())
-        // properties..
-        registerFactory('fn', new FnFactory())
-        registerFactory('n', new NFactory())
-        registerFactory('photo', new PhotoFactory())
-        registerFactory('version', new VersionFactory())
-        // parameters..
-        registerFactory('encoding', new EncodingFactory())
-        registerFactory('language', new LanguageFactory())
-        registerFactory('pid', new PidFactory())
-        registerFactory('pref', new PrefFactory())
-        registerFactory('type', new TypeFactory())
-        registerFactory('value', new ValueFactory())
+    void testBuildCard() {
+        def builder = new ContentBuilder()
+        def card = builder.vcard() {
+            version(value: '4.1')
+            fn(value: 'test')
+            n(value: 'example')
+            photo(value: 'http://example.com', parameters: [value('uri')])
+        }
+        card.validate()
+        println(card)
+    }
+    
+    void testBuildEncoding() {
+        println(new ContentBuilder().encoding('b'))
     }
 }
