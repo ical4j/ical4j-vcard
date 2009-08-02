@@ -47,7 +47,9 @@ public class ContentBuilderTest extends GroovyTestCase {
         def card = builder.vcard() {
             version('4.0')
             fn('test')
-            n('example')
+            n('example') {
+                value('text')
+            }
             photo(value: 'http://example.com', parameters: [value('uri')])
         }
         card.validate()
