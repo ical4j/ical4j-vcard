@@ -31,8 +31,7 @@
  */
 package net.fortuna.ical4j.vcard
 
-
-
+import net.fortuna.ical4j.vcard.parameter.Encoding
 /**
  * $Id$
  *
@@ -52,10 +51,14 @@ public class ContentBuilderTest extends GroovyTestCase {
             photo(value: 'http://example.com', parameters: [value('uri')])
         }
         card.validate()
+        
+        assert card.properties.size == 4
+        
         println(card)
     }
     
     void testBuildEncoding() {
-        println(new ContentBuilder().encoding('b'))
+        def encoding = new ContentBuilder().encoding('b')
+        assert encoding == Encoding.B
     }
 }
