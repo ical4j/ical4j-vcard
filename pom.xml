@@ -162,7 +162,7 @@
 	               <suppressionsFile>etc/checkstyle-suppressions.xml</suppressionsFile>
 	            </configuration>
 	        </plugin>
-			<!--
+
 			<plugin>
 				<artifactId>maven-clover-plugin</artifactId>
 				<configuration>
@@ -170,11 +170,10 @@
 						etc/clover.license
 					</licenseLocation>
 					<excludes>
-					   <exclude>**groovy-stubs/**</exclude>
+					   <exclude>**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
-			-->
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
