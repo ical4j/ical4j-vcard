@@ -53,6 +53,7 @@
 				<configuration>
 					<jdk>1.5</jdk>
 				</configuration>
+				<!--
 				<executions>
 					<execution>
 						<phase>pre-site</phase>
@@ -61,6 +62,7 @@
 						</goals>
 					</execution>
 				</executions>
+				-->
 			</plugin>
 
 			<plugin>
