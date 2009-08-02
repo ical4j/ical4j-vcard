@@ -56,7 +56,7 @@ public class ContentBuilder extends FactoryBuilderSupport {
         registerFactory('caladruri', new CalAdrUriFactory())
         registerFactory('caluri', new CalUriFactory())
         registerFactory('categories', new CategoriesFactory())
-        registerFactory('class', new ClazzFactory())
+        registerFactory('clazz', new ClazzFactory())
         registerFactory('dday', new DDayFactory())
         registerFactory('death', new DeathFactory())
         registerFactory('email', new EmailFactory())

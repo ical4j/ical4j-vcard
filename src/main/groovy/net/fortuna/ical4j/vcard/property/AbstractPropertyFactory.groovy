@@ -49,7 +49,12 @@ public abstract class AbstractPropertyFactory extends AbstractFactory{
             parameters = new ArrayList()
         }
         String propValue = attributes.remove('value')
-        return newInstance(parameters, propValue)
+        if (propValue != null) {
+            return newInstance(parameters, propValue)
+        }
+        else {
+            return newInstance(parameters, value)
+        }
     }
 
     protected abstract Object newInstance(List parameters, String value);

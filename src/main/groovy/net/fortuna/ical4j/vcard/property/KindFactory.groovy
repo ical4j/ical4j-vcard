@@ -51,18 +51,34 @@ public class KindFactory extends AbstractPropertyFactory{
         }
         else {
             String kindValue = attributes.remove('value')
-            if (Kind.GROUP.getValue().equals(kindValue)) {
-                kind = Kind.GROUP
-            }
-            else if (Kind.INDIVIDUAL.getValue().equals(kindValue)) {
-                kind = Kind.INDIVIDUAL
-            }
-            else if (Kind.ORG.getValue().equals(kindValue)) {
-                kind = Kind.ORG
+            if (kindValue != null) {
+                if (Kind.GROUP.getValue().equals(kindValue)) {
+                    kind = Kind.GROUP
+                }
+                else if (Kind.INDIVIDUAL.getValue().equals(kindValue)) {
+                    kind = Kind.INDIVIDUAL
+                }
+                else if (Kind.ORG.getValue().equals(kindValue)) {
+                    kind = Kind.ORG
+                }
+                else {
+                    attributes.put('value', kindValue)
+                    kind = super.newInstance(builder, name, value, attributes);
+                }
             }
             else {
-                attributes.put('value', kindValue)
-                kind = super.newInstance(builder, name, value, attributes);
+                if (Kind.GROUP.getValue().equals(value)) {
+                    kind = Kind.GROUP
+                }
+                else if (Kind.INDIVIDUAL.getValue().equals(value)) {
+                    kind = Kind.INDIVIDUAL
+                }
+                else if (Kind.ORG.getValue().equals(value)) {
+                    kind = Kind.ORG
+                }
+                else {
+                    kind = super.newInstance(builder, name, value, attributes);
+                }
             }
         }
         return kind

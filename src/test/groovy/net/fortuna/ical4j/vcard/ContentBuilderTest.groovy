@@ -32,7 +32,7 @@
 package net.fortuna.ical4j.vcard
 
 import net.fortuna.ical4j.vcard.parameter.Encoding
-import net.fortuna.ical4j.vcard.property.Genderimport net.fortuna.ical4j.vcard.property.Version/**
+import net.fortuna.ical4j.vcard.property.Genderimport net.fortuna.ical4j.vcard.property.Versionimport net.fortuna.ical4j.vcard.property.Clazzimport net.fortuna.ical4j.vcard.property.Kind/**
  * $Id$
  *
  * Created on: 02/08/2009
@@ -45,9 +45,9 @@ public class ContentBuilderTest extends GroovyTestCase {
     void testBuildCard() {
         def builder = new ContentBuilder()
         def card = builder.vcard() {
-            version(value: '4.1')
-            fn(value: 'test')
-            n(value: 'example')
+            version('4.0')
+            fn('test')
+            n('example')
             photo(value: 'http://example.com', parameters: [value('uri')])
         }
         card.validate()
@@ -61,14 +61,48 @@ public class ContentBuilderTest extends GroovyTestCase {
         def encoding = new ContentBuilder().encoding('b')
         assert encoding == Encoding.B
     }
+
+    void testBuildClazz() {
+        def clazz = new ContentBuilder().clazz(value: 'CONFIDENTIAL')
+        assert clazz == Clazz.CONFIDENTIAL
+        
+        clazz = new ContentBuilder().clazz(value: 'PRIVATE')
+        assert clazz == Clazz.PRIVATE
+        
+        clazz = new ContentBuilder().clazz(value: 'PUBLIC')
+        assert clazz == Clazz.PUBLIC
+    }
+    
+    void testBuildEmail() {
+        def email = new ContentBuilder().email('test@example.com')
+        assert email.value == 'test@example.com'
+        println(email)
+    }
     
     void testBuildGender() {
         def gender = new ContentBuilder().gender(value: 'F')
         assert gender == Gender.FEMALE
+        
+        gender = new ContentBuilder().gender('M')
+        assert gender == Gender.MALE
+    }
+    
+    void testBuildKind() {
+        def kind = new ContentBuilder().kind(value: 'org')
+        assert kind == Kind.ORG
+        
+        kind = new ContentBuilder().kind('individual')
+        assert kind == Kind.INDIVIDUAL
+        
+        kind = new ContentBuilder().kind('group')
+        assert kind == Kind.GROUP
     }
     
     void testBuildVersion() {
         def version = new ContentBuilder().version(value: '4.0')
+        assert version == Version.VERSION_4_0
+        
+        version = new ContentBuilder().version('4.0')
         assert version == Version.VERSION_4_0
     }
 }

@@ -51,15 +51,28 @@ public class GenderFactory extends AbstractPropertyFactory{
         }
         else {
             String genderValue = attributes.remove('value')
-            if (Gender.FEMALE.getValue().equals(genderValue)) {
-                gender = Gender.FEMALE
-            }
-            else if (Gender.MALE.getValue().equals(genderValue)) {
-                gender = Gender.MALE
+            if (genderValue != null) {
+                if (Gender.FEMALE.getValue().equals(genderValue)) {
+                    gender = Gender.FEMALE
+                }
+                else if (Gender.MALE.getValue().equals(genderValue)) {
+                    gender = Gender.MALE
+                }
+                else {
+                    attributes.put('value', genderValue)
+                    gender = super.newInstance(builder, name, value, attributes);
+                }
             }
             else {
-                attributes.put('value', genderValue)
-                gender = super.newInstance(builder, name, value, attributes);
+                if (Gender.FEMALE.getValue().equals(value)) {
+                    gender = Gender.FEMALE
+                }
+                else if (Gender.MALE.getValue().equals(value)) {
+                    gender = Gender.MALE
+                }
+                else {
+                    gender = super.newInstance(builder, name, value, attributes);
+                }
             }
         }
         return gender
