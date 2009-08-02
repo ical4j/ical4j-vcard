@@ -180,7 +180,7 @@
 				<artifactId>clirr-maven-plugin</artifactId>
 				<configuration>
 					<minSeverity>info</minSeverity>
-					<comparisonVersion>0.9</comparisonVersion>
+					<comparisonVersion>0.9.1</comparisonVersion>
 				</configuration>
 			</plugin>
 
@@ -195,10 +195,10 @@
 							<type>tag</type>
 							<tags>
 								<tag implementation="java.lang.String">
-									ical4j-vcard-0_9
+									ical4j-vcard-0_9_1
 								</tag>
 								<tag implementation="java.lang.String">
-									ical4j-vcard-0_9_1
+									ical4j-vcard-0_9_2
 								</tag>
 							</tags>
 						</configuration>
