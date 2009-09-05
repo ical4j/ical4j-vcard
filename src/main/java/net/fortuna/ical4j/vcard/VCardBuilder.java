@@ -39,6 +39,7 @@ import java.io.Reader;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -127,11 +128,12 @@ public final class VCardBuilder {
     	while (true) {
     	    VCard card = build(false);
     	    if (card == null) {
-    	        return cards;
+    	        break;
     	    } else {
     	        cards.add(card);
     	    }
     	}
+        return Collections.unmodifiableList(cards);
     }
     
     /**

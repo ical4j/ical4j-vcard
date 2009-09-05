@@ -35,15 +35,17 @@ import static org.apache.commons.lang.StringUtils.isNotEmpty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.parameter.Value;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * $Id$
@@ -167,7 +169,7 @@ public abstract class Property implements Serializable {
     protected Property(Group group, Id id, List<Parameter> parameters) {
         this.group = group;
         this.id = id;
-        this.parameters = parameters;
+        this.parameters = new CopyOnWriteArrayList<Parameter>(parameters);
     }
     
     /**
@@ -203,7 +205,7 @@ public abstract class Property implements Serializable {
                 matches.add(p);
             }
         }
-        return matches;
+        return Collections.unmodifiableList(matches);
     }
     
     /**
@@ -232,7 +234,7 @@ public abstract class Property implements Serializable {
                 matches.add(p);
             }
         }
-        return matches;
+        return Collections.unmodifiableList(matches);
     }
     
     /**

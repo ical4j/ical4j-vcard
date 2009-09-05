@@ -33,7 +33,9 @@ package net.fortuna.ical4j.vcard;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
@@ -67,7 +69,7 @@ public final class VCard implements Serializable {
      * @param properties a list of properties
      */
     public VCard(List<Property> properties) {
-        this.properties = properties;
+        this.properties = new CopyOnWriteArrayList<Property>(properties);
     }
 
     /**
@@ -92,7 +94,7 @@ public final class VCard implements Serializable {
                 matches.add(p);
             }
         }
-        return matches;
+        return Collections.unmodifiableList(matches);
     }
     
     /**
@@ -122,7 +124,7 @@ public final class VCard implements Serializable {
                 matches.add(p);
             }
         }
-        return matches;
+        return Collections.unmodifiableList(matches);
     }
     
     /**
