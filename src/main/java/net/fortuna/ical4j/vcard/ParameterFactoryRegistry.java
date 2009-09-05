@@ -34,6 +34,7 @@ package net.fortuna.ical4j.vcard;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -126,7 +127,7 @@ public class ParameterFactoryRegistry {
             }
         });
         
-        extendedFactories = new HashMap<String, ParameterFactory<? extends Parameter>>();
+        extendedFactories = new ConcurrentHashMap<String, ParameterFactory<? extends Parameter>>();
     }
     
     /**

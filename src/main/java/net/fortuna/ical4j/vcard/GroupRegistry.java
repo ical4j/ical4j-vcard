@@ -33,6 +33,7 @@ package net.fortuna.ical4j.vcard;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -62,7 +63,7 @@ public class GroupRegistry {
         defaultGroups = new HashMap<Id, Group>();
         defaultGroups.put(Id.HOME, Group.HOME);
         defaultGroups.put(Id.WORK, Group.WORK);
-        extendedGroups = new HashMap<String, Group>();
+        extendedGroups = new ConcurrentHashMap<String, Group>();
     }
     
     /**

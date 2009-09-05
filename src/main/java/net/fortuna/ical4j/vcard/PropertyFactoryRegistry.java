@@ -36,6 +36,7 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.property.Address;
@@ -850,7 +851,7 @@ public class PropertyFactoryRegistry {
             }
         });
         
-        extendedFactories = new HashMap<String, PropertyFactory<? extends Property>>();
+        extendedFactories = new ConcurrentHashMap<String, PropertyFactory<? extends Property>>();
     }
     
     /**
