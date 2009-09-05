@@ -54,7 +54,7 @@ public class ContentBuilderTest extends GroovyTestCase {
         }
         card.validate()
         
-        assert card.properties.size == 4
+        assert card.properties.size() == 4
         
         println(card)
     }
