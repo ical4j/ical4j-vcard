@@ -127,9 +127,7 @@ public class ParameterFactoryRegistry {
             }
         });
         defaultFactories.put(Parameter.Id.PREF, new ParameterFactory<Pref>() {
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.ParameterFactory#createParameter(java.lang.String)
-             */
+
             public Pref createParameter(final String value) {
                 if (value == null && CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
                     return Pref.PREF;

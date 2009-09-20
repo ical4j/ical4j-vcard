@@ -42,6 +42,8 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 /**
+ * FBURL property.
+ * 
  * $Id$
  *
  * Created on 23/10/2008
@@ -51,9 +53,6 @@ import net.fortuna.ical4j.vcard.parameter.Type;
  */
 public final class FbUrl extends Property {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 7406097765207265428L;
     
     private final URI uri;

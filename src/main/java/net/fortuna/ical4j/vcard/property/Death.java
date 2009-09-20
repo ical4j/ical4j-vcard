@@ -39,6 +39,8 @@ import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
+ * DEATH property.
+ * 
  * $Id$
  *
  * Created on 23/08/2008
@@ -48,9 +50,6 @@ import net.fortuna.ical4j.vcard.Property;
  */
 public final class Death extends Property implements Escapable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 3009228294165154307L;
     
     private final String value;

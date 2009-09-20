@@ -38,6 +38,8 @@ import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
+ * FN property.
+ * 
  * $Id$
  *
  * Created on 23/08/2008
@@ -47,9 +49,6 @@ import net.fortuna.ical4j.vcard.Property;
  */
 public final class Fn extends Property {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -3576886478408668365L;
     
     private final String value;

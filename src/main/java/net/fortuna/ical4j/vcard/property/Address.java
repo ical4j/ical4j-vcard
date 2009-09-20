@@ -43,6 +43,8 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 /**
+ * ADDRESS property.
+ * 
  * $Id$
  *
  * Created on 23/08/2008
@@ -129,7 +131,7 @@ public final class Address extends Property {
      */
     public Address(Group group, List<Parameter> params, String value) {
         super(group, Id.ADR, params);
-        String[] components = value.split(";");
+        final String[] components = value.split(";");
         this.poBox = components[0];
         this.extended = components[1];
         this.street = components[2];

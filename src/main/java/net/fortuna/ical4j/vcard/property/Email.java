@@ -39,6 +39,8 @@ import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
+ * EMAIL property.
+ * 
  * $Id$
  *
  * Created on 24/08/2008
@@ -48,9 +50,6 @@ import net.fortuna.ical4j.vcard.Property;
  */
 public final class Email extends Property {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 6134254373259957228L;
     
     private String value;

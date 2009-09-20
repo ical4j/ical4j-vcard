@@ -40,6 +40,8 @@ import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
+ * CLAZZ property.
+ * 
  * $Id$
  *
  * Created on 23/10/2008

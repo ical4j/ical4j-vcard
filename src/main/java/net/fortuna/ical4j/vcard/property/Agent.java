@@ -43,6 +43,8 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 /**
+ * AGENT property.
+ * 
  * $Id$
  *
  * Created on 21/09/2008

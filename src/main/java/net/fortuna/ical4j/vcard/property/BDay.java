@@ -44,14 +44,13 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 /**
+ * BDAY property.
+ * 
  * $Id$ Created on 23/08/2008
  * @author Ben
  */
 public final class BDay extends Property implements Escapable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 4298026868242865633L;
 
     private Date date;

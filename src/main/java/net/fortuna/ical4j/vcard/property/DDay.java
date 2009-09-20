@@ -44,6 +44,8 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 /**
+ * DDAY property.
+ * 
  * $Id$
  *
  * Created on 23/08/2008

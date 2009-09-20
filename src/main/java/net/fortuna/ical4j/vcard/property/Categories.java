@@ -39,6 +39,8 @@ import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
+ * CATEGORIES property.
+ * 
  * $Id$
  *
  * Created on 21/10/2008
@@ -48,9 +50,6 @@ import net.fortuna.ical4j.vcard.Property;
  */
 public final class Categories extends Property {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -3233034210546002366L;
     
     private final CategoryList categories;

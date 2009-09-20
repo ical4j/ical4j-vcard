@@ -42,6 +42,8 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 /**
+ * CALADRURI property.
+ * 
  * $Id$
  *
  * Created on 23/10/2008
@@ -51,9 +53,6 @@ import net.fortuna.ical4j.vcard.parameter.Type;
  */
 public final class CalAdrUri extends Property {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -6507220241297111022L;
     
     private final URI uri;
