@@ -38,6 +38,8 @@ import java.util.List;
 import net.fortuna.ical4j.vcard.Parameter;
 
 /**
+ * TYPE parameter.
+ * 
  * $Id$
  *
  * Created on 21/08/2008
@@ -90,7 +92,7 @@ public final class Type extends Parameter {
      */
     public Type(Type...types) {
         super(Id.TYPE);
-        List<String> typeList = new ArrayList<String>();
+        final List<String> typeList = new ArrayList<String>();
         for (Type type : types) {
             typeList.addAll(Arrays.asList(type.getTypes()));
         }

@@ -42,6 +42,8 @@ import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Property.Id;
 
 /**
+ * vCard object.
+ * 
  * $Id$
  *
  * Created on 21/08/2008

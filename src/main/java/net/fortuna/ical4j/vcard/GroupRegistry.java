@@ -41,6 +41,8 @@ import org.apache.commons.logging.LogFactory;
 import net.fortuna.ical4j.vcard.Group.Id;
 
 /**
+ * A registry for standard and non-standard property groups.
+ * 
  * $Id$
  *
  * Created on: 05/01/2009

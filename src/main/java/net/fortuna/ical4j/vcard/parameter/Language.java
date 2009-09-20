@@ -38,6 +38,8 @@ import net.fortuna.ical4j.vcard.Parameter;
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * LANGUAGE parameter.
+ * 
  * $Id$
  *
  * Created on 21/08/2008

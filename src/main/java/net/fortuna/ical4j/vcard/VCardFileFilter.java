@@ -38,6 +38,8 @@ import org.apache.commons.io.filefilter.NotFileFilter;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 
 /**
+ * A file filter for vCard files.
+ * 
  * $Id$
  * 
  * Created on: 05/02/2009

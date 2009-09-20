@@ -50,6 +50,8 @@ import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.data.UnfoldingReader;
 
 /**
+ * vCard object builder.
+ * 
  * $Id$
  *
  * Created on: 02/11/2008
@@ -124,9 +126,9 @@ public final class VCardBuilder {
      * @throws ParserException where parsing vCard data fails
      */
     public List<VCard> buildAll() throws IOException, ParserException {
-    	List<VCard> cards = new ArrayList<VCard>();
+    	final List<VCard> cards = new ArrayList<VCard>();
     	while (true) {
-    	    VCard card = build(false);
+    	    final VCard card = build(false);
     	    if (card == null) {
     	        break;
     	    } else {

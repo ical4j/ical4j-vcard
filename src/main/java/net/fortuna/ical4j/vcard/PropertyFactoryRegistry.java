@@ -85,6 +85,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * Registry for standard and non-standard property factories.
+ * 
  * $Id$
  *
  * Created on: 05/01/2009
@@ -186,13 +188,17 @@ public class PropertyFactoryRegistry {
              * {@inheritDoc}
              */
             public Gender createProperty(final List<Parameter> params, final String value) {
+                Gender property = null;
                 if (Gender.FEMALE.getValue().equals(value)) {
-                    return Gender.FEMALE;
+                    property = Gender.FEMALE;
                 }
                 else if (Gender.MALE.getValue().equals(value)) {
-                    return Gender.MALE;
+                    property = Gender.MALE;
                 }
-                return new Gender(value);
+                else {
+                    property = new Gender(value);
+                }
+                return property;
             }
 
             /**
@@ -297,16 +303,20 @@ public class PropertyFactoryRegistry {
              * {@inheritDoc}
              */
             public Clazz createProperty(final List<Parameter> params, final String value) {
+                Clazz property = null;
                 if (Clazz.CONFIDENTIAL.getValue().equals(value)) {
-                    return Clazz.CONFIDENTIAL;
+                    property = Clazz.CONFIDENTIAL;
                 }
                 else if (Clazz.PRIVATE.getValue().equals(value)) {
-                    return Clazz.PRIVATE;
+                    property = Clazz.PRIVATE;
                 }
                 else if (Clazz.PUBLIC.getValue().equals(value)) {
-                    return Clazz.PUBLIC;
+                    property = Clazz.PUBLIC;
                 }
-                return new Clazz(params, value);
+                else {
+                    property = new Clazz(params, value);
+                }
+                return property;
             }
 
             /**

@@ -41,6 +41,8 @@ import net.fortuna.ical4j.data.FoldingWriter;
 import net.fortuna.ical4j.model.ValidationException;
 
 /**
+ * Generates vCard object data streams.
+ * 
  * $Id$
  *
  * Created on: 29/12/2008

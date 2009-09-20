@@ -49,6 +49,8 @@ import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 /**
+ * A registry for standard and non-standard parameter factories.
+ * 
  * $Id$
  *
  * Created on: 05/01/2009
@@ -89,30 +91,39 @@ public class ParameterFactoryRegistry {
         });
         defaultFactories.put(Parameter.Id.TYPE, new ParameterFactory<Type>() {
             public Type createParameter(final String value) {
+                Type parameter = null;
                 if (Type.HOME.getValue().equals(value)) {
-                    return Type.HOME;
+                    parameter = Type.HOME;
                 }
                 else if (Type.PREF.getValue().equals(value)) {
-                    return Type.PREF;
+                    parameter = Type.PREF;
                 }
                 else if (Type.WORK.getValue().equals(value)) {
-                    return Type.WORK;
+                    parameter = Type.WORK;
                 }
-                return new Type(value);
+                else {
+                    parameter = new Type(value);
+                }
+                return parameter;
             }
         });
         defaultFactories.put(Parameter.Id.VALUE, new ParameterFactory<Value>() {
             public Value createParameter(final String value) {
+                
+                Value parameter = null;
                 if (Value.BINARY.getValue().equals(value)) {
-                    return Value.BINARY;
+                    parameter = Value.BINARY;
                 }
                 else if (Value.TEXT.getValue().equals(value)) {
-                    return Value.TEXT;
+                    parameter = Value.TEXT;
                 }
                 else if (Value.URI.getValue().equals(value)) {
-                    return Value.URI;
+                    parameter = Value.URI;
                 }
-                return new Value(value);
+                else {
+                    parameter = new Value(value);
+                }
+                return parameter;
             }
         });
         defaultFactories.put(Parameter.Id.PREF, new ParameterFactory<Pref>() {

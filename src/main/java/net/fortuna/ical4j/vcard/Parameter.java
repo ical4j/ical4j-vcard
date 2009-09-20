@@ -37,6 +37,8 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
+ * A property parameter.
+ * 
  * $Id$
  *
  * Created on 21/08/2008

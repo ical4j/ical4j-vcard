@@ -34,6 +34,7 @@ package net.fortuna.ical4j.vcard;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,6 +49,8 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
+ * A vCard property.
+ * 
  * $Id$
  *
  * Created on 21/08/2008
@@ -62,6 +65,10 @@ public abstract class Property implements Serializable {
      */
     private static final long serialVersionUID = 7813173744145071469L;
 
+    private static final String ILLEGAL_PARAMETER_MESSAGE = "Illegal parameter [{0}]";
+    
+    private static final String ILLEGAL_PARAMETER_COUNT_MESSAGE = "Parameter [{0}] exceeds allowable count";
+    
     /**
      * Enumeration of property identifiers.
      */
@@ -277,7 +284,7 @@ public abstract class Property implements Serializable {
     protected final void assertTextParameter(final Parameter param) throws ValidationException {
         if (!Value.TEXT.equals(param) && !Parameter.Id.LANGUAGE.equals(param.getId())
                 && !Parameter.Id.EXTENDED.equals(param.getId())) {
-            throw new ValidationException("Illegal parameter [" + param.getId() + "]");
+            throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getId()));
         }
     }
     
@@ -287,7 +294,7 @@ public abstract class Property implements Serializable {
      */
     protected final void assertTypeParameter(final Parameter param) throws ValidationException {
         if (!Parameter.Id.TYPE.equals(param.getId())) {
-            throw new ValidationException("Illegal parameter [" + param.getId() + "]");
+            throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getId()));
         }
     }
     
@@ -297,7 +304,7 @@ public abstract class Property implements Serializable {
      */
     protected final void assertPidParameter(final Parameter param) throws ValidationException {
         if (!Parameter.Id.PID.equals(param.getId())) {
-            throw new ValidationException("Illegal parameter [" + param.getId() + "]");
+            throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getId()));
         }
     }
     
@@ -307,7 +314,7 @@ public abstract class Property implements Serializable {
      */
     protected final void assertPrefParameter(final Parameter param) throws ValidationException {
         if (!Parameter.Id.PREF.equals(param.getId())) {
-            throw new ValidationException("Illegal parameter [" + param.getId() + "]");
+            throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getId()));
         }
     }
     
@@ -318,7 +325,7 @@ public abstract class Property implements Serializable {
      */
     protected final void assertOneOrLess(final Parameter.Id paramId) throws ValidationException {
         if (getParameters(paramId).size() > 1) {
-            throw new ValidationException("Parameter [" + paramId + "] exceeds allowable count");
+            throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_COUNT_MESSAGE, paramId));
         }
     }
     
