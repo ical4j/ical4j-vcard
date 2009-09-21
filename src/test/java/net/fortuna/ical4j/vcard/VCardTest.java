@@ -54,14 +54,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 
-/**
- * $Id$
- *
- * Created on 22/08/2008
- *
- * @author Ben
- *
- */
 @RunWith(Parameterized.class)
 public class VCardTest {
     

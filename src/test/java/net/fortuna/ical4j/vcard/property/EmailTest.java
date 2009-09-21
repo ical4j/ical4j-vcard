@@ -42,31 +42,18 @@ import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
-/**
- * $Id$
- * 
- * Created on 26/10/2008
- * 
- * @author Ben
- * 
- */
 public class EmailTest extends PropertyTest {
 
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     */
     public EmailTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { new Email("test@example.com"), Id.EMAIL.toString(), "test@example.com",
-                new Parameter[] {} });
+        final List<Object[]> params = new ArrayList<Object[]>();
+        final String emailString = "test@example.com";
+        params.add(new Object[] { new Email(emailString), Id.EMAIL.toString(), emailString,
+                new Parameter[] {}, });
         // params.add(new Object[] {new Email("test@example.com", Type.HOME), Id.EMAIL.toString(), "test@example.com",
         // new Parameter[] {Type.HOME}});
         // params.add(new Object[] {new Email("test@example.com", Type.WORK), Id.EMAIL.toString(), "test@example.com",

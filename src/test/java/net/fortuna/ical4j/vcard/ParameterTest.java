@@ -43,14 +43,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-/**
- * $Id$
- *
- * Created on 26/10/2008
- *
- * @author Ben
- *
- */
 @RunWith(Parameterized.class)
 public class ParameterTest {
 

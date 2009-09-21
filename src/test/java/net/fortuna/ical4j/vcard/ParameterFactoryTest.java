@@ -31,7 +31,7 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,10 +42,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-/**
- * $Id$ Created on: 07/11/2008
- * @author fortuna
- */
 @RunWith(Parameterized.class)
 public class ParameterFactoryTest {
 

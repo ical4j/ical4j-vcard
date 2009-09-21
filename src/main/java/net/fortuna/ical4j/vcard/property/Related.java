@@ -44,6 +44,8 @@ import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 /**
+ * RELATED property.
+ * 
  * $Id$
  *
  * Created on 21/09/2008

@@ -42,14 +42,6 @@ import net.fortuna.ical4j.vcard.Parameter.Id;
 import org.junit.runners.Parameterized.Parameters;
 
 
-/**
- * $Id$
- *
- * Created on 26/10/2008
- *
- * @author Ben
- *
- */
 public class TypeTest extends ParameterTest {
 
     /**

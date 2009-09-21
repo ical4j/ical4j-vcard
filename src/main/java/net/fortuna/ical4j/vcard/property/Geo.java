@@ -41,6 +41,8 @@ import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
+ * GEO property.
+ * 
  * $Id$
  *
  * Created on 19/09/2008

@@ -42,31 +42,18 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 
-/**
- * $Id$
- * 
- * Created on 26/10/2008
- * 
- * @author Ben
- * 
- */
 public class BirthTest extends PropertyTest {
 
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     */
     public BirthTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { new Birth("Mercy Hospital, Melbourne"), Id.BIRTH.toString(),
-                "Mercy Hospital, Melbourne", new Parameter[] {} });
+        final List<Object[]> params = new ArrayList<Object[]>();
+        final String birthString = "Mercy Hospital, Melbourne";
+        params.add(new Object[] { new Birth(birthString), Id.BIRTH.toString(),
+                birthString, new Parameter[] {}, });
         return params;
     }
 }

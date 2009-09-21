@@ -53,6 +53,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * KEY property.
+ * 
  * $Id$
  *
  * Created on 23/10/2008

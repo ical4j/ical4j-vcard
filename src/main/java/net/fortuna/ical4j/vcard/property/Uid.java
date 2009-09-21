@@ -41,6 +41,8 @@ import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
+ * UID property.
+ * 
  * $Id$
  *
  * Created on 21/10/2008

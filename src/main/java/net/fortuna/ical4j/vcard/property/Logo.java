@@ -52,6 +52,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * LOGO property.
+ * 
  * $Id$
  *
  * Created on 21/09/2008

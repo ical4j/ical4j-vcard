@@ -45,8 +45,6 @@ import net.fortuna.ical4j.vcard.Property.Id;
 import org.junit.Test;
 
 /**
- * $Id$
- *
  * Created on: 2009-02-25
  *
  * @author antheque

@@ -47,9 +47,6 @@ import org.apache.commons.codec.DecoderException;
 import org.junit.Test;
 
 /**
- * 
- * $Id$
- *
  * Created on: 2009-02-26
  *
  * @author antheque

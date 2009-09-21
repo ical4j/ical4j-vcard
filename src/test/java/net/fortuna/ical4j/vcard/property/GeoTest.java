@@ -44,38 +44,25 @@ import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
-/**
- * $Id$
- * 
- * Created: [27/10/2008]
- * 
- * @author fortuna
- * 
- */
 public class GeoTest extends PropertyTest {
 
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     */
     public GeoTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] { new Geo(BigDecimal.ZERO, BigDecimal.ZERO), Id.GEO.toString(), "0;0",
-                new Parameter[] {} });
-        params.add(new Object[] { new Geo(new ArrayList<Parameter>(), "34.15345;-12.34523"), Id.GEO.toString(),
-                "34.15345;-12.34523", new Parameter[] {} });
+                new Parameter[] {}, });
+        final String geoString = "34.15345;-12.34523";
+        params.add(new Object[] { new Geo(new ArrayList<Parameter>(), geoString), Id.GEO.toString(),
+                geoString, new Parameter[] {}, });
 
         // enable relaxed parsing for non-standard GEO support..
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
-        params.add(new Object[] { new Geo(new ArrayList<Parameter>(), "34.15345,-12.34523"), Id.GEO.toString(),
-                "34.15345;-12.34523", new Parameter[] {} });
+        params.add(new Object[] { new Geo(new ArrayList<Parameter>(), geoString), Id.GEO.toString(),
+                geoString, new Parameter[] {}, });
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
 
         return params;

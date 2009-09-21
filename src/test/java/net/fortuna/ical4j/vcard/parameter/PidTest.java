@@ -44,14 +44,6 @@ import org.junit.Test;
 import org.junit.runners.Parameterized.Parameters;
 
 
-/**
- * $Id$
- *
- * Created on 26/10/2008
- *
- * @author Ben
- *
- */
 public class PidTest extends ParameterTest {
 
     private final Pid pid;

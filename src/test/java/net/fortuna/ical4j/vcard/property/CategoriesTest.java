@@ -42,14 +42,6 @@ import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
-/**
- * $Id$
- * 
- * Created on 26/10/2008
- * 
- * @author Ben
- * 
- */
 public class CategoriesTest extends PropertyTest {
 
     /**
@@ -64,14 +56,15 @@ public class CategoriesTest extends PropertyTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] { new Categories(""), Id.CATEGORIES.toString(), "", new Parameter[] {} });
-        params.add(new Object[] { new Categories("TRAVEL AGENT"), Id.CATEGORIES.toString(), "TRAVEL AGENT",
-                new Parameter[] {} });
+        final String categoryString = "TRAVEL AGENT";
+        params.add(new Object[] { new Categories(categoryString), Id.CATEGORIES.toString(), categoryString,
+                new Parameter[] {}, });
         params.add(new Object[] { new Categories("INTERNET", "IETF", "INDUSTRY", "INFORMATION TECHNOLOGY"),
-                Id.CATEGORIES.toString(), "INTERNET,IETF,INDUSTRY,INFORMATION TECHNOLOGY", new Parameter[] {} });
+                Id.CATEGORIES.toString(), "INTERNET,IETF,INDUSTRY,INFORMATION TECHNOLOGY", new Parameter[] {}, });
         params.add(new Object[] { new Categories("GARDENER, LANDSCAPE"), Id.CATEGORIES.toString(),
-                "GARDENER\\, LANDSCAPE", new Parameter[] {} });
+                "GARDENER\\, LANDSCAPE", new Parameter[] {}, });
         return params;
     }
 

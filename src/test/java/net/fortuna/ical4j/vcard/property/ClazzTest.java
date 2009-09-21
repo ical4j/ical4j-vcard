@@ -43,22 +43,8 @@ import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 
 
-/**
- * $Id$
- *
- * Created on 26/10/2008
- *
- * @author Ben
- *
- */
 public class ClazzTest extends PropertyTest {
 
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     */
     public ClazzTest(Property property, String expectedName,
             String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
@@ -66,11 +52,12 @@ public class ClazzTest extends PropertyTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {Clazz.CONFIDENTIAL, Id.CLASS.toString(), "CONFIDENTIAL", new Parameter[] {}});
         params.add(new Object[] {Clazz.PRIVATE, Id.CLASS.toString(), "PRIVATE", new Parameter[] {}});
         params.add(new Object[] {Clazz.PUBLIC, Id.CLASS.toString(), "PUBLIC", new Parameter[] {}});
-        params.add(new Object[] {new Clazz("mammal"), Id.CLASS.toString(), "mammal", new Parameter[] {}});
+        final String clazzString = "mammal";
+        params.add(new Object[] {new Clazz(clazzString), Id.CLASS.toString(), clazzString, new Parameter[] {}});
         return params;
     }
 

@@ -40,6 +40,8 @@ import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
+ * LANG property.
+ * 
  * $Id$
  *
  * Created on 24/08/2008

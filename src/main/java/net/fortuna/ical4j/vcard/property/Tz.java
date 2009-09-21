@@ -40,6 +40,8 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 /**
+ * TZ property.
+ * 
  * $Id$
  *
  * Created on 18/09/2008

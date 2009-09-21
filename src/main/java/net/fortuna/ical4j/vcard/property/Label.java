@@ -40,6 +40,8 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 /**
+ * LABEL property.
+ * 
  * $Id$
  *
  * Created on 23/08/2008

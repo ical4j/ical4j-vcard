@@ -52,8 +52,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
- * $Id$
- *
  * Created on: 29/12/2008
  *
  * @author Ben

@@ -42,35 +42,21 @@ import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
-
-/**
- * $Id$
- *
- * Created on: 28/10/2008
- *
- * @author fortuna
- *
- */
 public class KindTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public KindTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    public KindTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
+        super(property, expectedName, expectedValue, expectedParams);
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Kind.GROUP, Id.KIND.toString(), "group", new Parameter[] {}});
-        params.add(new Object[] {Kind.INDIVIDUAL, Id.KIND.toString(), "individual", new Parameter[] {}});
-        params.add(new Object[] {Kind.ORG, Id.KIND.toString(), "org", new Parameter[] {}});
-        params.add(new Object[] {new Kind("couple"), Id.KIND.toString(), "couple", new Parameter[] {}});
+        final List<Object[]> params = new ArrayList<Object[]>();
+        params.add(new Object[] { Kind.GROUP, Id.KIND.toString(), "group", new Parameter[] {} });
+        params.add(new Object[] { Kind.INDIVIDUAL, Id.KIND.toString(), "individual", new Parameter[] {} });
+        params.add(new Object[] { Kind.ORG, Id.KIND.toString(), "org", new Parameter[] {} });
+
+        final String customKind = "couple";
+        params.add(new Object[] { new Kind(customKind), Id.KIND.toString(), customKind, new Parameter[] {} });
         return params;
     }
 

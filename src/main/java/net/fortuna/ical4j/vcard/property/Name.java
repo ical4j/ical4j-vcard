@@ -39,6 +39,8 @@ import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
+ * NAME property.
+ * 
  * $Id$
  *
  * Created on 22/08/2008

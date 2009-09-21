@@ -42,32 +42,17 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 
-
-/**
- * $Id$
- *
- * Created: [27/10/2008]
- *
- * @author fortuna
- *
- */
 public class FnTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public FnTest(Property property, String expectedName, String expectedValue,
-			Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    public FnTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
+        super(property, expectedName, expectedValue, expectedParams);
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Fn("Jane Doe"), Id.FN.toString(), "Jane Doe", new Parameter[] {}});
+        final List<Object[]> params = new ArrayList<Object[]>();
+        final String fnString = "Jane Doe";
+        params.add(new Object[] { new Fn(fnString), Id.FN.toString(), fnString, new Parameter[] {} });
         return params;
     }
 

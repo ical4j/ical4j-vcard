@@ -57,9 +57,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * a
- * $Id$
- *
  * Created on: 2009-02-26
  *
  * @author antheque

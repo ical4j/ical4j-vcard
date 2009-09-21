@@ -41,6 +41,8 @@ import java.util.List;
 import net.fortuna.ical4j.vcard.Property;
 
 /**
+ * GENDER property.
+ * 
  * $Id$
  *
  * Created on 23/08/2008

@@ -51,27 +51,12 @@ import net.fortuna.ical4j.vcard.parameter.Value;
 import org.junit.Test;
 import org.junit.runners.Parameterized.Parameters;
 
-/**
- * $Id$
- * 
- * Created on 26/10/2008
- * 
- * @author Ben
- * 
- */
 public class BDayTest extends PropertyTest {
 
     private final BDay property;
 
     private final Class<?> expectedDateType;
 
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     * @param expectedDateType
-     */
     public BDayTest(BDay property, String expectedName, String expectedValue, Parameter[] expectedParams,
             Class<?> expectedDateType) {
 
@@ -90,7 +75,8 @@ public class BDayTest extends PropertyTest {
             if (Date.class.equals(expectedDateType)) {
                 assertFalse(property.getDate() instanceof DateTime);
             }
-        } else {
+        }
+        else {
             assertNull(property.getDate());
             assertNotNull(property.getText());
         }
@@ -98,25 +84,30 @@ public class BDayTest extends PropertyTest {
 
     @Parameters
     public static Collection<Object[]> parameters() throws ParseException {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
 
         try {
-            params.add(new Object[] { new BDay(new Date("19690415")), Id.BDAY.toString(), "19690415",
-                    new Parameter[] {}, Date.class });
-            params.add(new Object[] { new BDay(new DateTime("15730125T180322Z")), Id.BDAY.toString(),
-                    "15730125T180322Z", new Parameter[] {}, DateTime.class });
+            String dateString = "19690415";
+            params.add(new Object[] { new BDay(new Date(dateString)), Id.BDAY.toString(), dateString,
+                    new Parameter[] {}, Date.class, });
+            dateString = "15730125T180322Z";
+            params.add(new Object[] { new BDay(new DateTime(dateString)), Id.BDAY.toString(),
+                    dateString, new Parameter[] {}, DateTime.class, });
         } catch (ParseException pe) {
             pe.printStackTrace();
         }
-        params.add(new Object[] { new BDay(new ArrayList<Parameter>(), "19690415"), Id.BDAY.toString(), "19690415",
-                new Parameter[] {}, Date.class });
-        params.add(new Object[] { new BDay(new ArrayList<Parameter>(), "15730125T180322Z"), Id.BDAY.toString(),
-                "15730125T180322Z", new Parameter[] {}, DateTime.class });
+        String dateString = "19690416";
+        params.add(new Object[] { new BDay(new ArrayList<Parameter>(), dateString), Id.BDAY.toString(), dateString,
+                new Parameter[] {}, Date.class, });
+        dateString = "15730125T180323Z";
+        params.add(new Object[] { new BDay(new ArrayList<Parameter>(), dateString), Id.BDAY.toString(),
+                dateString, new Parameter[] {}, DateTime.class, });
         params.add(new Object[] { new BDay(""), Id.BDAY.toString(), "", new Parameter[] { Value.TEXT }, null });
-        List<Parameter> bdayParams = new ArrayList<Parameter>();
+        final List<Parameter> bdayParams = new ArrayList<Parameter>();
         bdayParams.add(Value.TEXT);
-        params.add(new Object[] { new BDay(bdayParams, "Circa 400, bce"), Id.BDAY.toString(), "Circa 400, bce",
-                new Parameter[] { Value.TEXT }, null });
+        final String bdayString = "Circa 400, bce";
+        params.add(new Object[] { new BDay(bdayParams, bdayString), Id.BDAY.toString(), bdayParams,
+                new Parameter[] { Value.TEXT }, null, });
         return params;
     }
 }

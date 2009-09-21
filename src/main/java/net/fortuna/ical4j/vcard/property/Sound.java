@@ -52,6 +52,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * SOUND property.
+ * 
  * $Id$
  *
  * Created on 21/10/2008

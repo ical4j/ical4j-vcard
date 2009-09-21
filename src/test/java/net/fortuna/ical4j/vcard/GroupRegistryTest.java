@@ -46,14 +46,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-/**
- * $Id$
- *
- * Created on: 05/01/2009
- *
- * @author Ben
- *
- */
 @RunWith(Parameterized.class)
 public class GroupRegistryTest {
 

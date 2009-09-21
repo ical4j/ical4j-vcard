@@ -52,6 +52,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * PHOTO property.
+ * 
  * $Id$
  *
  * Created on 23/08/2008

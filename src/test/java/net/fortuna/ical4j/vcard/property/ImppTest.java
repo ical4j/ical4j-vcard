@@ -44,14 +44,6 @@ import net.fortuna.ical4j.vcard.parameter.Type;
 
 import org.junit.runners.Parameterized.Parameters;
 
-/**
- * $Id$
- * 
- * Created: [27/10/2008]
- * 
- * @author fortuna
- * 
- */
 public class ImppTest extends PropertyTest {
 
     /**
@@ -66,11 +58,13 @@ public class ImppTest extends PropertyTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { new Impp(URI.create("xmpp:alice@example.com")), Id.IMPP.toString(),
-                "xmpp:alice@example.com", new Parameter[] {} });
-        params.add(new Object[] { new Impp(URI.create("xmpp:bob@example.com"), Type.WORK), Id.IMPP.toString(),
-                "xmpp:bob@example.com", new Parameter[] { Type.WORK } });
+        final List<Object[]> params = new ArrayList<Object[]>();
+        String imppString = "xmpp:alice@example.com";
+        params.add(new Object[] { new Impp(URI.create(imppString)), Id.IMPP.toString(),
+                imppString, new Parameter[] {}, });
+        imppString = "xmpp:bob@example.com";
+        params.add(new Object[] { new Impp(URI.create(imppString), Type.WORK), Id.IMPP.toString(),
+                imppString, new Parameter[] { Type.WORK }, });
         return params;
     }
 

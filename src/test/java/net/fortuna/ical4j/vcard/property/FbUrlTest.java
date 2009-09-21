@@ -44,33 +44,21 @@ import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
-/**
- * $Id$
- * 
- * Created: [27/10/2008]
- * 
- * @author fortuna
- * 
- */
 public class FbUrlTest extends PropertyTest {
 
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     */
     public FbUrlTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { new FbUrl(URI.create("FTP://ftp.example.com/busy/project-a.ifb")),
-                Id.FBURL.toString(), "FTP://ftp.example.com/busy/project-a.ifb", new Parameter[] {} });
-        params.add(new Object[] { new FbUrl(URI.create("http://www.example.com/busy/janedoe"), Type.PREF),
-                Id.FBURL.toString(), "http://www.example.com/busy/janedoe", new Parameter[] { Type.PREF } });
+        final List<Object[]> params = new ArrayList<Object[]>();
+        String fburlString = "FTP://ftp.example.com/busy/project-a.ifb";
+        params.add(new Object[] { new FbUrl(URI.create(fburlString)),
+                Id.FBURL.toString(), fburlString, new Parameter[] {}, });
+        fburlString = "http://www.example.com/busy/janedoe";
+        params.add(new Object[] { new FbUrl(URI.create(fburlString), Type.PREF),
+                Id.FBURL.toString(), fburlString, new Parameter[] { Type.PREF }, });
         return params;
     }
 

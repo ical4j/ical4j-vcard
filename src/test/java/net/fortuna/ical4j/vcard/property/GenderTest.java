@@ -42,34 +42,19 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 
-
-/**
- * $Id$
- *
- * Created: [27/10/2008]
- *
- * @author fortuna
- *
- */
 public class GenderTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
-	public GenderTest(Property property, String expectedName,
-			String expectedValue, Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    public GenderTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
+        super(property, expectedName, expectedValue, expectedParams);
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Gender.FEMALE, Id.GENDER.toString(), "F", new Parameter[] {}});
-        params.add(new Object[] {Gender.MALE, Id.GENDER.toString(), "M", new Parameter[] {}});
-        params.add(new Object[] {new Gender("Unknown"), Id.GENDER.toString(), "Unknown", new Parameter[] {}});
+        final List<Object[]> params = new ArrayList<Object[]>();
+        params.add(new Object[] { Gender.FEMALE, Id.GENDER.toString(), "F", new Parameter[] {} });
+        params.add(new Object[] { Gender.MALE, Id.GENDER.toString(), "M", new Parameter[] {} });
+        final String genderString = "Unknown";
+        params.add(new Object[] { new Gender(genderString), Id.GENDER.toString(), genderString, new Parameter[] {} });
         return params;
     }
 

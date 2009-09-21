@@ -42,6 +42,8 @@ import net.fortuna.ical4j.vcard.Property;
 import org.apache.commons.lang.ArrayUtils;
 
 /**
+ * N property.
+ * 
  * $Id$
  *
  * Created on 23/08/2008

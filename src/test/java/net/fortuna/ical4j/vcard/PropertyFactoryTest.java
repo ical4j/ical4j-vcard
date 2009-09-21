@@ -47,13 +47,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-/**
- * $Id$
- *
- * Created on: 10/11/2008
- *
- * @author fortuna
- */
 @RunWith(Parameterized.class)
 public class PropertyFactoryTest {
 

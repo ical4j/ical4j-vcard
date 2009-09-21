@@ -42,6 +42,8 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 /**
+ * IMPP property.
+ * 
  * $Id$
  *
  * Created on 24/08/2008

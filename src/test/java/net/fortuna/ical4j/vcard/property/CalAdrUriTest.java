@@ -44,33 +44,21 @@ import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
-/**
- * $Id$
- * 
- * Created on 26/10/2008
- * 
- * @author Ben
- * 
- */
 public class CalAdrUriTest extends PropertyTest {
 
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     */
     public CalAdrUriTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { new CalAdrUri(URI.create("http://example.com/calendar/jdoe")),
-                Id.CALADRURI.toString(), "http://example.com/calendar/jdoe", new Parameter[] {} });
-        params.add(new Object[] { new CalAdrUri(URI.create("mailto:janedoe@example.com"), Type.PREF),
-                Id.CALADRURI.toString(), "mailto:janedoe@example.com", new Parameter[] { Type.PREF } });
+        final List<Object[]> params = new ArrayList<Object[]>();
+        String uriString = "http://example.com/calendar/jdoe";
+        params.add(new Object[] { new CalAdrUri(URI.create(uriString)),
+                Id.CALADRURI.toString(), uriString, new Parameter[] {}, });
+        uriString = "mailto:janedoe@example.com";
+        params.add(new Object[] { new CalAdrUri(URI.create(uriString), Type.PREF),
+                Id.CALADRURI.toString(), uriString, new Parameter[] { Type.PREF }, });
         return params;
     }
 }
