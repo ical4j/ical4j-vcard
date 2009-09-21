@@ -51,11 +51,6 @@ public class LanguageTest extends ParameterTest {
     
     private final Locale expectedLocale;
     
-    /**
-     * @param parameter
-     * @param expectedName
-     * @param expectedValue
-     */
     public LanguageTest(Language language, String expectedName,
             String expectedValue, Locale expectedLocale) {
         super(language, expectedName, expectedValue);
@@ -70,14 +65,16 @@ public class LanguageTest extends ParameterTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-        
-        Locale locale = new Locale("en", "AU");
+        final List<Object[]> params = new ArrayList<Object[]>();
+
+        final String englishString = "en";
+        Locale locale = new Locale(englishString, "AU");
         params.add(new Object[] {new Language(locale), Id.LANGUAGE.toString(), "en-AU", locale});
 
         locale = new Locale("es", "ES", "Traditional_WIN");
         params.add(new Object[] {new Language(locale), Id.LANGUAGE.toString(), "es-ES-Traditional_WIN", locale});
-        params.add(new Object[] {new Language("en"), Id.LANGUAGE.toString(), "en", new Locale("en")});
+        params.add(new Object[] {new Language(englishString), Id.LANGUAGE.toString(),
+                englishString, new Locale(englishString), });
         return params;
     }
 }

@@ -44,11 +44,6 @@ import org.junit.runners.Parameterized.Parameters;
 
 public class ValueTest extends ParameterTest {
 
-    /**
-     * @param parameter
-     * @param expectedName
-     * @param expectedValue
-     */
     public ValueTest(Parameter parameter, String expectedName,
             String expectedValue) {
         super(parameter, expectedName, expectedValue);
@@ -56,11 +51,12 @@ public class ValueTest extends ParameterTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {Value.BINARY, Id.VALUE.toString(), "binary"});
         params.add(new Object[] {Value.TEXT, Id.VALUE.toString(), "text"});
         params.add(new Object[] {Value.URI, Id.VALUE.toString(), "uri"});
-        params.add(new Object[] {new Value("blah"), Id.VALUE.toString(), "blah"});
+        final String valueString = "blah";
+        params.add(new Object[] {new Value(valueString), Id.VALUE.toString(), valueString});
         return params;
     }
 }

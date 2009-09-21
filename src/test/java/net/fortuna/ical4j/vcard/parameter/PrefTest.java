@@ -43,18 +43,13 @@ import org.junit.runners.Parameterized.Parameters;
 
 public class PrefTest extends ParameterTest {
 
-    /**
-     * @param parameter
-     * @param expectedName
-     * @param expectedValue
-     */
     public PrefTest(Pref parameter, String expectedName, String expectedValue) {
         super(parameter, expectedName, expectedValue);
     }
     
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Pref(1), Id.PREF.toString(), "1"});
         return params;
     }

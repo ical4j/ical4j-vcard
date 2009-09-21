@@ -50,11 +50,6 @@ public class PidTest extends ParameterTest {
     
     private final Integer expectedPid;
     
-    /**
-     * @param parameter
-     * @param expectedName
-     * @param expectedValue
-     */
     public PidTest(Pid pid, String expectedName,
             String expectedValue, Integer expectedPid) {
         super(pid, expectedName, expectedValue);
@@ -69,9 +64,10 @@ public class PidTest extends ParameterTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Pid(1), Id.PID.toString(), "1", 1});
-        params.add(new Object[] {new Pid("1"), Id.PID.toString(), "1", 1});
+        final List<Object[]> params = new ArrayList<Object[]>();
+        final String pidString = "1";
+        params.add(new Object[] {new Pid(1), Id.PID.toString(), pidString, 1});
+        params.add(new Object[] {new Pid(pidString), Id.PID.toString(), pidString, 1});
 //        params.add(new Object[] {new Pid("blah"), Id.PID.toString(), "1"});
         return params;
     }

@@ -44,24 +44,22 @@ import org.junit.runners.Parameterized.Parameters;
 
 public class TypeTest extends ParameterTest {
 
-    /**
-     * @param parameter
-     * @param expectedName
-     * @param expectedValue
-     */
     public TypeTest(Parameter parameter, String expectedName, String expectedValue) {
         super(parameter, expectedName, expectedValue);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Type.HOME, Id.TYPE.toString(), "home"});
-        params.add(new Object[] {Type.PREF, Id.TYPE.toString(), "pref"});
+        final List<Object[]> params = new ArrayList<Object[]>();
+        final String homeString = "home";
+        params.add(new Object[] {Type.HOME, Id.TYPE.toString(), homeString});
+        final String prefString = "pref";
+        params.add(new Object[] {Type.PREF, Id.TYPE.toString(), prefString});
         params.add(new Object[] {Type.WORK, Id.TYPE.toString(), "work"});
-        params.add(new Object[] {new Type("home,pref"), Id.TYPE.toString(), "home,pref"});
-        params.add(new Object[] {new Type("home", "pref"), Id.TYPE.toString(), "home,pref"});
-        params.add(new Object[] {new Type(Type.HOME, Type.PREF), Id.TYPE.toString(), "home,pref"});
+        final String homePrefString = "home,pref";
+        params.add(new Object[] {new Type(homePrefString), Id.TYPE.toString(), homePrefString});
+        params.add(new Object[] {new Type(homeString, prefString), Id.TYPE.toString(), homePrefString});
+        params.add(new Object[] {new Type(Type.HOME, Type.PREF), Id.TYPE.toString(), homePrefString});
         return params;
     }
 }

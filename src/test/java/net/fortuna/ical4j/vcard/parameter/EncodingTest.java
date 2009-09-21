@@ -44,11 +44,6 @@ import org.junit.runners.Parameterized.Parameters;
 
 public class EncodingTest extends ParameterTest {
 
-    /**
-     * @param parameter
-     * @param expectedName
-     * @param expectedValue
-     */
     public EncodingTest(Parameter parameter, String expectedName,
             String expectedValue) {
         super(parameter, expectedName, expectedValue);
@@ -56,9 +51,10 @@ public class EncodingTest extends ParameterTest {
     
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {Encoding.B, Id.ENCODING.toString(), "b"});
-        params.add(new Object[] {new Encoding("8-bit"), Id.ENCODING.toString(), "8-bit"});
+        final String encodingString = "8-bit";
+        params.add(new Object[] {new Encoding(encodingString), Id.ENCODING.toString(), encodingString});
         return params;
     }
 
