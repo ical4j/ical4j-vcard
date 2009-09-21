@@ -106,7 +106,7 @@ public class BDayTest extends PropertyTest {
         final List<Parameter> bdayParams = new ArrayList<Parameter>();
         bdayParams.add(Value.TEXT);
         final String bdayString = "Circa 400, bce";
-        params.add(new Object[] { new BDay(bdayParams, bdayString), Id.BDAY.toString(), bdayParams,
+        params.add(new Object[] { new BDay(bdayParams, bdayString), Id.BDAY.toString(), bdayString,
                 new Parameter[] { Value.TEXT }, null, });
         return params;
     }
