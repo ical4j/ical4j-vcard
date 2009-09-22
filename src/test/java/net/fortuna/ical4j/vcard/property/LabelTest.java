@@ -43,29 +43,15 @@ import net.fortuna.ical4j.vcard.parameter.Type;
 
 import org.junit.runners.Parameterized.Parameters;
 
-/**
- * $Id$
- * 
- * Created on: 28/10/2008
- * 
- * @author fortuna
- * 
- */
 public class LabelTest extends PropertyTest {
 
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     */
     public LabelTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] { new Label(""), Id.LABEL.toString(), "", new Parameter[] {} });
         params.add(new Object[] {
                 new Label("Mr.John Q. Public, Esq." + "\nMail Drop: TNE QB" + "\n123 Main Street"

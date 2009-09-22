@@ -45,22 +45,8 @@ import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 
-/**
- * $Id$
- *
- * Created on: 29/10/2008
- *
- * @author fortuna
- *
- */
 public class RelatedTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
 	public RelatedTest(Property property, String expectedName,
 			String expectedValue, Parameter[] expectedParams) {
 		super(property, expectedName, expectedValue, expectedParams);
@@ -68,7 +54,7 @@ public class RelatedTest extends PropertyTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Related(URI.create("")), Id.RELATED.toString(), "", new Parameter[] {}});
         params.add(new Object[] {new Related(""), Id.RELATED.toString(), "", new Parameter[] {Value.TEXT}});
         return params;

@@ -46,29 +46,15 @@ import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
-/**
- * $Id$
- * 
- * Created on: 29/10/2008
- * 
- * @author fortuna
- * 
- */
 public class PhotoTest extends PropertyTest {
 
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     */
     public PhotoTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] { new Photo(URI.create("")), Id.PHOTO.toString(), "", new Parameter[] { Value.URI } });
         params.add(new Object[] { new Photo(new byte[0]), Id.PHOTO.toString(), "", new Parameter[] { Encoding.B } });
 

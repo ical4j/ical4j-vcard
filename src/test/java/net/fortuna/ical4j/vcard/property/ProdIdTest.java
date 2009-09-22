@@ -43,22 +43,8 @@ import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 
 
-/**
- * $Id$
- *
- * Created on: 29/10/2008
- *
- * @author fortuna
- *
- */
 public class ProdIdTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
 	public ProdIdTest(Property property, String expectedName,
 			String expectedValue, Parameter[] expectedParams) {
 		super(property, expectedName, expectedValue, expectedParams);
@@ -66,7 +52,7 @@ public class ProdIdTest extends PropertyTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new ProdId(""), Id.PRODID.toString(), "", new Parameter[] {}});
         return params;
     }

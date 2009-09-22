@@ -45,25 +45,12 @@ import net.fortuna.ical4j.vcard.Property.Id;
 import org.junit.Test;
 import org.junit.runners.Parameterized.Parameters;
 
-/**
- * $Id$
- *
- * Created on: 29/10/2008
- *
- * @author fortuna
- */
 public class SourceTest extends PropertyTest {
 
     private final Source source;
     
     private final URI expectedUri;
     
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     */
     public SourceTest(Source source, String expectedName,
             String expectedValue, Parameter[] expectedParams, URI expectedUri) {
         super(source, expectedName, expectedValue, expectedParams);
@@ -78,7 +65,7 @@ public class SourceTest extends PropertyTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         URI uri = URI.create("");
         params.add(new Object[] { new Source(uri), Id.SOURCE.toString(), "", new Parameter[] {}, uri });
         return params;

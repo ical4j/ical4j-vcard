@@ -45,22 +45,8 @@ import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 
-/**
- * $Id$
- *
- * Created on: 29/10/2008
- *
- * @author fortuna
- *
- */
 public class TzTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
 	public TzTest(Property property, String expectedName, String expectedValue,
 			Parameter[] expectedParams) {
 		super(property, expectedName, expectedValue, expectedParams);
@@ -68,7 +54,7 @@ public class TzTest extends PropertyTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Tz(""), Id.TZ.toString(), "", new Parameter[] {Value.TEXT}});
         params.add(new Object[] {new Tz(new UtcOffset("+1000")), Id.TZ.toString(), "+1000", new Parameter[] {}});
         return params;

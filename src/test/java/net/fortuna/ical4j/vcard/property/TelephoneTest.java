@@ -45,29 +45,15 @@ import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
-/**
- * $Id$
- * 
- * Created on: 29/10/2008
- * 
- * @author fortuna
- * 
- */
 public class TelephoneTest extends PropertyTest {
 
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     */
     public TelephoneTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() throws URISyntaxException {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] { new Telephone(URI.create("")), Id.TEL.toString(), "", new Parameter[] {} });
         params.add(new Object[] { new Telephone(URI.create(""), Type.HOME), Id.TEL.toString(), "",
                 new Parameter[] { Type.HOME } });

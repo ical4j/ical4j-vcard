@@ -43,22 +43,8 @@ import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
 
 
-/**
- * $Id$
- *
- * Created on: 29/10/2008
- *
- * @author fortuna
- *
- */
 public class RoleTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
 	public RoleTest(Property property, String expectedName,
 			String expectedValue, Parameter[] expectedParams) {
 		super(property, expectedName, expectedValue, expectedParams);
@@ -66,7 +52,7 @@ public class RoleTest extends PropertyTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Role(""), Id.ROLE.toString(), "", new Parameter[] {}});
         params.add(new Object[] {new Role("Programmer"), Id.ROLE.toString(), "Programmer", new Parameter[] {}});
         return params;

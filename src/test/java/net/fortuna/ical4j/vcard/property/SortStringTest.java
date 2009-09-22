@@ -43,22 +43,8 @@ import net.fortuna.ical4j.vcard.Property.Id;
 import org.junit.runners.Parameterized.Parameters;
 
 
-/**
- * $Id$
- *
- * Created on: 29/10/2008
- *
- * @author fortuna
- *
- */
 public class SortStringTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
 	public SortStringTest(Property property, String expectedName,
 			String expectedValue, Parameter[] expectedParams) {
 		super(property, expectedName, expectedValue, expectedParams);
@@ -66,7 +52,7 @@ public class SortStringTest extends PropertyTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new SortString(""), Id.SORT_STRING.getPropertyName(), "", new Parameter[] {}});
         return params;
     }

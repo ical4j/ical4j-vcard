@@ -43,22 +43,8 @@ import net.fortuna.ical4j.vcard.Property.Id;
 import org.junit.runners.Parameterized.Parameters;
 
 
-/**
- * $Id$
- *
- * Created on: 28/10/2008
- *
- * @author fortuna
- *
- */
 public class NicknameTest extends PropertyTest {
 
-	/**
-	 * @param property
-	 * @param expectedName
-	 * @param expectedValue
-	 * @param expectedParams
-	 */
 	public NicknameTest(Property property, String expectedName,
 			String expectedValue, Parameter[] expectedParams) {
 		super(property, expectedName, expectedValue, expectedParams);
@@ -66,7 +52,7 @@ public class NicknameTest extends PropertyTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {new Nickname(""), Id.NICKNAME.toString(), "", new Parameter[] {}});
         return params;
     }

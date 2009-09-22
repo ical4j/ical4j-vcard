@@ -45,25 +45,12 @@ import net.fortuna.ical4j.vcard.Property.Id;
 import org.junit.Test;
 import org.junit.runners.Parameterized.Parameters;
 
-/**
- * $Id$
- *
- * Created on: 29/10/2008
- *
- * @author fortuna
- */
 public class UidTest extends PropertyTest {
 
     private final Uid uid;
     
     private final URI expectedUri;
     
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     */
     public UidTest(Uid uid, String expectedName,
             String expectedValue, Parameter[] expectedParams, URI expectedUri) {
         super(uid, expectedName, expectedValue, expectedParams);
@@ -78,7 +65,7 @@ public class UidTest extends PropertyTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         URI uri = URI.create("");
         params.add(new Object[] { new Uid(uri), Id.UID.toString(), "", new Parameter[] {}, uri });
         return params;

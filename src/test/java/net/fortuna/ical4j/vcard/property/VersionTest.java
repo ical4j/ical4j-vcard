@@ -42,21 +42,8 @@ import net.fortuna.ical4j.vcard.Property.Id;
 
 import org.junit.runners.Parameterized.Parameters;
 
-/**
- * $Id$
- *
- * Created on: 29/10/2008
- *
- * @author fortuna
- */
 public class VersionTest extends PropertyTest {
 
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     */
     public VersionTest(Property property, String expectedName,
             String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
@@ -64,7 +51,7 @@ public class VersionTest extends PropertyTest {
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+        final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] { Version.VERSION_4_0, Id.VERSION.toString(), "4.0", new Parameter[] {} });
         params.add(new Object[] { new Version("3.0"), Id.VERSION.toString(), "3.0", new Parameter[] {} });
         return params;
