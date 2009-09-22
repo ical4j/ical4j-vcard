@@ -87,7 +87,7 @@ public final class Org extends Property {
     }
 
     /**
-     * Factory constructor
+     * Factory constructor.
      * 
      * @param params
      *            property parameters

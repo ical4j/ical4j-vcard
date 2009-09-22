@@ -75,7 +75,7 @@ public final class Lang extends Property {
      */
     public Lang(List<Parameter> params, String value) {
         super(Id.LANG, params);
-        List<Locale> list = new ArrayList<Locale>();
+        final List<Locale> list = new ArrayList<Locale>();
         for (String langString : value.split(",")) {
             list.add(new Locale(langString));
         }

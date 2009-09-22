@@ -111,13 +111,14 @@ public final class Tz extends Property {
      */
     @Override
     public String getValue() {
+        String value = null;
         if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
-            return text;
+            value = text;
         }
         else if (offset != null) {
-            return offset.toString();
+            value = offset.toString();
         }
-        return null;
+        return value;
     }
 
     /**

@@ -56,10 +56,9 @@ import net.fortuna.ical4j.vcard.parameter.Type;
  */
 public final class Telephone extends Property {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -7747040131815077325L;
+
+    private static final String TEL_SCHEME = "tel";
     
     private URI uri;
     
@@ -80,7 +79,7 @@ public final class Telephone extends Property {
         super(group, Id.TEL);
         if (uri.getScheme() == null && StringUtils.isNotEmpty(uri.getSchemeSpecificPart())) {
             try {
-                this.uri = new URI("tel", uri.getSchemeSpecificPart(), uri.getFragment());
+                this.uri = new URI(TEL_SCHEME, uri.getSchemeSpecificPart(), uri.getFragment());
             }
             catch (URISyntaxException e) {
                 this.uri = uri;
@@ -115,7 +114,7 @@ public final class Telephone extends Property {
         super(group, Id.TEL, params);
         this.uri = new URI(value.trim().replaceAll("\\s+", "-"));
         if (uri.getScheme() == null && StringUtils.isNotEmpty(uri.getSchemeSpecificPart())) {
-            this.uri = new URI("tel", uri.getSchemeSpecificPart(), uri.getFragment());
+            this.uri = new URI(TEL_SCHEME, uri.getSchemeSpecificPart(), uri.getFragment());
         }
     }
     

@@ -129,7 +129,7 @@ public final class Key extends Property {
             this.uri = new URI(value);
         }
         else {
-            BinaryDecoder decoder = new Base64();
+            final BinaryDecoder decoder = new Base64();
             this.binary = decoder.decode(value.getBytes());
         }
     }

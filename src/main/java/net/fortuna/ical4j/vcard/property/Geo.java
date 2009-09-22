@@ -52,11 +52,10 @@ import net.fortuna.ical4j.vcard.Property;
  */
 public final class Geo extends Property {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1533383111522264554L;
 
+    private static final String DELIMITER = ";";
+    
     private BigDecimal latitude;
     
     private BigDecimal longitude;
@@ -94,7 +93,7 @@ public final class Geo extends Property {
             components = value.split(";|,");
         }
         else {
-            components = value.split(";");
+            components = value.split(DELIMITER);
         }
         this.latitude = new BigDecimal(components[0]);
         this.longitude = new BigDecimal(components[1]);
@@ -105,7 +104,7 @@ public final class Geo extends Property {
      */
     @Override
     public String getValue() {
-        return String.valueOf(getLatitude()) + ";" + String.valueOf(getLongitude());
+        return String.valueOf(getLatitude()) + DELIMITER + String.valueOf(getLongitude());
     }
 
     /**
