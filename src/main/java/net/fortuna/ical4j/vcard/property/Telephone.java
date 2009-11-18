@@ -33,16 +33,18 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.parameter.Type;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * TEL property.
@@ -59,6 +61,8 @@ public final class Telephone extends Property {
     private static final long serialVersionUID = -7747040131815077325L;
 
     private static final String TEL_SCHEME = "tel";
+    
+    public static final PropertyFactory<Telephone> FACTORY = new Factory();
     
     private URI uri;
     
@@ -148,4 +152,23 @@ public final class Telephone extends Property {
         }
     }
 
+    private static class Factory implements PropertyFactory<Telephone> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Telephone createProperty(final List<Parameter> params, final String value)
+            throws URISyntaxException {
+            
+            return new Telephone(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Telephone createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            return new Telephone(group, params, value);
+        }
+    }
 }

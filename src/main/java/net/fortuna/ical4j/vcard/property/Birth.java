@@ -31,12 +31,16 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * BIRTH property.
@@ -50,9 +54,8 @@ import net.fortuna.ical4j.vcard.Property;
  */
 public final class Birth extends Property implements Escapable {
 
-    /**
-     * 
-     */
+    public static final PropertyFactory<Birth> FACTORY = new Factory();
+
     private static final long serialVersionUID = -3204898745557127754L;
     
     private final String value;
@@ -90,5 +93,24 @@ public final class Birth extends Property implements Escapable {
     public void validate() throws ValidationException {
         // TODO Auto-generated method stub
         
+    }
+    
+    private static class Factory implements PropertyFactory<Birth> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Birth createProperty(final List<Parameter> params, final String value) {
+            return new Birth(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Birth createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
+        }
     }
 }

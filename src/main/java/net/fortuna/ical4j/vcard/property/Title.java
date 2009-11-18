@@ -31,12 +31,16 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * TITLE property.
@@ -50,9 +54,8 @@ import net.fortuna.ical4j.vcard.Property;
  */
 public final class Title extends Property implements Escapable {
 
-    /**
-     * 
-     */
+    public static final PropertyFactory<Title> FACTORY = new Factory();
+
     private static final long serialVersionUID = -8410924945367427773L;
     
     private final String value;
@@ -99,4 +102,22 @@ public final class Title extends Property implements Escapable {
         }
     }
 
+    private static class Factory implements PropertyFactory<Title> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Title createProperty(final List<Parameter> params, final String value) {
+            return new Title(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Title createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
+        }
+    }
 }

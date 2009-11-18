@@ -33,12 +33,15 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
@@ -62,10 +65,9 @@ import org.apache.commons.logging.LogFactory;
  *
  */
 public final class Sound extends Property {
+
+    public static final PropertyFactory<Sound> FACTORY = new Factory();
     
-    /**
-     * 
-     */
     private static final long serialVersionUID = -3293436282728289163L;
 
     private URI uri;
@@ -165,4 +167,24 @@ public final class Sound extends Property {
         }
     }
 
+    private static class Factory implements PropertyFactory<Sound> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Sound createProperty(final List<Parameter> params, final String value) throws URISyntaxException,
+            DecoderException {
+            
+            return new Sound(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Sound createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
+        }
+    }
 }

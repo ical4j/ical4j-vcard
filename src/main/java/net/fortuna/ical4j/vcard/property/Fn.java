@@ -31,11 +31,15 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * FN property.
@@ -50,6 +54,8 @@ import net.fortuna.ical4j.vcard.Property;
 public final class Fn extends Property {
 
     private static final long serialVersionUID = -3576886478408668365L;
+    
+    public static final PropertyFactory<Fn> FACTORY = new Factory();
     
     private final String value;
     
@@ -87,6 +93,25 @@ public final class Fn extends Property {
         // ; Text parameters allowed
         for (Parameter param : getParameters()) {
             assertTextParameter(param);
+        }
+    }
+    
+    private static class Factory implements PropertyFactory<Fn> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Fn createProperty(final List<Parameter> params, final String value) {
+            return new Fn(value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Fn createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
         }
     }
 }

@@ -31,12 +31,15 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * EMAIL property.
@@ -51,6 +54,8 @@ import net.fortuna.ical4j.vcard.Property;
 public final class Email extends Property {
 
     private static final long serialVersionUID = 6134254373259957228L;
+    
+    public static final PropertyFactory<Email> FACTORY = new Factory();
     
     private String value;
     
@@ -113,4 +118,21 @@ public final class Email extends Property {
         }
     }
 
+    private static class Factory implements PropertyFactory<Email> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Email createProperty(final List<Parameter> params, final String value) {
+            return new Email(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Email createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            return new Email(group, params, value);
+        }
+    }
 }

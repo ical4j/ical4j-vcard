@@ -32,6 +32,8 @@
 package net.fortuna.ical4j.vcard.property;
 
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
@@ -39,6 +41,7 @@ import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * GEO property.
@@ -52,6 +55,8 @@ import net.fortuna.ical4j.vcard.Property;
  */
 public final class Geo extends Property {
 
+    public static final PropertyFactory<Geo> FACTORY = new Factory();
+    
     private static final long serialVersionUID = 1533383111522264554L;
 
     private static final String DELIMITER = ";";
@@ -130,4 +135,21 @@ public final class Geo extends Property {
         assertParametersEmpty();
     }
 
+    private static class Factory implements PropertyFactory<Geo> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Geo createProperty(final List<Parameter> params, final String value) {
+            return new Geo(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Geo createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            return new Geo(group, params, value);
+        }
+    }
 }

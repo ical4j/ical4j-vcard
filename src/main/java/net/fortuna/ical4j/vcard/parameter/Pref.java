@@ -31,7 +31,9 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * PREF parameter.
@@ -54,6 +56,8 @@ public final class Pref extends Parameter {
      * Support for pre-vCard 4.0 PREF parameter.
      */
     public static final Pref PREF = new Pref();
+    
+    public static final ParameterFactory<Pref> FACTORY = new Factory();
     
     private final Integer level;
     
@@ -92,5 +96,15 @@ public final class Pref extends Parameter {
             return level.toString();
         }
         return null;
+    }
+    
+    private static class Factory implements ParameterFactory<Pref> {
+
+        public Pref createParameter(final String value) {
+            if (value == null && CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
+                return Pref.PREF;
+            }
+            return new Pref(value);
+        }
     }
 }

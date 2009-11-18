@@ -32,14 +32,12 @@
 package net.fortuna.ical4j.vcard;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.Parameter.Id;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Language;
@@ -71,70 +69,12 @@ public class ParameterFactoryRegistry {
      */
     public ParameterFactoryRegistry() {
         defaultFactories = new HashMap<Id, ParameterFactory<? extends Parameter>>();
-        defaultFactories.put(Parameter.Id.ENCODING, new ParameterFactory<Encoding>() {
-            public Encoding createParameter(final String value) {
-                if (Encoding.B.getValue().equals(value)) {
-                    return Encoding.B;
-                }
-                return new Encoding(value);
-            }
-        });
-        defaultFactories.put(Parameter.Id.LANGUAGE, new ParameterFactory<Language>() {
-            public Language createParameter(final String value) {
-                return new Language(new Locale(value));
-            }
-        });
-        defaultFactories.put(Parameter.Id.PID, new ParameterFactory<Pid>() {
-            public Pid createParameter(final String value) {
-                return new Pid(Integer.valueOf(value));
-            }
-        });
-        defaultFactories.put(Parameter.Id.TYPE, new ParameterFactory<Type>() {
-            public Type createParameter(final String value) {
-                Type parameter = null;
-                if (Type.HOME.getValue().equals(value)) {
-                    parameter = Type.HOME;
-                }
-                else if (Type.PREF.getValue().equals(value)) {
-                    parameter = Type.PREF;
-                }
-                else if (Type.WORK.getValue().equals(value)) {
-                    parameter = Type.WORK;
-                }
-                else {
-                    parameter = new Type(value);
-                }
-                return parameter;
-            }
-        });
-        defaultFactories.put(Parameter.Id.VALUE, new ParameterFactory<Value>() {
-            public Value createParameter(final String value) {
-                
-                Value parameter = null;
-                if (Value.BINARY.getValue().equals(value)) {
-                    parameter = Value.BINARY;
-                }
-                else if (Value.TEXT.getValue().equals(value)) {
-                    parameter = Value.TEXT;
-                }
-                else if (Value.URI.getValue().equals(value)) {
-                    parameter = Value.URI;
-                }
-                else {
-                    parameter = new Value(value);
-                }
-                return parameter;
-            }
-        });
-        defaultFactories.put(Parameter.Id.PREF, new ParameterFactory<Pref>() {
-
-            public Pref createParameter(final String value) {
-                if (value == null && CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
-                    return Pref.PREF;
-                }
-                return new Pref(value);
-            }
-        });
+        defaultFactories.put(Parameter.Id.ENCODING, Encoding.FACTORY);
+        defaultFactories.put(Parameter.Id.LANGUAGE, Language.FACTORY);
+        defaultFactories.put(Parameter.Id.PID, Pid.FACTORY);
+        defaultFactories.put(Parameter.Id.TYPE, Type.FACTORY);
+        defaultFactories.put(Parameter.Id.VALUE, Value.FACTORY);
+        defaultFactories.put(Parameter.Id.PREF, Pref.FACTORY);
         
         extendedFactories = new ConcurrentHashMap<String, ParameterFactory<? extends Parameter>>();
     }

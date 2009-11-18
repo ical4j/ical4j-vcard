@@ -31,13 +31,17 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * KIND property.
@@ -51,9 +55,6 @@ import net.fortuna.ical4j.vcard.Property;
  */
 public final class Kind extends Property {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -3114221975393833838L;
 
     /**
@@ -71,6 +72,8 @@ public final class Kind extends Property {
      * Standard kind.
      */
     public static final Kind ORG = new Kind(Collections.unmodifiableList(new ArrayList<Parameter>()), "org");
+
+    public static final PropertyFactory<Kind> FACTORY = new Factory();
 
     private final String value;
 
@@ -113,4 +116,22 @@ public final class Kind extends Property {
         assertParametersEmpty();
     }
 
+    private static class Factory implements PropertyFactory<Kind> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Kind createProperty(final List<Parameter> params, final String value) {
+            return new Kind(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Kind createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
+        }
+    }
 }

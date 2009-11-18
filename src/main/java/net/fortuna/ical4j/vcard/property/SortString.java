@@ -31,11 +31,15 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * SORT-STRING property.
@@ -49,9 +53,8 @@ import net.fortuna.ical4j.vcard.Property;
  */
 public final class SortString extends Property {
 
-    /**
-     * 
-     */
+    public static final PropertyFactory<SortString> FACTORY = new Factory();
+
     private static final long serialVersionUID = 980796364808362907L;
     
     private final String value;
@@ -93,4 +96,22 @@ public final class SortString extends Property {
         }
     }
 
+    private static class Factory implements PropertyFactory<SortString> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public SortString createProperty(final List<Parameter> params, final String value) {
+            return new SortString(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public SortString createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
+        }
+    }
 }

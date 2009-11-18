@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -39,8 +40,10 @@ import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 /**
@@ -52,6 +55,8 @@ import net.fortuna.ical4j.vcard.parameter.Value;
 public final class BDay extends Property implements Escapable {
 
     private static final long serialVersionUID = 4298026868242865633L;
+    
+    public static final PropertyFactory<BDay> FACTORY = new Factory();
 
     private Date date;
 
@@ -149,6 +154,25 @@ public final class BDay extends Property implements Escapable {
                 throw new ValidationException("Illegal parameter ["
                         + param.getId() + "]");
             }
+        }
+    }
+    
+    private static class Factory implements PropertyFactory<BDay> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public BDay createProperty(final List<Parameter> params, final String value) throws ParseException {
+            return new BDay(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public BDay createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
         }
     }
 }

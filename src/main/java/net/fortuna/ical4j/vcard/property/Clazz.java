@@ -31,13 +31,17 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * CLAZZ property.
@@ -51,9 +55,6 @@ import net.fortuna.ical4j.vcard.Property;
  */
 public final class Clazz extends Property {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -3339099487456754606L;
     
     /**
@@ -71,6 +72,8 @@ public final class Clazz extends Property {
      */
     public static final Clazz CONFIDENTIAL = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()),
             "CONFIDENTIAL");
+
+    public static final PropertyFactory<Clazz> FACTORY = new Factory();
     
     private final String value;
     
@@ -109,4 +112,35 @@ public final class Clazz extends Property {
         assertParametersEmpty();
     }
 
+    private static class Factory implements PropertyFactory<Clazz> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Clazz createProperty(final List<Parameter> params, final String value) {
+            Clazz property = null;
+            if (Clazz.CONFIDENTIAL.getValue().equals(value)) {
+                property = Clazz.CONFIDENTIAL;
+            }
+            else if (Clazz.PRIVATE.getValue().equals(value)) {
+                property = Clazz.PRIVATE;
+            }
+            else if (Clazz.PUBLIC.getValue().equals(value)) {
+                property = Clazz.PUBLIC;
+            }
+            else {
+                property = new Clazz(params, value);
+            }
+            return property;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Clazz createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
+        }
+    }
 }

@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -39,8 +40,10 @@ import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 /**
@@ -54,10 +57,9 @@ import net.fortuna.ical4j.vcard.parameter.Value;
  *
  */
 public final class DDay extends Property implements Escapable {
+
+    public static final PropertyFactory<DDay> FACTORY = new Factory();
     
-    /**
-     * 
-     */
     private static final long serialVersionUID = 3969167775362943497L;
 
     private Date date;
@@ -147,4 +149,22 @@ public final class DDay extends Property implements Escapable {
         }
     }
 
+    private static class Factory implements PropertyFactory<DDay> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public DDay createProperty(final List<Parameter> params, final String value) throws ParseException {
+            return new DDay(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public DDay createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
+        }
+    }
 }

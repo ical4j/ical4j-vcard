@@ -31,12 +31,16 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * DEATH property.
@@ -49,6 +53,8 @@ import net.fortuna.ical4j.vcard.Property;
  *
  */
 public final class Death extends Property implements Escapable {
+
+    public static final PropertyFactory<Death> FACTORY = new Factory();
 
     private static final long serialVersionUID = 3009228294165154307L;
     
@@ -89,4 +95,22 @@ public final class Death extends Property implements Escapable {
         
     }
 
+    private static class Factory implements PropertyFactory<Death> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Death createProperty(final List<Parameter> params, final String value) {
+            return new Death(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Death createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
+        }
+    }
 }

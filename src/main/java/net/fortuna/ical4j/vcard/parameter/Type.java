@@ -36,6 +36,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * TYPE parameter.
@@ -68,6 +69,8 @@ public final class Type extends Parameter {
      * Pref type parameter.
      */
     public static final Type PREF = new Type("pref");
+    
+    public static final ParameterFactory<Type> FACTORY = new Factory();
     
     private final String[] types;
     
@@ -121,4 +124,22 @@ public final class Type extends Parameter {
         return b.toString();
     }
 
+    private static class Factory implements ParameterFactory<Type> {
+        public Type createParameter(final String value) {
+            Type parameter = null;
+            if (Type.HOME.getValue().equals(value)) {
+                parameter = Type.HOME;
+            }
+            else if (Type.PREF.getValue().equals(value)) {
+                parameter = Type.PREF;
+            }
+            else if (Type.WORK.getValue().equals(value)) {
+                parameter = Type.WORK;
+            }
+            else {
+                parameter = new Type(value);
+            }
+            return parameter;
+        }
+    }
 }

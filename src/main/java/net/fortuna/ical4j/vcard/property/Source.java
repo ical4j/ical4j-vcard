@@ -33,11 +33,14 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 /**
@@ -52,9 +55,8 @@ import net.fortuna.ical4j.vcard.parameter.Value;
  */
 public final class Source extends Property {
 
-    /**
-     * 
-     */
+    public static final PropertyFactory<Source> FACTORY = new Factory();
+
     private static final long serialVersionUID = -8097388189864368448L;
     
     private final URI uri;
@@ -104,6 +106,25 @@ public final class Source extends Property {
                     && !Parameter.Id.PID.equals(param.getId())) {
                 throw new ValidationException("Illegal parameter [" + param.getId() + "]");
             }
+        }
+    }
+    
+    private static class Factory implements PropertyFactory<Source> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Source createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
+            return new Source(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Source createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
         }
     }
 }

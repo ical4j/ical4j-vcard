@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard.parameter;
 
 import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * ENCODING parameter.
@@ -55,6 +56,8 @@ public final class Encoding extends Parameter {
      */
     public static final Encoding B = new Encoding("b");
     
+    public static final ParameterFactory<Encoding> FACTORY = new Factory();
+    
     private final String value;
     
     /**
@@ -73,4 +76,12 @@ public final class Encoding extends Parameter {
         return value;
     }
 
+    private static class Factory implements ParameterFactory<Encoding> {
+        public Encoding createParameter(final String value) {
+            if (Encoding.B.getValue().equals(value)) {
+                return Encoding.B;
+            }
+            return new Encoding(value);
+        }
+    }
 }

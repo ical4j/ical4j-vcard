@@ -31,14 +31,17 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Parameter;
-
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * GENDER property.
@@ -66,6 +69,8 @@ public final class Gender extends Property {
      * Standard gender.
      */
     public static final Gender FEMALE = new Gender(Collections.unmodifiableList(new ArrayList<Parameter>()), "F");
+    
+    public static final PropertyFactory<Gender> FACTORY = new Factory();
     
     private final String value;
     
@@ -104,4 +109,32 @@ public final class Gender extends Property {
         
     }
 
+    private static class Factory implements PropertyFactory<Gender> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Gender createProperty(final List<Parameter> params, final String value) {
+            Gender property = null;
+            if (Gender.FEMALE.getValue().equals(value)) {
+                property = Gender.FEMALE;
+            }
+            else if (Gender.MALE.getValue().equals(value)) {
+                property = Gender.MALE;
+            }
+            else {
+                property = new Gender(value);
+            }
+            return property;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Gender createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
+        }
+    }
 }

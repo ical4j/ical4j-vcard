@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard.parameter;
 
 import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * PID parameter.
@@ -49,6 +50,8 @@ public final class Pid extends Parameter {
      * 
      */
     private static final long serialVersionUID = -6324011073580375538L;
+    
+    public static final ParameterFactory<Pid> FACTORY = new Factory();
 
     private final Integer pid;
 
@@ -83,4 +86,9 @@ public final class Pid extends Parameter {
         return pid.toString();
     }
 
+    private static class Factory implements ParameterFactory<Pid> {
+        public Pid createParameter(final String value) {
+            return new Pid(Integer.valueOf(value));
+        }
+    }
 }

@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard.parameter;
 
 import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * VALUE parameter.
@@ -65,6 +66,8 @@ public final class Value extends Parameter {
      */
     public static final Value URI = new Value("uri");
     
+    public static final ParameterFactory<Value> FACTORY = new Factory();
+    
     private final String value;
     
     /**
@@ -83,4 +86,23 @@ public final class Value extends Parameter {
         return value;
     }
 
+    private static class Factory implements ParameterFactory<Value> {
+        public Value createParameter(final String value) {
+            
+            Value parameter = null;
+            if (Value.BINARY.getValue().equals(value)) {
+                parameter = Value.BINARY;
+            }
+            else if (Value.TEXT.getValue().equals(value)) {
+                parameter = Value.TEXT;
+            }
+            else if (Value.URI.getValue().equals(value)) {
+                parameter = Value.URI;
+            }
+            else {
+                parameter = new Value(value);
+            }
+            return parameter;
+        }
+    }
 }

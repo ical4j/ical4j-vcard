@@ -31,13 +31,17 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * VERSION property.
@@ -61,6 +65,8 @@ public final class Version extends Property {
      */
     public static final Version VERSION_4_0 = new Version(
             Collections.unmodifiableList(new ArrayList<Parameter>()), "4.0");
+    
+    public static final PropertyFactory<Version> FACTORY = new Factory();
     
     private final String value;
     
@@ -99,4 +105,25 @@ public final class Version extends Property {
         assertParametersEmpty();
     }
 
+    private static class Factory implements PropertyFactory<Version> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Version createProperty(final List<Parameter> params, final String value) {
+            if (Version.VERSION_4_0.getValue().equals(value)) {
+                return Version.VERSION_4_0;
+            }
+            return new Version(value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Version createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
+        }
+    }
 }

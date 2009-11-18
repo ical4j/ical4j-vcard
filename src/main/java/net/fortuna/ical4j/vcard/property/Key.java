@@ -40,6 +40,7 @@ import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
@@ -64,9 +65,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class Key extends Property {
 
-    /**
-     * 
-     */
+    public static final PropertyFactory<Key> FACTORY = new Factory();
+
     private static final long serialVersionUID = -6645173064940148955L;
     
     private URI uri;
@@ -171,4 +171,24 @@ public final class Key extends Property {
         }
     }
 
+    private static class Factory implements PropertyFactory<Key> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Key createProperty(final List<Parameter> params, final String value) throws DecoderException,
+            URISyntaxException {
+            
+            return new Key(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Key createProperty(final Group group, final List<Parameter> params, final String value)
+            throws DecoderException, URISyntaxException {
+            
+            return new Key(group, params, value);
+        }
+    }
 }

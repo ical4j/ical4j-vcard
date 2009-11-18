@@ -31,13 +31,17 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * LANG property.
@@ -50,9 +54,8 @@ import net.fortuna.ical4j.vcard.Property;
  */
 public final class Lang extends Property {
 
-    /**
-     * 
-     */
+    public static final PropertyFactory<Lang> FACTORY = new Factory();
+
     private static final long serialVersionUID = 1863658302945551760L;
 
     private final Locale[] locales;
@@ -113,4 +116,22 @@ public final class Lang extends Property {
         
     }
 
+    private static class Factory implements PropertyFactory<Lang> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Lang createProperty(final List<Parameter> params, final String value) {
+            return new net.fortuna.ical4j.vcard.property.Lang(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Lang createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
+        }
+    }
 }

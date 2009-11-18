@@ -33,12 +33,15 @@ package net.fortuna.ical4j.vcard.property;
 
 import static net.fortuna.ical4j.util.Strings.escape;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * ORG property.
@@ -62,6 +65,8 @@ public final class Org extends Property {
     // + what-is-the-proper-regular-expression-for-an-unescaped-backslash-before-a-chara
     private static final String VALUES_SPLIT_REGEX = "(?<!\\\\)(?>\\\\\\\\)*;";
 
+    public static final PropertyFactory<Org> FACTORY = new Factory();
+    
     private String[] values;
 
     /**
@@ -151,4 +156,21 @@ public final class Org extends Property {
         }
     }
 
+    private static class Factory implements PropertyFactory<Org> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Org createProperty(final List<Parameter> params, final String value) {
+            return new Org(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Org createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            return new Org(group, params, value);
+        }
+    }
 }

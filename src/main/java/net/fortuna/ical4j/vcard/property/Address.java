@@ -34,12 +34,15 @@ package net.fortuna.ical4j.vcard.property;
 import static net.fortuna.ical4j.util.Strings.escape;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 /**
@@ -54,10 +57,9 @@ import net.fortuna.ical4j.vcard.parameter.Type;
  */
 public final class Address extends Property {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 6538745668985015384L;
+
+    public static final PropertyFactory<Address> FACTORY = new Factory();
 
     private String poBox;
     
@@ -248,6 +250,24 @@ public final class Address extends Property {
                     assertPidParameter(param);
                 }
             }
+        }
+    }
+    
+    private static class Factory implements PropertyFactory<Address> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Address createProperty(final List<Parameter> params, final String value) {
+            return new Address(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Address createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            return new Address(group, params, value);
         }
     }
 }

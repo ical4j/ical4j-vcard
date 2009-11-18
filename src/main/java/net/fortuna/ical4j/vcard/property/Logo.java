@@ -33,12 +33,15 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
@@ -63,9 +66,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class Logo extends Property {
 
-    /**
-     * 
-     */
+    public static final PropertyFactory<Logo> FACTORY = new Factory();
+
     private static final long serialVersionUID = 7255763733402012595L;
 
     private final Log log = LogFactory.getLog(Photo.class);
@@ -165,4 +167,24 @@ public final class Logo extends Property {
         }
     }
 
+    private static class Factory implements PropertyFactory<Logo> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Logo createProperty(final List<Parameter> params, final String value) throws URISyntaxException,
+            DecoderException {
+            
+            return new Logo(params, value);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Logo createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException, ParseException {
+            // TODO Auto-generated method stub
+            return null;
+        }
+    }
 }
