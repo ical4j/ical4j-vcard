@@ -47,6 +47,7 @@ import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.util.CompatibilityHints;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,6 +63,8 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class VCardBuilderTest {
 
+    private final String filename;
+    
     private final VCardBuilder builder;
     
     /**
@@ -69,6 +72,7 @@ public class VCardBuilderTest {
      * @throws FileNotFoundException
      */
     public VCardBuilderTest(String filename) throws FileNotFoundException {
+        this.filename = filename;
         builder = new VCardBuilder(new FileReader(filename));
     }
 
@@ -88,16 +92,26 @@ public class VCardBuilderTest {
      * @throws IOException 
      */
     @Test
-    public void testBuild() throws IOException, ParserException {
-        VCard vcard = builder.build();
-        assertNotNull(vcard);
-        assertFalse(vcard.getProperties().isEmpty());
+    public void testBuild() throws IOException {
+        try {
+            VCard vcard = builder.build();
+            assertNotNull(vcard);
+            assertFalse(vcard.getProperties().isEmpty());
+        }
+        catch (ParserException e) {
+            Assert.fail(String.format("File [%s] is not valid", filename));
+        }
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-        File[] testFiles = new File("src/test/resources/samples/valid").listFiles(
+        final List<Object[]> params = new ArrayList<Object[]>();
+        File[] testFiles = new File("src/test/resources/samples").listFiles(
+                (FileFilter) VCardFileFilter.INSTANCE);
+        for (int i = 0; i < testFiles.length; i++) {
+            params.add(new Object[] {testFiles[i].getPath()});
+        }
+        testFiles = new File("src/test/resources/samples/valid").listFiles(
                 (FileFilter) VCardFileFilter.INSTANCE);
         for (int i = 0; i < testFiles.length; i++) {
             params.add(new Object[] {testFiles[i].getPath()});

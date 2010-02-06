@@ -61,9 +61,9 @@ import net.fortuna.ical4j.data.UnfoldingReader;
  */
 public final class VCardBuilder {
 
-    private static final Pattern VCARD_BEGIN = Pattern.compile("^BEGIN:VCARD$");
+    private static final Pattern VCARD_BEGIN = Pattern.compile("^BEGIN:VCARD$", Pattern.CASE_INSENSITIVE);
 
-    private static final Pattern VCARD_END = Pattern.compile("^END:VCARD$");
+    private static final Pattern VCARD_END = Pattern.compile("^END:VCARD$", Pattern.CASE_INSENSITIVE);
     
     private static final Pattern PROPERTY_NAME_PATTERN = Pattern.compile("^\\w*\\.?\\w*(?=[;:])");
     
