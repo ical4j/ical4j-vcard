@@ -7,5 +7,6 @@
 <suppressions>
     <suppress checks="JavadocType" files=".*Test.java" />
     <suppress checks="JavadocMethod" files=".*Test.java" />
+    <suppress checks="JavadocStyle" files=".*Test.java" />
     <suppress checks="JavadocVariable" files=".*/Property.java" />
 </suppressions>
