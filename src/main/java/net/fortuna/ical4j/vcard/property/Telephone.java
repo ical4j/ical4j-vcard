@@ -43,6 +43,7 @@ import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.parameter.Type;
+import net.fortuna.ical4j.vcard.parameter.Value;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -65,6 +66,8 @@ public final class Telephone extends Property {
     public static final PropertyFactory<Telephone> FACTORY = new Factory();
     
     private URI uri;
+    
+    private String value;
     
     /**
      * @param uri specifies the URI of a telephone definition
@@ -92,6 +95,20 @@ public final class Telephone extends Property {
         else {
             this.uri = uri;
         }
+        getParameters().add(Value.URI);
+        for (Type type : types) {
+            getParameters().add(type);
+        }
+    }
+    
+    /**
+     * Provide backwards-compatibility for vCard 3.0.
+     * @param value a non-URI value
+     * @param types optional parameter types
+     */
+    public Telephone(String value, Type...types) {
+        super(null, Id.TEL);
+        this.value = value;
         for (Type type : types) {
             getParameters().add(type);
         }
@@ -116,9 +133,14 @@ public final class Telephone extends Property {
      */
     public Telephone(Group group, List<Parameter> params, String value) throws URISyntaxException {
         super(group, Id.TEL, params);
-        this.uri = new URI(value.trim().replaceAll("\\s+", "-"));
-        if (uri.getScheme() == null && StringUtils.isNotEmpty(uri.getSchemeSpecificPart())) {
-            this.uri = new URI(TEL_SCHEME, uri.getSchemeSpecificPart(), uri.getFragment());
+        if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
+            this.uri = new URI(value.trim().replaceAll("\\s+", "-"));
+            if (uri.getScheme() == null && StringUtils.isNotEmpty(uri.getSchemeSpecificPart())) {
+                this.uri = new URI(TEL_SCHEME, uri.getSchemeSpecificPart(), uri.getFragment());
+            }
+        }
+        else {
+            this.value = value;
         }
     }
     
@@ -134,7 +156,12 @@ public final class Telephone extends Property {
      */
     @Override
     public String getValue() {
-        return Strings.valueOf(uri);
+        if (uri != null) {
+            return Strings.valueOf(uri);
+        }
+        else {
+            return value;
+        }
     }
 
     /**
