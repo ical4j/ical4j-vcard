@@ -84,17 +84,7 @@ public final class Telephone extends Property {
      */
     public Telephone(Group group, URI uri, Type...types) {
         super(group, Id.TEL);
-        if (uri.getScheme() == null && StringUtils.isNotEmpty(uri.getSchemeSpecificPart())) {
-            try {
-                this.uri = new URI(TEL_SCHEME, uri.getSchemeSpecificPart(), uri.getFragment());
-            }
-            catch (URISyntaxException e) {
-                this.uri = uri;
-            }
-        }
-        else {
-            this.uri = uri;
-        }
+        this.uri = normalise(uri);
         getParameters().add(Value.URI);
         for (Type type : types) {
             getParameters().add(type);
@@ -134,14 +124,27 @@ public final class Telephone extends Property {
     public Telephone(Group group, List<Parameter> params, String value) throws URISyntaxException {
         super(group, Id.TEL, params);
         if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
-            this.uri = new URI(value.trim().replaceAll("\\s+", "-"));
-            if (uri.getScheme() == null && StringUtils.isNotEmpty(uri.getSchemeSpecificPart())) {
-                this.uri = new URI(TEL_SCHEME, uri.getSchemeSpecificPart(), uri.getFragment());
-            }
+            this.uri = normalise(new URI(value.trim().replaceAll("\\s+", "-")));
         }
         else {
             this.value = value;
         }
+    }
+    
+    private URI normalise(URI uri) {
+        URI retVal = null;
+        if (uri.getScheme() == null && StringUtils.isNotEmpty(uri.getSchemeSpecificPart())) {
+            try {
+                retVal = new URI(TEL_SCHEME, uri.getSchemeSpecificPart(), uri.getFragment());
+            }
+            catch (URISyntaxException e) {
+                retVal = uri;
+            }
+        }
+        else {
+            retVal = uri;
+        }
+        return retVal;
     }
     
     /**
