@@ -38,11 +38,11 @@ import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyFactory;
-
 import org.apache.commons.lang.ArrayUtils;
 
 /**
@@ -99,15 +99,43 @@ public final class N extends Property {
         if (names.length >= 2) {
             this.givenName = names[1];
         }
+        
+        if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
+        	parseValueRelaxed(names);
+        } else {
+        	parseValue(names);
+        }
+    }
+    
+    /**
+	 * @param value
+	 */
+	private void parseValueRelaxed(String [] names) { 
+        // support VCARD 3.0 by allowing optional section..
+        if (names.length >= 3) {
+            this.additionalNames = names[2].split(",");
+        }
+        if (names.length >= 4) {
+            this.prefixes = names[3].split(",");
+        }
+        if (names.length >= 5) {
+            this.suffixes = names[4].split(",");
+        }
+	}
+    
+    /**
+	 * @param value
+	 */
+	private void parseValue(String [] names) { 
         // support VCARD 3.0 by allowing optional section..
         if (names.length > 2) {
             this.additionalNames = names[2].split(",");
             this.prefixes = names[3].split(",");
             this.suffixes = names[4].split(",");
-        }
-    }
-    
-    /**
+        }		
+	}
+
+	/**
      * @return the familyName
      */
     public String getFamilyName() {
