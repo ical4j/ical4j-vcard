@@ -41,23 +41,14 @@ import java.io.Reader;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.CompatibilityHints;
-import net.fortuna.ical4j.vcard.Property.Id;
-import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
-import net.fortuna.ical4j.vcard.property.Address;
 import net.fortuna.ical4j.vcard.property.Key;
 import net.fortuna.ical4j.vcard.property.Logo;
 import net.fortuna.ical4j.vcard.property.Photo;
 import net.fortuna.ical4j.vcard.property.Sound;
 
 import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.net.QuotedPrintableCodec;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-
-import com.sun.xml.internal.bind.v2.model.core.PropertyKind;
 
 /**
  * 
