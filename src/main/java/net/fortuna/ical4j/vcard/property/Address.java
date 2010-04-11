@@ -39,6 +39,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
@@ -133,7 +134,17 @@ public final class Address extends Property {
      */
     public Address(Group group, List<Parameter> params, String value) {
         super(group, Id.ADR, params);
-        final String[] components = value.split(";");
+        if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
+        	parseValueRelaxed(value);
+        } else {
+        	parseValue(value);
+        }
+    }
+    
+	
+
+	private void parseValue(String value) {
+    	final String[] components = value.split(";");
         this.poBox = components[0];
         this.extended = components[1];
         this.street = components[2];
@@ -146,6 +157,54 @@ public final class Address extends Property {
             this.country = components[6];
         }
     }
+	
+	private void parseValueRelaxed(String value) {
+		final String[] components = value.split(";");
+		int length = components.length;
+		if (length >= 1) {
+			this.poBox = components[0];
+		} else {
+			this.poBox = "";
+		}
+		
+		if (length >= 2) {
+			this.extended = components[1];
+		} else {
+			this.extended = "";
+		}
+		
+		if (length >= 3) {
+			this.street = components[2];
+		} else {
+			this.street = "";
+		}
+        
+		if (length >= 4) {
+			this.locality = components[3];
+		} else {
+			this.locality = "";
+		}
+        
+		if (length >= 5) {
+			this.region = components[4];
+		} else {
+			this.region = "";
+		}
+        
+        // support VCARD 3.0 by allowing optional section..
+		if (length >= 6) {
+			this.postcode = components[5];
+		} else {
+			this.postcode = null;
+		}
+		
+		if (length >= 7) {
+			this.country = components[6];
+		} else {
+			this.country = null;
+		}
+
+	}
     
     /**
      * @return the poBox

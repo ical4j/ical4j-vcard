@@ -48,6 +48,7 @@ import org.apache.commons.codec.DecoderException;
 
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.data.UnfoldingReader;
+import net.fortuna.ical4j.util.CompatibilityHints;
 
 /**
  * vCard object builder.
@@ -62,8 +63,12 @@ import net.fortuna.ical4j.data.UnfoldingReader;
 public final class VCardBuilder {
 
     private static final Pattern VCARD_BEGIN = Pattern.compile("^BEGIN:VCARD$", Pattern.CASE_INSENSITIVE);
+    
+    private static final Pattern RELAXED_VCARD_BEGIN = Pattern.compile("^BEGIN:VCARD\\s*$", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern VCARD_END = Pattern.compile("^END:VCARD$", Pattern.CASE_INSENSITIVE);
+    
+    private static final Pattern RELAXED_VCARD_END = Pattern.compile("^END:VCARD\\s*$", Pattern.CASE_INSENSITIVE);
     
     private static final Pattern PROPERTY_NAME_PATTERN = Pattern.compile("^\\w*\\.?\\w*(?=[;:])");
     
@@ -80,6 +85,8 @@ public final class VCardBuilder {
     private final PropertyFactoryRegistry propertyFactoryRegistry;
     
     private final ParameterFactoryRegistry parameterFactoryRegistry;
+    
+    private final boolean relaxedParsing;
 
     /**
      * @param in an input stream providing vCard data
@@ -109,6 +116,7 @@ public final class VCardBuilder {
         this.groupRegistry = registry;
         this.propertyFactoryRegistry = propertyFactoryRegistry;
         this.parameterFactoryRegistry = parameterFactoryRegistry;
+        this.relaxedParsing = CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING);
     }
     
     /**
@@ -152,6 +160,16 @@ public final class VCardBuilder {
         int totalLineNo = 0;
         boolean end = false;
         
+        Pattern beginPattern = null;
+        Pattern endPattern = null;
+        if (relaxedParsing) {
+        	beginPattern = RELAXED_VCARD_BEGIN;
+        	endPattern = RELAXED_VCARD_END;
+        } else {
+        	beginPattern = VCARD_BEGIN;
+        	endPattern = VCARD_END;
+        }
+        
         while ((single || !end) && (line = reader.readLine()) != null) {
         	totalLineNo++;
         	if (line.trim().length() == 0) {
@@ -159,12 +177,12 @@ public final class VCardBuilder {
         	}
             nonBlankLineNo++;
             if (nonBlankLineNo == 1) {
-                if (!VCARD_BEGIN.matcher(line).matches()) {
+                if (!beginPattern.matcher(line).matches()) {
                     throw new ParserException(nonBlankLineNo);
                 }
                 vcard = new VCard();
             }
-            else if (!VCARD_END.matcher(line).matches()) {
+            else if (!endPattern.matcher(line).matches()) {
                 Property property;
                 try {
                     property = parseProperty(line);
@@ -181,7 +199,7 @@ public final class VCardBuilder {
                 if (property != null) {
                 	vcard.getProperties().add(property);
                 }
-            } else if (VCARD_END.matcher(line).matches()) {
+            } else if (endPattern.matcher(line).matches()) {
             	end = true;
             }
             if (line.trim().length() > 0) {
@@ -189,7 +207,7 @@ public final class VCardBuilder {
             }
         }
         
-        if (single && (nonBlankLineNo <= 1 || !VCARD_END.matcher(lastLine).matches())) {
+        if (single && (nonBlankLineNo <= 1 || !endPattern.matcher(lastLine).matches())) {
             throw new ParserException(totalLineNo);
         }
         
