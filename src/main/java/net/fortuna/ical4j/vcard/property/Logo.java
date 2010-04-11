@@ -37,6 +37,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
@@ -114,7 +115,15 @@ public final class Logo extends Property {
      */
     public Logo(List<Parameter> params, String value) throws URISyntaxException, DecoderException {
         super(Id.LOGO, params);
-        if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
+        Parameter valueParameter = getParameter(Parameter.Id.VALUE);
+        
+        /*
+         * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
+         */
+        if (valueParameter != null && Value.URI.equals(valueParameter) || 
+        	valueParameter != null && 
+        	     CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) && 
+        	     "URL".equalsIgnoreCase(valueParameter.getValue())) {
             this.uri = new URI(value);
         }
         else {
