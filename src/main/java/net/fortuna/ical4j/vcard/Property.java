@@ -144,6 +144,24 @@ public abstract class Property implements Serializable {
         this(group, Id.EXTENDED);
         this.extendedName = extendedName;
     }
+
+    /**
+     * @param extendedName a non-standard property name
+     * @param parameters property parameters
+     */
+    public Property(String extendedName, List<Parameter> parameters) {
+        this(null, extendedName, parameters);
+    }
+    
+    /**
+     * @param group a property group
+     * @param extendedName the non-standard property name
+     * @param parameters property parameters
+     */
+    public Property(Group group, String extendedName, List<Parameter> parameters) {
+        this(group, Id.EXTENDED, parameters);
+        this.extendedName = extendedName;
+    }
     
     /**
      * @param id the property type

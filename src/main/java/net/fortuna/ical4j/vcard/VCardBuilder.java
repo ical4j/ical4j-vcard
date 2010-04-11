@@ -70,7 +70,13 @@ public final class VCardBuilder {
     
     private static final Pattern RELAXED_VCARD_END = Pattern.compile("^END:VCARD\\s*$", Pattern.CASE_INSENSITIVE);
     
-    private static final Pattern PROPERTY_NAME_PATTERN = Pattern.compile("^\\w*\\.?\\w*(?=[;:])");
+//    private static final Pattern PROPERTY_NAME_PATTERN = Pattern.compile("^\\w*\\.?\\w*(?=[;:])");
+    /**
+     * This is supposed to cover following cases
+     */
+    static final Pattern PROPERTY_NAME_PATTERN = Pattern.compile(
+       "^(([a-zA-Z-]+\\.)?[a-zA-Z]+(?=[;:]))|" +
+        "(([a-zA-Z-]+\\.)?[Xx]-[a-zA-Z-]+(?=[;:]))");
     
     private static final Pattern PROPERTY_VALUE_PATTERN = Pattern.compile("(?<=[:]).*$");
 
