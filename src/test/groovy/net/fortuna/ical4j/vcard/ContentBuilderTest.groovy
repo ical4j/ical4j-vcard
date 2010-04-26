@@ -107,4 +107,18 @@ public class ContentBuilderTest extends GroovyTestCase {
         version = new ContentBuilder().version('4.0')
         assert version == Version.VERSION_4_0
     }
+    
+    void testAttachPhoto() {
+        def builder = new ContentBuilder()
+        def card = builder.vcard() {
+            version('4.0')
+            fn('test')
+            n('example') {
+                value('text')
+            }
+            photo(new File('etc/logo.png').bytes.encodeBase64() as String)
+        }
+        println card
+        card.validate()
+    }
 }
