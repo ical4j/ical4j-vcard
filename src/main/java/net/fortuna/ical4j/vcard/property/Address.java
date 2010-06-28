@@ -154,6 +154,9 @@ public final class Address extends Property {
         // support VCARD 3.0 by allowing optional section..
         if (components.length > 5) {
             this.postcode = components[5];
+        }
+
+        if (components.length > 6) {
             this.country = components[6];
         }
     }
