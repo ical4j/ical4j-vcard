@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard.property;
 
 import java.net.URISyntaxException;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.List;
 
@@ -43,7 +44,7 @@ import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * EMAIL property.
- * 
+ *
  * $Id$
  *
  * Created on 24/08/2008
@@ -54,18 +55,18 @@ import net.fortuna.ical4j.vcard.PropertyFactory;
 public final class Email extends Property {
 
     private static final long serialVersionUID = 6134254373259957228L;
-    
+
     public static final PropertyFactory<Email> FACTORY = new Factory();
-    
+
     private String value;
-    
+
     /**
      * @param value an email address string
      */
     public Email(String value) {
         this((Group) null, value);
     }
-    
+
     /**
      * @param group property group
      * @param value an email address string
@@ -74,7 +75,7 @@ public final class Email extends Property {
         super(group, Id.EMAIL);
         this.value = value;
     }
-    
+
     /**
      * Factory constructor.
      * @param params property parameters
@@ -83,7 +84,7 @@ public final class Email extends Property {
     public Email(List<Parameter> params, String value) {
         this(null, params, value);
     }
-    
+
     /**
      * Factory constructor.
      * @param group property group
@@ -94,7 +95,7 @@ public final class Email extends Property {
         super(group, Id.EMAIL, params);
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -109,12 +110,13 @@ public final class Email extends Property {
     @Override
     public void validate() throws ValidationException {
         for (Parameter param : getParameters()) {
-            try {
-                assertPrefParameter(param);
-            }
-            catch (ValidationException ve) {
-                assertPidParameter(param);
-            }
+        	Parameter.Id id = param.getId();
+
+        	if (!Parameter.Id.PID.equals(id) &&
+        		!Parameter.Id.PREF.equals(id) &&
+        		!Parameter.Id.TYPE.equals(id)) {
+        		throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, id));
+        	}
         }
     }
 
