@@ -130,9 +130,13 @@ public final class N extends Property {
         // support VCARD 3.0 by allowing optional section..
         if (names.length > 2) {
             this.additionalNames = names[2].split(",");
+        }
+        if (names.length > 3) {
             this.prefixes = names[3].split(",");
+        }
+        if (names.length > 4) {
             this.suffixes = names[4].split(",");
-        }		
+        }
 	}
 
 	/**
