@@ -40,10 +40,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.vcard.property.Kind;
 
 /**
  * vCard object.
- * 
+ *
  * $Id$
  *
  * Created on 21/08/2008
@@ -54,19 +55,19 @@ import net.fortuna.ical4j.vcard.Property.Id;
 public final class VCard implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -4784034340843199392L;
 
     private final List<Property> properties;
-    
+
     /**
      * Default constructor.
      */
     public VCard() {
         this(new ArrayList<Property>());
     }
-    
+
     /**
      * @param properties a list of properties
      */
@@ -76,13 +77,13 @@ public final class VCard implements Serializable {
 
     /**
      * Returns a reference to the list of properties for the VCard instance. Note that
-     * any changes to this list are reflected in the VCard object list.  
+     * any changes to this list are reflected in the VCard object list.
      * @return the properties
      */
     public List<Property> getProperties() {
         return properties;
     }
-    
+
     /**
      * Returns a list of properties for the VCard instance with a matching identifier. Any modifications
      * to this list will not affect the list referenced by the VCard instance.
@@ -98,7 +99,7 @@ public final class VCard implements Serializable {
         }
         return Collections.unmodifiableList(matches);
     }
-    
+
     /**
      * Returns the first property found matching the specified identifier.
      * @param id a property identifier
@@ -112,7 +113,7 @@ public final class VCard implements Serializable {
         }
         return null;
     }
-    
+
     /**
      * Returns a list of non-standard properties for the VCard instance with a matching name. Any modifications
      * to this list will not affect the list referenced by the VCard instance.
@@ -128,7 +129,7 @@ public final class VCard implements Serializable {
         }
         return Collections.unmodifiableList(matches);
     }
-    
+
     /**
      * Returns the first non-standard property found matching the specified name.
      * @param name a non-standard property name
@@ -142,7 +143,7 @@ public final class VCard implements Serializable {
         }
         return null;
     }
-    
+
     /**
      * @throws ValidationException where validation fails
      */
@@ -150,14 +151,27 @@ public final class VCard implements Serializable {
         // ;A vCard object MUST include the VERSION and FN properties.
         assertOne(Property.Id.VERSION);
         assertOne(Property.Id.FN);
-        assertOne(Property.Id.N);
+        //assertOne(Property.Id.N);
         
+        boolean isKindGroup = false;
+        
+        final List<Property> properties = getProperties(Id.KIND);
+        if (properties.size() > 1) {
+            throw new ValidationException("Property [" + Id.KIND + "] must be specified zero or once");
+        } else if (properties.size() == 1) {
+        	isKindGroup = properties.iterator().next().getValue().equals(Kind.GROUP.getValue());
+        }
+
         for (Property property : getProperties()) {
+            if (!isKindGroup && (property.getId().equals(Id.MEMBER))) {
+                throw new ValidationException("Property [" + Id.MEMBER + 
+                		"] can only be specified if the KIND property value is \"group\".");
+            }
             property.validate();
         }
     }
-    
-    
+
+
     /**
      * @param propertyId
      * @throws ValidationException
@@ -168,7 +182,7 @@ public final class VCard implements Serializable {
             throw new ValidationException("Property [" + propertyId + "] must be specified once");
         }
     }
-    
+
     /**
      * @return a vCard-compliant string representation of the vCard object
      */
