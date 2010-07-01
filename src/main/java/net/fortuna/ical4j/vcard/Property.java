@@ -65,7 +65,7 @@ public abstract class Property implements Serializable {
      */
     private static final long serialVersionUID = 7813173744145071469L;
 
-    private static final String ILLEGAL_PARAMETER_MESSAGE = "Illegal parameter [{0}]";
+    protected static final String ILLEGAL_PARAMETER_MESSAGE = "Illegal parameter [{0}]";
     
     private static final String ILLEGAL_PARAMETER_COUNT_MESSAGE = "Parameter [{0}] exceeds allowable count";
     
