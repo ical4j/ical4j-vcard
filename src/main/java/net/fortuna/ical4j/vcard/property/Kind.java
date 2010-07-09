@@ -45,13 +45,13 @@ import net.fortuna.ical4j.vcard.PropertyFactory;
 
 /**
  * KIND property.
- * 
+ *
  * $Id$
- * 
+ *
  * Created on 22/08/2008
- * 
+ *
  * @author Ben
- * 
+ *
  */
 public final class Kind extends Property {
 
@@ -73,6 +73,18 @@ public final class Kind extends Property {
      */
     public static final Kind ORG = new Kind(Collections.unmodifiableList(new ArrayList<Parameter>()), "org");
 
+    /**
+     * Standard kind.
+     */
+    public static final Kind LOCATION = new Kind(
+            Collections.unmodifiableList(new ArrayList<Parameter>()), "location");
+
+    /**
+     * Standard kind.
+     */
+    public static final Kind THING = new Kind(
+            Collections.unmodifiableList(new ArrayList<Parameter>()), "thing");
+
     public static final PropertyFactory<Kind> FACTORY = new Factory();
 
     private final String value;
@@ -88,7 +100,7 @@ public final class Kind extends Property {
 
     /**
      * Factory constructor.
-     * 
+     *
      * @param params
      *            property parameters
      * @param value
