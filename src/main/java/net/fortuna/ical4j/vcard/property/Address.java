@@ -122,7 +122,7 @@ public final class Address extends Property {
      * @param params property parameters
      * @param value string representation of an address value
      */
-    public Address(List<Parameter> params, String value) {
+    public Address(List<Parameter> params, String value) throws ParseException {
         this(null, params, value);
     }
 
@@ -132,7 +132,7 @@ public final class Address extends Property {
      * @param params property parameters
      * @param value string representation of an address value
      */
-    public Address(Group group, List<Parameter> params, String value) {
+    public Address(Group group, List<Parameter> params, String value) throws ParseException {
         super(group, Id.ADR, params);
         if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
         	parseValueRelaxed(value);
@@ -143,18 +143,17 @@ public final class Address extends Property {
     
 	
 
-	private void parseValue(String value) {
+	private void parseValue(String value) throws ParseException {
     	final String[] components = value.split(";");
+        if (components.length < 6) {
+        	throw new ParseException("ADR value must have all address components", 0);
+        }
         this.poBox = components[0];
         this.extended = components[1];
         this.street = components[2];
         this.locality = components[3];
         this.region = components[4];
-        
-        // support VCARD 3.0 by allowing optional section..
-        if (components.length > 5) {
-            this.postcode = components[5];
-        }
+        this.postcode = components[5];
 
         if (components.length > 6) {
             this.country = components[6];
@@ -320,7 +319,8 @@ public final class Address extends Property {
         /**
          * {@inheritDoc}
          */
-        public Address createProperty(final List<Parameter> params, final String value) {
+        public Address createProperty(final List<Parameter> params, 
+        		                      final String value) throws ParseException {
             return new Address(params, value);
         }
 
