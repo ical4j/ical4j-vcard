@@ -43,7 +43,9 @@ package net.fortuna.ical4j.vcard.parameter
  */
 public abstract class AbstractParameterFactory extends AbstractFactory{
 
-    
+    /**
+     * {@inheritDoc}
+     */
     public boolean isLeaf() {
         return true;
     }

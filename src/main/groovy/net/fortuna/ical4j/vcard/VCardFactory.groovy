@@ -45,7 +45,7 @@ public class VCardFactory extends AbstractFactory{
 
     public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         VCard card
-        if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, VCard.class)) {
+        if (FactoryBuilderSupport.checkValueIsType(value, name, VCard.class)) {
             card = (VCard) value
         }
         else {
