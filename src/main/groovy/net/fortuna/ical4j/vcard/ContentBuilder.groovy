@@ -46,8 +46,15 @@ import net.fortuna.ical4j.vcard.property.*
  */
 public class ContentBuilder extends FactoryBuilderSupport {
 
-    public ContentBuilder() {
+    public ContentBuilder(boolean init = true) {
+        super(init)
+    }
+    
+    def registerVCard() {
         registerFactory('vcard', new VCardFactory())
+    }
+    
+    def registerProperties() {
         // properties..
         registerFactory('address', new AddressFactory())
         registerFactory('agent', new AgentFactory())
@@ -90,6 +97,9 @@ public class ContentBuilder extends FactoryBuilderSupport {
         registerFactory('uid', new UidFactory())
         registerFactory('url', new UrlFactory())
         registerFactory('version', new VersionFactory())
+    }
+    
+    def registerParameters() {
         // parameters..
         registerFactory('encoding', new EncodingFactory())
         registerFactory('language', new LanguageFactory())
