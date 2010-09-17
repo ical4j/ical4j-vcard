@@ -33,6 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.List;
 
@@ -173,12 +174,13 @@ public final class Telephone extends Property {
     @Override
     public void validate() throws ValidationException {
         for (Parameter param : getParameters()) {
-            try {
-                assertTypeParameter(param);
-            }
-            catch (ValidationException ve) {
-                assertPidParameter(param);
-            }
+        	Parameter.Id id = param.getId();
+
+        	if (!Parameter.Id.PID.equals(id) &&
+       			!Parameter.Id.PREF.equals(id) &&
+       			!Parameter.Id.TYPE.equals(id)) {
+        		throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, id));
+        	}
         }
     }
 
