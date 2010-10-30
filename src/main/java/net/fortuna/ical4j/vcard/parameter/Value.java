@@ -57,14 +57,69 @@ public final class Value extends Parameter {
     public static final Value TEXT = new Value("text");
 
     /**
+     * URI value parameter.
+     */
+    public static final Value URI = new Value("uri");
+
+    /**
+     * Date value parameter.
+     */
+    public static final Value DATE = new Value("date");
+
+    /**
+     * Time value parameter.
+     */
+    public static final Value TIME = new Value("time");
+
+    /**
+     * date-time value parameter.
+     */
+    public static final Value DATE_TIME = new Value("date-time");
+
+    /**
+     * date-and-or-time value parameter.
+     */
+    public static final Value DATE_AND_OR_TIME = new Value("date-and-or-time");
+
+    /**
+     * Timestamp value parameter.
+     */
+    public static final Value TIMESTAMP = new Value("timestamp");
+
+    /**
+     * Boolean value parameter.
+     */
+    public static final Value BOOLEAN = new Value("boolean");
+
+    /**
+     * Integer value parameter.
+     */
+    public static final Value INTEGER = new Value("integer");
+
+    /**
+     * Float value parameter.
+     */
+    public static final Value FLOAT = new Value("float");
+
+    /**
      * Binary value parameter.
      */
     public static final Value BINARY = new Value("binary");
 
     /**
-     * URI value parameter.
+     * language-tag value parameter.
      */
-    public static final Value URI = new Value("uri");
+    public static final Value LANGUAGE_TAG = new Value("language-tag");
+
+    /**
+     * utc-offset value parameter.
+     */
+    public static final Value UTC_OFFSET = new Value("utc-offset");
+
+    /** Resource
+     * duration value parameter.
+     */
+    public static final Value DURATION = new Value("duration");
     
     public static final ParameterFactory<Value> FACTORY = new Factory();
     
@@ -90,15 +145,52 @@ public final class Value extends Parameter {
         public Value createParameter(final String value) {
             
             Value parameter = null;
-            if (Value.BINARY.getValue().equals(value)) {
-                parameter = Value.BINARY;
-            }
-            else if (Value.TEXT.getValue().equals(value)) {
+            
+            if (Value.TEXT.getValue().equals(value)) {
                 parameter = Value.TEXT;
             }
             else if (Value.URI.getValue().equals(value)) {
                 parameter = Value.URI;
+            } 
+            else if (Value.DATE.getValue().equals(value)) {
+                parameter = Value.DATE;
+            } 
+            else if (Value.TIME.getValue().equals(value)) {
+                parameter = Value.TIME;
+            } 
+            else if (Value.DATE_TIME.getValue().equals(value)) {
+                parameter = Value.DATE_TIME;
+            } 
+            else if (Value.DATE_AND_OR_TIME.getValue().equals(value)) {
+                parameter = Value.DATE_AND_OR_TIME;
+            } 
+            else if (Value.TIMESTAMP.getValue().equals(value)) {
+                parameter = Value.TIMESTAMP;
+            } 
+            else if (Value.BOOLEAN.getValue().equals(value)) {
+                parameter = Value.BOOLEAN;
+            } 
+            else if (Value.INTEGER.getValue().equals(value)) {
+                parameter = Value.INTEGER;
+            } 
+            else if (Value.FLOAT.getValue().equals(value)) {
+                parameter = Value.FLOAT;
+            } 
+            else if (Value.BINARY.getValue().equals(value)) {
+                parameter = Value.BINARY;
             }
+            else if (Value.LANGUAGE_TAG.getValue().equals(value)) {
+                parameter = Value.LANGUAGE_TAG;
+            } 
+            else if (Value.DURATION.getValue().equals(value)) {
+                parameter = Value.DURATION;
+            } 
+            
+            // Resource 
+            
+            else if (Value.UTC_OFFSET.getValue().equals(value)) {
+                parameter = Value.UTC_OFFSET;
+            } 
             else {
                 parameter = new Value(value);
             }
