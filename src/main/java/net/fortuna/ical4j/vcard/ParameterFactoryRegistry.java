@@ -35,16 +35,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import net.fortuna.ical4j.vcard.Parameter.Id;
+import net.fortuna.ical4j.vcard.parameter.Altid;
+import net.fortuna.ical4j.vcard.parameter.Calscale;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
+import net.fortuna.ical4j.vcard.parameter.Fmttype;
+import net.fortuna.ical4j.vcard.parameter.Geo;
 import net.fortuna.ical4j.vcard.parameter.Language;
 import net.fortuna.ical4j.vcard.parameter.Pid;
 import net.fortuna.ical4j.vcard.parameter.Pref;
+import net.fortuna.ical4j.vcard.parameter.SortAs;
 import net.fortuna.ical4j.vcard.parameter.Type;
+import net.fortuna.ical4j.vcard.parameter.Tz;
 import net.fortuna.ical4j.vcard.parameter.Value;
+import net.fortuna.ical4j.vcard.parameter.Version;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * A registry for standard and non-standard parameter factories.
@@ -61,7 +68,7 @@ public class ParameterFactoryRegistry {
     private static final Log LOG = LogFactory.getLog(ParameterFactoryRegistry.class);
     
     private final Map<Id, ParameterFactory<? extends Parameter>> defaultFactories;
-
+    
     private final Map<String, ParameterFactory<? extends Parameter>> extendedFactories;
     
     /**
@@ -69,12 +76,19 @@ public class ParameterFactoryRegistry {
      */
     public ParameterFactoryRegistry() {
         defaultFactories = new HashMap<Id, ParameterFactory<? extends Parameter>>();
+        defaultFactories.put(Parameter.Id.ALTID, Altid.FACTORY);
+        defaultFactories.put(Parameter.Id.CALSCALE, Calscale.FACTORY);
         defaultFactories.put(Parameter.Id.ENCODING, Encoding.FACTORY);
+        defaultFactories.put(Parameter.Id.FMTTYPE, Fmttype.FACTORY);
+        defaultFactories.put(Parameter.Id.GEO, Geo.FACTORY);
         defaultFactories.put(Parameter.Id.LANGUAGE, Language.FACTORY);
         defaultFactories.put(Parameter.Id.PID, Pid.FACTORY);
-        defaultFactories.put(Parameter.Id.TYPE, Type.FACTORY);
-        defaultFactories.put(Parameter.Id.VALUE, Value.FACTORY);
         defaultFactories.put(Parameter.Id.PREF, Pref.FACTORY);
+        defaultFactories.put(Parameter.Id.SORT_AS, SortAs.FACTORY);
+        defaultFactories.put(Parameter.Id.TYPE, Type.FACTORY);
+        defaultFactories.put(Parameter.Id.TZ, Tz.FACTORY);
+        defaultFactories.put(Parameter.Id.VALUE, Value.FACTORY);
+        defaultFactories.put(Parameter.Id.VERSION, Version.FACTORY);
         
         extendedFactories = new ConcurrentHashMap<String, ParameterFactory<? extends Parameter>>();
     }
@@ -88,7 +102,9 @@ public class ParameterFactoryRegistry {
             return defaultFactories.get(Id.valueOf(value));
         }
         catch (Exception e) {
-            LOG.info("Not a default parameter: [" + value + "]");
+        	if (LOG.isDebugEnabled()) {
+        		LOG.debug("Not a default parameter: [" + value + "]");
+        	}
         }
         return extendedFactories.get(value);
     }
