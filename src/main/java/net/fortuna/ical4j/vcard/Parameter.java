@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
+
 import java.io.Serializable;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -52,6 +54,8 @@ public abstract class Parameter implements Serializable {
      * 
      */
     private static final long serialVersionUID = 6858428041113700722L;
+    
+//    private static Map<String, Id> idFromPname = new HashMap<String, Id>();
 
     /**
      * Enumeration of parameter identifiers.
@@ -68,11 +72,20 @@ public abstract class Parameter implements Serializable {
          * Encoding parameter identifier.
          */
         ENCODING,
-        
         /**
          * Value parameter identifier.
          */
         VALUE, 
+        
+        /**
+         * Pref parameter identifier.
+         */
+        PREF,
+        
+        /**
+         * Altid parameter identifier.
+         */
+        ALTID, 
         
         /**
          * PID parameter identifier.
@@ -85,22 +98,72 @@ public abstract class Parameter implements Serializable {
         TYPE,
         
         /**
-         * Pref parameter identifier.
+         * Calscale parameter identifier.
          */
-        PREF,
+        CALSCALE, 
         
+        /**
+         * Sort-as parameter identifier.
+         */
+        SORT_AS("SORT-AS"), 
+        
+        /**
+         * Geo parameter identifier.
+         */
+        GEO, 
+        
+        /**
+         * Tz parameter identifier.
+         */
+        TZ, 
+        
+        /**
+         * Version parameter identifier.
+         */
+        VERSION, 
+        
+        /**
+         * Fmttype parameter identifier.
+         */
+        FMTTYPE,
+
         // 7.10. Extended Properties and Parameters
         
         /**
          * Non-standard parameter identifier.
          */
-        EXTENDED
+        EXTENDED;
+        
+        private String pname;
+
+        private Id() {
+//        	pname = this.name();
+//        	idFromPname.put(pname, this);
+        	this(null);
+        }
+        
+        private Id(String pname) {
+        	this.pname = pname;
+//        	idFromPname.put(pname, this);
+        }
+        
+        public String getPname() {
+//        	return pname;
+            if (isNotEmpty(pname)) {
+                return pname;
+            }
+            return toString();
+        }
     };
     
     private final Id id;
     
     String extendedName = "";
     
+    
+//    public static Id getId(String pname) {
+//    	return idFromPname.get(pname);
+//    }
     /**
      * @param extendedName a non-standard parameter id
      */
@@ -155,12 +218,50 @@ public abstract class Parameter implements Serializable {
             b.append(extendedName);
         }
         else {
-            b.append(id);
+            b.append(id.getPname());
         }
+/*
+        if (this instanceof MultiValued) {
+        	MultiValued mvp = (MultiValued)this;
+        	
+        	List<?> l = mvp.getValues();
+        	String delim = "";
+        	
+        	if (l != null) {
+    			b.append('=');
+        		for (Object o: l) {
+        			String v = String.valueOf(o);
+        			
+        			b.append(delim);
+        			addVal(b, v);
+        			delim=",";
+        		}
+        	}
+        } else {
+        	String v = getValue();
+        
+        	if (v != null) {
+        		b.append('=');
+        		addVal(b, v);
+            }
+        }
+*/
         if (getValue() != null) {
             b.append('=');
             b.append(getValue());
         }
         return b.toString();
     }
+/*    
+    private void addVal(StringBuilder b, 
+    		String v) {
+        if (v.contains(";") || v.contains(":") || v.contains(",")) {
+            b.append('"');
+            b.append(v);
+            b.append('"');
+        } else {
+            b.append(v);
+        }
+    }
+*/
 }
