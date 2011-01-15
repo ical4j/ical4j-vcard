@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard.property;
 
 import static net.fortuna.ical4j.util.Strings.escape;
+import static net.fortuna.ical4j.util.Strings.unescape;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 
 import java.net.URISyntaxException;
@@ -135,9 +136,9 @@ public final class Address extends Property {
     public Address(Group group, List<Parameter> params, String value) throws ParseException {
         super(group, Id.ADR, params);
         if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
-        	parseValueRelaxed(value);
+        	parseValueRelaxed(unescape(value));
         } else {
-        	parseValue(value);
+        	parseValue(unescape(value));
         }
     }
     
