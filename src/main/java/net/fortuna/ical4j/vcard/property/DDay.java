@@ -92,10 +92,9 @@ public final class DDay extends Property implements Escapable {
      * @throws ParseException where the specified value is not a valid date representation
      */
     public DDay(List<Parameter> params, String value) throws ParseException {
-        super(Id.DDAY);
+        super(Id.DDAY, params);
         if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
             this.text = value;
-            getParameters().add(Value.TEXT);
         }
         else {
             try {
