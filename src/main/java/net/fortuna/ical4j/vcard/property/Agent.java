@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import static net.fortuna.ical4j.util.Strings.unescape;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -38,8 +40,10 @@ import java.util.List;
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 /**
@@ -53,6 +57,8 @@ import net.fortuna.ical4j.vcard.parameter.Value;
  *
  */
 public final class Agent extends Property implements Escapable {
+    
+    public static final PropertyFactory<Agent> FACTORY = new Factory();
 
     /**
      * 
@@ -133,6 +139,25 @@ public final class Agent extends Property implements Escapable {
             catch (ValidationException ve) {
                 assertPidParameter(param);
             }
+        }
+    }
+    
+    private static class Factory implements PropertyFactory<Agent> {
+
+        /**
+         * {@inheritDoc}
+         */
+        public Agent createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
+            return new Agent(params, unescape(value));
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public Agent createProperty(final Group group, final List<Parameter> params, final String value)
+                throws URISyntaxException {
+            // TODO Auto-generated method stub
+            return null;
         }
     }
 

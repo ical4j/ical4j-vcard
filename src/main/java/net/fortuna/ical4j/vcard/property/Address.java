@@ -136,9 +136,9 @@ public final class Address extends Property {
     public Address(Group group, List<Parameter> params, String value) throws ParseException {
         super(group, Id.ADR, params);
         if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
-        	parseValueRelaxed(unescape(value));
+        	parseValueRelaxed(value);
         } else {
-        	parseValue(unescape(value));
+        	parseValue(value);
         }
     }
     
@@ -322,7 +322,7 @@ public final class Address extends Property {
          */
         public Address createProperty(final List<Parameter> params, 
         		                      final String value) throws ParseException {
-            return new Address(params, value);
+            return new Address(params, unescape(value));
         }
 
         /**
@@ -330,7 +330,7 @@ public final class Address extends Property {
          */
         public Address createProperty(final Group group, final List<Parameter> params, final String value)
                 throws URISyntaxException, ParseException {
-            return new Address(group, params, value);
+            return new Address(group, params, unescape(value));
         }
     }
 }

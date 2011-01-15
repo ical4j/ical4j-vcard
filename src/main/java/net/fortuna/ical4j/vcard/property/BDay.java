@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import static net.fortuna.ical4j.util.Strings.unescape;
+
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
@@ -163,7 +165,7 @@ public final class BDay extends Property implements Escapable {
          * {@inheritDoc}
          */
         public BDay createProperty(final List<Parameter> params, final String value) throws ParseException {
-            return new BDay(params, value);
+            return new BDay(params, unescape(value));
         }
 
         /**

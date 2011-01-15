@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import static net.fortuna.ical4j.util.Strings.unescape;
+
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
@@ -108,7 +110,7 @@ public final class Title extends Property implements Escapable {
          * {@inheritDoc}
          */
         public Title createProperty(final List<Parameter> params, final String value) {
-            return new Title(params, value);
+            return new Title(params, unescape(value));
         }
 
         /**
