@@ -37,10 +37,10 @@ class AddressSpec extends Specification {
 
 	def 'validate string representation'() {
 		expect: 'derived string representation equals expected'
-		address.toString() == expectedString
+		Address.FACTORY.createProperty([], value).toString() == expectedString
 
 		where:
-		address				| expectedString
-		new Address([], ';;41 Roxbury Work\\nOne Street;Commack;NY;171725;Argentina')	| 'ADR:;;41 Roxbury Work\\nOne Street;Commack;NY;171725;Argentina;\r\n'
+		value															| expectedString
+		';;41 Roxbury Work\\nOne Street;Commack;NY;171725;Argentina'	| 'ADR:;;41 Roxbury Work\\nOne Street;Commack;NY;171725;Argentina;\r\n'
 	}
 }
