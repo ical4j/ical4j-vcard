@@ -35,7 +35,7 @@ import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.CategoryList;
+import net.fortuna.ical4j.model.TextList;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
@@ -58,7 +58,7 @@ public final class Categories extends Property {
 
     private static final long serialVersionUID = -3233034210546002366L;
     
-    private final CategoryList categories;
+    private final TextList categories;
     
     /**
      * @param categories one or more category values
@@ -68,7 +68,7 @@ public final class Categories extends Property {
         if (categories.length == 0) {
             throw new IllegalArgumentException("Must specify at least category value");
         }
-        this.categories = new CategoryList(categories);
+        this.categories = new TextList(categories);
     }
 
     /**
@@ -78,13 +78,13 @@ public final class Categories extends Property {
      */
     public Categories(List<Parameter> params, String value) {
         super(Id.CATEGORIES);
-        this.categories = new CategoryList(value);
+        this.categories = new TextList(value);
     }
     
     /**
      * @return the categories
      */
-    public CategoryList getCategories() {
+    public TextList getCategories() {
         return categories;
     }
 
