@@ -37,6 +37,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,6 +62,8 @@ import net.fortuna.ical4j.util.CompatibilityHints;
  *
  */
 public final class VCardBuilder {
+
+    private static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
     private static final Pattern VCARD_BEGIN = Pattern.compile("^BEGIN:VCARD$", Pattern.CASE_INSENSITIVE);
     
@@ -98,7 +101,7 @@ public final class VCardBuilder {
      * @param in an input stream providing vCard data
      */
     public VCardBuilder(InputStream in) {
-        this(new InputStreamReader(in));
+        this(new InputStreamReader(in, DEFAULT_CHARSET));
     }
     
     /**
