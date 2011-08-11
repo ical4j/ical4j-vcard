@@ -126,7 +126,7 @@ public class Group implements Serializable {
     public final String toString() {
         final StringBuilder b = new StringBuilder();
         if (Id.EXTENDED.equals(id)) {
-            b.append("X-");
+//            b.append("X-");
             b.append(extendedName);
         }
         else {

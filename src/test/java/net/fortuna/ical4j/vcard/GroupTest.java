@@ -78,7 +78,7 @@ public class GroupTest {
         List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[] {Group.HOME, "HOME", new Group(Group.Id.HOME)});
         params.add(new Object[] {Group.WORK, "WORK", new Group(Group.Id.WORK)});
-        params.add(new Object[] {new Group("test"), "X-test", new Group("test")});
+        params.add(new Object[] {new Group("test"), "test", new Group("test")});
         return params;
     }
 }
