@@ -78,8 +78,8 @@ public final class VCardBuilder {
      * This is supposed to cover following cases
      */
     static final Pattern PROPERTY_NAME_PATTERN = Pattern.compile(
-       "^(([a-zA-Z-]+\\.)?[a-zA-Z]+(?=[;:]))|" +
-        "(([a-zA-Z-]+\\.)?[Xx]-[a-zA-Z-]+(?=[;:]))");
+       "^(([a-zA-Z-\\d]+\\.)?[a-zA-Z]+(?=[;:]))|" +
+        "(([a-zA-Z-\\d]+\\.)?[Xx]-[a-zA-Z-]+(?=[;:]))");
     
     private static final Pattern PROPERTY_VALUE_PATTERN = Pattern.compile("(?<=[:]).*$");
 
