@@ -52,14 +52,20 @@ public class KindFactory extends AbstractPropertyFactory{
         else {
             String kindValue = attributes.remove('value')
             if (kindValue != null) {
-                if (Kind.GROUP.getValue().equals(kindValue)) {
+                if (Kind.GROUP.getValue().equalsIgnoreCase(kindValue)) {
                     kind = Kind.GROUP
                 }
-                else if (Kind.INDIVIDUAL.getValue().equals(kindValue)) {
+                else if (Kind.INDIVIDUAL.getValue().equalsIgnoreCase(kindValue)) {
                     kind = Kind.INDIVIDUAL
                 }
-                else if (Kind.ORG.getValue().equals(kindValue)) {
+                else if (Kind.ORG.getValue().equalsIgnoreCase(kindValue)) {
                     kind = Kind.ORG
+                }
+                else if (Kind.LOCATION.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = Kind.LOCATION
+                }
+                else if (Kind.THING.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = Kind.THING
                 }
                 else {
                     attributes.put('value', kindValue)
@@ -67,14 +73,20 @@ public class KindFactory extends AbstractPropertyFactory{
                 }
             }
             else {
-                if (Kind.GROUP.getValue().equals(value)) {
+                if (Kind.GROUP.getValue().equalsIgnoreCase(value)) {
                     kind = Kind.GROUP
                 }
-                else if (Kind.INDIVIDUAL.getValue().equals(value)) {
+                else if (Kind.INDIVIDUAL.getValue().equalsIgnoreCase(value)) {
                     kind = Kind.INDIVIDUAL
                 }
-                else if (Kind.ORG.getValue().equals(value)) {
+                else if (Kind.ORG.getValue().equalsIgnoreCase(value)) {
                     kind = Kind.ORG
+                }
+                else if (Kind.LOCATION.getValue().equalsIgnoreCase(value)) {
+                    kind = Kind.LOCATION
+                }
+                else if (Kind.THING.getValue().equalsIgnoreCase(value)) {
+                    kind = Kind.THING
                 }
                 else {
                     kind = super.newInstance(builder, name, value, attributes);
