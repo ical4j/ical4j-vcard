@@ -85,10 +85,15 @@ class ContentBuilderSpec extends Specification {
 		where:
 		value			| expectedKind
 		'GROUP'			| Kind.GROUP
+		'group'			| Kind.GROUP
 		'INDIVIDUAL'	| Kind.INDIVIDUAL
+		'individual'	| Kind.INDIVIDUAL
 		'LOCATION'		| Kind.LOCATION
+		'location'		| Kind.LOCATION
 		'ORG'			| Kind.ORG
+		'org'			| Kind.ORG
 		'THING'			| Kind.THING
+		'thing'			| Kind.THING
 	}
 	
 	def 'build VERSION property and assert the result'() {
@@ -107,6 +112,6 @@ class ContentBuilderSpec extends Specification {
 		where:
 		value	| expectedEncoding
 		'b'		| Encoding.B
-		'B'		| new Encoding('B')
+		'B'		| Encoding.B
 	}
 }

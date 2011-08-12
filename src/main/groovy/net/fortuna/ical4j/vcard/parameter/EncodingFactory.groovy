@@ -47,7 +47,7 @@ public class EncodingFactory extends AbstractParameterFactory {
         if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, Encoding.class)) {
             encoding = (Encoding) value
         }
-        else if (Encoding.B.getValue().equals(value)) {
+        else if (Encoding.B.getValue().equalsIgnoreCase(value)) {
             encoding = Encoding.B
         }
         else {
