@@ -45,12 +45,25 @@ import spock.lang.Specification;
 class VCardBuilderSpec extends Specification {
 
 	def 'verify group parsing'() {
-		setup:
+		setup: 'create custom group'
 		GroupRegistry groupRegistry = new GroupRegistry()
 		groupRegistry.register('ITEM1', new Group('item1'))
 		
+		and: 'parse input file'
 		InputStreamReader input = [VCardBuilderSpec.getResourceAsStream('/samples/valid/vcard-group.vcf')]
-		VCardBuilder builder = new VCardBuilder(input, groupRegistry, new PropertyFactoryRegistry(), new ParameterFactoryRegistry())
+		VCardBuilder builder = [input, groupRegistry, new PropertyFactoryRegistry(), new ParameterFactoryRegistry()]
+		VCard vcard = builder.build()
+		
+		expect:
+		vcard.properties.size() == 2
+		
+		println vcard
+	}
+	
+	def 'verify URL parsing'() {
+		setup: 'parse input file'
+		InputStreamReader input = [VCardBuilderSpec.getResourceAsStream('/samples/valid/vcard-url.vcf')]
+		VCardBuilder builder = [input]
 		VCard vcard = builder.build()
 		
 		expect:
