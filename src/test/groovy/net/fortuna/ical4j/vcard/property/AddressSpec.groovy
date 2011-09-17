@@ -42,5 +42,6 @@ class AddressSpec extends Specification {
 		where:
 		value															| expectedString
 		';;41 Roxbury Work\\nOne Street;Commack;NY;171725;Argentina'	| 'ADR:;;41 Roxbury Work\\nOne Street;Commack;NY;171725;Argentina;\r\n'
+		';;Lierstr. 20a;München;;80639;Deutschland'						| 'ADR:;;Lierstr. 20a;München;;80639;Deutschland;\r\n'
 	}
 }
