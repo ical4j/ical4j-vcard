@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>modularity-parent</artifactId>
 		<groupId>net.modularity</groupId>
-		<version>1.0.11-SNAPSHOT</version>
+		<version>1.0.11</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.fortuna.ical4j</groupId>
@@ -27,9 +27,9 @@
 	</licenses>
 	
 	<scm>
-		<connection>scm:cvs:pserver:anonymous:@ical4j.cvs.sourceforge.net:/cvsroot/ical4j:ical4j-vcard</connection>
-		<developerConnection>scm:cvs:ext:fortuna@ical4j.cvs.sourceforge.net:/cvsroot/ical4j:ical4j-vcard</developerConnection>
-		<url>http://ical4j.cvs.sourceforge.net/ical4j/ical4j-vcard</url>
+		<connection>scm:hg:http://ical4j.hg.sourceforge.net:8000/hgroot/ical4j/ical4j-vcard</connection>
+		<developerConnection>scm:hg:ssh://ical4j.hg.sourceforge.net/hgroot/ical4j/ical4j-vcard</developerConnection>
+		<url>http://ical4j.hg.sourceforge.net/hgweb/ical4j/ical4j-vcard/</url>
   </scm>
 	
 	<build>
