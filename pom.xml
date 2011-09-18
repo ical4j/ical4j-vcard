@@ -10,7 +10,7 @@
 	<artifactId>ical4j-vcard</artifactId>
 	<packaging>bundle</packaging>
 	<name>iCal4j VCard</name>
-	<version>0.9.3-SNAPSHOT</version>
+	<version>0.9.3a-SNAPSHOT</version>
 	<description>Support for the vCard specification</description>
 	<url>http://ical4j.sourceforge.net</url>
 	<issueManagement>
