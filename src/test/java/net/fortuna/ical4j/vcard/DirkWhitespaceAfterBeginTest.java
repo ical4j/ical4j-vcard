@@ -36,6 +36,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 
 import net.fortuna.ical4j.data.ParserException;
@@ -89,9 +90,9 @@ public class DirkWhitespaceAfterBeginTest {
 	@Test
 	public void testDirkExampleWhitespaceAfterBegin() throws IOException, ParserException,
 			ValidationException, DecoderException {
-		File file = new File(
-				"./src/test/resources/samples/invalid/vcard-dirk-whitespaceafterbegin.vcf");
-		Reader reader = new FileReader(file);
+		
+		final Reader reader = new InputStreamReader(getClass().getResourceAsStream(
+				"/samples/invalid/vcard-dirk-whitespaceafterbegin.vcf"));
 		GroupRegistry groupRegistry = new GroupRegistry();
 		PropertyFactoryRegistry propReg = new PropertyFactoryRegistry();
 		ParameterFactoryRegistry parReg = new ParameterFactoryRegistry();
