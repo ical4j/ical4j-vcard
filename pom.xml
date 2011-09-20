@@ -32,6 +32,15 @@
 		<url>http://ical4j.hg.sourceforge.net/hgweb/ical4j/ical4j-vcard/</url>
   </scm>
 	
+	<distributionManagement>
+	   <relocation>
+	       <artifactId>ical4j-vcard</artifactId>
+	       <groupId>org.mnode.ical4j</groupId>
+	       <version>0.9.4</version>
+	       <message>Group ID changed for upload to Maven central</message>
+	   </relocation>
+	</distributionManagement>
+	
 	<build>
 		<plugins>
             <plugin>
