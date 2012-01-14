@@ -18,11 +18,10 @@
 		<url>https://sourceforge.net/tracker/?group_id=107024</url>
 	</issueManagement>
 	<inceptionYear>2008</inceptionYear>
-	
 	<licenses>
 		<license>
-			<name>iCal4j - License</name>
-			<url>LICENSE</url>
+            <name>iCal4j - License</name>
+			<url>${scm.url}/raw-file/tip/LICENSE</url>
 		</license>
 	</licenses>
 	
