@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>mnode-parent</artifactId>
 		<groupId>org.mnode</groupId>
-		<version>1.5</version>
+		<version>1.6</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.mnode.ical4j</groupId>
@@ -28,14 +28,14 @@
 	<scm>
 		<connection>scm:hg:http://ical4j.hg.sourceforge.net:8000/hgroot/ical4j/ical4j-vcard</connection>
 		<developerConnection>scm:hg:ssh://fortuna@ical4j.hg.sourceforge.net/hgroot/ical4j/ical4j-vcard</developerConnection>
-		<url>http://ical4j.hg.sourceforge.net/hgweb/ical4j/ical4j-vcard/</url>
+		<url>http://ical4j.hg.sourceforge.net/hgweb/ical4j/ical4j-vcard</url>
   </scm>
 	
 	<build>
 		<plugins>
             <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>gmaven-plugin</artifactId>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
             </plugin>
             
 			<plugin>   
