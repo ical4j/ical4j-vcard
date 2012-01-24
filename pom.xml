@@ -77,23 +77,22 @@
 			<artifactId>ical4j</artifactId>
 			<version>[1.0.2,2.0-beta1-SNAPSHOT)</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>[1.4,)</version>
 		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<optional>true</optional>
+		</dependency>
 		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<version>4.10</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-		</dependency>
-		
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
