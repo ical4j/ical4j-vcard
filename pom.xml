@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>mnode-parent</artifactId>
 		<groupId>org.mnode</groupId>
-		<version>1.11</version>
+		<version>1.12</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.mnode.ical4j</groupId>
@@ -48,6 +48,26 @@
 						<Import-Package>net.fortuna.ical4j.*,org.apache.commons.lang.*,org.apache.commons.logging,*;resolution:=optional</Import-Package>
 					</instructions>
 				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-shared-resources</id>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<outputDirectory>${project.build.directory}/mnode-tools</outputDirectory>
+							<includeArtifacIds>mnode-tools</includeArtifacIds>
+							<includeGroupIds>${project.parent.groupId}</includeGroupIds>
+							<excludeTransitive>true</excludeTransitive>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>
@@ -98,6 +118,16 @@
             <artifactId>spock-core</artifactId>
             <scope>test</scope>
         </dependency>
+		
+		<!-- Shared tool resources -->
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>mnode-tools</artifactId>
+            <version>${project.parent.version}</version>
+            <classifier>resources</classifier>
+            <type>zip</type>
+            <scope>provided</scope>
+        </dependency>
 	</dependencies>
 
 	<repositories>
@@ -111,7 +141,7 @@
 	            <groupId>org.apache.maven.plugins</groupId>
 	            <artifactId>maven-checkstyle-plugin</artifactId>
 	            <configuration>
-	                <configLocation>http://svn.mnode.org/tools/checkstyle/mnode_checks.xml</configLocation>
+	                <configLocation>${project.build.directory}/mnode-tools/checkstyle/mnode_checks.xml</configLocation>
                     <suppressionsLocation>etc/checkstyle-suppressions.xml</suppressionsLocation>
                     <suppressionsFileExpression>suppressions.file.mnode</suppressionsFileExpression>
                     <propertyExpansion>checkstyle.suppressions.file=etc/checkstyle-suppressions.xml</propertyExpansion>
