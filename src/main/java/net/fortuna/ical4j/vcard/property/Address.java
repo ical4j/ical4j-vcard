@@ -163,7 +163,7 @@ public final class Address extends Property {
 	
 	private void parseValueRelaxed(String value) {
 		final String[] components = value.split(";");
-		int length = components.length;
+		final int length = components.length;
 		if (length >= 1) {
 			this.poBox = components[0];
 		} else {

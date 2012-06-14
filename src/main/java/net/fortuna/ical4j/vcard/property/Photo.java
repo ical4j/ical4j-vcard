@@ -115,7 +115,7 @@ public final class Photo extends Property {
      */
     public Photo(List<Parameter> params, String value) throws URISyntaxException, DecoderException {
         super(Id.PHOTO, params);
-        Parameter valueParameter = getParameter(Parameter.Id.VALUE);
+        final Parameter valueParameter = getParameter(Parameter.Id.VALUE);
         
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
@@ -151,19 +151,20 @@ public final class Photo extends Property {
      */
     @Override
     public String getValue() {
+    	String stringValue = null;
         if (uri != null) {
-            return Strings.valueOf(uri);
+        	stringValue = Strings.valueOf(uri);
         }
         else if (binary != null) {
             try {
                 final BinaryEncoder encoder = new Base64();
-                return new String(encoder.encode(binary));
+                stringValue = new String(encoder.encode(binary));
             }
             catch (EncoderException ee) {
                 log.error("Error encoding binary data", ee);
             }
         }
-        return null;
+        return stringValue;
     }
 
     /**

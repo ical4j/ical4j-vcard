@@ -80,16 +80,19 @@ public class ValueEqualsURLTest {
 
 		VCard card = builder.build();
 		Photo photo = (Photo)card.getProperty(Property.Id.PHOTO);
-		assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.jpg",photo.getUri().toString());
+		assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.jpg",
+				photo.getUri().toString());
 		
 		Sound sound = (Sound)card.getProperty(Property.Id.SOUND);
-		assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.wav",sound.getUri().toString());
+		assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.wav",
+				sound.getUri().toString());
 		
 		Logo logo = (Logo)card.getProperty(Property.Id.LOGO);
 		assertEquals("http://www.dfki.de/web/logo.jpg", logo.getUri().toString());
 		
 		Key key = (Key)card.getProperty(Property.Id.KEY);
-		assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.key",key.getValue().toString());
+		assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.key",
+				key.getValue().toString());
 		
 	}	
 

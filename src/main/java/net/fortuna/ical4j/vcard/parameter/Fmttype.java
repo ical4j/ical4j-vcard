@@ -63,7 +63,7 @@ public final class Fmttype extends Parameter {
     public Fmttype(String value) throws ParseException {
         super(Id.FMTTYPE);
         this.value = value;
-        String[] segments = value.split("/", -1);
+        final String[] segments = value.split("/", -1);
         
         if (segments.length != 2) {
         	throw new ParseException("Value must be type \"/\" subtype", 0);

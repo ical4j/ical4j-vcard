@@ -59,7 +59,8 @@ public class TelephoneTest extends PropertyTest {
         final List<Parameter> uriParams = new ArrayList<Parameter>();
         uriParams.add(Value.URI);
         
-        params.add(new Object[] { new Telephone(URI.create("")), Id.TEL.toString(), "", new Parameter[] { Value.URI } });
+        params.add(new Object[] { new Telephone(URI.create("")), Id.TEL.toString(), "",
+        		new Parameter[] { Value.URI } });
         params.add(new Object[] { new Telephone(URI.create(""), Type.HOME), Id.TEL.toString(), "",
                 new Parameter[] { Value.URI, Type.HOME } });
         params.add(new Object[] { new Telephone(uriParams, "+1 555 3423 2342"), Id.TEL.toString(),

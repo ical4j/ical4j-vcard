@@ -174,7 +174,7 @@ public final class Telephone extends Property {
     @Override
     public void validate() throws ValidationException {
         for (Parameter param : getParameters()) {
-        	Parameter.Id id = param.getId();
+        	final Parameter.Id id = param.getId();
 
         	if (!Parameter.Id.PID.equals(id) &&
        			!Parameter.Id.PREF.equals(id) &&

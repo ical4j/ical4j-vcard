@@ -126,7 +126,7 @@ public final class Key extends Property {
      */
     public Key(Group group, List<Parameter> params, String value) throws DecoderException, URISyntaxException {
         super(group, Id.KEY, params);
-        Parameter valueParameter = getParameter(Parameter.Id.VALUE);
+        final Parameter valueParameter = getParameter(Parameter.Id.VALUE);
         
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
@@ -155,7 +155,8 @@ public final class Key extends Property {
      */
     @Override
     public String getValue() {
-    	Parameter valueParameter = getParameter(Parameter.Id.VALUE);
+    	final Parameter valueParameter = getParameter(Parameter.Id.VALUE);
+        String stringValue = null;
         
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
@@ -164,18 +165,18 @@ public final class Key extends Property {
         	valueParameter != null && 
         	     CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) && 
         	     "URL".equalsIgnoreCase(valueParameter.getValue())) {
-            return Strings.valueOf(uri);
+            stringValue = Strings.valueOf(uri);
         }
         else if (binary != null) {
             try {
                 final BinaryEncoder encoder = new Base64();
-                return new String(encoder.encode(binary));
+                stringValue = new String(encoder.encode(binary));
             }
             catch (EncoderException ee) {
                 log.error("Error encoding binary data", ee);
             }
         }
-        return null;
+        return stringValue;
     }
 
     /**
