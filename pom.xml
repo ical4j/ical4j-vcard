@@ -140,7 +140,7 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.1</version>
+			<version>2.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
@@ -169,9 +169,6 @@
             <scope>provided</scope>
         </dependency>
 	</dependencies>
-
-	<repositories>
-	</repositories>
 
 	<reporting>
 		<plugins>
