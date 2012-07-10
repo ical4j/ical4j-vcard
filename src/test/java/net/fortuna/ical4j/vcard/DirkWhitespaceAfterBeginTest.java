@@ -48,6 +48,7 @@ import net.fortuna.ical4j.vcard.property.Address;
 
 import org.apache.commons.codec.DecoderException;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -83,6 +84,11 @@ import org.junit.Test;
  */
 public class DirkWhitespaceAfterBeginTest {
 
+	@Before
+	public void setup() {
+		CompatibilityHints.clearHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING);
+	}
+	
 	/**
 	 * Without relaxed parsing this should end with a parse error on the first
 	 * line.
