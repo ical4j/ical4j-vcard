@@ -31,11 +31,30 @@
  */
 package net.fortuna.ical4j.vcard
 
-import groovy.util.FactoryBuilderSupportimport net.fortuna.ical4j.vcard.parameter.EncodingFactoryimport net.fortuna.ical4j.vcard.property.PhotoFactoryimport net.fortuna.ical4j.vcard.parameter.ValueFactoryimport net.fortuna.ical4j.vcard.property.VersionFactoryimport net.fortuna.ical4j.vcard.property.FnFactoryimport net.fortuna.ical4j.vcard.property.NFactory
-import net.fortuna.ical4j.vcard.parameter.LanguageFactoryimport net.fortuna.ical4j.vcard.parameter.PidFactoryimport net.fortuna.ical4j.vcard.parameter.PrefFactoryimport net.fortuna.ical4j.vcard.parameter.TypeFactoryimport net.fortuna.ical4j.vcard.property.UrlFactoryimport net.fortuna.ical4j.vcard.property.UidFactoryimport net.fortuna.ical4j.vcard.property.TzFactoryimport net.fortuna.ical4j.vcard.property.TitleFactoryimport net.fortuna.ical4j.vcard.property.TelephoneFactoryimport net.fortuna.ical4j.vcard.property.SourceFactoryimport net.fortuna.ical4j.vcard.property.SoundFactoryimport net.fortuna.ical4j.vcard.property.SortStringFactoryimport net.fortuna.ical4j.vcard.property.RoleFactory
+import groovy.util.FactoryBuilderSupport
+import net.fortuna.ical4j.vcard.parameter.EncodingFactory
+import net.fortuna.ical4j.vcard.property.PhotoFactory
+import net.fortuna.ical4j.vcard.parameter.ValueFactory
+import net.fortuna.ical4j.vcard.property.VersionFactory
+import net.fortuna.ical4j.vcard.property.FnFactory
+import net.fortuna.ical4j.vcard.property.NFactory
+import net.fortuna.ical4j.vcard.parameter.LanguageFactory
+import net.fortuna.ical4j.vcard.parameter.PidFactory
+import net.fortuna.ical4j.vcard.parameter.PrefFactory
+import net.fortuna.ical4j.vcard.parameter.TypeFactory
+import net.fortuna.ical4j.vcard.property.UrlFactory
+import net.fortuna.ical4j.vcard.property.UidFactory
+import net.fortuna.ical4j.vcard.property.TzFactory
+import net.fortuna.ical4j.vcard.property.TitleFactory
+import net.fortuna.ical4j.vcard.property.TelephoneFactory
+import net.fortuna.ical4j.vcard.property.SourceFactory
+import net.fortuna.ical4j.vcard.property.SoundFactory
+import net.fortuna.ical4j.vcard.property.SortStringFactory
+import net.fortuna.ical4j.vcard.property.RoleFactory
 import net.fortuna.ical4j.vcard.property.RevisionFactory
 import net.fortuna.ical4j.vcard.property.RelatedFactory
 import net.fortuna.ical4j.vcard.property.*
+
 /**
  * $Id$
  *
@@ -97,6 +116,8 @@ public class ContentBuilder extends FactoryBuilderSupport {
         registerFactory('uid', new UidFactory())
         registerFactory('url', new UrlFactory())
         registerFactory('version', new VersionFactory())
+        // RFC2426 factories..
+        registerFactory('mailer', new DefaultPropertyFactory(klass: Mailer))
     }
     
     def registerParameters() {
