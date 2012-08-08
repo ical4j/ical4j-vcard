@@ -114,9 +114,9 @@ class ContentBuilderSpec extends Specification {
 		'B'		| Encoding.B
 	}
 
-        def 'build MAILER property and assert the result'() {
-            expect:
-            assert builder.mailer('Pegasus Mail 1.0') as String == 'MAILER:Pegasus Mail 1.0\r\n' 
-        }
+    def 'build MAILER property and assert the result'() {
+        expect:
+        assert builder.mailer('Pegasus Mail 1.0') as String == 'MAILER:Pegasus Mail 1.0\r\n' 
+    }
 }
 
