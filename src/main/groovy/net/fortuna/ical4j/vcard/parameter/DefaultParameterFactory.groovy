@@ -31,27 +31,26 @@
  */
 package net.fortuna.ical4j.vcard.parameter
 
+import groovy.util.FactoryBuilderSupport;
 
+import java.util.List;
+import java.util.Map;
 
-/**
- * $Id$
- *
- * Created on: 02/08/2009
- *
- * @author fortuna
- *
- */
-public class PidFactory extends AbstractParameterFactory{
+import net.fortuna.ical4j.vcard.Parameter
 
+class DefaultParameterFactory extends AbstractParameterFactory {
+
+	Class<? extends Parameter> klass
+	
+	@Override
     public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
-        Pid pid
-        if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, Pid.class)) {
-            pid = (Pid) value
+        def parameter
+        if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, klass)) {
+            parameter = value
         }
         else {
-            pid = new Pid(value)
+            parameter = klass.FACTORY.createParameter(value)
         }
-        return pid
+        return parameter
     }
-    
 }
