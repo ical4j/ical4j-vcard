@@ -92,7 +92,11 @@ public abstract class Property implements Serializable {
         // 7.9.  Calendar Properties
         FBURL, CALADRURI, CALURI,
         // 7.10. Extended Properties and Parameters
-        EXTENDED;
+        EXTENDED,
+
+        // RFC2426 - vCard 3.0
+        // 3.3
+        MAILER;
         
         private String propertyName;
         
