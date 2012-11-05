@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.property
 
+import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.parameter.Value;
 import spock.lang.Specification;
 
@@ -45,4 +46,14 @@ class BDaySpec extends Specification {
 		'April 1st\\, 2001'	| 'BDAY;VALUE=text:April 1st\\, 2001\r\n'
 	}
 
+	def 'test date parsing with relaxed parsing enabled'() {
+		setup: 'enabled relaxed parsing'
+		CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true)
+		
+		expect:
+		assert new BDay([], '1975-07-17') as String == 'BDAY:1975-07-17\r\n'
+		
+		cleanup:
+		CompatibilityHints.clearHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)
+	}
 }
