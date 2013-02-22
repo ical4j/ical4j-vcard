@@ -48,12 +48,12 @@ class BDaySpec extends Specification {
 
 	def 'test date parsing with relaxed parsing enabled'() {
 		setup: 'enabled relaxed parsing'
-		CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true)
+		CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_VCARD_COMPATIBILITY, true)
 		
 		expect:
-		assert new BDay([], '1975-07-17') as String == 'BDAY:1975-07-17\r\n'
+		assert new BDay([], '1975-07-17') as String == 'BDAY:19750717\r\n'
 		
 		cleanup:
-		CompatibilityHints.clearHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)
+		CompatibilityHints.clearHintEnabled(CompatibilityHints.KEY_VCARD_COMPATIBILITY)
 	}
 }
