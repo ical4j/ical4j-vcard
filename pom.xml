@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>mnode-parent</artifactId>
 		<groupId>org.mnode</groupId>
-		<version>1.20</version>
+		<version>1.21</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.mnode.ical4j</groupId>
@@ -25,9 +25,9 @@
 	</licenses>
 	
 	<scm>
-		<connection>scm:hg:http://ical4j.hg.sourceforge.net:8000/hgroot/ical4j/ical4j-vcard</connection>
-		<developerConnection>scm:hg:ssh://fortuna@ical4j.hg.sourceforge.net/hgroot/ical4j/ical4j-vcard</developerConnection>
-		<url>http://ical4j.hg.sourceforge.net/hgweb/ical4j/ical4j-vcard</url>
+		<connection>scm:hg:http://hg.code.sf.net/p/ical4j/ical4j-vcard</connection>
+		<developerConnection>scm:hg:ssh://fortuna@hg.code.sf.net/p/ical4j/ical4j-vcard</developerConnection>
+		<url>https://sourceforge.net/p/ical4j/ical4j-vcard/ci/default/tree/</url>
   </scm>
 	
 	<build>
@@ -94,62 +94,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.apache.felix
-										</groupId>
-										<artifactId>
-											maven-bundle-plugin
-										</artifactId>
-										<versionRange>
-											[2.3.7,)
-										</versionRange>
-										<goals>
-											<goal>manifest</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.apache.maven.plugins
-										</groupId>
-										<artifactId>
-											maven-dependency-plugin
-										</artifactId>
-										<versionRange>
-											[2.1,)
-										</versionRange>
-										<goals>
-											<goal>
-												unpack-dependencies
-											</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 	
 	<dependencies>
@@ -192,9 +136,26 @@
         <dependency>
         	<groupId>commons-lang</groupId>
         	<artifactId>commons-lang</artifactId>
-        	<version>2.4</version>
+        	<version>2.6</version>
+        </dependency>
+        <dependency>
+        	<groupId>backport-util-concurrent</groupId>
+        	<artifactId>backport-util-concurrent</artifactId>
+        	<version>3.1</version>
+        	<scope>runtime</scope>
         </dependency>
 	</dependencies>
+    
+    <dependencyManagement>
+        <dependencies>
+            <!-- force dependency convergence -->
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-core</artifactId>
+                <version>1.3</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 	<reporting>
 		<plugins>
@@ -226,7 +187,7 @@
 				<artifactId>clirr-maven-plugin</artifactId>
 				<configuration>
 					<minSeverity>info</minSeverity>
-					<comparisonVersion>0.9.2</comparisonVersion>
+					<comparisonVersion>0.9.5</comparisonVersion>
 				</configuration>
 			</plugin>
 
@@ -236,28 +197,34 @@
 				<version>2.1</version>
                 <configuration>
                     <dateFormat>EEE MMM dd hh:mm:ss yyyy Z</dateFormat>
+					<type>tag</type>
+					<tags>
+						<tag implementation="java.lang.String">
+							ical4j-vcard-0.9.5
+						</tag>
+					</tags>
                 </configuration>
+						<!-- 
 				<reportSets>
 					<reportSet>
 						<id>changelog</id>
-						<!-- 
 						<configuration>
 							<type>tag</type>
 							<tags>
 								<tag implementation="java.lang.String">
-									ical4j-vcard-0_9_1
+									ical4j-vcard-0.9.4
 								</tag>
 								<tag implementation="java.lang.String">
-									ical4j-vcard-0_9_2
+									ical4j-vcard-0.9.5
 								</tag>
 							</tags>
 						</configuration>
-						 -->
 						<reports>
 							<report>changelog</report>
 						</reports>
 					</reportSet>
 				</reportSets>
+						 -->
 			</plugin>
 		</plugins>
 	</reporting>
