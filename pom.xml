@@ -184,7 +184,7 @@
 					<comparisonVersion>0.9.5</comparisonVersion>
 				</configuration>
 			</plugin>
-
+<!-- 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changelog-plugin</artifactId>
@@ -198,7 +198,7 @@
 						</tag>
 					</tags>
                 </configuration>
-						<!-- 
+						<!- 
 				<reportSets>
 					<reportSet>
 						<id>changelog</id>
@@ -218,8 +218,9 @@
 						</reports>
 					</reportSet>
 				</reportSets>
-						 -->
+						 ->
 			</plugin>
+ -->
 		</plugins>
 	</reporting>
 </project>
