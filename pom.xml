@@ -9,7 +9,7 @@
 	<groupId>org.mnode.ical4j</groupId>
 	<artifactId>ical4j-vcard</artifactId>
 	<name>iCal4j VCard</name>
-	<version>0.9.7-SNAPSHOT</version>
+	<version>0.9.6.1</version>
 	<description>Support for the vCard specification</description>
 	<url>http://ical4j.sourceforge.net</url>
 	<issueManagement>
