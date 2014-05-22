@@ -183,16 +183,14 @@ public final class N extends Property {
         if (isNotEmpty(familyName)) {
             b.append(familyName);
         }
+        b.append(';');
+
         if (isNotEmpty(givenName)) {
-            if (b.length() > 0) {
-                b.append(';');
-            }
             b.append(givenName);
         }
+
+        b.append(';');
         if (!ArrayUtils.isEmpty(additionalNames)) {
-            if (b.length() > 0) {
-                b.append(';');
-            }
             for (int i = 0; i < additionalNames.length; i++) {
                 if (i > 0) {
                     b.append(',');
@@ -200,10 +198,9 @@ public final class N extends Property {
                 b.append(additionalNames[i]);
             }
         }
+
+        b.append(';');
         if (!ArrayUtils.isEmpty(prefixes)) {
-            if (b.length() > 0) {
-                b.append(';');
-            }
             for (int i = 0; i < prefixes.length; i++) {
                 if (i > 0) {
                     b.append(',');
@@ -211,10 +208,9 @@ public final class N extends Property {
                 b.append(prefixes[i]);
             }
         }
+
+        b.append(';');
         if (!ArrayUtils.isEmpty(suffixes)) {
-            if (b.length() > 0) {
-                b.append(';');
-            }
             for (int i = 0; i < suffixes.length; i++) {
                 if (i > 0) {
                     b.append(',');
@@ -222,6 +218,7 @@ public final class N extends Property {
                 b.append(suffixes[i]);
             }
         }
+
         return b.toString();
     }
 
