@@ -1,3 +1,5 @@
+[![Build Status](https://drone.io/github.com/ical4j/ical4j-vcard/status.png)](https://drone.io/github.com/ical4j/ical4j-vcard/latest)
+
 ==============================
  iCal4j vCard - Release Notes
 ==============================
