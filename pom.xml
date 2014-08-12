@@ -25,9 +25,9 @@
 	</licenses>
 	
 	<scm>
-		<connection>scm:hg:http://hg.code.sf.net/p/ical4j/ical4j-vcard</connection>
-		<developerConnection>scm:hg:ssh://fortuna@hg.code.sf.net/p/ical4j/ical4j-vcard</developerConnection>
-		<url>https://sourceforge.net/p/ical4j/ical4j-vcard/ci/default/tree/</url>
+        <connection>scm:git:https://github.com/ical4j/ical4j-vcard.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:ical4j/ical4j-vcard.git</developerConnection>
+        <url>https://github.com/ical4j/ical4j-vcard</url>
   </scm>
 	
 	<build>
