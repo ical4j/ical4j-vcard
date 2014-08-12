@@ -8,3 +8,7 @@
  
  	http://ical4j.sourceforge.net
  
+
+## References
+
+* [vCard Format Specification](http://tools.ietf.org/html/rfc6350)
