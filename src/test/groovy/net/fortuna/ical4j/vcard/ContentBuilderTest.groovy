@@ -32,7 +32,11 @@
 package net.fortuna.ical4j.vcard
 
 import net.fortuna.ical4j.vcard.parameter.Encoding
-import net.fortuna.ical4j.vcard.property.Genderimport net.fortuna.ical4j.vcard.property.Versionimport net.fortuna.ical4j.vcard.property.Clazzimport net.fortuna.ical4j.vcard.property.Kind/**
+import net.fortuna.ical4j.vcard.property.Gender
+import net.fortuna.ical4j.vcard.property.Version
+import net.fortuna.ical4j.vcard.property.Clazz
+import net.fortuna.ical4j.vcard.property.Kind
+/**
  * $Id$
  *
  * Created on: 02/08/2009
@@ -45,10 +49,10 @@ public class ContentBuilderTest extends GroovyTestCase {
     void testBuildCard() {
         def builder = new ContentBuilder()
         def card = builder.vcard() {
-            version('4.0')
-            fn('test')
+            version '4.0'
+            fn 'test'
             n('example') {
-                value('text')
+                value 'text'
             }
             photo(value: 'http://example.com', parameters: [value('uri')])
         }
@@ -56,7 +60,7 @@ public class ContentBuilderTest extends GroovyTestCase {
         
         assert card.properties.size() == 4
         
-        println(card)
+        println card
     }
     
     void testBuildEmail() {
@@ -68,10 +72,10 @@ public class ContentBuilderTest extends GroovyTestCase {
     void testAttachPhoto() {
         def builder = new ContentBuilder()
         def card = builder.vcard() {
-            version('4.0')
-            fn('test')
+            version '4.0'
+            fn 'test'
             n('example') {
-                value('text')
+                value 'text'
             }
             photo(new File('etc/logo.png').bytes.encodeBase64() as String)
         }
