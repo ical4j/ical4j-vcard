@@ -1,0 +1,112 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'http://maven.tmatesoft.com/content/repositories/releases/'
+        }
+    }
+
+    dependencies {
+        classpath 'au.com.ish.gradle:release:2.2.2'
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'osgi'
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply plugin: 'release'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.mnode.ical4j:ical4j:1.0.5.2',
+            'commons-io:commons-io:2.3', 'org.codehaus.groovy:groovy-all:2.3.6'
+
+    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+signing {
+    required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+release {
+    failOnSnapshotDependencies = true
+    // allow modifications due to bug in the release plugin..
+    allowLocalModifications = true
+    releaseDryRun = true
+    scm = 'git'
+}
+
+group = 'org.mnode.ical4j'
+version = release.projectVersion
+description = '''
+Support for the vCard specification
+'''
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+
+            pom.project {
+                name 'iCal4j VCard'
+                packaging 'jar'
+                description project.description
+                url 'http://ical4j.sourceforge.net'
+
+                scm {
+                    url 'https://github.com/ical4j/ical4j-vcard'
+                    connection 'scm:git@github.com:ical4j/ical4j-vcard.git'
+                    developerConnection 'scm:git@github.com:ical4j/ical4j-vcard.git'
+                }
+
+                licenses {
+                    license {
+                        name 'iCal4j - License'
+//                        url "${project.scm.url}/raw-file/tip/LICENSE"
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'fortuna'
+                        name 'Ben Fortuna'
+                    }
+                }
+            }
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
