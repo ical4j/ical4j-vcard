@@ -45,7 +45,9 @@ import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 import org.apache.commons.codec.DecoderException;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -65,6 +67,16 @@ import org.junit.Test;
  */
 public class XMsCardpictureTest {
 
+    @Before
+    public void setup() {
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
+    }
+
+    @After
+    public void cleanup() {
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
+    }
+
 	@Test
 	public void testXMSCardpicture() throws IOException, ParserException,
 			ValidationException, DecoderException {
@@ -72,7 +84,6 @@ public class XMsCardpictureTest {
 				"./src/test/resources/samples/vcard-antoni-cardpicture.vcf");
 		Reader reader = new FileReader(file);
 		GroupRegistry groupRegistry = new GroupRegistry();
-		CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
 		PropertyFactoryRegistry propReg = new PropertyFactoryRegistry();
 		ParameterFactoryRegistry parReg = new ParameterFactoryRegistry();
 		addTypeParamsToRegistry(parReg);

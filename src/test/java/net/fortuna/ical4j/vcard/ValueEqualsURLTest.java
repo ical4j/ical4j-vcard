@@ -48,6 +48,8 @@ import net.fortuna.ical4j.vcard.property.Photo;
 import net.fortuna.ical4j.vcard.property.Sound;
 
 import org.apache.commons.codec.DecoderException;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -63,6 +65,16 @@ import org.junit.Test;
  */
 public class ValueEqualsURLTest {
 
+    @Before
+    public void setup() {
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
+    }
+
+    @After
+    public void cleanup() {
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
+    }
+
 	@Test
 	public void testPhotoValueEqualsURL() throws IOException, ParserException,
 			ValidationException, DecoderException {
@@ -73,7 +85,6 @@ public class ValueEqualsURLTest {
 		PropertyFactoryRegistry propReg = new PropertyFactoryRegistry();
 		ParameterFactoryRegistry parReg = new ParameterFactoryRegistry();
 		addTypeParamsToRegistry(parReg);
-		CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
 
 		VCardBuilder builder = 
 				new VCardBuilder(reader, groupRegistry, propReg, parReg);
