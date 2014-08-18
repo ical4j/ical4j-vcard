@@ -91,7 +91,7 @@ uploadArchives {
                 licenses {
                     license {
                         name 'iCal4j - License'
-//                        url "${project.scm.url}/raw-file/tip/LICENSE"
+                        url 'https://raw.githubusercontent.com/ical4j/ical4j/master/LICENSE'
                         distribution 'repo'
                     }
                 }
