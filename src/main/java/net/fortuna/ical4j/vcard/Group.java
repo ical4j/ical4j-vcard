@@ -31,25 +31,24 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import java.io.Serializable;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import java.io.Serializable;
 
 /**
  * A property group.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on: 30/12/2008
  *
  * @author Ben
- *
  */
 public class Group implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -424118146831940666L;
 
@@ -62,30 +61,30 @@ public class Group implements Serializable {
      * The pre-defined home group.
      */
     public static final Group HOME = new Group(Id.HOME);
-    
+
     /**
      * Enumeration of group identifiers.
      */
     public enum Id {
-        
+
         /**
          * Work group identifier.
          */
         WORK,
-        
+
         /**
          * Home group identifier.
          */
         HOME,
-        
+
         /**
          * Non-standard group identifier.
          */
         EXTENDED
     }
-    
+
     private final Id id;
-    
+
     private String extendedName = "";
 
     /**
@@ -95,14 +94,14 @@ public class Group implements Serializable {
         this(Id.EXTENDED);
         this.extendedName = extendedName;
     }
-    
+
     /**
      * @param id the group type
      */
     public Group(Id id) {
         this.id = id;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -118,7 +117,7 @@ public class Group implements Serializable {
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
-    
+
     /**
      * @return a vCard-compliant string representation of the group
      */
@@ -128,8 +127,7 @@ public class Group implements Serializable {
         if (Id.EXTENDED.equals(id)) {
 //            b.append("X-");
             b.append(extendedName);
-        }
-        else {
+        } else {
             b.append(id);
         }
         return b.toString();

@@ -31,12 +31,6 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.MessageFormat;
-import java.text.ParseException;
-import java.util.List;
-
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.vcard.Group;
@@ -45,8 +39,13 @@ import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
+import org.apache.commons.lang3.StringUtils;
 
-import org.apache.commons.lang.StringUtils;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.MessageFormat;
+import java.text.ParseException;
+import java.util.List;
 
 /**
  * TEL property.
@@ -133,7 +132,7 @@ public final class Telephone extends Property {
     }
     
     private URI normalise(URI uri) {
-        URI retVal = null;
+        URI retVal;
         if (uri.getScheme() == null && StringUtils.isNotEmpty(uri.getSchemeSpecificPart())) {
             try {
                 retVal = new URI(TEL_SCHEME, uri.getSchemeSpecificPart(), uri.getFragment());

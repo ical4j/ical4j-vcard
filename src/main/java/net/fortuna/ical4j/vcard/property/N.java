@@ -31,19 +31,19 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static org.apache.commons.lang.StringUtils.isNotEmpty;
-
-import java.net.URISyntaxException;
-import java.text.ParseException;
-import java.util.List;
-
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.Property;
 import net.fortuna.ical4j.vcard.PropertyFactory;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.util.List;
+
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * N property.
@@ -108,9 +108,9 @@ public final class N extends Property {
     }
     
     /**
-	 * @param value
-	 */
-	private void parseValueRelaxed(String [] names) { 
+     * @param names an array of names
+     */
+    private void parseValueRelaxed(String [] names) {
         // support VCARD 3.0 by allowing optional section..
         if (names.length >= 3) {
             this.additionalNames = names[2].split(",");
@@ -124,9 +124,9 @@ public final class N extends Property {
 	}
     
     /**
-	 * @param value
-	 */
-	private void parseValue(String [] names) { 
+     * @param names an array of names
+     */
+    private void parseValue(String [] names) {
         // support VCARD 3.0 by allowing optional section..
         if (names.length > 2) {
             this.additionalNames = names[2].split(",");

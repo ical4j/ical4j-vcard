@@ -31,42 +31,40 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import java.util.Locale;
-
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import org.apache.commons.lang3.StringUtils;
 
-import org.apache.commons.lang.StringUtils;
+import java.util.Locale;
 
 /**
  * LANGUAGE parameter.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/08/2008
  *
  * @author Ben
- *
  */
 public final class Language extends Parameter {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 8762124184853766503L;
-    
+
     public static final ParameterFactory<Language> FACTORY = new Factory();
-    
+
     private final Locale locale;
-    
+
     /**
      * @param value a vCard-compliant string representation
-     * of a language.
+     *              of a language.
      */
     public Language(String value) {
-    	this(new Locale(value));
+        this(new Locale(value));
     }
-    
+
     /**
      * @param locale the locale for the language
      */

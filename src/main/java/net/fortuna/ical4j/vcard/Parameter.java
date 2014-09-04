@@ -31,12 +31,12 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static org.apache.commons.lang.StringUtils.isNotEmpty;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * A property parameter.
@@ -154,7 +154,7 @@ public abstract class Parameter implements Serializable {
             }
             return toString();
         }
-    };
+    }
     
     private final Id id;
     
