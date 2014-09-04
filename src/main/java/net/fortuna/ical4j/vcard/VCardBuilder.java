@@ -156,7 +156,7 @@ public final class VCardBuilder {
     }
     
     /**
-     * @return
+     * @return a vcard instance
      * @throws IOException 
      * @throws ParserException 
      */
@@ -225,7 +225,7 @@ public final class VCardBuilder {
     
     /**
      * @param line
-     * @return
+     * @return a property instance
      * @throws ParseException 
      * @throws URISyntaxException 
      * @throws DecoderException 
@@ -267,7 +267,7 @@ public final class VCardBuilder {
     
     /**
      * @param line
-     * @return
+     * @return a list of parameters
      */
     private List<Parameter> parseParameters(final String line) {
         final List<Parameter> parameters = new ArrayList<Parameter>();
