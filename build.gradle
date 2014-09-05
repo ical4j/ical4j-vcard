@@ -22,10 +22,14 @@ targetCompatibility = 1.6
 
 repositories {
     mavenCentral()
+    // sonatype snapshots
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
 }
 
 dependencies {
-    compile 'org.mnode.ical4j:ical4j:2.0-alpha1',
+    compile 'org.mnode.ical4j:ical4j:master-SNAPSHOT',
             'commons-io:commons-io:2.3', 'org.codehaus.groovy:groovy-all:2.3.6'
 
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
