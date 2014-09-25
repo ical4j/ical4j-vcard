@@ -66,9 +66,9 @@ public final class Geo extends Parameter {
         return value;
     }
 
-    public static class Factory extends AbstractFactory<Geo, Id> implements ParameterFactory<Geo> {
+    public static class Factory extends AbstractFactory implements ParameterFactory<Geo> {
         public Factory() {
-            super(Id.GEO);
+            super(Id.GEO.toString());
         }
 
         public Geo createParameter(String name, String value) {

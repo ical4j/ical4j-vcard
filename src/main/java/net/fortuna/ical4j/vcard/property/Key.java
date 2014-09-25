@@ -181,9 +181,9 @@ public final class Key extends Property {
         }
     }
 
-    public static class Factory extends AbstractFactory<Key, Id> implements PropertyFactory<Key> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Key> {
         public Factory() {
-            super(Id.KEY);
+            super(Id.KEY.toString());
         }
 
         /**

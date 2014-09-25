@@ -100,9 +100,9 @@ public final class Url extends Property {
         }
     }
 
-    public static class Factory extends AbstractFactory<Url, Id> implements PropertyFactory<Url> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Url> {
         public Factory() {
-            super(Id.URL);
+            super(Id.URL.toString());
         }
 
         /**

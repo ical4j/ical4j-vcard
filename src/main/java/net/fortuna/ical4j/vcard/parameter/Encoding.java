@@ -71,9 +71,9 @@ public final class Encoding extends Parameter {
         return value;
     }
 
-    public static class Factory extends AbstractFactory<Encoding, Id> implements ParameterFactory<Encoding> {
+    public static class Factory extends AbstractFactory implements ParameterFactory<Encoding> {
         public Factory() {
-            super(Id.ENCODING);
+            super(Id.ENCODING.toString());
         }
 
         public Encoding createParameter(String name, String value) {

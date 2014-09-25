@@ -41,35 +41,34 @@ import java.util.List;
 
 /**
  * TYPE parameter.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/08/2008
  *
  * @author Ben
- *
  */
 public final class Type extends Parameter {
 
     private static final long serialVersionUID = -3644362129355908795L;
-    
+
     /**
      * Home type parameter.
      */
     public static final Type HOME = new Type("home");
-    
+
     /**
      * Work type parameter.
      */
     public static final Type WORK = new Type("work");
-    
+
     /**
      * Pref type parameter.
      */
     public static final Type PREF = new Type("pref");
 
     private final String[] types;
-    
+
     /**
      * @param value string representation of type parameter
      */
@@ -77,19 +76,19 @@ public final class Type extends Parameter {
         super(Id.TYPE);
         this.types = value.split(",");
     }
-    
+
     /**
      * @param types string representations of multiple nested types
      */
-    public Type(String...types) {
+    public Type(String... types) {
         super(Id.TYPE);
         this.types = types;
     }
-    
+
     /**
      * @param types multiple nested types
      */
-    public Type(Type...types) {
+    public Type(Type... types) {
         super(Id.TYPE);
         final List<String> typeList = new ArrayList<String>();
         for (Type type : types) {
@@ -97,7 +96,7 @@ public final class Type extends Parameter {
         }
         this.types = typeList.toArray(new String[typeList.size()]);
     }
-    
+
     /**
      * @return the types
      */
@@ -120,27 +119,31 @@ public final class Type extends Parameter {
         return b.toString();
     }
 
-    public static class Factory extends AbstractFactory<Type, Id> implements ParameterFactory<Type> {
+    public static class Factory extends AbstractFactory implements ParameterFactory<Type> {
         public Factory() {
-            super(Id.TYPE, Id.HOME, Id.WORK, Id.MSG,
-                    Id.VOICE, Id.FAX, Id.CELL, Id.VIDEO, Id.PAGER, Id.BBS, Id.MODEM,
-                    Id.CAR, Id.ISDN, Id.PCS, Id.INTERNET, Id.X400, Id.DOM, Id.INTL,
-                    Id.POSTAL, Id.PARCEL);
+            super(Id.TYPE.toString(), "HOME", "WORK", "MSG",
+                    "VOICE", "FAX", "CELL", "VIDEO", "PAGER", "BBS", "MODEM",
+                    "CAR", "ISDN", "PCS", "INTERNET", "X400", "DOM", "INTL",
+                    "POSTAL", "PARCEL");
         }
 
         public Type createParameter(String name, String value) {
             Type parameter = null;
-            if (Id.valueOf(name.toUpperCase()) == Id.TYPE) {
-                if (Type.HOME.getValue().equals(value)) {
-                    parameter = Type.HOME;
-                } else if (Type.PREF.getValue().equals(value)) {
-                    parameter = Type.PREF;
-                } else if (Type.WORK.getValue().equals(value)) {
-                    parameter = Type.WORK;
+            try {
+                if (Id.valueOf(name.toUpperCase()) == Id.TYPE) {
+                    if (Type.HOME.getValue().equals(value)) {
+                        parameter = Type.HOME;
+                    } else if (Type.PREF.getValue().equals(value)) {
+                        parameter = Type.PREF;
+                    } else if (Type.WORK.getValue().equals(value)) {
+                        parameter = Type.WORK;
+                    } else {
+                        parameter = new Type(value);
+                    }
                 } else {
-                    parameter = new Type(value);
+                    parameter = new Type(name);
                 }
-            } else {
+            } catch (IllegalArgumentException iae) {
                 parameter = new Type(name);
             }
             return parameter;

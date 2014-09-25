@@ -169,9 +169,9 @@ public final class Photo extends Property {
         assertOneOrLess(net.fortuna.ical4j.vcard.Parameter.Id.VALUE);
     }
 
-    public static class Factory extends AbstractFactory<Photo, Id> implements PropertyFactory<Photo> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Photo> {
         public Factory() {
-            super(Id.PHOTO);
+            super(Id.PHOTO.toString());
         }
 
         /**

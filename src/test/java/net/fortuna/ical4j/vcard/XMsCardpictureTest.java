@@ -115,8 +115,8 @@ public class XMsCardpictureTest {
                     }
 
                     @Override
-                    public boolean supports(Property.Id id) {
-                        return id == Property.Id.EXTENDED;
+                    public boolean supports(String id) {
+                        return Property.Id.valueOf(id) == Property.Id.EXTENDED;
                     }
                 }
         );

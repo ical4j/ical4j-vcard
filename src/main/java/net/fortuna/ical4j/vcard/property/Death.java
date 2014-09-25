@@ -92,9 +92,9 @@ public final class Death extends Property implements Escapable {
 
     }
 
-    public static class Factory extends AbstractFactory<Death, Id> implements PropertyFactory<Death> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Death> {
         public Factory() {
-            super(Id.DEATH);
+            super(Id.DEATH.toString());
         }
 
         /**

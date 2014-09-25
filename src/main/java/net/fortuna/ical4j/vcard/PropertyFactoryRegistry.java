@@ -31,8 +31,6 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import net.fortuna.ical4j.vcard.Property.Id;
-
 import java.util.ServiceLoader;
 
 /**
@@ -53,11 +51,6 @@ public class PropertyFactoryRegistry extends AbstractFactoryRegistry<PropertyFac
 
     @Override
     protected boolean factorySupports(PropertyFactory factory, String name) {
-        try {
-            return factory.supports(Id.valueOf(name.toUpperCase()));
-        } catch (IllegalArgumentException iae) {
-            // not a recognised id..
-            return false;
-        }
+        return factory.supports(name.toUpperCase());
     }
 }

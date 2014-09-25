@@ -307,10 +307,10 @@ public final class Address extends Property {
         }
     }
 
-    public static class Factory extends AbstractFactory<Address, Id> implements PropertyFactory<Address> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Address> {
 
         public Factory() {
-            super(Id.ADR);
+            super(Id.ADR.toString());
         }
 
         /**

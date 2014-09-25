@@ -176,9 +176,9 @@ public final class Telephone extends Property {
         }
     }
 
-    public static class Factory extends AbstractFactory<Telephone, Id> implements PropertyFactory<Telephone> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Telephone> {
         public Factory() {
-            super(Id.TEL);
+            super(Id.TEL.toString());
         }
 
         /**

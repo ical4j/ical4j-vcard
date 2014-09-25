@@ -132,9 +132,9 @@ public final class Agent extends Property implements Escapable {
         }
     }
 
-    public static class Factory extends AbstractFactory<Agent, Id> implements PropertyFactory<Agent> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Agent> {
         public Factory() {
-            super(Id.AGENT);
+            super(Id.AGENT.toString());
         }
 
         /**

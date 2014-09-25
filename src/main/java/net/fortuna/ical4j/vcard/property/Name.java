@@ -92,9 +92,9 @@ public final class Name extends Property implements Escapable {
         assertParametersEmpty();
     }
 
-    public static class Factory extends AbstractFactory<Name, Id> implements PropertyFactory<Name> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Name> {
         public Factory() {
-            super(Id.NAME);
+            super(Id.NAME.toString());
         }
 
         /**

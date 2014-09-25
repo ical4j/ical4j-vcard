@@ -40,21 +40,20 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * A property parameter.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/08/2008
  *
  * @author Ben
- *
  */
 public abstract class Parameter implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 6858428041113700722L;
-    
+
 //    private static Map<String, Id> idFromPname = new HashMap<String, Id>();
 
     /**
@@ -62,12 +61,12 @@ public abstract class Parameter implements Serializable {
      */
     public enum Id {
         // 6.  Property Parameters
-        
+
         /**
          * Language parameter identifier.
          */
-        LANGUAGE, 
-        
+        LANGUAGE,
+
         /**
          * Encoding parameter identifier.
          */
@@ -75,84 +74,78 @@ public abstract class Parameter implements Serializable {
         /**
          * Value parameter identifier.
          */
-        VALUE, 
-        
+        VALUE,
+
         /**
          * Pref parameter identifier.
          */
         PREF,
-        
+
         /**
          * Altid parameter identifier.
          */
-        ALTID, 
-        
+        ALTID,
+
         /**
          * PID parameter identifier.
          */
         PID,
-        
+
         /**
          * Type parameter identifier.
          */
         TYPE,
 
-        // additional vcard 2.1 types
-        HOME, WORK, MSG,
-        VOICE, FAX, CELL, VIDEO, PAGER, BBS, MODEM,
-        CAR, ISDN, PCS, INTERNET, X400, DOM, INTL,
-        POSTAL, PARCEL,
-
         /**
          * Calscale parameter identifier.
          */
-        CALSCALE, 
-        
+        CALSCALE,
+
         /**
          * Sort-as parameter identifier.
          */
-        SORT_AS("SORT-AS"), 
-        
+        SORT_AS("SORT-AS"),
+
         /**
          * Geo parameter identifier.
          */
-        GEO, 
-        
+        GEO,
+
         /**
          * Tz parameter identifier.
          */
-        TZ, 
-        
+        TZ,
+
         /**
          * Version parameter identifier.
          */
-        VERSION, 
-        
+        VERSION,
+
         /**
          * Fmttype parameter identifier.
          */
         FMTTYPE,
 
         // 7.10. Extended Properties and Parameters
-        
+
         /**
          * Non-standard parameter identifier.
          */
         EXTENDED;
-        
+
         private String pname;
 
         private Id() {
 //        	pname = this.name();
 //        	idFromPname.put(pname, this);
-        	this(null);
+            this(null);
         }
-        
+
         private Id(String pname) {
-        	this.pname = pname;
+            this.pname = pname;
 //        	idFromPname.put(pname, this);
         }
-        
+
         public String getPname() {
 //        	return pname;
             if (isNotEmpty(pname)) {
@@ -161,15 +154,16 @@ public abstract class Parameter implements Serializable {
             return toString();
         }
     }
-    
+
     private final Id id;
-    
+
     String extendedName = "";
-    
-    
+
+
 //    public static Id getId(String pname) {
 //    	return idFromPname.get(pname);
 //    }
+
     /**
      * @param extendedName a non-standard parameter id
      */
@@ -177,14 +171,14 @@ public abstract class Parameter implements Serializable {
         this(Id.EXTENDED);
         this.extendedName = extendedName;
     }
-    
+
     /**
      * @param id the parameter type
      */
     public Parameter(Id id) {
         this.id = id;
     }
-    
+
     /**
      * @return the id
      */
@@ -196,7 +190,7 @@ public abstract class Parameter implements Serializable {
      * @return a string representation of the value of the parameter
      */
     public abstract String getValue();
-    
+
     /**
      * {@inheritDoc}
      */
@@ -212,7 +206,7 @@ public abstract class Parameter implements Serializable {
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
-    
+
     /**
      * @return a vCard-compliant string representation of the parameter
      */
@@ -222,8 +216,7 @@ public abstract class Parameter implements Serializable {
         if (Id.EXTENDED.equals(id)) {
             b.append("X-");
             b.append(extendedName);
-        }
-        else {
+        } else {
             b.append(id.getPname());
         }
 /*

@@ -140,9 +140,9 @@ public final class Value extends Parameter {
         return value;
     }
 
-    public static class Factory extends AbstractFactory<Value, Id> implements ParameterFactory<Value> {
+    public static class Factory extends AbstractFactory implements ParameterFactory<Value> {
         public Factory() {
-            super(Id.VALUE);
+            super(Id.VALUE.toString());
         }
 
         public Value createParameter(String name, String value) {

@@ -112,9 +112,9 @@ public final class Lang extends Property {
 
     }
 
-    public static class Factory extends AbstractFactory<Lang, Id> implements PropertyFactory<Lang> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Lang> {
         public Factory() {
-            super(Id.LANG);
+            super(Id.LANG.toString());
         }
 
         /**

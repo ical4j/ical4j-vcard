@@ -95,9 +95,9 @@ public final class Role extends Property {
         }
     }
 
-    public static class Factory extends AbstractFactory<Role, Id> implements PropertyFactory<Role> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Role> {
         public Factory() {
-            super(Id.ROLE);
+            super(Id.ROLE.toString());
         }
 
         /**

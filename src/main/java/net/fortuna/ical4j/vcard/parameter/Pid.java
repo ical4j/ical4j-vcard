@@ -84,9 +84,9 @@ public final class Pid extends Parameter {
         return pid.toString();
     }
 
-    public static class Factory extends AbstractFactory<Pid, Id> implements ParameterFactory<Pid> {
+    public static class Factory extends AbstractFactory implements ParameterFactory<Pid> {
         public Factory() {
-            super(Id.PID);
+            super(Id.PID.toString());
         }
 
         public Pid createParameter(String name, String value) {

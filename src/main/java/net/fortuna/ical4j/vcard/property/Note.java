@@ -98,9 +98,9 @@ public final class Note extends Property implements Escapable {
         }
     }
 
-    public static class Factory extends AbstractFactory<Note, Id> implements PropertyFactory<Note> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Note> {
         public Factory() {
-            super(Id.NOTE);
+            super(Id.NOTE.toString());
         }
 
         /**

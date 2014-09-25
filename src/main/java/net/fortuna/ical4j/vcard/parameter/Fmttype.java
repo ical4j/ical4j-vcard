@@ -94,9 +94,9 @@ public final class Fmttype extends Parameter {
         return subtype;
     }
 
-    public static class Factory extends AbstractFactory<Fmttype, Id> implements ParameterFactory<Fmttype> {
+    public static class Factory extends AbstractFactory implements ParameterFactory<Fmttype> {
         public Factory() {
-            super(Id.FMTTYPE);
+            super(Id.FMTTYPE.toString());
         }
 
         public Fmttype createParameter(String name, String value) {

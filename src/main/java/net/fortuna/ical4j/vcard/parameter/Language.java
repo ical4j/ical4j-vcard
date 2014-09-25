@@ -97,9 +97,9 @@ public final class Language extends Parameter {
         return b.toString();
     }
 
-    public static class Factory extends AbstractFactory<Language, Id> implements ParameterFactory<Language> {
+    public static class Factory extends AbstractFactory implements ParameterFactory<Language> {
         public Factory() {
-            super(Id.LANGUAGE);
+            super(Id.LANGUAGE.toString());
         }
 
         public Language createParameter(String name, String value) {

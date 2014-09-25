@@ -97,9 +97,9 @@ public final class Version extends Property {
         assertParametersEmpty();
     }
 
-    public static class Factory extends AbstractFactory<Version, Id> implements PropertyFactory<Version> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Version> {
         public Factory() {
-            super(Id.VERSION);
+            super(Id.VERSION.toString());
         }
 
         /**

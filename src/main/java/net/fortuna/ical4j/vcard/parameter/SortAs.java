@@ -76,9 +76,9 @@ public final class SortAs extends Parameter {
         return segments;
     }
 
-    public static class Factory extends AbstractFactory<SortAs, Id> implements ParameterFactory<SortAs> {
+    public static class Factory extends AbstractFactory implements ParameterFactory<SortAs> {
         public Factory() {
-            super(Id.SORT_AS);
+            super(Id.SORT_AS.toString());
         }
 
         public SortAs createParameter(String name, String value) {

@@ -93,9 +93,9 @@ public final class Pref extends Parameter {
         return null;
     }
 
-    public static class Factory extends AbstractFactory<Pref, Id> implements ParameterFactory<Pref> {
+    public static class Factory extends AbstractFactory implements ParameterFactory<Pref> {
         public Factory() {
-            super(Id.PREF);
+            super(Id.PREF.toString());
         }
 
         public Pref createParameter(String name, String value) {

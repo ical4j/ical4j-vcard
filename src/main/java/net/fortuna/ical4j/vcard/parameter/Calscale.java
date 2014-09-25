@@ -66,9 +66,9 @@ public final class Calscale extends Parameter {
         return value;
     }
 
-    public static class Factory extends AbstractFactory<Calscale, Id> implements ParameterFactory<Calscale> {
+    public static class Factory extends AbstractFactory implements ParameterFactory<Calscale> {
         public Factory() {
-            super(Id.CALSCALE);
+            super(Id.CALSCALE.toString());
         }
 
         public Calscale createParameter(String name, String value) {

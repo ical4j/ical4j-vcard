@@ -114,9 +114,9 @@ public final class Mailer extends Property {
         }
     }
 
-    public static class Factory extends AbstractFactory<Mailer, Id> implements PropertyFactory<Mailer> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Mailer> {
         public Factory() {
-            super(Id.MAILER);
+            super(Id.MAILER.toString());
         }
 
         /**

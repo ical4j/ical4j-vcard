@@ -99,9 +99,9 @@ public final class Uid extends Property {
         assertParametersEmpty();
     }
 
-    public static class Factory extends AbstractFactory<Uid, Id> implements PropertyFactory<Uid> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Uid> {
         public Factory() {
-            super(Id.UID);
+            super(Id.UID.toString());
         }
 
         /**

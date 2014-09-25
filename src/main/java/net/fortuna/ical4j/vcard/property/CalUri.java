@@ -104,9 +104,9 @@ public final class CalUri extends Property {
 
     }
 
-    public static class Factory extends AbstractFactory<CalUri, Id> implements PropertyFactory<CalUri> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<CalUri> {
         public Factory() {
-            super(Id.CALURI);
+            super(Id.CALURI.toString());
         }
 
         /**

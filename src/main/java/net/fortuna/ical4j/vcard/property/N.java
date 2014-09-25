@@ -228,9 +228,9 @@ public final class N extends Property {
         }
     }
 
-    public static class Factory extends AbstractFactory<N, Id> implements PropertyFactory<N> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<N> {
         public Factory() {
-            super(Id.N);
+            super(Id.N.toString());
         }
 
         /**

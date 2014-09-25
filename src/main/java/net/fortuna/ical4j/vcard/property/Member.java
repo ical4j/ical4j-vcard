@@ -100,9 +100,9 @@ public final class Member extends Property {
         }
     }
 
-    public static class Factory extends AbstractFactory<Member, Id> implements PropertyFactory<Member> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Member> {
         public Factory() {
-            super(Id.MEMBER);
+            super(Id.MEMBER.toString());
         }
 
         /**

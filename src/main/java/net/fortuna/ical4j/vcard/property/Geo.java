@@ -130,9 +130,9 @@ public final class Geo extends Property {
         assertParametersEmpty();
     }
 
-    public static class Factory extends AbstractFactory<Geo, Id> implements PropertyFactory<Geo> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Geo> {
         public Factory() {
-            super(Id.GEO);
+            super(Id.GEO.toString());
         }
 
         /**

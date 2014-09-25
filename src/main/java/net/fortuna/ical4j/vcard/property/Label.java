@@ -106,9 +106,9 @@ public final class Label extends Property implements Escapable {
         }
     }
 
-    public static class Factory extends AbstractFactory<Label, Id> implements PropertyFactory<Label> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Label> {
         public Factory() {
-            super(Id.LABEL);
+            super(Id.LABEL.toString());
         }
 
         /**

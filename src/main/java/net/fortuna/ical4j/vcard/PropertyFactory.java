@@ -69,5 +69,5 @@ public interface PropertyFactory<T extends Property> {
     T createProperty(Group group, List<Parameter> params, String value) throws URISyntaxException,
             ParseException, DecoderException;
 
-    boolean supports(Property.Id id);
+    boolean supports(String id);
 }

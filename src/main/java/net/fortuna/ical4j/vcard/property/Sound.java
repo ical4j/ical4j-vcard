@@ -168,9 +168,9 @@ public final class Sound extends Property {
         }
     }
 
-    public static class Factory extends AbstractFactory<Sound, Id> implements PropertyFactory<Sound> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Sound> {
         public Factory() {
-            super(Id.SOUND);
+            super(Id.SOUND.toString());
         }
 
         /**

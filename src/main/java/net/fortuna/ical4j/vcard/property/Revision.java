@@ -114,9 +114,9 @@ public final class Revision extends Property {
 
     }
 
-    public static class Factory extends AbstractFactory<Revision, Id> implements PropertyFactory<Revision> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Revision> {
         public Factory() {
-            super(Id.REV);
+            super(Id.REV.toString());
         }
 
         /**

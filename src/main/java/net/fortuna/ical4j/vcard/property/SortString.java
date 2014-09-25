@@ -91,9 +91,9 @@ public final class SortString extends Property {
         }
     }
 
-    public static class Factory extends AbstractFactory<SortString, Id> implements PropertyFactory<SortString> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<SortString> {
         public Factory() {
-            super(Id.SORT_STRING);
+            super(Id.SORT_STRING.toString());
         }
 
         /**

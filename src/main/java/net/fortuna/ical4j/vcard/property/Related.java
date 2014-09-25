@@ -129,9 +129,9 @@ public final class Related extends Property {
         }
     }
 
-    public static class Factory extends AbstractFactory<Related, Id> implements PropertyFactory<Related> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Related> {
         public Factory() {
-            super(Id.RELATED);
+            super(Id.RELATED.toString());
         }
 
         /**

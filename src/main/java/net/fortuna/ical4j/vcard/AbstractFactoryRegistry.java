@@ -45,7 +45,9 @@ public abstract class AbstractFactoryRegistry<T> {
     /**
      * @param extendedName a non-standard name to register
      * @param factory      a factory for creating instances of the non-standard type
+     * @deprecated register factories via META-INF/services
      */
+    @Deprecated
     public final void register(String extendedName, T factory) {
         extendedFactories.put(extendedName, factory);
     }

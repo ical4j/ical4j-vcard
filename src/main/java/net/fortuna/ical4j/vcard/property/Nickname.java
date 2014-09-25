@@ -112,9 +112,9 @@ public final class Nickname extends Property {
         }
     }
 
-    public static class Factory extends AbstractFactory<Nickname, Id> implements PropertyFactory<Nickname> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Nickname> {
         public Factory() {
-            super(Id.NICKNAME);
+            super(Id.NICKNAME.toString());
         }
 
         /**

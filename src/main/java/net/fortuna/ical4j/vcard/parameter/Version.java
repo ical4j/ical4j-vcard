@@ -66,9 +66,9 @@ public final class Version extends Parameter {
         return value;
     }
 
-    public static class Factory extends AbstractFactory<Version, Id> implements ParameterFactory<Version> {
+    public static class Factory extends AbstractFactory implements ParameterFactory<Version> {
         public Factory() {
-            super(Id.VERSION);
+            super(Id.VERSION.toString());
         }
 
         public Version createParameter(String name, String value) {

@@ -47,5 +47,5 @@ public interface ParameterFactory<T extends Parameter> {
      */
     T createParameter(String name, String value);
 
-    boolean supports(Parameter.Id id);
+    boolean supports(String id);
 }

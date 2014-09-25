@@ -66,10 +66,10 @@ public final class Altid extends Parameter {
         return value;
     }
 
-    public static class Factory extends AbstractFactory<Altid, Id> implements ParameterFactory<Altid> {
+    public static class Factory extends AbstractFactory implements ParameterFactory<Altid> {
 
         public Factory() {
-            super(Id.ALTID);
+            super(Id.ALTID.toString());
         }
 
         public Altid createParameter(String name, String value) {

@@ -101,9 +101,9 @@ public final class Gender extends Property {
 
     }
 
-    public static class Factory extends AbstractFactory<Gender, Id> implements PropertyFactory<Gender> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<Gender> {
         public Factory() {
-            super(Id.GENDER);
+            super(Id.GENDER.toString());
         }
 
         /**

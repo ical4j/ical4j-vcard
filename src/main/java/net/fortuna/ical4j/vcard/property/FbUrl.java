@@ -104,9 +104,9 @@ public final class FbUrl extends Property {
 
     }
 
-    public static class Factory extends AbstractFactory<FbUrl, Id> implements PropertyFactory<FbUrl> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<FbUrl> {
         public Factory() {
-            super(Id.FBURL);
+            super(Id.FBURL.toString());
         }
 
         /**

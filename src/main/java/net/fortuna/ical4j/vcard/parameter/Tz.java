@@ -66,9 +66,9 @@ public final class Tz extends Parameter {
         return value;
     }
 
-    public static class Factory extends AbstractFactory<Tz, Id> implements ParameterFactory<Tz> {
+    public static class Factory extends AbstractFactory implements ParameterFactory<Tz> {
         public Factory() {
-            super(Id.TZ);
+            super(Id.TZ.toString());
         }
 
         public Tz createParameter(String name, String value) {

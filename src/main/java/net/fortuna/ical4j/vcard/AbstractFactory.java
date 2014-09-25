@@ -6,15 +6,15 @@ import java.util.List;
 /**
  * Created by fortuna on 23/09/14.
  */
-public abstract class AbstractFactory<T, E extends Enum> {
+public abstract class AbstractFactory {
 
-    private List<E> supportedIds;
+    private List<String> supportedIds;
 
-    public AbstractFactory(E... supportedIds) {
+    public AbstractFactory(String... supportedIds) {
         this.supportedIds = Arrays.asList(supportedIds);
     }
 
-    public boolean supports(E id) {
+    public boolean supports(String id) {
         return supportedIds.contains(id);
     }
 }

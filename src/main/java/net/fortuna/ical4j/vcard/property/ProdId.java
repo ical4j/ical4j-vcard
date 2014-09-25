@@ -89,9 +89,9 @@ public final class ProdId extends Property {
         assertParametersEmpty();
     }
 
-    public static class Factory extends AbstractFactory<ProdId, Id> implements PropertyFactory<ProdId> {
+    public static class Factory extends AbstractFactory implements PropertyFactory<ProdId> {
         public Factory() {
-            super(Id.PRODID);
+            super(Id.PRODID.toString());
         }
 
         /**
