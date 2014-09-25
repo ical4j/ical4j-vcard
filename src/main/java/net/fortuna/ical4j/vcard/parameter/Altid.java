@@ -31,34 +31,33 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.vcard.AbstractFactory;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * ALTID parameter.
- * 
+ * <p/>
  * Created on 20/09/2010
  *
  * @author Mike Douglass
- *
  */
 public final class Altid extends Parameter {
 
     private static final long serialVersionUID = 12345L;
- 
-    public static final ParameterFactory<Altid> FACTORY = new Factory();
-    
+
     private String value;
-    
+
     /**
      * Factory constructor.
+     *
      * @param value string representation of a property value
      */
     public Altid(String value) {
         super(Id.ALTID);
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -67,10 +66,14 @@ public final class Altid extends Parameter {
         return value;
     }
 
-    private static class Factory implements ParameterFactory<Altid> {
-        public Altid createParameter(final String value) {
-            
-        	return new Altid(value);
+    public static class Factory extends AbstractFactory<Altid, Id> implements ParameterFactory<Altid> {
+
+        public Factory() {
+            super(Id.ALTID);
+        }
+
+        public Altid createParameter(String name, String value) {
+            return new Altid(value);
         }
     }
 }

@@ -32,42 +32,37 @@
 package net.fortuna.ical4j.vcard.parameter;
 
 import net.fortuna.ical4j.util.CompatibilityHints;
+import net.fortuna.ical4j.vcard.AbstractFactory;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * PREF parameter.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on: 30/12/2008
  *
  * @author Ben
- *
  */
 public final class Pref extends Parameter {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -6246880477846039737L;
 
     /**
      * Support for pre-vCard 4.0 PREF parameter.
      */
     public static final Pref PREF = new Pref();
-    
-    public static final ParameterFactory<Pref> FACTORY = new Factory();
-    
+
     private final Integer level;
-    
+
     /**
      * @param value a string representation of a pref parameter value
      */
     public Pref(String value) {
         this(Integer.valueOf(value));
     }
-    
+
     /**
      * @param level priority level for the pref parameter
      */
@@ -86,7 +81,7 @@ public final class Pref extends Parameter {
         super(Id.PREF);
         this.level = null;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -97,10 +92,13 @@ public final class Pref extends Parameter {
         }
         return null;
     }
-    
-    private static class Factory implements ParameterFactory<Pref> {
 
-        public Pref createParameter(final String value) {
+    public static class Factory extends AbstractFactory<Pref, Id> implements ParameterFactory<Pref> {
+        public Factory() {
+            super(Id.PREF);
+        }
+
+        public Pref createParameter(String name, String value) {
             if (value == null && CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
                 return Pref.PREF;
             }

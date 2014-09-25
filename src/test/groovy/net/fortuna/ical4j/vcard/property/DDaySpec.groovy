@@ -31,18 +31,18 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import net.fortuna.ical4j.vcard.parameter.Value;
-import spock.lang.Specification;
+import net.fortuna.ical4j.vcard.Property
+import net.fortuna.ical4j.vcard.parameter.Value
 
-class DDaySpec extends Specification {
-	
-	def 'validate string representation'() {
-		expect: 'derived string representation equals expected'
-		DDay.FACTORY.createProperty([Value.TEXT], value).toString() == expectedString
+class DDaySpec extends AbstractPropertySpec {
 
-		where:
-		value				| expectedString
-		'April 1st\\, 2001'	| 'DDAY;VALUE=text:April 1st\\, 2001\r\n'
-	}
+    def 'validate string representation'() {
+        expect: 'derived string representation equals expected'
+        factoryRegistry.getFactory(Property.Id.DDAY as String).createProperty([Value.TEXT], value).toString() == expectedString
+
+        where:
+        value               | expectedString
+        'April 1st\\, 2001' | 'DDAY;VALUE=text:April 1st\\, 2001\r\n'
+    }
 
 }

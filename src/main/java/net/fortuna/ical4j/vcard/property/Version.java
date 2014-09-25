@@ -31,45 +31,36 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
+
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-
 /**
  * VERSION property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/10/2008
  *
  * @author Ben
- *
  */
 public final class Version extends Property {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -4345025177285348717L;
-    
+
     /**
      * Standard version instance.
      */
     public static final Version VERSION_4_0 = new Version(
             Collections.unmodifiableList(new ArrayList<Parameter>()), "4.0");
-    
-    public static final PropertyFactory<Version> FACTORY = new Factory();
-    
+
     private final String value;
-    
+
     /**
      * @param value a version value
      */
@@ -77,17 +68,18 @@ public final class Version extends Property {
         super(Id.VERSION);
         this.value = value;
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     private Version(List<Parameter> params, String value) {
         super(Id.VERSION, params);
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -105,7 +97,10 @@ public final class Version extends Property {
         assertParametersEmpty();
     }
 
-    private static class Factory implements PropertyFactory<Version> {
+    public static class Factory extends AbstractFactory<Version, Id> implements PropertyFactory<Version> {
+        public Factory() {
+            super(Id.VERSION);
+        }
 
         /**
          * {@inheritDoc}

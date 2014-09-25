@@ -33,11 +33,10 @@ package net.fortuna.ical4j.vcard;
 
 /**
  * @param <T> parameter type created by the factory implementation
- * 
- * $Id$
- *
- * Created on: 30/10/2008
- *
+ *            <p/>
+ *            $Id$
+ *            <p/>
+ *            Created on: 30/10/2008
  * @author fortuna
  */
 public interface ParameterFactory<T extends Parameter> {
@@ -46,5 +45,7 @@ public interface ParameterFactory<T extends Parameter> {
      * @param value a parameter value used to create a new instance
      * @return a new parameter instance
      */
-    T createParameter(String value);
+    T createParameter(String name, String value);
+
+    boolean supports(Parameter.Id id);
 }

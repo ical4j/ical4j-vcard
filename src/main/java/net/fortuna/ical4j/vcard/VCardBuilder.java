@@ -31,11 +31,12 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.data.UnfoldingReader;
+import net.fortuna.ical4j.util.CompatibilityHints;
+import org.apache.commons.codec.DecoderException;
+
+import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.text.ParseException;
@@ -44,12 +45,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.commons.codec.DecoderException;
-
-import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.data.UnfoldingReader;
-import net.fortuna.ical4j.util.CompatibilityHints;
 
 /**
  * vCard object builder.
@@ -284,10 +279,10 @@ public final class VCardBuilder {
                 }
                 
                 if (vals.length > 1) {
-                    parameters.add(factory.createParameter(vals[1]));
+                    parameters.add(factory.createParameter(vals[0], vals[1]));
                 }
                 else {
-                    parameters.add(factory.createParameter(null));
+                    parameters.add(factory.createParameter(vals[0], null));
                 }
             }
         }

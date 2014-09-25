@@ -31,30 +31,25 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
+
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-
 /**
  * LANG property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 24/08/2008
  *
  * @author Ben
  */
 public final class Lang extends Property {
-
-    public static final PropertyFactory<Lang> FACTORY = new Factory();
 
     private static final long serialVersionUID = 1863658302945551760L;
 
@@ -73,8 +68,9 @@ public final class Lang extends Property {
 
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public Lang(List<Parameter> params, String value) {
         super(Id.LANG, params);
@@ -113,10 +109,13 @@ public final class Lang extends Property {
     @Override
     public void validate() throws ValidationException {
         // TODO Auto-generated method stub
-        
+
     }
 
-    private static class Factory implements PropertyFactory<Lang> {
+    public static class Factory extends AbstractFactory<Lang, Id> implements PropertyFactory<Lang> {
+        public Factory() {
+            super(Id.LANG);
+        }
 
         /**
          * {@inheritDoc}

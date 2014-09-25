@@ -31,16 +31,16 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class ParameterFactoryTest {
@@ -62,11 +62,11 @@ public class ParameterFactoryTest {
     }
 
     /**
-     * Test method for {@link net.fortuna.ical4j.vcard.ParameterFactory#createParameter(java.lang.String)}.
+     * Test method for {@link net.fortuna.ical4j.vcard.ParameterFactory#createParameter(String, String)} .
      */
     @Test
     public void testCreateParameter() {
-        Parameter param = factory.createParameter(value);
+        Parameter param = factory.createParameter(extendedName, value);
         assertEquals(extendedName, param.extendedName);
         assertEquals(value, param.getValue());
     }
@@ -81,18 +81,23 @@ public class ParameterFactoryTest {
              * @see net.fortuna.ical4j.vcard.ParameterFactory#createParameter(java.lang.String)
              */
             @SuppressWarnings("serial")
-            public Parameter createParameter(final String value) {
-                return new Parameter("extended") {
+            public Parameter createParameter(String name, final String value) {
+                return new Parameter(name) {
                     @Override
                     public String getValue() {
                         return value;
                     }
                 };
             }
+
+            @Override
+            public boolean supports(Parameter.Id id) {
+                return id == Parameter.Id.EXTENDED;
+            }
         };
 
-        params.add(new Object[] { factory, "extended", "value" });
-        params.add(new Object[] { factory, "extended", null });
+        params.add(new Object[]{factory, "extended", "value"});
+        params.add(new Object[]{factory, "extended", null});
         return params;
     }
 

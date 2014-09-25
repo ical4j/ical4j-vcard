@@ -31,7 +31,12 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static org.junit.Assert.*;
+import net.fortuna.ical4j.model.ValidationException;
+import org.apache.commons.codec.DecoderException;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -39,13 +44,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-
-import org.apache.commons.codec.DecoderException;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class PropertyFactoryTest {
@@ -53,7 +52,7 @@ public class PropertyFactoryTest {
     private final PropertyFactory<Property> factory;
 
     private final Group group;
-    
+
     private final String extendedName;
 
     private final String value;
@@ -70,10 +69,11 @@ public class PropertyFactoryTest {
     }
 
     /**
-     * Test method for {@link net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)}.
+     * Test method for {@link net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.util.List, String)} .
+     *
      * @throws ParseException
      * @throws URISyntaxException
-     * @throws DecoderException 
+     * @throws DecoderException
      */
     @Test
     public void testCreateProperty() throws URISyntaxException, ParseException, DecoderException {
@@ -81,7 +81,7 @@ public class PropertyFactoryTest {
         assertEquals(extendedName, property.extendedName);
         assertEquals(value, property.getValue());
     }
-    
+
     @Test
     public void testCreateGroupProperty() throws URISyntaxException, ParseException, DecoderException {
         Property property = factory.createProperty(group, new ArrayList<Parameter>(), value);
@@ -106,6 +106,7 @@ public class PropertyFactoryTest {
                     public String getValue() {
                         return value;
                     }
+
                     /* (non-Javadoc)
                      * @see net.fortuna.ical4j.vcard.Property#validate()
                      */
@@ -126,6 +127,7 @@ public class PropertyFactoryTest {
                     public String getValue() {
                         return value;
                     }
+
                     /* (non-Javadoc)
                      * @see net.fortuna.ical4j.vcard.Property#validate()
                      */
@@ -134,10 +136,15 @@ public class PropertyFactoryTest {
                     }
                 };
             }
+
+            @Override
+            public boolean supports(Property.Id id) {
+                return id == Property.Id.EXTENDED;
+            }
         };
 
-        params.add(new Object[] { factory, null, "extended", "value" });
-        params.add(new Object[] { factory, Group.HOME, "extended", "value" });
+        params.add(new Object[]{factory, null, "extended", "value"});
+        params.add(new Object[]{factory, Group.HOME, "extended", "value"});
         return params;
     }
 }

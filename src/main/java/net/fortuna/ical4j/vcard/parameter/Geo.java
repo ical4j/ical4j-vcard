@@ -31,34 +31,33 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.vcard.AbstractFactory;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * GEO parameter.
- * 
+ * <p/>
  * Created on 20/09/2010
  *
  * @author Mike Douglass
- *
  */
 public final class Geo extends Parameter {
 
     private static final long serialVersionUID = 12345L;
- 
-    public static final ParameterFactory<Geo> FACTORY = new Factory();
-    
+
     private String value;
-    
+
     /**
      * Factory constructor.
+     *
      * @param value string representation of a property value
      */
     public Geo(String value) {
         super(Id.GEO);
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -67,10 +66,13 @@ public final class Geo extends Parameter {
         return value;
     }
 
-    private static class Factory implements ParameterFactory<Geo> {
-        public Geo createParameter(final String value) {
-            
-        	return new Geo(value);
+    public static class Factory extends AbstractFactory<Geo, Id> implements ParameterFactory<Geo> {
+        public Factory() {
+            super(Id.GEO);
+        }
+
+        public Geo createParameter(String name, String value) {
+            return new Geo(value);
         }
     }
 }

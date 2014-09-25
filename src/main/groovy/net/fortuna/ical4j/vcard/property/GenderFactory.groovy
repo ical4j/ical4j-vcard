@@ -30,9 +30,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package net.fortuna.ical4j.vcard.property
-
-import net.fortuna.ical4j.vcard.Parameter
-import java.net.URI
 /**
  * $Id$
  *
@@ -41,44 +38,38 @@ import java.net.URI
  * @author fortuna
  *
  */
-public class GenderFactory extends AbstractPropertyFactory{
+public class GenderFactory extends AbstractPropertyFactory {
 
 
     public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         Gender gender
         if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, Gender.class)) {
             gender = (Gender) value
-        }
-        else {
+        } else {
             String genderValue = attributes.remove('value')
             if (genderValue != null) {
                 if (Gender.FEMALE.getValue().equals(genderValue)) {
                     gender = Gender.FEMALE
-                }
-                else if (Gender.MALE.getValue().equals(genderValue)) {
+                } else if (Gender.MALE.getValue().equals(genderValue)) {
                     gender = Gender.MALE
-                }
-                else {
+                } else {
                     attributes.put('value', genderValue)
                     gender = super.newInstance(builder, name, value, attributes);
                 }
-            }
-            else {
+            } else {
                 if (Gender.FEMALE.getValue().equals(value)) {
                     gender = Gender.FEMALE
-                }
-                else if (Gender.MALE.getValue().equals(value)) {
+                } else if (Gender.MALE.getValue().equals(value)) {
                     gender = Gender.MALE
-                }
-                else {
+                } else {
                     gender = super.newInstance(builder, name, value, attributes);
                 }
             }
         }
         return gender
     }
-    
-    protected Object newInstance(List parameters, String value) {
+
+    protected Object newInstance(String name, List parameters, String value) {
         return new Gender(parameters, value)
     }
 }

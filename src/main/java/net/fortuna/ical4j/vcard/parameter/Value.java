@@ -31,23 +31,23 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.vcard.AbstractFactory;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * VALUE parameter.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/08/2008
  *
  * @author Ben
- *
  */
 public final class Value extends Parameter {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -4161095052661786246L;
 
@@ -116,15 +116,14 @@ public final class Value extends Parameter {
      */
     public static final Value UTC_OFFSET = new Value("utc-offset");
 
-    /** Resource
+    /**
+     * Resource
      * duration value parameter.
      */
     public static final Value DURATION = new Value("duration");
-    
-    public static final ParameterFactory<Value> FACTORY = new Factory();
-    
+
     private final String value;
-    
+
     /**
      * @param value string representation of a value parameter
      */
@@ -132,7 +131,7 @@ public final class Value extends Parameter {
         super(Id.VALUE);
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -141,57 +140,47 @@ public final class Value extends Parameter {
         return value;
     }
 
-    private static class Factory implements ParameterFactory<Value> {
-        public Value createParameter(final String value) {
-            
+    public static class Factory extends AbstractFactory<Value, Id> implements ParameterFactory<Value> {
+        public Factory() {
+            super(Id.VALUE);
+        }
+
+        public Value createParameter(String name, String value) {
             Value parameter = null;
-            
+
             if (Value.TEXT.getValue().equals(value)) {
                 parameter = Value.TEXT;
-            }
-            else if (Value.URI.getValue().equals(value)) {
+            } else if (Value.URI.getValue().equals(value)) {
                 parameter = Value.URI;
-            } 
-            else if (Value.DATE.getValue().equals(value)) {
+            } else if (Value.DATE.getValue().equals(value)) {
                 parameter = Value.DATE;
-            } 
-            else if (Value.TIME.getValue().equals(value)) {
+            } else if (Value.TIME.getValue().equals(value)) {
                 parameter = Value.TIME;
-            } 
-            else if (Value.DATE_TIME.getValue().equals(value)) {
+            } else if (Value.DATE_TIME.getValue().equals(value)) {
                 parameter = Value.DATE_TIME;
-            } 
-            else if (Value.DATE_AND_OR_TIME.getValue().equals(value)) {
+            } else if (Value.DATE_AND_OR_TIME.getValue().equals(value)) {
                 parameter = Value.DATE_AND_OR_TIME;
-            } 
-            else if (Value.TIMESTAMP.getValue().equals(value)) {
+            } else if (Value.TIMESTAMP.getValue().equals(value)) {
                 parameter = Value.TIMESTAMP;
-            } 
-            else if (Value.BOOLEAN.getValue().equals(value)) {
+            } else if (Value.BOOLEAN.getValue().equals(value)) {
                 parameter = Value.BOOLEAN;
-            } 
-            else if (Value.INTEGER.getValue().equals(value)) {
+            } else if (Value.INTEGER.getValue().equals(value)) {
                 parameter = Value.INTEGER;
-            } 
-            else if (Value.FLOAT.getValue().equals(value)) {
+            } else if (Value.FLOAT.getValue().equals(value)) {
                 parameter = Value.FLOAT;
-            } 
-            else if (Value.BINARY.getValue().equals(value)) {
+            } else if (Value.BINARY.getValue().equals(value)) {
                 parameter = Value.BINARY;
-            }
-            else if (Value.LANGUAGE_TAG.getValue().equals(value)) {
+            } else if (Value.LANGUAGE_TAG.getValue().equals(value)) {
                 parameter = Value.LANGUAGE_TAG;
-            } 
-            else if (Value.DURATION.getValue().equals(value)) {
+            } else if (Value.DURATION.getValue().equals(value)) {
                 parameter = Value.DURATION;
-            } 
-            
+            }
+
             // Resource 
-            
+
             else if (Value.UTC_OFFSET.getValue().equals(value)) {
                 parameter = Value.UTC_OFFSET;
-            } 
-            else {
+            } else {
                 parameter = new Value(value);
             }
             return parameter;

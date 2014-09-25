@@ -31,37 +31,31 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import java.net.URISyntaxException;
-import java.text.ParseException;
-import java.util.List;
-
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.*;
+
+import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.util.List;
 
 /**
  * REVISION property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/10/2008
  *
  * @author Ben
- *
  */
 public final class Revision extends Property {
 
-    public static final PropertyFactory<Revision> FACTORY = new Factory();
-
     private static final long serialVersionUID = -1342640230576672871L;
-    
+
     private Date date;
-    
+
     /**
      * @param date a revision date
      */
@@ -69,35 +63,33 @@ public final class Revision extends Property {
         super(Id.REV);
         this.date = date;
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      * @throws ParseException if the specified string is not a valid date
      */
     public Revision(List<Parameter> params, String value) throws ParseException {
         super(Id.REV, params);
-        
+
         // try default patterns first, then fall back on vCard-specific patterns
         try {
             this.date = new DateTime(value);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             try {
                 this.date = new Date(value);
-            }
-            catch (ParseException e2) {
+            } catch (ParseException e2) {
                 try {
                     this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
-                }
-                catch (ParseException e3) {
+                } catch (ParseException e3) {
                     this.date = new Date(value, "yyyy'-'MM'-'dd");
                 }
             }
         }
     }
-    
+
     /**
      * @return the date
      */
@@ -119,10 +111,13 @@ public final class Revision extends Property {
     @Override
     public void validate() throws ValidationException {
         // TODO Auto-generated method stub
-        
+
     }
 
-    private static class Factory implements PropertyFactory<Revision> {
+    public static class Factory extends AbstractFactory<Revision, Id> implements PropertyFactory<Revision> {
+        public Factory() {
+            super(Id.REV);
+        }
 
         /**
          * {@inheritDoc}

@@ -31,34 +31,30 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static net.fortuna.ical4j.util.Strings.unescape;
-
-import java.net.URISyntaxException;
-import java.text.ParseException;
-import java.util.List;
-
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Value;
+
+import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.util.List;
+
+import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
  * BDAY property.
- * 
+ * <p/>
  * $Id$ Created on 23/08/2008
+ *
  * @author Ben
  */
 public final class BDay extends Property implements Escapable {
 
     private static final long serialVersionUID = 4298026868242865633L;
-    
-    public static final PropertyFactory<BDay> FACTORY = new Factory();
 
     private Date date;
 
@@ -83,37 +79,34 @@ public final class BDay extends Property implements Escapable {
 
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      * @throws ParseException if the property value is an invalid date
      */
     public BDay(List<Parameter> params, String value) throws ParseException {
         super(Id.BDAY, params);
         if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
             this.text = value;
-        }
-        else {
-            
+        } else {
+
             // try default patterns first, then fall back on vCard-specific patterns
             try {
                 this.date = new Date(value);
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 try {
                     this.date = new DateTime(value);
-                }
-                catch (ParseException e2) {
+                } catch (ParseException e2) {
                     try {
                         this.date = new Date(value, "yyyy'-'MM'-'dd");
-                    }
-                    catch (ParseException e3) {
+                    } catch (ParseException e3) {
                         this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
                     }
                 }
             }
         }
     }
-    
+
     /**
      * @return the date
      */
@@ -158,8 +151,11 @@ public final class BDay extends Property implements Escapable {
             }
         }
     }
-    
-    private static class Factory implements PropertyFactory<BDay> {
+
+    public static class Factory extends AbstractFactory<BDay, Id> implements PropertyFactory<BDay> {
+        public Factory() {
+            super(Id.BDAY);
+        }
 
         /**
          * {@inheritDoc}

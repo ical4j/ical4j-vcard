@@ -31,36 +31,30 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.parameter.Value;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.parameter.Value;
-
 /**
  * SOURCE property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 22/08/2008
  *
  * @author Ben
- *
  */
 public final class Source extends Property {
 
-    public static final PropertyFactory<Source> FACTORY = new Factory();
-
     private static final long serialVersionUID = -8097388189864368448L;
-    
+
     private final URI uri;
-    
+
     /**
      * @param uri a URI specifying a source location
      */
@@ -68,18 +62,19 @@ public final class Source extends Property {
         super(Id.SOURCE);
         this.uri = uri;
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      * @throws URISyntaxException where the specified string is not a valid URI
      */
     public Source(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.SOURCE, params);
         this.uri = new URI(value);
     }
-    
+
     /**
      * @return the uri
      */
@@ -108,8 +103,11 @@ public final class Source extends Property {
             }
         }
     }
-    
-    private static class Factory implements PropertyFactory<Source> {
+
+    public static class Factory extends AbstractFactory<Source, Id> implements PropertyFactory<Source> {
+        public Factory() {
+            super(Id.SOURCE);
+        }
 
         /**
          * {@inheritDoc}

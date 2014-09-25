@@ -31,29 +31,28 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.vcard.AbstractFactory;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * SORT-AS parameter.
- * 
+ * <p/>
  * Created on 20/09/2010
  *
  * @author Mike Douglass
- *
  */
 public final class SortAs extends Parameter {
 
     private static final long serialVersionUID = 12345L;
- 
-    public static final ParameterFactory<SortAs> FACTORY = new Factory();
-    
+
     private String value;
-    
+
     private String[] segments;
-    
+
     /**
      * Factory constructor.
+     *
      * @param value string representation of a property value
      */
     public SortAs(String value) {
@@ -61,7 +60,7 @@ public final class SortAs extends Parameter {
         this.value = value;
         segments = value.split(";", -1);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -77,10 +76,13 @@ public final class SortAs extends Parameter {
         return segments;
     }
 
-    private static class Factory implements ParameterFactory<SortAs> {
-        public SortAs createParameter(final String value) {
-            
-        	return new SortAs(value);
+    public static class Factory extends AbstractFactory<SortAs, Id> implements ParameterFactory<SortAs> {
+        public Factory() {
+            super(Id.SORT_AS);
+        }
+
+        public SortAs createParameter(String name, String value) {
+            return new SortAs(value);
         }
     }
 }

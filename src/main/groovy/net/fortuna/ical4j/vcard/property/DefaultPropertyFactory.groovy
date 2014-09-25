@@ -31,7 +31,6 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import net.fortuna.ical4j.vcard.Parameter
 import net.fortuna.ical4j.vcard.Property
 
 /**
@@ -46,15 +45,14 @@ class DefaultPropertyFactory extends AbstractPropertyFactory {
         def property
         if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, klass)) {
             property = value
-        }
-        else {
+        } else {
             property = super.newInstance(builder, name, value, attributes);
         }
         return property
     }
-    
-    protected Object newInstance(List parameters, String value) {
-        klass.FACTORY.createProperty(parameters, value)
+
+    protected Object newInstance(String name, List parameters, String value) {
+        factoryRegistry.getFactory(name).createProperty(parameters, value)
     }
 }
 

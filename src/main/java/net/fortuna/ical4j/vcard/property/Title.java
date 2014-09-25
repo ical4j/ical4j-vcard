@@ -31,37 +31,31 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static net.fortuna.ical4j.util.Strings.unescape;
+import net.fortuna.ical4j.model.Escapable;
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
 
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.Escapable;
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
  * TITLE property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/09/2008
  *
  * @author Ben
- *
  */
 public final class Title extends Property implements Escapable {
 
-    public static final PropertyFactory<Title> FACTORY = new Factory();
-
     private static final long serialVersionUID = -8410924945367427773L;
-    
+
     private final String value;
-    
+
     /**
      * @param value a title string
      */
@@ -72,14 +66,15 @@ public final class Title extends Property implements Escapable {
 
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public Title(List<Parameter> params, String value) {
         super(Id.TITLE, params);
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -97,14 +92,16 @@ public final class Title extends Property implements Escapable {
         for (Parameter param : getParameters()) {
             try {
                 assertTextParameter(param);
-            }
-            catch (ValidationException ve) {
+            } catch (ValidationException ve) {
                 assertPidParameter(param);
             }
         }
     }
 
-    private static class Factory implements PropertyFactory<Title> {
+    public static class Factory extends AbstractFactory<Title, Id> implements PropertyFactory<Title> {
+        public Factory() {
+            super(Id.TITLE);
+        }
 
         /**
          * {@inheritDoc}

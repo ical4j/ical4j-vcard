@@ -31,35 +31,30 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.vcard.AbstractFactory;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * ENCODING parameter.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/08/2008
  *
  * @author Ben
- *
  */
 public final class Encoding extends Parameter {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -6912042752317640817L;
-    
+
     /**
      * Binary encoding instance.
      */
     public static final Encoding B = new Encoding("b");
-    
-    public static final ParameterFactory<Encoding> FACTORY = new Factory();
-    
+
     private final String value;
-    
+
     /**
      * @param value encoding parameter value
      */
@@ -67,7 +62,7 @@ public final class Encoding extends Parameter {
         super(Id.ENCODING);
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -76,8 +71,12 @@ public final class Encoding extends Parameter {
         return value;
     }
 
-    private static class Factory implements ParameterFactory<Encoding> {
-        public Encoding createParameter(final String value) {
+    public static class Factory extends AbstractFactory<Encoding, Id> implements ParameterFactory<Encoding> {
+        public Factory() {
+            super(Id.ENCODING);
+        }
+
+        public Encoding createParameter(String name, String value) {
             if (Encoding.B.getValue().equals(value)) {
                 return Encoding.B;
             }

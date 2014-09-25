@@ -31,17 +31,17 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import spock.lang.Specification;
+import net.fortuna.ical4j.vcard.Property
 
-class AddressSpec extends Specification {
+class AddressSpec extends AbstractPropertySpec {
 
-	def 'validate string representation'() {
-		expect: 'derived string representation equals expected'
-		Address.FACTORY.createProperty([], value).toString() == expectedString
+    def 'validate string representation'() {
+        expect: 'derived string representation equals expected'
+        factoryRegistry.getFactory(Property.Id.ADR as String).createProperty([], value).toString() == expectedString
 
-		where:
-		value															| expectedString
-		';;41 Roxbury Work\\nOne Street;Commack;NY;171725;Argentina'	| 'ADR:;;41 Roxbury Work\\nOne Street;Commack;NY;171725;Argentina;\r\n'
-		';;Lierstr. 20a;München;;80639;Deutschland'						| 'ADR:;;Lierstr. 20a;München;;80639;Deutschland;\r\n'
-	}
+        where:
+        value                                                        | expectedString
+        ';;41 Roxbury Work\\nOne Street;Commack;NY;171725;Argentina' | 'ADR:;;41 Roxbury Work\\nOne Street;Commack;NY;171725;Argentina;\r\n'
+        ';;Lierstr. 20a;München;;80639;Deutschland'                  | 'ADR:;;Lierstr. 20a;München;;80639;Deutschland;\r\n'
+    }
 }

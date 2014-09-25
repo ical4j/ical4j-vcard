@@ -31,78 +31,72 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.parameter.Type;
+import net.fortuna.ical4j.vcard.parameter.Value;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.parameter.Type;
-import net.fortuna.ical4j.vcard.parameter.Value;
-
 /**
  * RELATED property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/09/2008
  *
  * @author Ben
- *
  */
 public final class Related extends Property {
 
-    public static final PropertyFactory<Related> FACTORY = new Factory();
-
     private static final long serialVersionUID = -3319959600372278036L;
-    
+
     private URI uri;
-    
+
     private String text;
-    
+
     /**
-     * @param text a related text value
+     * @param text  a related text value
      * @param types optional types of the text value
      */
-    public Related(String text, Type...types) {
+    public Related(String text, Type... types) {
         super(Id.RELATED);
         this.text = text;
         getParameters().add(Value.TEXT);
         getParameters().addAll(Arrays.asList(types));
     }
-    
+
     /**
-     * @param uri a URI that defines a relationship
+     * @param uri   a URI that defines a relationship
      * @param types optional types of the URI value
      */
-    public Related(URI uri, Type...types) {
+    public Related(URI uri, Type... types) {
         super(Id.RELATED);
         this.uri = uri;
         getParameters().addAll(Arrays.asList(types));
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      * @throws URISyntaxException if the specified URI value is not a valid URI
      */
     public Related(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.RELATED, params);
         if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
             this.text = value;
-        }
-        else {
+        } else {
             this.uri = new URI(value);
         }
     }
-    
+
     /**
      * @return the uri
      */
@@ -129,14 +123,16 @@ public final class Related extends Property {
         for (Parameter param : getParameters()) {
             try {
                 assertTypeParameter(param);
-            }
-            catch (ValidationException ve) {
+            } catch (ValidationException ve) {
                 assertPidParameter(param);
             }
         }
     }
 
-    private static class Factory implements PropertyFactory<Related> {
+    public static class Factory extends AbstractFactory<Related, Id> implements PropertyFactory<Related> {
+        public Factory() {
+            super(Id.RELATED);
+        }
 
         /**
          * {@inheritDoc}

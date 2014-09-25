@@ -31,49 +31,40 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
+
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-
 /**
  * GENDER property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 23/08/2008
  *
  * @author Ben
- *
  */
 public final class Gender extends Property {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -2739534182576803750L;
-    
+
     /**
      * Standard gender.
      */
     public static final Gender MALE = new Gender(Collections.unmodifiableList(new ArrayList<Parameter>()), "M");
-    
+
     /**
      * Standard gender.
      */
     public static final Gender FEMALE = new Gender(Collections.unmodifiableList(new ArrayList<Parameter>()), "F");
-    
-    public static final PropertyFactory<Gender> FACTORY = new Factory();
-    
+
     private final String value;
-    
+
     /**
      * @param value string representation of a property value
      */
@@ -81,17 +72,18 @@ public final class Gender extends Property {
         super(Id.GENDER);
         this.value = value;
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     private Gender(List<Parameter> params, String value) {
         super(Id.GENDER, params);
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -106,10 +98,13 @@ public final class Gender extends Property {
     @Override
     public void validate() throws ValidationException {
         // TODO Auto-generated method stub
-        
+
     }
 
-    private static class Factory implements PropertyFactory<Gender> {
+    public static class Factory extends AbstractFactory<Gender, Id> implements PropertyFactory<Gender> {
+        public Factory() {
+            super(Id.GENDER);
+        }
 
         /**
          * {@inheritDoc}
@@ -118,11 +113,9 @@ public final class Gender extends Property {
             Gender property = null;
             if (Gender.FEMALE.getValue().equals(value)) {
                 property = Gender.FEMALE;
-            }
-            else if (Gender.MALE.getValue().equals(value)) {
+            } else if (Gender.MALE.getValue().equals(value)) {
                 property = Gender.MALE;
-            }
-            else {
+            } else {
                 property = new Gender(value);
             }
             return property;

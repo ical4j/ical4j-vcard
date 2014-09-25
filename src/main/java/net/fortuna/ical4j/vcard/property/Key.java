@@ -31,21 +31,13 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
-
 import org.apache.commons.codec.BinaryDecoder;
 import org.apache.commons.codec.BinaryEncoder;
 import org.apache.commons.codec.DecoderException;
@@ -54,28 +46,29 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+
 /**
  * KEY property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 23/10/2008
  *
  * @author Ben
- *
  */
 public final class Key extends Property {
 
-    public static final PropertyFactory<Key> FACTORY = new Factory();
-
     private static final long serialVersionUID = -6645173064940148955L;
-    
+
     private URI uri;
-    
+
     private byte[] binary;
 
     private final Log log = LogFactory.getLog(Key.class);
-    
+
     /**
      * @param uri a key URI
      */
@@ -84,16 +77,16 @@ public final class Key extends Property {
         this.uri = uri;
         getParameters().add(Value.URI);
     }
-    
+
     /**
      * @param binary binary key data
      */
     public Key(byte[] binary) {
         this(binary, null);
     }
-    
+
     /**
-     * @param binary binary key data
+     * @param binary      binary key data
      * @param contentType key MIME type
      */
     public Key(byte[] binary, Type contentType) {
@@ -104,24 +97,26 @@ public final class Key extends Property {
             getParameters().add(contentType);
         }
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
-     * @throws DecoderException if the specified string is not a valid key encoding
+     * @param value  string representation of a property value
+     * @throws DecoderException   if the specified string is not a valid key encoding
      * @throws URISyntaxException where the specified string is not a valid URI
      */
     public Key(List<Parameter> params, String value) throws DecoderException, URISyntaxException {
         this(null, params, value);
     }
-    
+
     /**
      * Factory constructor.
-     * @param group property group
+     *
+     * @param group  property group
      * @param params property parameters
-     * @param value string representation of a property value
-     * @throws DecoderException if the specified string is not a valid key encoding
+     * @param value  string representation of a property value
+     * @throws DecoderException   if the specified string is not a valid key encoding
      * @throws URISyntaxException where the specified string is not a valid URI
      */
     public Key(Group group, List<Parameter> params, String value) throws DecoderException, URISyntaxException {
@@ -131,18 +126,17 @@ public final class Key extends Property {
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
          */
-        if (valueParameter != null && Value.URI.equals(valueParameter) || 
-        	valueParameter != null && 
-        	     CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) && 
-        	     "URL".equalsIgnoreCase(valueParameter.getValue())) {
+        if (valueParameter != null && Value.URI.equals(valueParameter) ||
+                valueParameter != null &&
+                        CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) &&
+                        "URL".equalsIgnoreCase(valueParameter.getValue())) {
             this.uri = new URI(value);
-        }
-        else {
+        } else {
             final BinaryDecoder decoder = new Base64();
             this.binary = decoder.decode(value.getBytes());
         }
     }
-    
+
     /**
      * @return the binary
      */
@@ -155,24 +149,22 @@ public final class Key extends Property {
      */
     @Override
     public String getValue() {
-    	final Parameter valueParameter = getParameter(Parameter.Id.VALUE);
+        final Parameter valueParameter = getParameter(Parameter.Id.VALUE);
         String stringValue = null;
         
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
          */
-        if (valueParameter != null && Value.URI.equals(valueParameter) || 
-        	valueParameter != null && 
-        	     CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) && 
-        	     "URL".equalsIgnoreCase(valueParameter.getValue())) {
+        if (valueParameter != null && Value.URI.equals(valueParameter) ||
+                valueParameter != null &&
+                        CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) &&
+                        "URL".equalsIgnoreCase(valueParameter.getValue())) {
             stringValue = Strings.valueOf(uri);
-        }
-        else if (binary != null) {
+        } else if (binary != null) {
             try {
                 final BinaryEncoder encoder = new Base64();
                 stringValue = new String(encoder.encode(binary));
-            }
-            catch (EncoderException ee) {
+            } catch (EncoderException ee) {
                 log.error("Error encoding binary data", ee);
             }
         }
@@ -189,14 +181,17 @@ public final class Key extends Property {
         }
     }
 
-    private static class Factory implements PropertyFactory<Key> {
+    public static class Factory extends AbstractFactory<Key, Id> implements PropertyFactory<Key> {
+        public Factory() {
+            super(Id.KEY);
+        }
 
         /**
          * {@inheritDoc}
          */
         public Key createProperty(final List<Parameter> params, final String value) throws DecoderException,
-            URISyntaxException {
-            
+                URISyntaxException {
+
             return new Key(params, value);
         }
 
@@ -204,8 +199,8 @@ public final class Key extends Property {
          * {@inheritDoc}
          */
         public Key createProperty(final Group group, final List<Parameter> params, final String value)
-            throws DecoderException, URISyntaxException {
-            
+                throws DecoderException, URISyntaxException {
+
             return new Key(group, params, value);
         }
     }

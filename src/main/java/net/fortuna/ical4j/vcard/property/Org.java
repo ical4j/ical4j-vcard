@@ -31,33 +31,26 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static net.fortuna.ical4j.util.Strings.escape;
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
 
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import static net.fortuna.ical4j.util.Strings.escape;
 
 /**
  * ORG property.
- * 
+ * <p/>
  * $Id$
- * 
+ * <p/>
  * Created on 21/09/2008
- * 
+ *
  * @author Ben
- * 
  */
 public final class Org extends Property {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -1435956318814896568L;
 
     // this regex has been stolen from:
@@ -65,23 +58,18 @@ public final class Org extends Property {
     // + what-is-the-proper-regular-expression-for-an-unescaped-backslash-before-a-chara
     private static final String VALUES_SPLIT_REGEX = "(?<!\\\\)(?>\\\\\\\\)*;";
 
-    public static final PropertyFactory<Org> FACTORY = new Factory();
-    
     private String[] values;
 
     /**
-     * @param value
-     *            one or more organization values
+     * @param value one or more organization values
      */
     public Org(String... value) {
         this(null, value);
     }
 
     /**
-     * @param group
-     *            a property group
-     * @param value
-     *            one or more organization values
+     * @param group a property group
+     * @param value one or more organization values
      */
     public Org(Group group, String... value) {
         super(group, Id.ORG);
@@ -93,11 +81,9 @@ public final class Org extends Property {
 
     /**
      * Factory constructor.
-     * 
-     * @param params
-     *            property parameters
-     * @param value
-     *            string representation of a property value
+     *
+     * @param params property parameters
+     * @param value  string representation of a property value
      */
     public Org(List<Parameter> params, String value) {
         this(null, params, value);
@@ -105,13 +91,10 @@ public final class Org extends Property {
 
     /**
      * Factory constructor.
-     * 
-     * @param group
-     *            a property group
-     * @param params
-     *            property parameters
-     * @param value
-     *            string representation of a property value
+     *
+     * @param group  a property group
+     * @param params property parameters
+     * @param value  string representation of a property value
      */
     public Org(Group group, List<Parameter> params, String value) {
         super(group, Id.ORG, params);
@@ -156,7 +139,10 @@ public final class Org extends Property {
         }
     }
 
-    private static class Factory implements PropertyFactory<Org> {
+    public static class Factory extends AbstractFactory<Org, Id> implements PropertyFactory<Org> {
+        public Factory() {
+            super(Id.ORG);
+        }
 
         /**
          * {@inheritDoc}

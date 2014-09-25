@@ -31,35 +31,28 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringWriter;
-
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
-import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.property.BDay;
 import net.fortuna.ical4j.vcard.property.Org;
-
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.net.QuotedPrintableCodec;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * Created on: 2009-02-26
  *
  * @author antheque
- *
  */
 public class Outlook2003Test {
 
@@ -67,47 +60,46 @@ public class Outlook2003Test {
     public void setUp() {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
     }
-    
+
     @After
     public void tearDown() {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
     }
-    
-	/**
-	 * This example has been prepared with Outlook 2003, it is full of errors,
-	 * but still the library should be able to parse it as well as possible.
-	 * 
-	 * This test also makes use of a custom ParameterRegistry, that allows me
-	 * to work around the Outlook quirk, that places the TYPE parameter values
-	 * without the TYPE string, i.e. instead of TYPE=HOME,WORK, we have only
-	 * HOME,WORK.
-	 * 
-	 * @throws ParserException 
-	 * @throws IOException 
-	 * @throws ValidationException 
-	 * @throws DecoderException 
-	 */
-	@Test
-	public void testOutlookExample() throws IOException, ParserException,
-			ValidationException, DecoderException {
-		File file = new File(
-				"src/test/resources/samples/vcard-antoni-outlook2003.vcf");
-		Reader reader = new FileReader(file);
-		GroupRegistry groupRegistry = new GroupRegistry();
-		PropertyFactoryRegistry propReg = new PropertyFactoryRegistry();
-		ParameterFactoryRegistry parReg = new ParameterFactoryRegistry();
-		addTypeParamsToRegistry(parReg);
+
+    /**
+     * This example has been prepared with Outlook 2003, it is full of errors,
+     * but still the library should be able to parse it as well as possible.
+     * <p/>
+     * This test also makes use of a custom ParameterRegistry, that allows me
+     * to work around the Outlook quirk, that places the TYPE parameter values
+     * without the TYPE string, i.e. instead of TYPE=HOME,WORK, we have only
+     * HOME,WORK.
+     *
+     * @throws ParserException
+     * @throws IOException
+     * @throws ValidationException
+     * @throws DecoderException
+     */
+    @Test
+    public void testOutlookExample() throws IOException, ParserException,
+            ValidationException, DecoderException {
+        File file = new File(
+                "src/test/resources/samples/vcard-antoni-outlook2003.vcf");
+        Reader reader = new FileReader(file);
+        GroupRegistry groupRegistry = new GroupRegistry();
+        PropertyFactoryRegistry propReg = new PropertyFactoryRegistry();
+        ParameterFactoryRegistry parReg = new ParameterFactoryRegistry();
 
 		/*
-		 * The custom registry allows the file to be parsed correctly. It's the
+         * The custom registry allows the file to be parsed correctly. It's the
 		 * first workaround for the Outlook problem.
 		 */
-		VCardBuilder builder = 
-				new VCardBuilder(reader, groupRegistry, propReg, parReg);
+        VCardBuilder builder =
+                new VCardBuilder(reader, groupRegistry, propReg, parReg);
 
-		VCard card = builder.build();
-		assertEquals("Antoni Jozef Mylka jun.", 
-				card.getProperty(Id.FN).getValue());
+        VCard card = builder.build();
+        assertEquals("Antoni Jozef Mylka jun.",
+                card.getProperty(Id.FN).getValue());
 		
 		/*
 		 * To test whether the file has really been parsed correctly, we
@@ -124,92 +116,75 @@ public class Outlook2003Test {
 		 * note: we use non-validating outputter, since the ENCODING parameter
 		 * has been deprecated in the newest versions
 		 */
-		VCardOutputter outputter = new VCardOutputter(false);
-		StringWriter writer = new StringWriter();
-		outputter.output(card, writer);
+        VCardOutputter outputter = new VCardOutputter(false);
+        StringWriter writer = new StringWriter();
+        outputter.output(card, writer);
 		
 		/*
 		 * We don't support quoted printable, and we don't try to support
 		 * the crappy Outlook 2003 folding, but we would still like to
 		 * get something. 
 		 */
-		Property labelProperty = card.getProperty(Id.LABEL);
-		String labelvalue = labelProperty.getValue();
-		assertEquals(
-				"3.10=0D=0ATrippstadter Str. 122=0D=0AKaiserslautern, " +
-				"Rheinland-Pfalz 67663=", 
-				labelvalue);
+        Property labelProperty = card.getProperty(Id.LABEL);
+        String labelvalue = labelProperty.getValue();
+        assertEquals(
+                "3.10=0D=0ATrippstadter Str. 122=0D=0AKaiserslautern, " +
+                        "Rheinland-Pfalz 67663=",
+                labelvalue
+        );
 		
 		/*
 		 * A workaround for the limitation above, a utility method, that
 		 * checks the encoding of a property, and returns an un-encoded
 		 * value.
 		 */
-		assertEquals(
-				"3.10\r\nTrippstadter Str. 122\r\nKaiserslautern, " +
-				"Rheinland-Pfalz 67663",
-				getDecodedPropertyalue(labelProperty));
+        assertEquals(
+                "3.10\r\nTrippstadter Str. 122\r\nKaiserslautern, " +
+                        "Rheinland-Pfalz 67663",
+                getDecodedPropertyalue(labelProperty)
+        );
 		
 		/*
 		 * Another issue found, the BDAY property is parsed, but the 
 		 * value is not converted to a date, and te BDay.getDate() method
 		 * returns null.
 		 */
-		BDay bday = (BDay)card.getProperty(Id.BDAY);
-		assertNotNull(bday.getDate());
-		assertEquals("19800118",bday.getValue());
+        BDay bday = (BDay) card.getProperty(Id.BDAY);
+        assertNotNull(bday.getDate());
+        assertEquals("19800118", bday.getValue());
 		
 		/*
 		 * Yet another issue. The entry in PropertyFactoryRegistry for the ORG
 		 * property was invalid. There should be TWO values for this file
 		 * and the org property.
 		 */
-		String [] vals = ((Org)card.getProperty(Id.ORG)).getValues();
-		assertEquals(2,vals.length);
-		assertEquals("DFKI",vals[0]);
-		assertEquals("Knowledge-Management",vals[1]);
-	}
-	
-	/**
-	 * @param prop
-	 * @return
-	 * @throws DecoderException 
-	 */
-	private String getDecodedPropertyalue(Property prop) throws DecoderException {
-		Encoding enc = (Encoding)prop.getParameter(Parameter.Id.ENCODING);
-		String val = prop.getValue();
-		if (enc != null && enc.getValue().equalsIgnoreCase("QUOTED-PRINTABLE")) {
+        String[] vals = ((Org) card.getProperty(Id.ORG)).getValues();
+        assertEquals(2, vals.length);
+        assertEquals("DFKI", vals[0]);
+        assertEquals("Knowledge-Management", vals[1]);
+    }
+
+    /**
+     * @param prop
+     * @return
+     * @throws DecoderException
+     */
+    private String getDecodedPropertyalue(Property prop) throws DecoderException {
+        Encoding enc = (Encoding) prop.getParameter(Parameter.Id.ENCODING);
+        String val = prop.getValue();
+        if (enc != null && enc.getValue().equalsIgnoreCase("QUOTED-PRINTABLE")) {
 			
 			/*
 			 * A special Outlook2003 hack.
 			 */
-			if (val.endsWith("=")) {
-				val = val.substring(0,val.length() - 1);
-			}
-			
-			QuotedPrintableCodec codec = new QuotedPrintableCodec();
-			return codec.decode(val);
-		} else {
-			return val;
-		}
-	}
+            if (val.endsWith("=")) {
+                val = val.substring(0, val.length() - 1);
+            }
 
-	private void addTypeParamsToRegistry(ParameterFactoryRegistry parReg) {
-		for (final String name : new String[] { "HOME", "WORK", "MSG", "PREF",
-				"VOICE", "FAX", "CELL", "VIDEO", "PAGER", "BBS", "MODEM",
-				"CAR", "ISDN", "PCS", "INTERNET", "X400", "DOM", "INTL",
-				"POSTAL", "PARCEL" }) {
-			parReg.register(name, new ParameterFactory<Parameter>() {
-				public Parameter createParameter(String value) {
-					return new Type(name);
-				}
-			});
-			String lc = name.toLowerCase();
-			parReg.register(lc, new ParameterFactory<Parameter>() {
-				public Parameter createParameter(String value) {
-					return new Type(name);
-				}
-			});
-		}
-	}
+            QuotedPrintableCodec codec = new QuotedPrintableCodec();
+            return codec.decode(val);
+        } else {
+            return val;
+        }
+    }
 }

@@ -31,37 +31,33 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static org.junit.Assert.assertEquals;
+import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.CompatibilityHints;
+import net.fortuna.ical4j.vcard.property.Key;
+import net.fortuna.ical4j.vcard.property.Logo;
+import net.fortuna.ical4j.vcard.property.Photo;
+import net.fortuna.ical4j.vcard.property.Sound;
+import org.apache.commons.codec.DecoderException;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.util.CompatibilityHints;
-import net.fortuna.ical4j.vcard.parameter.Type;
-import net.fortuna.ical4j.vcard.property.Key;
-import net.fortuna.ical4j.vcard.property.Logo;
-import net.fortuna.ical4j.vcard.property.Photo;
-import net.fortuna.ical4j.vcard.property.Sound;
-
-import org.apache.commons.codec.DecoderException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
- * 
  * This tests if the VALUE=URL parameter is treated correctly.
  * This parameter is from VCard 2.1. In VCard 3.0 'URL' has been superseeded by 'URI'.
  * Yet, 2.1 emails still come up in the field, especially those created with MS Outlook.
- * 
+ * <p/>
  * Created on: 2010-03-29
- * 
+ *
  * @author antheque
- * 
  */
 public class ValueEqualsURLTest {
 
@@ -75,54 +71,34 @@ public class ValueEqualsURLTest {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
     }
 
-	@Test
-	public void testPhotoValueEqualsURL() throws IOException, ParserException,
-			ValidationException, DecoderException {
-		File file = new File(
-				"./src/test/resources/samples/vcard-antoni-outlook2003-valueurl.vcf");
-		Reader reader = new FileReader(file);
-		GroupRegistry groupRegistry = new GroupRegistry();
-		PropertyFactoryRegistry propReg = new PropertyFactoryRegistry();
-		ParameterFactoryRegistry parReg = new ParameterFactoryRegistry();
-		addTypeParamsToRegistry(parReg);
+    @Test
+    public void testPhotoValueEqualsURL() throws IOException, ParserException,
+            ValidationException, DecoderException {
+        File file = new File(
+                "./src/test/resources/samples/vcard-antoni-outlook2003-valueurl.vcf");
+        Reader reader = new FileReader(file);
+        GroupRegistry groupRegistry = new GroupRegistry();
+        PropertyFactoryRegistry propReg = new PropertyFactoryRegistry();
+        ParameterFactoryRegistry parReg = new ParameterFactoryRegistry();
 
-		VCardBuilder builder = 
-				new VCardBuilder(reader, groupRegistry, propReg, parReg);
+        VCardBuilder builder =
+                new VCardBuilder(reader, groupRegistry, propReg, parReg);
 
-		VCard card = builder.build();
-		Photo photo = (Photo)card.getProperty(Property.Id.PHOTO);
-		assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.jpg",
-				photo.getUri().toString());
-		
-		Sound sound = (Sound)card.getProperty(Property.Id.SOUND);
-		assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.wav",
-				sound.getUri().toString());
-		
-		Logo logo = (Logo)card.getProperty(Property.Id.LOGO);
-		assertEquals("http://www.dfki.de/web/logo.jpg", logo.getUri().toString());
-		
-		Key key = (Key)card.getProperty(Property.Id.KEY);
-		assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.key",
-				key.getValue().toString());
-		
-	}	
+        VCard card = builder.build();
+        Photo photo = (Photo) card.getProperty(Property.Id.PHOTO);
+        assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.jpg",
+                photo.getUri().toString());
 
-	private void addTypeParamsToRegistry(ParameterFactoryRegistry parReg) {
-		for (final String name : new String[] { "HOME", "WORK", "MSG", "PREF",
-				"VOICE", "FAX", "CELL", "VIDEO", "PAGER", "BBS", "MODEM",
-				"CAR", "ISDN", "PCS", "INTERNET", "X400", "DOM", "INTL",
-				"POSTAL", "PARCEL" }) {
-			parReg.register(name, new ParameterFactory<Parameter>() {
-				public Parameter createParameter(String value) {
-					return new Type(name);
-				}
-			});
-			String lc = name.toLowerCase();
-			parReg.register(lc, new ParameterFactory<Parameter>() {
-				public Parameter createParameter(String value) {
-					return new Type(name);
-				}
-			});
-		}
-	}
+        Sound sound = (Sound) card.getProperty(Property.Id.SOUND);
+        assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.wav",
+                sound.getUri().toString());
+
+        Logo logo = (Logo) card.getProperty(Property.Id.LOGO);
+        assertEquals("http://www.dfki.de/web/logo.jpg", logo.getUri().toString());
+
+        Key key = (Key) card.getProperty(Property.Id.KEY);
+        assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.key",
+                key.getValue().toString());
+
+    }
 }

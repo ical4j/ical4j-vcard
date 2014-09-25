@@ -31,6 +31,15 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.CompatibilityHints;
+import org.apache.commons.codec.DecoderException;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -39,31 +48,19 @@ import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.util.CompatibilityHints;
-import net.fortuna.ical4j.vcard.parameter.Type;
-
-import org.apache.commons.codec.DecoderException;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 /**
  * VCards generated with Outlook 12 often contain a certain extended property
  * X-MS-CARDPICTURE. ical4j-vcard includes a generic facility to write {@link Property}
  * subclasses for extended property. This facility cannot be used though if the
  * builder skips those lines in the first place.
- * 
+ * <p/>
  * This test has been created to make sure it is possible to work with extended
  * properties in ical4j-vcard
- * 
- * 
+ * <p/>
+ * <p/>
  * Created on: 2010-03-29
- * 
+ *
  * @author antheque
- * 
  */
 public class XMsCardpictureTest {
 
@@ -77,76 +74,70 @@ public class XMsCardpictureTest {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
     }
 
-	@Test
-	public void testXMSCardpicture() throws IOException, ParserException,
-			ValidationException, DecoderException {
-		File file = new File(
-				"./src/test/resources/samples/vcard-antoni-cardpicture.vcf");
-		Reader reader = new FileReader(file);
-		GroupRegistry groupRegistry = new GroupRegistry();
-		PropertyFactoryRegistry propReg = new PropertyFactoryRegistry();
-		ParameterFactoryRegistry parReg = new ParameterFactoryRegistry();
-		addTypeParamsToRegistry(parReg);
-		addCardpicturePropertyToRegistry(propReg);
-		
-		VCardBuilder builder = 
-				new VCardBuilder(reader, groupRegistry, propReg, parReg);
+    @Test
+    public void testXMSCardpicture() throws IOException, ParserException,
+            ValidationException, DecoderException {
+        File file = new File(
+                "./src/test/resources/samples/vcard-antoni-cardpicture.vcf");
+        Reader reader = new FileReader(file);
+        GroupRegistry groupRegistry = new GroupRegistry();
+        PropertyFactoryRegistry propReg = new PropertyFactoryRegistry();
+        ParameterFactoryRegistry parReg = new ParameterFactoryRegistry();
+        addCardpicturePropertyToRegistry(propReg);
 
-		VCard card = builder.build();
-		
-		Property prop = card.getExtendedProperty("X-MS-CARDPICTURE");
-		
-		String value = prop.getValue();
-		// the value starts with a correct string (it is Base64)
-		Assert.assertTrue(value.startsWith("/9j/4AAQSkZJRgABAQIAAAAAAAD/2"));
-		// the value has been unfolded correctly and doesn't contain any linebreaks
-		Assert.assertFalse(value.contains("\r\n"));
-		
-	}
+        VCardBuilder builder =
+                new VCardBuilder(reader, groupRegistry, propReg, parReg);
 
-	private void addTypeParamsToRegistry(ParameterFactoryRegistry parReg) {
-		for (final String name : new String[] { "HOME", "WORK", "MSG", "PREF",
-				"VOICE", "FAX", "CELL", "VIDEO", "PAGER", "BBS", "MODEM",
-				"CAR", "ISDN", "PCS", "INTERNET", "X400", "DOM", "INTL",
-				"POSTAL", "PARCEL" }) {
-			parReg.register(name, new ParameterFactory<Parameter>() {
-				public Parameter createParameter(String value) {
-					return new Type(name);
-				}
-			});
-			String lc = name.toLowerCase();
-			parReg.register(lc, new ParameterFactory<Parameter>() {
-				public Parameter createParameter(String value) {
-					return new Type(name);
-				}
-			});
-		}
-	}
-	
-    private void addCardpicturePropertyToRegistry(PropertyFactoryRegistry propReg) {
-    	propReg.register("X-MS-CARDPICTURE",
-			new PropertyFactory<Property>() {
-				public Property createProperty(Group group, List<Parameter> params,
-						String value) throws URISyntaxException, ParseException,
-						DecoderException {
-					return new ExtendedProperty(group, params, value);
-				}
-				public Property createProperty(List<Parameter> params, String value)
-						throws URISyntaxException, ParseException, DecoderException {
-					return new ExtendedProperty(null, params, value);
-				}
-			}
-    	);
+        VCard card = builder.build();
+
+        Property prop = card.getExtendedProperty("X-MS-CARDPICTURE");
+
+        String value = prop.getValue();
+        // the value starts with a correct string (it is Base64)
+        Assert.assertTrue(value.startsWith("/9j/4AAQSkZJRgABAQIAAAAAAAD/2"));
+        // the value has been unfolded correctly and doesn't contain any linebreaks
+        Assert.assertFalse(value.contains("\r\n"));
+
     }
-    
+
+    private void addCardpicturePropertyToRegistry(PropertyFactoryRegistry propReg) {
+        propReg.register("X-MS-CARDPICTURE",
+                new PropertyFactory<ExtendedProperty>() {
+                    public ExtendedProperty createProperty(Group group, List<Parameter> params,
+                                                           String value) throws URISyntaxException, ParseException,
+                            DecoderException {
+                        return new ExtendedProperty(group, params, value);
+                    }
+
+                    public ExtendedProperty createProperty(List<Parameter> params, String value)
+                            throws URISyntaxException, ParseException, DecoderException {
+                        return new ExtendedProperty(null, params, value);
+                    }
+
+                    @Override
+                    public boolean supports(Property.Id id) {
+                        return id == Property.Id.EXTENDED;
+                    }
+                }
+        );
+    }
+
     private static class ExtendedProperty extends Property {
-		private static final long serialVersionUID = 6075807738019876132L;
-		private String value;
-    	public ExtendedProperty(Group group, List<Parameter> params, String value) {
-    		super(group, "X-MS-CARDPICTURE", params);
-    		this.value = value;
-    	}
-		@Override public String getValue() { return value; }
-		@Override public void validate() throws ValidationException {}
+        private static final long serialVersionUID = 6075807738019876132L;
+        private String value;
+
+        public ExtendedProperty(Group group, List<Parameter> params, String value) {
+            super(group, "X-MS-CARDPICTURE", params);
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void validate() throws ValidationException {
+        }
     }
 }

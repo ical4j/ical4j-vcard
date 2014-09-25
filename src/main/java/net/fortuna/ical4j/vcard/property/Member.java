@@ -31,36 +31,30 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.*;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-
 /**
  * MEMBER property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/09/2008
  *
  * @author Ben
- *
  */
 public final class Member extends Property {
 
-    public static final PropertyFactory<Member> FACTORY = new Factory();
-
     private static final long serialVersionUID = 6622845049765958916L;
-    
+
     private final URI uri;
-    
+
     /**
      * @param uri a URI that represents a member
      */
@@ -68,18 +62,19 @@ public final class Member extends Property {
         super(Id.MEMBER);
         this.uri = uri;
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      * @throws URISyntaxException where the specified value is an invalid URI
      */
     public Member(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.MEMBER, params);
         this.uri = new URI(value);
     }
-    
+
     /**
      * @return the uri
      */
@@ -105,7 +100,10 @@ public final class Member extends Property {
         }
     }
 
-    private static class Factory implements PropertyFactory<Member> {
+    public static class Factory extends AbstractFactory<Member, Id> implements PropertyFactory<Member> {
+        public Factory() {
+            super(Id.MEMBER);
+        }
 
         /**
          * {@inheritDoc}

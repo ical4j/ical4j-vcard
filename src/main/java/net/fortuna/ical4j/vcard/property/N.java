@@ -33,10 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.CompatibilityHints;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.*;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.net.URISyntaxException;
@@ -47,19 +44,16 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * N property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 23/08/2008
  *
  * @author Ben
- *
  */
 public final class N extends Property {
 
     private static final long serialVersionUID = 1117450875931318523L;
-    
-    public static final PropertyFactory<N> FACTORY = new Factory();
 
     private final String familyName;
 
@@ -70,13 +64,13 @@ public final class N extends Property {
     private String[] prefixes;
 
     private String[] suffixes;
-    
+
     /**
-     * @param familyName the family name component of a name
-     * @param givenName the given name component of a name
+     * @param familyName      the family name component of a name
+     * @param givenName       the given name component of a name
      * @param additionalNames additional names component of a name
-     * @param prefixes prefix components of a name
-     * @param suffixes suffix components of a name
+     * @param prefixes        prefix components of a name
+     * @param suffixes        suffix components of a name
      */
     public N(String familyName, String givenName, String[] additionalNames, String[] prefixes, String[] suffixes) {
         super(Id.N);
@@ -86,11 +80,12 @@ public final class N extends Property {
         this.prefixes = prefixes;
         this.suffixes = suffixes;
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public N(List<Parameter> params, String value) {
         super(Id.N, params);
@@ -99,18 +94,18 @@ public final class N extends Property {
         if (names.length >= 2) {
             this.givenName = names[1];
         }
-        
+
         if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
-        	parseValueRelaxed(names);
+            parseValueRelaxed(names);
         } else {
-        	parseValue(names);
+            parseValue(names);
         }
     }
-    
+
     /**
      * @param names an array of names
      */
-    private void parseValueRelaxed(String [] names) {
+    private void parseValueRelaxed(String[] names) {
         // support VCARD 3.0 by allowing optional section..
         if (names.length >= 3) {
             this.additionalNames = names[2].split(",");
@@ -121,12 +116,12 @@ public final class N extends Property {
         if (names.length >= 5) {
             this.suffixes = names[4].split(",");
         }
-	}
-    
+    }
+
     /**
      * @param names an array of names
      */
-    private void parseValue(String [] names) {
+    private void parseValue(String[] names) {
         // support VCARD 3.0 by allowing optional section..
         if (names.length > 2) {
             this.additionalNames = names[2].split(",");
@@ -137,9 +132,9 @@ public final class N extends Property {
         if (names.length > 4) {
             this.suffixes = names[4].split(",");
         }
-	}
+    }
 
-	/**
+    /**
      * @return the familyName
      */
     public String getFamilyName() {
@@ -233,7 +228,10 @@ public final class N extends Property {
         }
     }
 
-    private static class Factory implements PropertyFactory<N> {
+    public static class Factory extends AbstractFactory<N, Id> implements PropertyFactory<N> {
+        public Factory() {
+            super(Id.N);
+        }
 
         /**
          * {@inheritDoc}

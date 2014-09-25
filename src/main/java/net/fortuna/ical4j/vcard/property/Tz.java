@@ -31,38 +31,32 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.UtcOffset;
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.parameter.Value;
+
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.UtcOffset;
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.parameter.Value;
-
 /**
  * TZ property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 18/09/2008
  *
  * @author Ben
- *
  */
 public final class Tz extends Property {
 
-    public static final PropertyFactory<Tz> FACTORY = new Factory();
-    
     private static final long serialVersionUID = 930436197799477318L;
 
     private UtcOffset offset;
 
     private String text;
-    
+
     /**
      * @param offset the offset from UTC for the timezone
      */
@@ -79,18 +73,18 @@ public final class Tz extends Property {
         this.text = text;
         getParameters().add(Value.TEXT);
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public Tz(List<Parameter> params, String value) {
         super(Id.TZ, params);
         if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
             this.text = value;
-        }
-        else {
+        } else {
             this.offset = new UtcOffset(value);
         }
     }
@@ -101,7 +95,7 @@ public final class Tz extends Property {
     public UtcOffset getOffset() {
         return offset;
     }
-    
+
     /**
      * @return the text
      */
@@ -117,8 +111,7 @@ public final class Tz extends Property {
         String value = null;
         if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
             value = text;
-        }
-        else if (offset != null) {
+        } else if (offset != null) {
             value = offset.toString();
         }
         return value;
@@ -133,7 +126,10 @@ public final class Tz extends Property {
         assertParametersEmpty();
     }
 
-    private static class Factory implements PropertyFactory<Tz> {
+    public static class Factory extends AbstractFactory<Tz, Id> implements PropertyFactory<Tz> {
+        public Factory() {
+            super(Id.TZ);
+        }
 
         /**
          * {@inheritDoc}

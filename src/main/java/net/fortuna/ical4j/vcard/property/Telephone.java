@@ -33,10 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
 import org.apache.commons.lang3.StringUtils;
@@ -49,40 +46,37 @@ import java.util.List;
 
 /**
  * TEL property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 24/08/2008
  *
  * @author Ben
- *
  */
 public final class Telephone extends Property {
 
     private static final long serialVersionUID = -7747040131815077325L;
 
     private static final String TEL_SCHEME = "tel";
-    
-    public static final PropertyFactory<Telephone> FACTORY = new Factory();
-    
+
     private URI uri;
-    
+
     private String value;
-    
+
     /**
-     * @param uri specifies the URI of a telephone definition
+     * @param uri   specifies the URI of a telephone definition
      * @param types optional parameter types
      */
-    public Telephone(URI uri, Type...types) {
+    public Telephone(URI uri, Type... types) {
         this(null, uri, types);
     }
-    
+
     /**
      * @param group a property group
-     * @param uri specifies the URI of a telephone definition
+     * @param uri   specifies the URI of a telephone definition
      * @param types optional parameter types
      */
-    public Telephone(Group group, URI uri, Type...types) {
+    public Telephone(Group group, URI uri, Type... types) {
         super(group, Id.TEL);
         this.uri = normalise(uri);
         getParameters().add(Value.URI);
@@ -90,63 +84,63 @@ public final class Telephone extends Property {
             getParameters().add(type);
         }
     }
-    
+
     /**
      * Provide backwards-compatibility for vCard 3.0.
+     *
      * @param value a non-URI value
      * @param types optional parameter types
      */
-    public Telephone(String value, Type...types) {
+    public Telephone(String value, Type... types) {
         super(null, Id.TEL);
         this.value = value;
         for (Type type : types) {
             getParameters().add(type);
         }
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      * @throws URISyntaxException where the specified value is not a valid URI
      */
     public Telephone(List<Parameter> params, String value) throws URISyntaxException {
         this(null, params, value);
     }
-    
+
     /**
      * Factory constructor.
-     * @param group a property group
+     *
+     * @param group  a property group
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      * @throws URISyntaxException where the specified value is not a valid URI
      */
     public Telephone(Group group, List<Parameter> params, String value) throws URISyntaxException {
         super(group, Id.TEL, params);
         if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
             this.uri = normalise(new URI(value.trim().replaceAll("\\s+", "-")));
-        }
-        else {
+        } else {
             this.value = value;
         }
     }
-    
+
     private URI normalise(URI uri) {
         URI retVal;
         if (uri.getScheme() == null && StringUtils.isNotEmpty(uri.getSchemeSpecificPart())) {
             try {
                 retVal = new URI(TEL_SCHEME, uri.getSchemeSpecificPart(), uri.getFragment());
-            }
-            catch (URISyntaxException e) {
+            } catch (URISyntaxException e) {
                 retVal = uri;
             }
-        }
-        else {
+        } else {
             retVal = uri;
         }
         return retVal;
     }
-    
+
     /**
      * @return the uri
      */
@@ -161,8 +155,7 @@ public final class Telephone extends Property {
     public String getValue() {
         if (uri != null) {
             return Strings.valueOf(uri);
-        }
-        else {
+        } else {
             return value;
         }
     }
@@ -173,24 +166,27 @@ public final class Telephone extends Property {
     @Override
     public void validate() throws ValidationException {
         for (Parameter param : getParameters()) {
-        	final Parameter.Id id = param.getId();
+            final Parameter.Id id = param.getId();
 
-        	if (!Parameter.Id.PID.equals(id) &&
-       			!Parameter.Id.PREF.equals(id) &&
-       			!Parameter.Id.TYPE.equals(id)) {
-        		throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, id));
-        	}
+            if (!Parameter.Id.PID.equals(id) &&
+                    !Parameter.Id.PREF.equals(id) &&
+                    !Parameter.Id.TYPE.equals(id)) {
+                throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, id));
+            }
         }
     }
 
-    private static class Factory implements PropertyFactory<Telephone> {
+    public static class Factory extends AbstractFactory<Telephone, Id> implements PropertyFactory<Telephone> {
+        public Factory() {
+            super(Id.TEL);
+        }
 
         /**
          * {@inheritDoc}
          */
         public Telephone createProperty(final List<Parameter> params, final String value)
-            throws URISyntaxException {
-            
+                throws URISyntaxException {
+
             return new Telephone(params, value);
         }
 

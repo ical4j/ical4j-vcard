@@ -31,17 +31,17 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import spock.lang.Specification
+import net.fortuna.ical4j.vcard.Property
 
-class DeathSpec extends Specification {
-	
-	def 'validate string representation'() {
-		expect: 'derived string representation equals expected'
-		Death.FACTORY.createProperty([], value).toString() == expectedString
+class DeathSpec extends AbstractPropertySpec {
 
-		where:
-		value				| expectedString
-		'April 1st\\, 2001'	| 'DEATH:April 1st\\, 2001\r\n'
-	}
+    def 'validate string representation'() {
+        expect: 'derived string representation equals expected'
+        factoryRegistry.getFactory(Property.Id.DEATH as String).createProperty([], value).toString() == expectedString
+
+        where:
+        value               | expectedString
+        'April 1st\\, 2001' | 'DEATH:April 1st\\, 2001\r\n'
+    }
 
 }

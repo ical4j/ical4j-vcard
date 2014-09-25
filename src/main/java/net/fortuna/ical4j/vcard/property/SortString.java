@@ -31,34 +31,28 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
+
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-
 /**
  * SORT-STRING property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/10/2008
  *
  * @author Ben
- *
  */
 public final class SortString extends Property {
 
-    public static final PropertyFactory<SortString> FACTORY = new Factory();
-
     private static final long serialVersionUID = 980796364808362907L;
-    
+
     private final String value;
-    
+
     /**
      * @param value a sort string value
      */
@@ -66,17 +60,18 @@ public final class SortString extends Property {
         super(Id.SORT_STRING);
         this.value = value;
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public SortString(List<Parameter> params, String value) {
         super(Id.SORT_STRING, params);
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -96,7 +91,10 @@ public final class SortString extends Property {
         }
     }
 
-    private static class Factory implements PropertyFactory<SortString> {
+    public static class Factory extends AbstractFactory<SortString, Id> implements PropertyFactory<SortString> {
+        public Factory() {
+            super(Id.SORT_STRING);
+        }
 
         /**
          * {@inheritDoc}

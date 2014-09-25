@@ -31,43 +31,37 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static net.fortuna.ical4j.util.Strings.unescape;
-
-import java.net.URISyntaxException;
-import java.text.ParseException;
-import java.util.List;
-
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Escapable;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Value;
+
+import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.util.List;
+
+import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
  * DDAY property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 23/08/2008
  *
  * @author Ben
- *
  */
 public final class DDay extends Property implements Escapable {
 
-    public static final PropertyFactory<DDay> FACTORY = new Factory();
-    
     private static final long serialVersionUID = 3969167775362943497L;
 
     private Date date;
-    
+
     private String text;
-    
+
     /**
      * @param date date of death
      */
@@ -75,7 +69,7 @@ public final class DDay extends Property implements Escapable {
         super(Id.DDAY);
         this.date = date;
     }
-    
+
     /**
      * @param description unstructured time of death
      */
@@ -84,28 +78,27 @@ public final class DDay extends Property implements Escapable {
         this.text = description;
         getParameters().add(Value.TEXT);
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      * @throws ParseException where the specified value is not a valid date representation
      */
     public DDay(List<Parameter> params, String value) throws ParseException {
         super(Id.DDAY, params);
         if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
             this.text = value;
-        }
-        else {
+        } else {
             try {
                 this.date = new Date(value);
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 this.date = new DateTime(value);
             }
         }
     }
-    
+
     /**
      * @return the date
      */
@@ -138,11 +131,11 @@ public final class DDay extends Property implements Escapable {
     public void validate() throws ValidationException {
         // ; Only value parameter allowed
         assertOneOrLess(Parameter.Id.VALUE);
-        
+
         if (getParameters().size() > 1) {
             throw new ValidationException("Illegal parameter count");
         }
-        
+
         for (Parameter param : getParameters()) {
             if (!Value.TEXT.equals(param)) {
                 throw new ValidationException("Illegal parameter [" + param.getId() + "]");
@@ -150,7 +143,10 @@ public final class DDay extends Property implements Escapable {
         }
     }
 
-    private static class Factory implements PropertyFactory<DDay> {
+    public static class Factory extends AbstractFactory<DDay, Id> implements PropertyFactory<DDay> {
+        public Factory() {
+            super(Id.DDAY);
+        }
 
         /**
          * {@inheritDoc}

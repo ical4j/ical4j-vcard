@@ -31,17 +31,17 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import spock.lang.Specification
+import net.fortuna.ical4j.vcard.Property
 
-class NameSpec extends Specification {
-	
-	def 'validate string representation'() {
-		expect: 'derived string representation equals expected'
-		Name.FACTORY.createProperty([], value).toString() == expectedString
+class NameSpec extends AbstractPropertySpec {
 
-		where:
-		value				| expectedString
-		'This is\\, a name'	| 'NAME:This is\\, a name\r\n'
-	}
+    def 'validate string representation'() {
+        expect: 'derived string representation equals expected'
+        factoryRegistry.getFactory(Property.Id.NAME as String).createProperty([], value).toString() == expectedString
+
+        where:
+        value               | expectedString
+        'This is\\, a name' | 'NAME:This is\\, a name\r\n'
+    }
 
 }

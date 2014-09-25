@@ -31,52 +31,46 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
+
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-
 /**
  * CLAZZ property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 23/10/2008
  *
  * @author Ben
- *
  */
 public final class Clazz extends Property {
 
     private static final long serialVersionUID = -3339099487456754606L;
-    
+
     /**
      * Standard classification.
      */
     public static final Clazz PUBLIC = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()), "PUBLIC");
-    
+
     /**
      * Standard classification.
      */
     public static final Clazz PRIVATE = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()), "PRIVATE");
-    
+
     /**
      * Standard classification.
      */
     public static final Clazz CONFIDENTIAL = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()),
             "CONFIDENTIAL");
 
-    public static final PropertyFactory<Clazz> FACTORY = new Factory();
-    
     private final String value;
-    
+
     /**
      * @param value a classification value
      */
@@ -84,17 +78,18 @@ public final class Clazz extends Property {
         super(Id.CLASS);
         this.value = value;
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public Clazz(List<Parameter> params, String value) {
         super(Id.CLASS, params);
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -112,7 +107,10 @@ public final class Clazz extends Property {
         assertParametersEmpty();
     }
 
-    private static class Factory implements PropertyFactory<Clazz> {
+    public static class Factory extends AbstractFactory<Clazz, Id> implements PropertyFactory<Clazz> {
+        public Factory() {
+            super(Id.CLASS);
+        }
 
         /**
          * {@inheritDoc}
@@ -121,14 +119,11 @@ public final class Clazz extends Property {
             Clazz property = null;
             if (Clazz.CONFIDENTIAL.getValue().equals(value)) {
                 property = Clazz.CONFIDENTIAL;
-            }
-            else if (Clazz.PRIVATE.getValue().equals(value)) {
+            } else if (Clazz.PRIVATE.getValue().equals(value)) {
                 property = Clazz.PRIVATE;
-            }
-            else if (Clazz.PUBLIC.getValue().equals(value)) {
+            } else if (Clazz.PUBLIC.getValue().equals(value)) {
                 property = Clazz.PUBLIC;
-            }
-            else {
+            } else {
                 property = new Clazz(params, value);
             }
             return property;

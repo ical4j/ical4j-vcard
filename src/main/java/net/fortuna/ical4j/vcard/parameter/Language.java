@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.vcard.AbstractFactory;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
 import org.apache.commons.lang3.StringUtils;
@@ -52,8 +53,6 @@ public final class Language extends Parameter {
      *
      */
     private static final long serialVersionUID = 8762124184853766503L;
-
-    public static final ParameterFactory<Language> FACTORY = new Factory();
 
     private final Locale locale;
 
@@ -98,8 +97,12 @@ public final class Language extends Parameter {
         return b.toString();
     }
 
-    private static class Factory implements ParameterFactory<Language> {
-        public Language createParameter(final String value) {
+    public static class Factory extends AbstractFactory<Language, Id> implements ParameterFactory<Language> {
+        public Factory() {
+            super(Id.LANGUAGE);
+        }
+
+        public Language createParameter(String name, String value) {
             return new Language(new Locale(value));
         }
     }

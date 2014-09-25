@@ -96,7 +96,13 @@ public abstract class Parameter implements Serializable {
          * Type parameter identifier.
          */
         TYPE,
-        
+
+        // additional vcard 2.1 types
+        HOME, WORK, MSG,
+        VOICE, FAX, CELL, VIDEO, PAGER, BBS, MODEM,
+        CAR, ISDN, PCS, INTERNET, X400, DOM, INTL,
+        POSTAL, PARCEL,
+
         /**
          * Calscale parameter identifier.
          */

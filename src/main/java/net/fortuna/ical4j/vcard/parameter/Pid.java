@@ -31,38 +31,36 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.vcard.AbstractFactory;
 import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * PID parameter.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/08/2008
  *
  * @author Ben
- *
  */
 public final class Pid extends Parameter {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -6324011073580375538L;
-    
-    public static final ParameterFactory<Pid> FACTORY = new Factory();
 
     private final Integer pid;
 
     /**
      * @param value a vCard-compliant string representation
-     * of a PID.
+     *              of a PID.
      */
     public Pid(String value) {
-    	this(Integer.valueOf(value));
+        this(Integer.valueOf(value));
     }
-    
+
     /**
      * @param pid integer representation of a PID
      */
@@ -77,7 +75,7 @@ public final class Pid extends Parameter {
     public Integer getPid() {
         return pid;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -86,8 +84,12 @@ public final class Pid extends Parameter {
         return pid.toString();
     }
 
-    private static class Factory implements ParameterFactory<Pid> {
-        public Pid createParameter(final String value) {
+    public static class Factory extends AbstractFactory<Pid, Id> implements ParameterFactory<Pid> {
+        public Factory() {
+            super(Id.PID);
+        }
+
+        public Pid createParameter(String name, String value) {
             return new Pid(Integer.valueOf(value));
         }
     }

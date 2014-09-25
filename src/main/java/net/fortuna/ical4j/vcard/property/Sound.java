@@ -31,22 +31,13 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.ParseException;
-import java.util.List;
-
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
-
 import org.apache.commons.codec.BinaryDecoder;
 import org.apache.commons.codec.BinaryEncoder;
 import org.apache.commons.codec.DecoderException;
@@ -55,20 +46,22 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.util.List;
+
 /**
  * SOUND property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/10/2008
  *
  * @author Ben
- *
  */
 public final class Sound extends Property {
 
-    public static final PropertyFactory<Sound> FACTORY = new Factory();
-    
     private static final long serialVersionUID = -3293436282728289163L;
 
     private URI uri;
@@ -76,7 +69,7 @@ public final class Sound extends Property {
     private byte[] binary;
 
     private final Log log = LogFactory.getLog(Sound.class);
-    
+
     /**
      * @param uri a URI specifying a sound location
      */
@@ -85,16 +78,16 @@ public final class Sound extends Property {
         this.uri = uri;
         getParameters().add(Value.URI);
     }
-    
+
     /**
      * @param binary a byte array of sound data
      */
     public Sound(byte[] binary) {
         this(binary, null);
     }
-    
+
     /**
-     * @param binary a byte array of sound data
+     * @param binary      a byte array of sound data
      * @param contentType the MIME type of the sound data
      */
     public Sound(byte[] binary, Type contentType) {
@@ -108,10 +101,11 @@ public final class Sound extends Property {
 
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      * @throws URISyntaxException where the specified string is not a valid URI
-     * @throws DecoderException where the specified data string cannot be decoded
+     * @throws DecoderException   where the specified data string cannot be decoded
      */
     public Sound(List<Parameter> params, String value) throws URISyntaxException, DecoderException {
         super(Id.SOUND, params);
@@ -120,18 +114,17 @@ public final class Sound extends Property {
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
          */
-        if (valueParameter != null && Value.URI.equals(valueParameter) || 
-        	valueParameter != null && 
-        	     CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) && 
-        	     "URL".equalsIgnoreCase(valueParameter.getValue())) {
+        if (valueParameter != null && Value.URI.equals(valueParameter) ||
+                valueParameter != null &&
+                        CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) &&
+                        "URL".equalsIgnoreCase(valueParameter.getValue())) {
             this.uri = new URI(value);
-        }
-        else {
+        } else {
             final BinaryDecoder decoder = new Base64();
             this.binary = decoder.decode(value.getBytes());
         }
     }
-    
+
     /**
      * @return the uri
      */
@@ -151,16 +144,14 @@ public final class Sound extends Property {
      */
     @Override
     public String getValue() {
-    	String stringValue = null;
+        String stringValue = null;
         if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
-        	stringValue = Strings.valueOf(uri);
-        }
-        else if (binary != null) {
+            stringValue = Strings.valueOf(uri);
+        } else if (binary != null) {
             try {
                 final BinaryEncoder encoder = new Base64();
                 stringValue = new String(encoder.encode(binary));
-            }
-            catch (EncoderException ee) {
+            } catch (EncoderException ee) {
                 log.error("Error encoding binary data", ee);
             }
         }
@@ -177,14 +168,17 @@ public final class Sound extends Property {
         }
     }
 
-    private static class Factory implements PropertyFactory<Sound> {
+    public static class Factory extends AbstractFactory<Sound, Id> implements PropertyFactory<Sound> {
+        public Factory() {
+            super(Id.SOUND);
+        }
 
         /**
          * {@inheritDoc}
          */
         public Sound createProperty(final List<Parameter> params, final String value) throws URISyntaxException,
-            DecoderException {
-            
+                DecoderException {
+
             return new Sound(params, value);
         }
 

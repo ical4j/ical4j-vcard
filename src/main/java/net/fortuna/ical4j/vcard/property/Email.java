@@ -31,32 +31,26 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
+
 import java.net.URISyntaxException;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-
 /**
  * EMAIL property.
- *
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 24/08/2008
  *
  * @author Ben
- *
  */
 public final class Email extends Property {
 
     private static final long serialVersionUID = 6134254373259957228L;
-
-    public static final PropertyFactory<Email> FACTORY = new Factory();
 
     private String value;
 
@@ -78,8 +72,9 @@ public final class Email extends Property {
 
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public Email(List<Parameter> params, String value) {
         this(null, params, value);
@@ -87,9 +82,10 @@ public final class Email extends Property {
 
     /**
      * Factory constructor.
-     * @param group property group
+     *
+     * @param group  property group
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public Email(Group group, List<Parameter> params, String value) {
         super(group, Id.EMAIL, params);
@@ -110,17 +106,20 @@ public final class Email extends Property {
     @Override
     public void validate() throws ValidationException {
         for (Parameter param : getParameters()) {
-        	final Parameter.Id id = param.getId();
+            final Parameter.Id id = param.getId();
 
-        	if (!Parameter.Id.PID.equals(id) &&
-        		!Parameter.Id.PREF.equals(id) &&
-        		!Parameter.Id.TYPE.equals(id)) {
-        		throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, id));
-        	}
+            if (!Parameter.Id.PID.equals(id) &&
+                    !Parameter.Id.PREF.equals(id) &&
+                    !Parameter.Id.TYPE.equals(id)) {
+                throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, id));
+            }
         }
     }
 
-    private static class Factory implements PropertyFactory<Email> {
+    public static class Factory extends AbstractFactory<Email, Id> implements PropertyFactory<Email> {
+        public Factory() {
+            super(Id.EMAIL);
+        }
 
         /**
          * {@inheritDoc}

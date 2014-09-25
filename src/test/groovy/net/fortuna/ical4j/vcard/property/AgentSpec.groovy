@@ -31,19 +31,19 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import net.fortuna.ical4j.vcard.parameter.Value;
-import spock.lang.Specification;
+import net.fortuna.ical4j.vcard.Property
+import net.fortuna.ical4j.vcard.parameter.Value
 
-class AgentSpec extends Specification {
-	
-	def 'validate string representation'() {
-		expect: 'derived string representation equals expected'
-		Agent.FACTORY.createProperty([Value.TEXT], value).toString() == expectedString
+class AgentSpec extends AbstractPropertySpec {
 
-		where:
-		value			| expectedString
-		'Agent 99'		| 'AGENT;VALUE=text:Agent 99\r\n'
-		'Agent\\n 99'	| 'AGENT;VALUE=text:Agent\\n 99\r\n'
-	}
+    def 'validate string representation'() {
+        expect: 'derived string representation equals expected'
+        factoryRegistry.getFactory(Property.Id.AGENT as String).createProperty([Value.TEXT], value).toString() == expectedString
+
+        where:
+        value         | expectedString
+        'Agent 99'    | 'AGENT;VALUE=text:Agent 99\r\n'
+        'Agent\\n 99' | 'AGENT;VALUE=text:Agent\\n 99\r\n'
+    }
 
 }

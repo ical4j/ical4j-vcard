@@ -31,42 +31,36 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.parameter.Type;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.parameter.Type;
-
 /**
  * IMPP property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 24/08/2008
  *
  * @author Ben
- *
  */
 public final class Impp extends Property {
 
-    public static final PropertyFactory<Impp> FACTORY = new Factory();
-
     private static final long serialVersionUID = 4042305605468586600L;
-    
+
     private final URI uri;
-    
+
     /**
-     * @param uri instant messaging URI
+     * @param uri   instant messaging URI
      * @param types optional property classifiers
      */
-    public Impp(URI uri, Type...types) {
+    public Impp(URI uri, Type... types) {
         super(Id.IMPP);
         this.uri = uri;
         for (Type type : types) {
@@ -76,14 +70,14 @@ public final class Impp extends Property {
 
     /**
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      * @throws URISyntaxException where the specified value is not a valid URI
      */
     public Impp(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.IMPP, params);
         this.uri = new URI(value);
     }
-    
+
     /**
      * @return the uri
      */
@@ -105,10 +99,13 @@ public final class Impp extends Property {
     @Override
     public void validate() throws ValidationException {
         // TODO Auto-generated method stub
-        
+
     }
 
-    private static class Factory implements PropertyFactory<Impp> {
+    public static class Factory extends AbstractFactory<Impp, Id> implements PropertyFactory<Impp> {
+        public Factory() {
+            super(Id.IMPP);
+        }
 
         /**
          * {@inheritDoc}

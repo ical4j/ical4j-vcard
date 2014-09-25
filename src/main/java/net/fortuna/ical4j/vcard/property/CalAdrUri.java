@@ -31,42 +31,36 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.parameter.Type;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.parameter.Type;
-
 /**
  * CALADRURI property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 23/10/2008
  *
  * @author Ben
- *
  */
 public final class CalAdrUri extends Property {
 
-    public static final PropertyFactory<CalAdrUri> FACTORY = new Factory();
-
     private static final long serialVersionUID = -6507220241297111022L;
-    
+
     private final URI uri;
-    
+
     /**
-     * @param uri calendar URI
+     * @param uri   calendar URI
      * @param types options calendar types
      */
-    public CalAdrUri(URI uri, Type...types) {
+    public CalAdrUri(URI uri, Type... types) {
         super(Id.CALADRURI);
         this.uri = uri;
         for (Type type : types) {
@@ -76,14 +70,14 @@ public final class CalAdrUri extends Property {
 
     /**
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      * @throws URISyntaxException where the specified value is not a valid URI
      */
     public CalAdrUri(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.CALADRURI);
         this.uri = new URI(value);
     }
-    
+
     /**
      * @return the uri
      */
@@ -105,17 +99,20 @@ public final class CalAdrUri extends Property {
     @Override
     public void validate() throws ValidationException {
         // TODO Auto-generated method stub
-        
+
     }
 
-    private static class Factory implements PropertyFactory<CalAdrUri> {
+    public static class Factory extends AbstractFactory<CalAdrUri, Id> implements PropertyFactory<CalAdrUri> {
+        public Factory() {
+            super(Id.CALADRURI);
+        }
 
         /**
          * {@inheritDoc}
          */
         public CalAdrUri createProperty(final List<Parameter> params, final String value)
-            throws URISyntaxException {
-            
+                throws URISyntaxException {
+
             return new CalAdrUri(params, value);
         }
 

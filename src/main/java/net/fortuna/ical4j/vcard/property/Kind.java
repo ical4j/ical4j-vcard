@@ -31,27 +31,23 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
+
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-
 /**
  * KIND property.
- *
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 22/08/2008
  *
  * @author Ben
- *
  */
 public final class Kind extends Property {
 
@@ -85,13 +81,10 @@ public final class Kind extends Property {
     public static final Kind THING = new Kind(
             Collections.unmodifiableList(new ArrayList<Parameter>()), "thing");
 
-    public static final PropertyFactory<Kind> FACTORY = new Factory();
-
     private final String value;
 
     /**
-     * @param value
-     *            a string representation of a kind value
+     * @param value a string representation of a kind value
      */
     public Kind(String value) {
         super(Id.KIND);
@@ -101,10 +94,8 @@ public final class Kind extends Property {
     /**
      * Factory constructor.
      *
-     * @param params
-     *            property parameters
-     * @param value
-     *            string representation of a property value
+     * @param params property parameters
+     * @param value  string representation of a property value
      */
     public Kind(List<Parameter> params, String value) {
         super(Id.KIND, params);
@@ -128,7 +119,10 @@ public final class Kind extends Property {
         assertParametersEmpty();
     }
 
-    private static class Factory implements PropertyFactory<Kind> {
+    public static class Factory extends AbstractFactory<Kind, Id> implements PropertyFactory<Kind> {
+        public Factory() {
+            super(Id.KIND);
+        }
 
         /**
          * {@inheritDoc}

@@ -31,29 +31,29 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import net.fortuna.ical4j.util.CompatibilityHints;
-import net.fortuna.ical4j.vcard.parameter.Value;
-import spock.lang.Specification;
+import net.fortuna.ical4j.util.CompatibilityHints
+import net.fortuna.ical4j.vcard.Property
+import net.fortuna.ical4j.vcard.parameter.Value
 
-class BDaySpec extends Specification {
-	
-	def 'validate string representation'() {
-		expect: 'derived string representation equals expected'
-		BDay.FACTORY.createProperty([Value.TEXT], value).toString() == expectedString
+class BDaySpec extends AbstractPropertySpec {
 
-		where:
-		value				| expectedString
-		'April 1st\\, 2001'	| 'BDAY;VALUE=text:April 1st\\, 2001\r\n'
-	}
+    def 'validate string representation'() {
+        expect: 'derived string representation equals expected'
+        factoryRegistry.getFactory(Property.Id.BDAY as String).createProperty([Value.TEXT], value).toString() == expectedString
 
-	def 'test date parsing with relaxed parsing enabled'() {
-		setup: 'enabled relaxed parsing'
-		CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_VCARD_COMPATIBILITY, true)
-		
-		expect:
-		assert new BDay([], '1975-07-17') as String == 'BDAY:19750717\r\n'
-		
-		cleanup:
-		CompatibilityHints.clearHintEnabled(CompatibilityHints.KEY_VCARD_COMPATIBILITY)
-	}
+        where:
+        value               | expectedString
+        'April 1st\\, 2001' | 'BDAY;VALUE=text:April 1st\\, 2001\r\n'
+    }
+
+    def 'test date parsing with relaxed parsing enabled'() {
+        setup: 'enabled relaxed parsing'
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_VCARD_COMPATIBILITY, true)
+
+        expect:
+        assert new BDay([], '1975-07-17') as String == 'BDAY:19750717\r\n'
+
+        cleanup:
+        CompatibilityHints.clearHintEnabled(CompatibilityHints.KEY_VCARD_COMPATIBILITY)
+    }
 }

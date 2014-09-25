@@ -30,9 +30,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package net.fortuna.ical4j.vcard.property
-
-import net.fortuna.ical4j.vcard.Parameter
-
 /**
  * $Id$
  *
@@ -48,32 +45,28 @@ public class VersionFactory extends AbstractPropertyFactory {
         Version version
         if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, Version.class)) {
             version = (Version) value
-        }
-        else {
+        } else {
             String versionValue = attributes.remove('value')
             if (versionValue != null) {
                 if (Version.VERSION_4_0.getValue().equals(versionValue)) {
                     version = Version.VERSION_4_0
-                }
-                else {
+                } else {
                     attributes.put('value', versionValue)
                     version = super.newInstance(builder, name, value, attributes)
                 }
-            }
-            else {
+            } else {
                 if (Version.VERSION_4_0.getValue().equals(value)) {
                     version = Version.VERSION_4_0
-                }
-                else {
+                } else {
                     version = super.newInstance(builder, name, value, attributes)
                 }
             }
         }
         return version
     }
-    
-    protected Object newInstance(List parameters, String value) {
+
+    protected Object newInstance(String name, List parameters, String value) {
         return new Version(parameters, value)
     }
-    
+
 }

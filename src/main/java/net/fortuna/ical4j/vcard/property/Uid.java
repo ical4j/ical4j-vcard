@@ -31,36 +31,30 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.*;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-
 /**
  * UID property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/10/2008
  *
  * @author Ben
- *
  */
 public final class Uid extends Property {
 
-    public static final PropertyFactory<Uid> FACTORY = new Factory();
-
     private static final long serialVersionUID = -7120539613021006347L;
-    
+
     private final URI uri;
-    
+
     /**
      * @param uri a URI for a uid definition
      */
@@ -71,15 +65,16 @@ public final class Uid extends Property {
 
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      * @throws URISyntaxException where the specified value is not a valid URI
      */
     public Uid(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.UID, params);
         this.uri = new URI(value);
     }
-    
+
     /**
      * @return the uri
      */
@@ -104,7 +99,10 @@ public final class Uid extends Property {
         assertParametersEmpty();
     }
 
-    private static class Factory implements PropertyFactory<Uid> {
+    public static class Factory extends AbstractFactory<Uid, Id> implements PropertyFactory<Uid> {
+        public Factory() {
+            super(Id.UID);
+        }
 
         /**
          * {@inheritDoc}

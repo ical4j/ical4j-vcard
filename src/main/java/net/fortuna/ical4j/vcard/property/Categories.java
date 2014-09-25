@@ -31,39 +31,33 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.TextList;
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
+
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.TextList;
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-
 /**
  * CATEGORIES property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/10/2008
  *
  * @author Ben
- *
  */
 public final class Categories extends Property {
 
-    public static final PropertyFactory<Categories> FACTORY = new Factory();
-
     private static final long serialVersionUID = -3233034210546002366L;
-    
+
     private final TextList categories;
-    
+
     /**
      * @param categories one or more category values
      */
-    public Categories(String...categories) {
+    public Categories(String... categories) {
         super(Id.CATEGORIES);
         if (categories.length == 0) {
             throw new IllegalArgumentException("Must specify at least category value");
@@ -73,14 +67,15 @@ public final class Categories extends Property {
 
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public Categories(List<Parameter> params, String value) {
         super(Id.CATEGORIES);
         this.categories = new TextList(value);
     }
-    
+
     /**
      * @return the categories
      */
@@ -115,14 +110,16 @@ public final class Categories extends Property {
         for (Parameter param : getParameters()) {
             try {
                 assertTextParameter(param);
-            }
-            catch (ValidationException ve) {
+            } catch (ValidationException ve) {
                 assertPidParameter(param);
             }
         }
     }
 
-    private static class Factory implements PropertyFactory<Categories> {
+    public static class Factory extends AbstractFactory<Categories, Id> implements PropertyFactory<Categories> {
+        public Factory() {
+            super(Id.CATEGORIES);
+        }
 
         /**
          * {@inheritDoc}

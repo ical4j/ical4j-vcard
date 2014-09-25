@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.parameter
 
+import net.fortuna.ical4j.vcard.ParameterFactoryRegistry
 
 
 /**
@@ -41,7 +42,9 @@ package net.fortuna.ical4j.vcard.parameter
  * @author fortuna
  *
  */
-public abstract class AbstractParameterFactory extends AbstractFactory{
+public abstract class AbstractParameterFactory extends AbstractFactory {
+
+    ParameterFactoryRegistry factoryRegistry = []
 
     /**
      * {@inheritDoc}

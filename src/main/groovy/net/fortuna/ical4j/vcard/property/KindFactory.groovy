@@ -30,9 +30,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package net.fortuna.ical4j.vcard.property
-
-import net.fortuna.ical4j.vcard.Parameter
-import java.net.URI
 /**
  * $Id$
  *
@@ -41,62 +38,50 @@ import java.net.URI
  * @author fortuna
  *
  */
-public class KindFactory extends AbstractPropertyFactory{
+public class KindFactory extends AbstractPropertyFactory {
 
 
     public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         Kind kind
         if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, Kind.class)) {
             kind = (Kind) value
-        }
-        else {
+        } else {
             String kindValue = attributes.remove('value')
             if (kindValue != null) {
                 if (Kind.GROUP.getValue().equalsIgnoreCase(kindValue)) {
                     kind = Kind.GROUP
-                }
-                else if (Kind.INDIVIDUAL.getValue().equalsIgnoreCase(kindValue)) {
+                } else if (Kind.INDIVIDUAL.getValue().equalsIgnoreCase(kindValue)) {
                     kind = Kind.INDIVIDUAL
-                }
-                else if (Kind.ORG.getValue().equalsIgnoreCase(kindValue)) {
+                } else if (Kind.ORG.getValue().equalsIgnoreCase(kindValue)) {
                     kind = Kind.ORG
-                }
-                else if (Kind.LOCATION.getValue().equalsIgnoreCase(kindValue)) {
+                } else if (Kind.LOCATION.getValue().equalsIgnoreCase(kindValue)) {
                     kind = Kind.LOCATION
-                }
-                else if (Kind.THING.getValue().equalsIgnoreCase(kindValue)) {
+                } else if (Kind.THING.getValue().equalsIgnoreCase(kindValue)) {
                     kind = Kind.THING
-                }
-                else {
+                } else {
                     attributes.put('value', kindValue)
                     kind = super.newInstance(builder, name, value, attributes);
                 }
-            }
-            else {
+            } else {
                 if (Kind.GROUP.getValue().equalsIgnoreCase(value)) {
                     kind = Kind.GROUP
-                }
-                else if (Kind.INDIVIDUAL.getValue().equalsIgnoreCase(value)) {
+                } else if (Kind.INDIVIDUAL.getValue().equalsIgnoreCase(value)) {
                     kind = Kind.INDIVIDUAL
-                }
-                else if (Kind.ORG.getValue().equalsIgnoreCase(value)) {
+                } else if (Kind.ORG.getValue().equalsIgnoreCase(value)) {
                     kind = Kind.ORG
-                }
-                else if (Kind.LOCATION.getValue().equalsIgnoreCase(value)) {
+                } else if (Kind.LOCATION.getValue().equalsIgnoreCase(value)) {
                     kind = Kind.LOCATION
-                }
-                else if (Kind.THING.getValue().equalsIgnoreCase(value)) {
+                } else if (Kind.THING.getValue().equalsIgnoreCase(value)) {
                     kind = Kind.THING
-                }
-                else {
+                } else {
                     kind = super.newInstance(builder, name, value, attributes);
                 }
             }
         }
         return kind
     }
-    
-    protected Object newInstance(List parameters, String value) {
+
+    protected Object newInstance(String name, List parameters, String value) {
         return new Kind(parameters, value)
     }
 }

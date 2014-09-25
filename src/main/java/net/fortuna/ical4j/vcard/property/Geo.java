@@ -31,42 +31,36 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.CompatibilityHints;
+import net.fortuna.ical4j.vcard.*;
+
 import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.util.CompatibilityHints;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-
 /**
  * GEO property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 19/09/2008
  *
  * @author Ben
- *
  */
 public final class Geo extends Property {
 
-    public static final PropertyFactory<Geo> FACTORY = new Factory();
-    
     private static final long serialVersionUID = 1533383111522264554L;
 
     private static final String DELIMITER = ";";
-    
+
     private BigDecimal latitude;
-    
+
     private BigDecimal longitude;
-    
+
     /**
-     * @param latitude a latitude value
+     * @param latitude  a latitude value
      * @param longitude a longitude value
      */
     public Geo(BigDecimal latitude, BigDecimal longitude) {
@@ -74,21 +68,23 @@ public final class Geo extends Property {
         this.latitude = latitude;
         this.longitude = longitude;
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public Geo(List<Parameter> params, String value) {
         this(null, params, value);
     }
-    
+
     /**
      * Factory constructor.
-     * @param group property group
+     *
+     * @param group  property group
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public Geo(Group group, List<Parameter> params, String value) {
         super(group, Id.GEO, params);
@@ -96,14 +92,13 @@ public final class Geo extends Property {
         String[] components = null;
         if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
             components = value.split(";|,");
-        }
-        else {
+        } else {
             components = value.split(DELIMITER);
         }
         this.latitude = new BigDecimal(components[0]);
         this.longitude = new BigDecimal(components[1]);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -135,7 +130,10 @@ public final class Geo extends Property {
         assertParametersEmpty();
     }
 
-    private static class Factory implements PropertyFactory<Geo> {
+    public static class Factory extends AbstractFactory<Geo, Id> implements PropertyFactory<Geo> {
+        public Factory() {
+            super(Id.GEO);
+        }
 
         /**
          * {@inheritDoc}

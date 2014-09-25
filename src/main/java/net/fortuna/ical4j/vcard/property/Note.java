@@ -31,37 +31,31 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static net.fortuna.ical4j.util.Strings.unescape;
+import net.fortuna.ical4j.model.Escapable;
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
 
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.Escapable;
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
  * NOTE property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/10/2008
  *
  * @author Ben
- *
  */
 public final class Note extends Property implements Escapable {
 
-    public static final PropertyFactory<Note> FACTORY = new Factory();
-
     private static final long serialVersionUID = -1435219426295284759L;
-    
+
     private final String value;
-    
+
     /**
      * @param value a note value
      */
@@ -69,17 +63,18 @@ public final class Note extends Property implements Escapable {
         super(Id.NOTE);
         this.value = value;
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public Note(List<Parameter> params, String value) {
         super(Id.NOTE, params);
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -97,14 +92,16 @@ public final class Note extends Property implements Escapable {
         for (Parameter param : getParameters()) {
             try {
                 assertTextParameter(param);
-            }
-            catch (ValidationException ve) {
+            } catch (ValidationException ve) {
                 assertPidParameter(param);
             }
         }
     }
 
-    private static class Factory implements PropertyFactory<Note> {
+    public static class Factory extends AbstractFactory<Note, Id> implements PropertyFactory<Note> {
+        public Factory() {
+            super(Id.NOTE);
+        }
 
         /**
          * {@inheritDoc}

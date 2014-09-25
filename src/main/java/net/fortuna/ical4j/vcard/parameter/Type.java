@@ -31,12 +31,13 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.vcard.AbstractFactory;
+import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.vcard.ParameterFactory;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * TYPE parameter.
@@ -50,9 +51,6 @@ import net.fortuna.ical4j.vcard.ParameterFactory;
  */
 public final class Type extends Parameter {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -3644362129355908795L;
     
     /**
@@ -69,9 +67,7 @@ public final class Type extends Parameter {
      * Pref type parameter.
      */
     public static final Type PREF = new Type("pref");
-    
-    public static final ParameterFactory<Type> FACTORY = new Factory();
-    
+
     private final String[] types;
     
     /**
@@ -124,20 +120,28 @@ public final class Type extends Parameter {
         return b.toString();
     }
 
-    private static class Factory implements ParameterFactory<Type> {
-        public Type createParameter(final String value) {
+    public static class Factory extends AbstractFactory<Type, Id> implements ParameterFactory<Type> {
+        public Factory() {
+            super(Id.TYPE, Id.HOME, Id.WORK, Id.MSG,
+                    Id.VOICE, Id.FAX, Id.CELL, Id.VIDEO, Id.PAGER, Id.BBS, Id.MODEM,
+                    Id.CAR, Id.ISDN, Id.PCS, Id.INTERNET, Id.X400, Id.DOM, Id.INTL,
+                    Id.POSTAL, Id.PARCEL);
+        }
+
+        public Type createParameter(String name, String value) {
             Type parameter = null;
-            if (Type.HOME.getValue().equals(value)) {
-                parameter = Type.HOME;
-            }
-            else if (Type.PREF.getValue().equals(value)) {
-                parameter = Type.PREF;
-            }
-            else if (Type.WORK.getValue().equals(value)) {
-                parameter = Type.WORK;
-            }
-            else {
-                parameter = new Type(value);
+            if (Id.valueOf(name.toUpperCase()) == Id.TYPE) {
+                if (Type.HOME.getValue().equals(value)) {
+                    parameter = Type.HOME;
+                } else if (Type.PREF.getValue().equals(value)) {
+                    parameter = Type.PREF;
+                } else if (Type.WORK.getValue().equals(value)) {
+                    parameter = Type.WORK;
+                } else {
+                    parameter = new Type(value);
+                }
+            } else {
+                parameter = new Type(name);
             }
             return parameter;
         }

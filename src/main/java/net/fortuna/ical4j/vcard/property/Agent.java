@@ -31,44 +31,35 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static net.fortuna.ical4j.util.Strings.unescape;
+import net.fortuna.ical4j.model.Escapable;
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.parameter.Value;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.Escapable;
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.parameter.Value;
+import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
  * AGENT property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/09/2008
  *
  * @author Ben
- *
  */
 public final class Agent extends Property implements Escapable {
-    
-    public static final PropertyFactory<Agent> FACTORY = new Factory();
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 2670466615841142934L;
 
     private URI uri;
-    
+
     private String text;
-    
+
     /**
      * @param uri agent URI value
      */
@@ -76,7 +67,7 @@ public final class Agent extends Property implements Escapable {
         super(Id.AGENT);
         this.uri = uri;
     }
-    
+
     /**
      * @param text agent text value
      */
@@ -85,23 +76,23 @@ public final class Agent extends Property implements Escapable {
         this.text = text;
         getParameters().add(Value.TEXT);
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of an agent value
+     * @param value  string representation of an agent value
      * @throws URISyntaxException if the string value is an invalid URI
      */
     public Agent(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.AGENT, params);
         if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
             this.text = value;
-        }
-        else {
+        } else {
             this.uri = new URI(value);
         }
     }
-    
+
     /**
      * @return the uri
      */
@@ -135,14 +126,16 @@ public final class Agent extends Property implements Escapable {
         for (Parameter param : getParameters()) {
             try {
                 assertTextParameter(param);
-            }
-            catch (ValidationException ve) {
+            } catch (ValidationException ve) {
                 assertPidParameter(param);
             }
         }
     }
-    
-    private static class Factory implements PropertyFactory<Agent> {
+
+    public static class Factory extends AbstractFactory<Agent, Id> implements PropertyFactory<Agent> {
+        public Factory() {
+            super(Id.AGENT);
+        }
 
         /**
          * {@inheritDoc}

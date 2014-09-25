@@ -31,17 +31,15 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import spock.lang.Specification;
+class OrgSpec extends AbstractPropertySpec {
 
-class OrgSpec extends Specification {
-	
-	def 'validate string representation'() {
-		expect: 'derived string representation equals expected'
-		new Org(values as String[]).toString() == expectedString
+    def 'validate string representation'() {
+        expect: 'derived string representation equals expected'
+        new Org(values as String[]).toString() == expectedString
 
-		where:
-		values													| expectedString
-		['ABC, Inc.', 'North American Division', 'Marketing']	| 'ORG:ABC\\, Inc.;North American Division;Marketing\r\n'
-	}
+        where:
+        values                                                | expectedString
+        ['ABC, Inc.', 'North American Division', 'Marketing'] | 'ORG:ABC\\, Inc.;North American Division;Marketing\r\n'
+    }
 
 }

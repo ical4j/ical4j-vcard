@@ -31,34 +31,28 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
+
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-
 /**
  * PRODID property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 21/10/2008
  *
  * @author Ben
- *
  */
 public final class ProdId extends Property {
 
-    public static final PropertyFactory<ProdId> FACTORY = new Factory();
-
     private static final long serialVersionUID = 8104072716649404803L;
-    
+
     private final String value;
-    
+
     /**
      * @param value a product identifier value
      */
@@ -66,17 +60,18 @@ public final class ProdId extends Property {
         super(Id.PRODID);
         this.value = value;
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public ProdId(List<Parameter> params, String value) {
         super(Id.PRODID, params);
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -94,7 +89,10 @@ public final class ProdId extends Property {
         assertParametersEmpty();
     }
 
-    private static class Factory implements PropertyFactory<ProdId> {
+    public static class Factory extends AbstractFactory<ProdId, Id> implements PropertyFactory<ProdId> {
+        public Factory() {
+            super(Id.PRODID);
+        }
 
         /**
          * {@inheritDoc}

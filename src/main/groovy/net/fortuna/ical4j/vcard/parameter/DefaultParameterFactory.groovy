@@ -31,25 +31,19 @@
  */
 package net.fortuna.ical4j.vcard.parameter
 
-import groovy.util.FactoryBuilderSupport;
-
-import java.util.List;
-import java.util.Map;
-
 import net.fortuna.ical4j.vcard.Parameter
 
 class DefaultParameterFactory extends AbstractParameterFactory {
 
-	Class<? extends Parameter> klass
-	
-	@Override
+    Class<? extends Parameter> klass
+
+    @Override
     public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         def parameter
         if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, klass)) {
             parameter = value
-        }
-        else {
-            parameter = klass.FACTORY.createParameter(value)
+        } else {
+            parameter = factoryRegistry.getFactory(name).createParameter(name, value)
         }
         return parameter
     }

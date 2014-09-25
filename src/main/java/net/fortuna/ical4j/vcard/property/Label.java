@@ -31,43 +31,37 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static net.fortuna.ical4j.util.Strings.unescape;
+import net.fortuna.ical4j.model.Escapable;
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.parameter.Type;
 
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.Escapable;
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.parameter.Type;
+import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
  * LABEL property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 23/08/2008
  *
  * @author Ben
- *
  */
 public final class Label extends Property implements Escapable {
 
-    public static final PropertyFactory<Label> FACTORY = new Factory();
-
     private static final long serialVersionUID = -3634101566227652040L;
-    
+
     private final String value;
-    
+
     /**
      * @param value a string representation of a label value
      * @param types optional property types
      */
-    public Label(String value, Type...types) {
+    public Label(String value, Type... types) {
         super(Id.LABEL);
         this.value = value;
         for (Type type : types) {
@@ -77,14 +71,15 @@ public final class Label extends Property implements Escapable {
 
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public Label(List<Parameter> params, String value) {
         super(Id.LABEL, params);
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -101,19 +96,20 @@ public final class Label extends Property implements Escapable {
         for (Parameter param : getParameters()) {
             try {
                 assertTypeParameter(param);
-            }
-            catch (ValidationException ve) {
+            } catch (ValidationException ve) {
                 try {
                     assertTextParameter(param);
-                }
-                catch (ValidationException ve2) {
+                } catch (ValidationException ve2) {
                     assertPidParameter(param);
                 }
             }
         }
     }
 
-    private static class Factory implements PropertyFactory<Label> {
+    public static class Factory extends AbstractFactory<Label, Id> implements PropertyFactory<Label> {
+        public Factory() {
+            super(Id.LABEL);
+        }
 
         /**
          * {@inheritDoc}

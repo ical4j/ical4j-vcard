@@ -31,42 +31,36 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.parameter.Type;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.parameter.Type;
-
 /**
  * CALURI property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 23/10/2008
  *
  * @author Ben
- *
  */
 public final class CalUri extends Property {
 
-    public static final PropertyFactory<CalUri> FACTORY = new Factory();
-
     private static final long serialVersionUID = 4821378252642288695L;
-    
+
     private final URI uri;
-    
+
     /**
-     * @param uri a calendar URI value
+     * @param uri   a calendar URI value
      * @param types optional classifiers
      */
-    public CalUri(URI uri, Type...types) {
+    public CalUri(URI uri, Type... types) {
         super(Id.CALURI);
         this.uri = uri;
         for (Type type : types) {
@@ -76,15 +70,16 @@ public final class CalUri extends Property {
 
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      * @throws URISyntaxException where the specified string value is not a valid URI
      */
     public CalUri(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.CALURI);
         this.uri = new URI(value);
     }
-    
+
     /**
      * @return the uri
      */
@@ -106,10 +101,13 @@ public final class CalUri extends Property {
     @Override
     public void validate() throws ValidationException {
         // TODO Auto-generated method stub
-        
+
     }
 
-    private static class Factory implements PropertyFactory<CalUri> {
+    public static class Factory extends AbstractFactory<CalUri, Id> implements PropertyFactory<CalUri> {
+        public Factory() {
+            super(Id.CALURI);
+        }
 
         /**
          * {@inheritDoc}

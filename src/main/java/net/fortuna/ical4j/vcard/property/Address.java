@@ -33,10 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.CompatibilityHints;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 import java.net.URISyntaxException;
@@ -59,8 +56,6 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public final class Address extends Property {
 
     private static final long serialVersionUID = 6538745668985015384L;
-
-    public static final PropertyFactory<Address> FACTORY = new Factory();
 
     private String poBox;
 
@@ -312,7 +307,11 @@ public final class Address extends Property {
         }
     }
 
-    private static class Factory implements PropertyFactory<Address> {
+    public static class Factory extends AbstractFactory<Address, Id> implements PropertyFactory<Address> {
+
+        public Factory() {
+            super(Id.ADR);
+        }
 
         /**
          * {@inheritDoc}

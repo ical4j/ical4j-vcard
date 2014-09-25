@@ -31,63 +31,61 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static junit.framework.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import net.fortuna.ical4j.vcard.parameter.Pref;
 import net.fortuna.ical4j.vcard.parameter.Type;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
+
 /**
  * Created on: 05/01/2009
  *
  * @author Ben
- *
  */
 @RunWith(Parameterized.class)
 public class ParameterFactoryRegistryTest {
 
     private final ParameterFactoryRegistry registry;
-    
+
     private final String paramName;
-    
+
     private final String paramValue;
-    
+
     private final Parameter expectedParam;
-    
+
     /**
      * @param registry
      * @param paramName
      * @param expectedParam
      */
     public ParameterFactoryRegistryTest(ParameterFactoryRegistry registry, String paramName,
-            String paramValue, Parameter expectedParam) {
+                                        String paramValue, Parameter expectedParam) {
         this.registry = registry;
         this.paramName = paramName;
         this.paramValue = paramValue;
         this.expectedParam = expectedParam;
     }
-    
+
     @Test
     public void testGetFactoryCreateParameter() {
         ParameterFactory<? extends Parameter> factory = registry.getFactory(paramName);
-        assertEquals(expectedParam, factory.createParameter(paramValue));
+        assertEquals(expectedParam, factory.createParameter(paramName, paramValue));
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        
+
         ParameterFactoryRegistry registry = new ParameterFactoryRegistry();
-        params.add(new Object[] {registry, Type.PREF.getId().toString(), Type.PREF.getValue(), Type.PREF});
-        params.add(new Object[] {registry, Parameter.Id.PREF.toString(), "1", new Pref(1)});
+        params.add(new Object[]{registry, Type.PREF.getId().toString(), Type.PREF.getValue(), Type.PREF});
+        params.add(new Object[]{registry, Parameter.Id.PREF.toString(), "1", new Pref(1)});
         return params;
     }
 }

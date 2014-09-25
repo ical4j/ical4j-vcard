@@ -31,42 +31,36 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.parameter.Type;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.parameter.Type;
-
 /**
  * FBURL property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 23/10/2008
  *
  * @author Ben
- *
  */
 public final class FbUrl extends Property {
 
-    public static final PropertyFactory<FbUrl> FACTORY = new Factory();
-
     private static final long serialVersionUID = 7406097765207265428L;
-    
+
     private final URI uri;
-    
+
     /**
-     * @param uri a free/busy URI
+     * @param uri   a free/busy URI
      * @param types optional property classifiers
      */
-    public FbUrl(URI uri, Type...types) {
+    public FbUrl(URI uri, Type... types) {
         super(Id.FBURL);
         this.uri = uri;
         for (Type type : types) {
@@ -76,15 +70,16 @@ public final class FbUrl extends Property {
 
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      * @throws URISyntaxException where the specified value is not a valid URI
      */
     public FbUrl(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.FBURL, params);
         this.uri = new URI(value);
     }
-    
+
     /**
      * @return the uri
      */
@@ -106,10 +101,13 @@ public final class FbUrl extends Property {
     @Override
     public void validate() throws ValidationException {
         // TODO Auto-generated method stub
-        
+
     }
 
-    private static class Factory implements PropertyFactory<FbUrl> {
+    public static class Factory extends AbstractFactory<FbUrl, Id> implements PropertyFactory<FbUrl> {
+        public Factory() {
+            super(Id.FBURL);
+        }
 
         /**
          * {@inheritDoc}

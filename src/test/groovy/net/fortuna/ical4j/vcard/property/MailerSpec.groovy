@@ -31,18 +31,18 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import spock.lang.Specification
+import net.fortuna.ical4j.vcard.Property
 
-class MailerSpec extends Specification {
-	
-	def 'validate string representation'() {
-		expect: 'derived string representation equals expected'
-		Mailer.FACTORY.createProperty([], value).toString() == expectedString
+class MailerSpec extends AbstractPropertySpec {
 
-		where:
-		value			| expectedString
-		'Pegasus Mail 1.0'	| 'MAILER:Pegasus Mail 1.0\r\n'
-	}
+    def 'validate string representation'() {
+        expect: 'derived string representation equals expected'
+        factoryRegistry.getFactory(Property.Id.MAILER as String).createProperty([], value).toString() == expectedString
+
+        where:
+        value              | expectedString
+        'Pegasus Mail 1.0' | 'MAILER:Pegasus Mail 1.0\r\n'
+    }
 
 }
 

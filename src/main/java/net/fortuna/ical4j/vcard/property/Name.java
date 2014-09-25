@@ -31,37 +31,31 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static net.fortuna.ical4j.util.Strings.unescape;
+import net.fortuna.ical4j.model.Escapable;
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.vcard.*;
 
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
-import net.fortuna.ical4j.model.Escapable;
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
  * NAME property.
- * 
+ * <p/>
  * $Id$
- *
+ * <p/>
  * Created on 22/08/2008
  *
  * @author Ben
- *
  */
 public final class Name extends Property implements Escapable {
 
-    public static final PropertyFactory<Name> FACTORY = new Factory();
-
     private static final long serialVersionUID = -3524639290151277814L;
-    
+
     private final String value;
-    
+
     /**
      * @param value a name value
      */
@@ -69,17 +63,18 @@ public final class Name extends Property implements Escapable {
         super(Id.NAME);
         this.value = value;
     }
-    
+
     /**
      * Factory constructor.
+     *
      * @param params property parameters
-     * @param value string representation of a property value
+     * @param value  string representation of a property value
      */
     public Name(List<Parameter> params, String value) {
         super(Id.NAME, params);
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -96,8 +91,11 @@ public final class Name extends Property implements Escapable {
         // ; No parameters allowed
         assertParametersEmpty();
     }
-    
-    private static class Factory implements PropertyFactory<Name> {
+
+    public static class Factory extends AbstractFactory<Name, Id> implements PropertyFactory<Name> {
+        public Factory() {
+            super(Id.NAME);
+        }
 
         /**
          * {@inheritDoc}
