@@ -34,6 +34,8 @@ package net.fortuna.ical4j.vcard;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.data.UnfoldingReader;
 import net.fortuna.ical4j.util.CompatibilityHints;
+import net.fortuna.ical4j.vcard.parameter.XParameter;
+import net.fortuna.ical4j.vcard.property.XProperty;
 import org.apache.commons.codec.DecoderException;
 
 import java.io.*;
@@ -226,6 +228,7 @@ public final class VCardBuilder {
      * @throws DecoderException 
      */
     private Property parseProperty(final String line) throws URISyntaxException, ParseException, DecoderException {
+        Property property = null;
         Matcher matcher = PROPERTY_NAME_PATTERN.matcher(line);
         if (matcher.find()) {
             PropertyFactory<?> factory = null;
@@ -240,26 +243,33 @@ public final class VCardBuilder {
             else {
                 factory = propertyFactoryRegistry.getFactory(propertyName);
             }
-            
-            if (factory == null) {
-                return null;
-            }
-            
+
             matcher = PROPERTY_VALUE_PATTERN.matcher(line);
             if (matcher.find()) {
                 final String propertyValue = matcher.group(0);
                 final List<Parameter> params = parseParameters(line);
-                if (group != null) {
-                    return factory.createProperty(group, params, propertyValue);
-                }
-                else {
-                    return factory.createProperty(params, propertyValue);
+                if (factory != null) {
+                    if (group != null) {
+                        return factory.createProperty(group, params, propertyValue);
+                    } else {
+                        return factory.createProperty(params, propertyValue);
+                    }
+                } else if (isExtendedName(propertyName)) {
+                    if (group != null) {
+                        property = new XProperty(group, propertyName, params, propertyValue);
+                    } else {
+                        property = new XProperty(propertyName, params, propertyValue);
+                    }
                 }
             }
         }
-        return null;
+        return property;
     }
-    
+
+    private boolean isExtendedName(String name) {
+        return name.startsWith("X-");
+    }
+
     /**
      * @param line
      * @return a list of parameters
@@ -273,16 +283,19 @@ public final class VCardBuilder {
                 final String[] vals = param.split("=");
                 final ParameterFactory<? extends Parameter> factory = parameterFactoryRegistry.getFactory(
                         vals[0].toUpperCase());
-                
-                if (factory == null) {
-                	continue;
-                }
-                
-                if (vals.length > 1) {
-                    parameters.add(factory.createParameter(vals[0], vals[1]));
-                }
-                else {
-                    parameters.add(factory.createParameter(vals[0], null));
+
+                if (factory != null) {
+                    if (vals.length > 1) {
+                        parameters.add(factory.createParameter(vals[0], vals[1]));
+                    } else {
+                        parameters.add(factory.createParameter(vals[0], null));
+                    }
+                } else if (isExtendedName(vals[0])) {
+                    if (vals.length > 1) {
+                        parameters.add(new XParameter(vals[0], vals[1]));
+                    } else {
+                        parameters.add(new XParameter(vals[0], null));
+                    }
                 }
             }
         }

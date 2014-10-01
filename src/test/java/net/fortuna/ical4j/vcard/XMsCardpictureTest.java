@@ -44,9 +44,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.net.URISyntaxException;
-import java.text.ParseException;
-import java.util.List;
 
 /**
  * VCards generated with Outlook 12 often contain a certain extended property
@@ -83,7 +80,6 @@ public class XMsCardpictureTest {
         GroupRegistry groupRegistry = new GroupRegistry();
         PropertyFactoryRegistry propReg = new PropertyFactoryRegistry();
         ParameterFactoryRegistry parReg = new ParameterFactoryRegistry();
-        addCardpicturePropertyToRegistry(propReg);
 
         VCardBuilder builder =
                 new VCardBuilder(reader, groupRegistry, propReg, parReg);
@@ -98,46 +94,5 @@ public class XMsCardpictureTest {
         // the value has been unfolded correctly and doesn't contain any linebreaks
         Assert.assertFalse(value.contains("\r\n"));
 
-    }
-
-    private void addCardpicturePropertyToRegistry(PropertyFactoryRegistry propReg) {
-        propReg.register("X-MS-CARDPICTURE",
-                new PropertyFactory<ExtendedProperty>() {
-                    public ExtendedProperty createProperty(Group group, List<Parameter> params,
-                                                           String value) throws URISyntaxException, ParseException,
-                            DecoderException {
-                        return new ExtendedProperty(group, params, value);
-                    }
-
-                    public ExtendedProperty createProperty(List<Parameter> params, String value)
-                            throws URISyntaxException, ParseException, DecoderException {
-                        return new ExtendedProperty(null, params, value);
-                    }
-
-                    @Override
-                    public boolean supports(String id) {
-                        return Property.Id.valueOf(id) == Property.Id.EXTENDED;
-                    }
-                }
-        );
-    }
-
-    private static class ExtendedProperty extends Property {
-        private static final long serialVersionUID = 6075807738019876132L;
-        private String value;
-
-        public ExtendedProperty(Group group, List<Parameter> params, String value) {
-            super(group, "X-MS-CARDPICTURE", params);
-            this.value = value;
-        }
-
-        @Override
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public void validate() throws ValidationException {
-        }
     }
 }
