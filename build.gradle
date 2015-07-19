@@ -65,7 +65,7 @@ release {
 }
 
 group = 'org.mnode.ical4j'
-version = release.projectVersion
+version = System.getenv('RELEASE_VERSION') ?: release.projectVersion
 description = '''
 Support for the vCard specification
 '''
