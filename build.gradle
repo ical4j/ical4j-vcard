@@ -69,7 +69,14 @@ version = System.getenv('RELEASE_VERSION') ?: release.projectVersion
 description = '''
 Support for the vCard specification
 '''
-ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+
+ext {
+    isReleaseVersion = !version.endsWith("SNAPSHOT")
+
+    // sonatype credentials
+    sonatypeUsername = project.hasProperty('sonatypeUsername') ? project.getProperty('sonatypeUsername') : ''
+    sonatypePassword = project.hasProperty('sonatypePassword') ? project.getProperty('sonatypePassword') : ''
+}
 
 uploadArchives {
     repositories {
