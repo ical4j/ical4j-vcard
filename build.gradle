@@ -59,6 +59,7 @@ scmVersion {
     tag {
         prefix = 'ical4j-vcard'
     }
+    versionCreator 'versionWithBranch'
 }
 
 group = 'org.mnode.ical4j'
@@ -67,17 +68,17 @@ description = '''
 Support for the vCard specification
 '''
 
-signing {
-    required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
-    sign configurations.archives
-}
-
 ext {
     isReleaseVersion = !version.endsWith("SNAPSHOT")
 
     // sonatype credentials
     sonatypeUsername = project.hasProperty('sonatypeUsername') ? project.getProperty('sonatypeUsername') : ''
     sonatypePassword = project.hasProperty('sonatypePassword') ? project.getProperty('sonatypePassword') : ''
+}
+
+signing {
+    required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
 }
 
 uploadArchives {
