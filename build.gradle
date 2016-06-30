@@ -8,8 +8,13 @@ buildscript {
     }
 }
 
+plugins {
+  id "org.sonarqube" version "1.2"
+}
+
 apply plugin: 'groovy'
 apply plugin: 'osgi'
+apply plugin: 'jacoco'
 apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'pl.allegro.tech.build.axion-release'
@@ -61,7 +66,7 @@ scmVersion {
     }
     versionCreator 'versionWithBranch'
     nextVersion {
-        suffix = 'beta1'
+        suffix = 'beta2'
         separator = '-'
     }
 }
