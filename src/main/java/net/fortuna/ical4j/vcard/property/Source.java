@@ -31,7 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Value;
 

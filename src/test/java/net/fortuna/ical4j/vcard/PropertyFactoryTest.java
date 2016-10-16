@@ -31,7 +31,7 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.validate.ValidationException;
 import org.apache.commons.codec.DecoderException;
 import org.junit.Test;
 import org.junit.runner.RunWith;

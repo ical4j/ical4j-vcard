@@ -32,8 +32,8 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.CompatibilityHints;
+import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.property.Key;
 import net.fortuna.ical4j.vcard.property.Logo;
 import net.fortuna.ical4j.vcard.property.Photo;

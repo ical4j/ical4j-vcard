@@ -31,14 +31,14 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import net.fortuna.ical4j.data.AbstractOutputter;
+import net.fortuna.ical4j.data.FoldingWriter;
+import net.fortuna.ical4j.validate.ValidationException;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-
-import net.fortuna.ical4j.data.AbstractOutputter;
-import net.fortuna.ical4j.data.FoldingWriter;
-import net.fortuna.ical4j.model.ValidationException;
 
 /**
  * Generates vCard object data streams.

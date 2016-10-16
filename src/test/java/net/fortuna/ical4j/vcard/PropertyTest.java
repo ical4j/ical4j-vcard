@@ -31,26 +31,22 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static net.fortuna.ical4j.util.Strings.escape;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import net.fortuna.ical4j.model.Escapable;
+import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.vcard.Parameter.Id;
+import net.fortuna.ical4j.vcard.parameter.Type;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.fortuna.ical4j.model.Escapable;
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.vcard.Parameter.Id;
-import net.fortuna.ical4j.vcard.parameter.Type;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import static net.fortuna.ical4j.util.Strings.escape;
+import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class PropertyTest {

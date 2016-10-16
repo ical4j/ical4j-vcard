@@ -32,8 +32,8 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.CompatibilityHints;
+import net.fortuna.ical4j.validate.ValidationException;
 import org.apache.commons.codec.DecoderException;
 import org.junit.After;
 import org.junit.Assert;
