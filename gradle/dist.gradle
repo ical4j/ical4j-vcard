@@ -13,7 +13,7 @@ apply plugin: 'org.hidetake.ssh'
 distributions {
     main {
         contents {
-            from { ['README.md', 'LICENSE', 'AUTHORS', 'CHANGELOG', 'build/docs', 'build/libs'] }
+            from { ['README.md', 'LICENSE.txt', 'CHANGELOG', 'build/docs', 'build/libs'] }
         }
     }
 }
