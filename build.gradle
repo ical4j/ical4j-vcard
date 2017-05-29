@@ -40,6 +40,13 @@ dependencies {
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
 jar {
     from(project.rootDir) {
         include "LICENSE.txt"
