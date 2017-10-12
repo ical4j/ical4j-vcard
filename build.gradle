@@ -205,7 +205,7 @@ bintray {
                 sync = isReleaseVersion
                 user = sonatype_username //OSS user token: mandatory
                 password = sonatype_password //OSS user password: mandatory
-                close = '0' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
+//                close = '0' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
             }
         }
     }

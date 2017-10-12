@@ -11,6 +11,8 @@ language: java
 jdk:
   - oraclejdk8
   - openjdk8
+env:
+  - GRADLE_OPTS="-Xmx512m -XX:MaxPermSize=512m"
 script:
   - ./gradlew build jacocoTestReport
 after_success:
