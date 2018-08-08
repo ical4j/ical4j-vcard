@@ -2,14 +2,13 @@ buildscript {
     repositories {
         mavenCentral()
     }
-
     dependencies {
-        classpath group: 'pl.allegro.tech.build', name: 'axion-release-plugin', version: '1.7.1'
         classpath 'org.hidetake:gradle-ssh-plugin:1.1.3'
     }
 }
 
 plugins {
+    id 'pl.allegro.tech.build.axion-release' version '1.8.1'
     id "com.jfrog.bintray" version "1.7.3"
 }
 
@@ -30,6 +29,10 @@ Support for the vCard specification
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
+ext {
+    slf4jVersion = '1.7.25'
+}
+
 repositories {
     mavenCentral()
     // sonatype snapshots
@@ -39,11 +42,13 @@ repositories {
 }
 
 dependencies {
-    compile 'org.mnode.ical4j:ical4j:2.1.0',
-            'commons-io:commons-io:2.3', 'org.codehaus.groovy:groovy-all:2.3.6',
-            'org.slf4j:jcl-over-slf4j:1.7.14'
+    compile 'org.mnode.ical4j:ical4j:2.2.0',
+            'commons-io:commons-io:2.3',
+            'org.codehaus.groovy:groovy-all:2.3.6',
+            "org.slf4j:jcl-over-slf4j:$slf4jVersion"
 
-    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0',
+        "org.slf4j:slf4j-log4j12:$slf4jVersion"
 }
 
 jacocoTestReport {
@@ -110,32 +115,40 @@ version = scmVersion.version
 
 ext {
     isReleaseVersion = !version.endsWith("SNAPSHOT")
+
+    // sonatype credentials
+    sonatype_username = project.hasProperty('sonatype_username') ? project.getProperty('sonatype_username') : ''
+    sonatype_password = project.hasProperty('sonatype_password') ? project.getProperty('sonatype_password') : ''
+
+    // bintray credentials
+    bintray_user = project.hasProperty('bintray_user') ? project.getProperty('bintray_user') : ''
+    bintray_key = project.hasProperty('bintray_key') ? project.getProperty('bintray_key') : ''
 }
 
 uploadArchives {
     repositories {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
+            // artefact management
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
                 authentication(userName: sonatype_username, password: sonatype_password)
             }
             snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
                 authentication(userName: sonatype_username, password: sonatype_password)
             }
-
+            // maven project model
             pom.project {
                 name project.name
                 packaging 'jar'
                 description project.description
                 url 'http://ical4j.github.io'
-
+                // source code management
                 scm {
                     url 'https://github.com/ical4j/ical4j-vcard'
                     connection 'scm:git@github.com:ical4j/ical4j-vcard.git'
                     developerConnection 'scm:git@github.com:ical4j/ical4j-vcard.git'
                 }
-
+                // open source license
                 licenses {
                     license {
                         name 'iCal4j - License'
@@ -143,7 +156,7 @@ uploadArchives {
                         distribution 'repo'
                     }
                 }
-
+                // contributors
                 developers {
                     developer {
                         id 'fortuna'

@@ -70,4 +70,19 @@ class VCardBuilderSpec extends Specification {
 		
 		println vcard
 	}
+
+	def 'assert empty address parsing'() {
+		given: 'a vcard object with an empty ADR component'
+		VCardBuilder builder = [new StringReader('''BEGIN:VCARD
+ADR;TYPE=WORK:;;;;;;;
+END:VCARD
+''')]
+
+		when: 'the string is parsed'
+		VCard vcard = builder.build()
+
+		then: 'an adr property is created'
+		vcard.properties.size() == 1
+		vcard.properties[0] as String == 'ADR;TYPE=WORK:;;;;;;;\r\n'
+	}
 }

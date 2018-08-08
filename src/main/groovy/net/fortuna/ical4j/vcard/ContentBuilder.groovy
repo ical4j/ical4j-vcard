@@ -31,13 +31,7 @@
  */
 package net.fortuna.ical4j.vcard
 
-import net.fortuna.ical4j.vcard.parameter.DefaultParameterFactory
-import net.fortuna.ical4j.vcard.parameter.EncodingFactory
-import net.fortuna.ical4j.vcard.parameter.Language
-import net.fortuna.ical4j.vcard.parameter.Pid
-import net.fortuna.ical4j.vcard.parameter.PrefFactory
-import net.fortuna.ical4j.vcard.parameter.TypeFactory
-import net.fortuna.ical4j.vcard.parameter.ValueFactory
+import net.fortuna.ical4j.vcard.parameter.*
 import net.fortuna.ical4j.vcard.property.*
 
 /**
@@ -60,7 +54,7 @@ public class ContentBuilder extends FactoryBuilderSupport {
     
     def registerProperties() {
         // properties..
-        registerFactory('address', new DefaultPropertyFactory(klass: Address))
+        registerFactory('adr', new DefaultPropertyFactory(klass: Address))
         registerFactory('agent', new DefaultPropertyFactory(klass: Agent))
         registerFactory('bday', new DefaultPropertyFactory(klass: BDay))
         registerFactory('birth', new DefaultPropertyFactory(klass: Birth))
