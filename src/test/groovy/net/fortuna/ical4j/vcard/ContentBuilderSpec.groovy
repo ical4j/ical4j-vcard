@@ -31,13 +31,13 @@
  */
 package net.fortuna.ical4j.vcard
 
-import net.fortuna.ical4j.vcard.parameter.Encoding;
-import net.fortuna.ical4j.vcard.property.Clazz;
-import net.fortuna.ical4j.vcard.property.Gender;
-import net.fortuna.ical4j.vcard.property.Kind;
-import net.fortuna.ical4j.vcard.property.Version;
-import spock.lang.Shared;
-import spock.lang.Specification;
+import net.fortuna.ical4j.vcard.parameter.Encoding
+import net.fortuna.ical4j.vcard.property.Clazz
+import net.fortuna.ical4j.vcard.property.Gender
+import net.fortuna.ical4j.vcard.property.Kind
+import net.fortuna.ical4j.vcard.property.Version
+import spock.lang.Shared
+import spock.lang.Specification
 
 /**
  * $Id$
@@ -127,6 +127,11 @@ class ContentBuilderSpec extends Specification {
 	def 'build PID parameter and assert the result'() {
 		expect:
 		assert builder.pid('1234') as String == 'PID=1234'
+	}
+
+	def 'build ADR parameter and assert the result'() {
+		expect:
+		assert builder.adr(';;;;;;') as String == 'ADR:;;;;;;;\r\n'
 	}
 }
 

@@ -139,7 +139,7 @@ public final class Address extends Property {
 
 
     private void parseValue(String value) throws ParseException {
-        final String[] components = value.split(";");
+        final String[] components = value.split(";", 8);
         if (components.length < 6) {
             throw new ParseException("ADR value must have all address components", 0);
         }
