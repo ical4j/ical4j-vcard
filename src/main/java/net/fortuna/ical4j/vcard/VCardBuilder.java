@@ -193,13 +193,7 @@ public final class VCardBuilder {
                 try {
                     property = parseProperty(line);
                 }
-                catch (URISyntaxException e) {
-                    throw new ParserException("Error parsing line", totalLineNo, e);
-                }
-                catch (ParseException e) {
-                    throw new ParserException("Error parsing line", totalLineNo, e);
-                }
-                catch (DecoderException e) {
+                catch (URISyntaxException | ParseException | DecoderException e) {
                     throw new ParserException("Error parsing line", totalLineNo, e);
                 }
                 if (property != null) {

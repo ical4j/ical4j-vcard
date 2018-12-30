@@ -102,14 +102,14 @@ public abstract class Property implements Serializable {
         /**
          * 
          */
-        private Id() {
+        Id() {
             this(null);
         }
         
         /**
          * @param propertyName the property name
          */
-        private Id(String propertyName) {
+        Id(String propertyName) {
             this.propertyName = propertyName;
         }
         

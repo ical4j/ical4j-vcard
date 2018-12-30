@@ -42,9 +42,9 @@ import net.fortuna.ical4j.vcard.property.*
  * @author fortuna
  *
  */
-public class ContentBuilder extends FactoryBuilderSupport {
+class ContentBuilder extends FactoryBuilderSupport {
 
-    public ContentBuilder(boolean init = true) {
+    ContentBuilder(boolean init = true) {
         super(init)
     }
     

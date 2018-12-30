@@ -38,10 +38,10 @@ package net.fortuna.ical4j.vcard.property
  * @author fortuna
  *
  */
-public class KindFactory extends AbstractPropertyFactory {
+class KindFactory extends AbstractPropertyFactory {
 
 
-    public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         Kind kind
         if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, Kind.class)) {
             kind = (Kind) value
@@ -60,7 +60,7 @@ public class KindFactory extends AbstractPropertyFactory {
                     kind = Kind.THING
                 } else {
                     attributes.put('value', kindValue)
-                    kind = super.newInstance(builder, name, value, attributes);
+                    kind = super.newInstance(builder, name, value, attributes)
                 }
             } else {
                 if (Kind.GROUP.getValue().equalsIgnoreCase(value)) {
@@ -74,7 +74,7 @@ public class KindFactory extends AbstractPropertyFactory {
                 } else if (Kind.THING.getValue().equalsIgnoreCase(value)) {
                     kind = Kind.THING
                 } else {
-                    kind = super.newInstance(builder, name, value, attributes);
+                    kind = super.newInstance(builder, name, value, attributes)
                 }
             }
         }

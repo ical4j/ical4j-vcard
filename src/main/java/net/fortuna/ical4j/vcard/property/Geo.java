@@ -104,7 +104,7 @@ public final class Geo extends Property {
      */
     @Override
     public String getValue() {
-        return String.valueOf(getLatitude()) + DELIMITER + String.valueOf(getLongitude());
+        return getLatitude() + DELIMITER + getLongitude();
     }
 
     /**

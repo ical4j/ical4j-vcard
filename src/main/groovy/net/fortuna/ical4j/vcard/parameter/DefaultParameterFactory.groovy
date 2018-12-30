@@ -38,7 +38,7 @@ class DefaultParameterFactory extends AbstractParameterFactory {
     Class<? extends Parameter> klass
 
     @Override
-    public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         def parameter
         if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, klass)) {
             parameter = value
