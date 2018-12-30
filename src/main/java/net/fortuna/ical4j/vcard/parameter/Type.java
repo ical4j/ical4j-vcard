@@ -90,7 +90,7 @@ public final class Type extends Parameter {
      */
     public Type(Type... types) {
         super(Id.TYPE);
-        final List<String> typeList = new ArrayList<String>();
+        final List<String> typeList = new ArrayList<>();
         for (Type type : types) {
             typeList.addAll(Arrays.asList(type.getTypes()));
         }

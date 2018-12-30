@@ -133,7 +133,7 @@ public abstract class Parameter implements Serializable {
          */
         EXTENDED;
 
-        private String pname;
+        private final String pname;
 
         Id() {
 //        	pname = this.name();

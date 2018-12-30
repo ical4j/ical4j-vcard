@@ -147,8 +147,7 @@ public final class Agent extends Property implements Escapable {
         /**
          * {@inheritDoc}
          */
-        public Agent createProperty(final Group group, final List<Parameter> params, final String value)
-                throws URISyntaxException {
+        public Agent createProperty(final Group group, final List<Parameter> params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

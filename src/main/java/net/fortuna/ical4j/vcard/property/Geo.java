@@ -36,8 +36,6 @@ import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.*;
 
 import java.math.BigDecimal;
-import java.net.URISyntaxException;
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -55,9 +53,9 @@ public final class Geo extends Property {
 
     private static final String DELIMITER = ";";
 
-    private BigDecimal latitude;
+    private final BigDecimal latitude;
 
-    private BigDecimal longitude;
+    private final BigDecimal longitude;
 
     /**
      * @param latitude  a latitude value
@@ -91,7 +89,7 @@ public final class Geo extends Property {
         // Allow comma as a separator if relaxed parsing enabled..
         String[] components = null;
         if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
-            components = value.split(";|,");
+            components = value.split("[;,]");
         } else {
             components = value.split(DELIMITER);
         }
@@ -145,8 +143,7 @@ public final class Geo extends Property {
         /**
          * {@inheritDoc}
          */
-        public Geo createProperty(final Group group, final List<Parameter> params, final String value)
-                throws URISyntaxException, ParseException {
+        public Geo createProperty(final Group group, final List<Parameter> params, final String value) {
             return new Geo(group, params, value);
         }
     }

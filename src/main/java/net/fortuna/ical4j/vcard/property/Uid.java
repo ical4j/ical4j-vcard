@@ -37,7 +37,6 @@ import net.fortuna.ical4j.vcard.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -114,8 +113,7 @@ public final class Uid extends Property {
         /**
          * {@inheritDoc}
          */
-        public Uid createProperty(final Group group, final List<Parameter> params, final String value)
-                throws URISyntaxException, ParseException {
+        public Uid createProperty(final Group group, final List<Parameter> params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

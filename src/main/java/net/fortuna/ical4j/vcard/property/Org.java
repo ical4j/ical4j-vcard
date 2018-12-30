@@ -34,8 +34,6 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.*;
 
-import java.net.URISyntaxException;
-import java.text.ParseException;
 import java.util.List;
 
 import static net.fortuna.ical4j.util.Strings.escape;
@@ -154,8 +152,7 @@ public final class Org extends Property {
         /**
          * {@inheritDoc}
          */
-        public Org createProperty(final Group group, final List<Parameter> params, final String value)
-                throws URISyntaxException, ParseException {
+        public Org createProperty(final Group group, final List<Parameter> params, final String value) {
             return new Org(group, params, value);
         }
     }

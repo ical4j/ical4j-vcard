@@ -36,7 +36,6 @@ import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
-import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -331,7 +330,7 @@ public final class Address extends Property {
          * {@inheritDoc}
          */
         public Address createProperty(final Group group, final List<Parameter> params, final String value)
-                throws URISyntaxException, ParseException {
+                throws ParseException {
             return new Address(group, params, unescape(value));
         }
     }

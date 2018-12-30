@@ -97,7 +97,7 @@ public abstract class Property implements Serializable {
         // 3.3
         MAILER;
         
-        private String propertyName;
+        private final String propertyName;
         
         /**
          * 
@@ -197,7 +197,7 @@ public abstract class Property implements Serializable {
     protected Property(Group group, Id id, List<Parameter> parameters) {
         this.group = group;
         this.id = id;
-        this.parameters = new CopyOnWriteArrayList<Parameter>(parameters);
+        this.parameters = new CopyOnWriteArrayList<>(parameters);
     }
     
     /**
@@ -227,7 +227,7 @@ public abstract class Property implements Serializable {
      * @return a list of parameters
      */
     public final List<Parameter> getParameters(final Parameter.Id id) {
-        final List<Parameter> matches = new ArrayList<Parameter>();
+        final List<Parameter> matches = new ArrayList<>();
         for (Parameter p : parameters) {
             if (p.getId().equals(id)) {
                 matches.add(p);
@@ -241,6 +241,7 @@ public abstract class Property implements Serializable {
      * @param id a parameter identifier
      * @return the first matching parameter, or null if no parameters with the specified identifier are found
      */
+    @SuppressWarnings("unchecked")
     public final <T extends Parameter> T getParameter(final Parameter.Id id) {
         for (Parameter p : parameters) {
             if (p.getId().equals(id)) {
@@ -256,7 +257,7 @@ public abstract class Property implements Serializable {
      * @return a list of parameters
      */
     public final List<Parameter> getExtendedParameters(final String name) {
-        final List<Parameter> matches = new ArrayList<Parameter>();
+        final List<Parameter> matches = new ArrayList<>();
         for (Parameter p : parameters) {
             if (p.getId().equals(Parameter.Id.EXTENDED) && p.extendedName.equals(name)) {
                 matches.add(p);
@@ -270,6 +271,7 @@ public abstract class Property implements Serializable {
      * @param name a non-standard parameter name
      * @return the first matching parameter, or null if no non-standard parameters with the specified name are found
      */
+    @SuppressWarnings("unchecked")
     public final <T extends Parameter> T getExtendedParameter(final String name) {
         for (Parameter p : parameters) {
             if (p.getId().equals(Parameter.Id.EXTENDED) && p.extendedName.equals(name)) {

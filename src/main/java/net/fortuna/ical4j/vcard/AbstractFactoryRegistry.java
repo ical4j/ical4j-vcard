@@ -1,6 +1,5 @@
 package net.fortuna.ical4j.vcard;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,11 +11,11 @@ public abstract class AbstractFactoryRegistry<T> {
 
     private final ServiceLoader<T> factoryLoader;
 
-    private Map<String, T> extendedFactories;
+    private final Map<String, T> extendedFactories;
 
     public AbstractFactoryRegistry(ServiceLoader<T> factoryLoader) {
         this.factoryLoader = factoryLoader;
-        extendedFactories = new ConcurrentHashMap<String, T>();
+        extendedFactories = new ConcurrentHashMap<>();
     }
 
     protected abstract boolean factorySupports(T factory, String name);
@@ -27,9 +26,8 @@ public abstract class AbstractFactoryRegistry<T> {
      */
     public final T getFactory(String name) {
         T factory = null;
-        Iterator<T> it = factoryLoader.iterator();
-        while (it.hasNext()) {
-            factory = it.next();
+        for (T t : factoryLoader) {
+            factory = t;
             if (factorySupports(factory, name)) {
                 break;
             } else {

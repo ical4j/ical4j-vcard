@@ -31,14 +31,13 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
+import net.fortuna.ical4j.vcard.Group.Id;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import net.fortuna.ical4j.vcard.Group.Id;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * A registry for standard and non-standard property groups.
@@ -62,10 +61,10 @@ public class GroupRegistry {
      * 
      */
     public GroupRegistry() {
-        defaultGroups = new HashMap<Id, Group>();
+        defaultGroups = new HashMap<>();
         defaultGroups.put(Id.HOME, Group.HOME);
         defaultGroups.put(Id.WORK, Group.WORK);
-        extendedGroups = new ConcurrentHashMap<String, Group>();
+        extendedGroups = new ConcurrentHashMap<>();
     }
     
     /**

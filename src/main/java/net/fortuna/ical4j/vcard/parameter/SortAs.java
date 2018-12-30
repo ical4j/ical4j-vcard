@@ -46,9 +46,9 @@ public final class SortAs extends Parameter {
 
     private static final long serialVersionUID = 12345L;
 
-    private String value;
+    private final String value;
 
-    private String[] segments;
+    private final String[] segments;
 
     /**
      * Factory constructor.

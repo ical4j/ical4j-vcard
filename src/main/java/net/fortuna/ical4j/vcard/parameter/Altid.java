@@ -46,7 +46,7 @@ public final class Altid extends Parameter {
 
     private static final long serialVersionUID = 12345L;
 
-    private String value;
+    private final String value;
 
     /**
      * Factory constructor.
