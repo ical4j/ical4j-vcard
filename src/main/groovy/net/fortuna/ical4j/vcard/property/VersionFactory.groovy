@@ -38,10 +38,10 @@ package net.fortuna.ical4j.vcard.property
  * @author fortuna
  *
  */
-public class VersionFactory extends AbstractPropertyFactory {
+class VersionFactory extends AbstractPropertyFactory {
 
 
-    public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         Version version
         if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, Version.class)) {
             version = (Version) value

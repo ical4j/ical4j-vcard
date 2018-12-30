@@ -42,11 +42,11 @@ import net.fortuna.ical4j.vcard.PropertyFactoryRegistry
  * @author fortuna
  *
  */
-public abstract class AbstractPropertyFactory extends AbstractFactory {
+abstract class AbstractPropertyFactory extends AbstractFactory {
 
     PropertyFactoryRegistry factoryRegistry = []
 
-    public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         List parameters = attributes.remove('parameters')
         if (parameters == null) {
             parameters = new ArrayList()
@@ -61,7 +61,7 @@ public abstract class AbstractPropertyFactory extends AbstractFactory {
 
     protected abstract Object newInstance(String name, List parameters, String value);
 
-    public void setChild(FactoryBuilderSupport build, Object parent, Object child) {
+    void setChild(FactoryBuilderSupport build, Object parent, Object child) {
         if (child instanceof Parameter) {
             parent.parameters.add(child)
         }

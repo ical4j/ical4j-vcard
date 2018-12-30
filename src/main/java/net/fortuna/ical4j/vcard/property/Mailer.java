@@ -34,9 +34,7 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.*;
 
-import java.net.URISyntaxException;
 import java.text.MessageFormat;
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -52,7 +50,7 @@ public final class Mailer extends Property {
 
     private static final long serialVersionUID = 6134254373259957228L;
 
-    private String value;
+    private final String value;
 
     /**
      * @param value an email address string
@@ -129,8 +127,7 @@ public final class Mailer extends Property {
         /**
          * {@inheritDoc}
          */
-        public Mailer createProperty(final Group group, final List<Parameter> params, final String value)
-                throws URISyntaxException, ParseException {
+        public Mailer createProperty(final Group group, final List<Parameter> params, final String value) {
             return new Mailer(group, params, value);
         }
     }

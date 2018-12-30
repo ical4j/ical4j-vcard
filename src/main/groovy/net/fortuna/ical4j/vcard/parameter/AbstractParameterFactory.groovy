@@ -42,14 +42,14 @@ import net.fortuna.ical4j.vcard.ParameterFactoryRegistry
  * @author fortuna
  *
  */
-public abstract class AbstractParameterFactory extends AbstractFactory {
+abstract class AbstractParameterFactory extends AbstractFactory {
 
     ParameterFactoryRegistry factoryRegistry = []
 
     /**
      * {@inheritDoc}
      */
-    public boolean isLeaf() {
-        return true;
+    boolean isLeaf() {
+        return true
     }
 }

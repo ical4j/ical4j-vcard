@@ -39,7 +39,6 @@ import net.fortuna.ical4j.vcard.parameter.Value;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -144,8 +143,7 @@ public final class Related extends Property {
         /**
          * {@inheritDoc}
          */
-        public Related createProperty(final Group group, final List<Parameter> params, final String value)
-                throws URISyntaxException, ParseException {
+        public Related createProperty(final Group group, final List<Parameter> params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

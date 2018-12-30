@@ -126,8 +126,7 @@ public final class Key extends Property {
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
          */
-        if (valueParameter != null && Value.URI.equals(valueParameter) ||
-                valueParameter != null &&
+        if (Value.URI.equals(valueParameter) || valueParameter != null &&
                         CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) &&
                         "URL".equalsIgnoreCase(valueParameter.getValue())) {
             this.uri = new URI(value);
@@ -155,8 +154,7 @@ public final class Key extends Property {
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
          */
-        if (valueParameter != null && Value.URI.equals(valueParameter) ||
-                valueParameter != null &&
+        if (Value.URI.equals(valueParameter) || valueParameter != null &&
                         CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) &&
                         "URL".equalsIgnoreCase(valueParameter.getValue())) {
             stringValue = Strings.valueOf(uri);

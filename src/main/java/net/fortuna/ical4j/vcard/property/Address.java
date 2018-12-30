@@ -36,7 +36,6 @@ import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
-import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -137,6 +136,12 @@ public final class Address extends Property {
         }
     }
 
+    /**
+     * Support for builder.
+     */
+    private Address() {
+        super(null, Id.ADR);
+    }
 
     private void parseValue(String value) throws ParseException {
         final String[] components = value.split(";", 8);
@@ -325,8 +330,72 @@ public final class Address extends Property {
          * {@inheritDoc}
          */
         public Address createProperty(final Group group, final List<Parameter> params, final String value)
-                throws URISyntaxException, ParseException {
+                throws ParseException {
             return new Address(group, params, unescape(value));
+        }
+    }
+
+    public static class Builder {
+
+        private String poBox;
+
+        private String extended;
+
+        private String street;
+
+        private String locality;
+
+        private String region;
+
+        private String postcode;
+
+        private String country;
+
+        public Builder poBox(String poBox) {
+            this.poBox = poBox;
+            return this;
+        }
+
+        public Builder extended(String extended) {
+            this.extended = extended;
+            return this;
+        }
+
+        public Builder street(String street) {
+            this.street = street;
+            return this;
+        }
+
+        public Builder locality(String locality) {
+            this.locality = locality;
+            return this;
+        }
+
+        public Builder region(String region) {
+            this.region = region;
+            return this;
+        }
+
+        public Builder postcode(String postcode) {
+            this.postcode = postcode;
+            return this;
+        }
+
+        public Builder country(String country) {
+            this.country = country;
+            return this;
+        }
+
+        public Address build() {
+            Address address = new Address();
+            address.poBox = poBox;
+            address.extended = extended;
+            address.street = street;
+            address.locality = locality;
+            address.region = region;
+            address.postcode = postcode;
+            address.country = country;
+            return address;
         }
     }
 }

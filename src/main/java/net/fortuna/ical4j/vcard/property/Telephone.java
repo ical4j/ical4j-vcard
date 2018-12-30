@@ -41,7 +41,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.MessageFormat;
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -193,8 +192,7 @@ public final class Telephone extends Property {
         /**
          * {@inheritDoc}
          */
-        public Telephone createProperty(final Group group, final List<Parameter> params, final String value)
-                throws URISyntaxException, ParseException {
+        public Telephone createProperty(final Group group, final List<Parameter> params, final String value) throws URISyntaxException {
             return new Telephone(group, params, value);
         }
     }

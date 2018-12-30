@@ -36,8 +36,6 @@ import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
-import java.net.URISyntaxException;
-import java.text.ParseException;
 import java.util.List;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
@@ -121,8 +119,7 @@ public final class Label extends Property implements Escapable {
         /**
          * {@inheritDoc}
          */
-        public Label createProperty(final Group group, final List<Parameter> params, final String value)
-                throws URISyntaxException, ParseException {
+        public Label createProperty(final Group group, final List<Parameter> params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

@@ -8,7 +8,7 @@ import java.util.List;
  */
 public abstract class AbstractFactory {
 
-    private List<String> supportedIds;
+    private final List<String> supportedIds;
 
     public AbstractFactory(String... supportedIds) {
         this.supportedIds = Arrays.asList(supportedIds);

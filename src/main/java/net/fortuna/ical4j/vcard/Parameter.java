@@ -133,15 +133,15 @@ public abstract class Parameter implements Serializable {
          */
         EXTENDED;
 
-        private String pname;
+        private final String pname;
 
-        private Id() {
+        Id() {
 //        	pname = this.name();
 //        	idFromPname.put(pname, this);
             this(null);
         }
 
-        private Id(String pname) {
+        Id(String pname) {
             this.pname = pname;
 //        	idFromPname.put(pname, this);
         }

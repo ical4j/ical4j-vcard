@@ -41,12 +41,12 @@ class DefaultPropertyFactory extends AbstractPropertyFactory {
 
     Class<? extends Property> klass
 
-    public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         def property
         if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, klass)) {
             property = value
         } else {
-            property = super.newInstance(builder, name, value, attributes);
+            property = super.newInstance(builder, name, value, attributes)
         }
         return property
     }

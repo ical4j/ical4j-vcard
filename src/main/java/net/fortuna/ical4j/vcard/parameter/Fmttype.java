@@ -48,11 +48,11 @@ public final class Fmttype extends Parameter {
 
     private static final long serialVersionUID = 12345L;
 
-    private String value;
+    private final String value;
 
-    private String type;
+    private final String type;
 
-    private String subtype;
+    private final String subtype;
 
     /**
      * Factory constructor.

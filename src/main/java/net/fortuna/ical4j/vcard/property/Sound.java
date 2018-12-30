@@ -48,7 +48,6 @@ import org.apache.commons.logging.LogFactory;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -114,8 +113,7 @@ public final class Sound extends Property {
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
          */
-        if (valueParameter != null && Value.URI.equals(valueParameter) ||
-                valueParameter != null &&
+        if (Value.URI.equals(valueParameter) || valueParameter != null &&
                         CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) &&
                         "URL".equalsIgnoreCase(valueParameter.getValue())) {
             this.uri = new URI(value);
@@ -185,8 +183,7 @@ public final class Sound extends Property {
         /**
          * {@inheritDoc}
          */
-        public Sound createProperty(final Group group, final List<Parameter> params, final String value)
-                throws URISyntaxException, ParseException {
+        public Sound createProperty(final Group group, final List<Parameter> params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

@@ -140,7 +140,7 @@ public final class VCardBuilder {
      * @throws ParserException where parsing vCard data fails
      */
     public List<VCard> buildAll() throws IOException, ParserException {
-    	final List<VCard> cards = new ArrayList<VCard>();
+    	final List<VCard> cards = new ArrayList<>();
     	while (true) {
     	    final VCard card = build(false);
     	    if (card == null) {
@@ -193,13 +193,7 @@ public final class VCardBuilder {
                 try {
                     property = parseProperty(line);
                 }
-                catch (URISyntaxException e) {
-                    throw new ParserException("Error parsing line", totalLineNo, e);
-                }
-                catch (ParseException e) {
-                    throw new ParserException("Error parsing line", totalLineNo, e);
-                }
-                catch (DecoderException e) {
+                catch (URISyntaxException | ParseException | DecoderException e) {
                     throw new ParserException("Error parsing line", totalLineNo, e);
                 }
                 if (property != null) {
@@ -275,14 +269,13 @@ public final class VCardBuilder {
      * @return a list of parameters
      */
     private List<Parameter> parseParameters(final String line) {
-        final List<Parameter> parameters = new ArrayList<Parameter>();
+        final List<Parameter> parameters = new ArrayList<>();
         final Matcher matcher = PARAMETERS_PATTERN.matcher(line);
         if (matcher.find()) {
             final String[] params = matcher.group().split(";");
             for (String param : params) {
                 final String[] vals = param.split("=");
-                final ParameterFactory<? extends Parameter> factory = parameterFactoryRegistry.getFactory(
-                        vals[0].toUpperCase());
+                final ParameterFactory factory = parameterFactoryRegistry.getFactory(vals[0].toUpperCase());
 
                 if (factory != null) {
                     if (vals.length > 1) {

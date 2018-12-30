@@ -41,10 +41,10 @@ package net.fortuna.ical4j.vcard.parameter
  * @author fortuna
  *
  */
-public class ValueFactory extends AbstractParameterFactory{
+class ValueFactory extends AbstractParameterFactory{
 
 
-    public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         Value valueParam
         if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, Encoding.class)) {
             valueParam = (Value) value

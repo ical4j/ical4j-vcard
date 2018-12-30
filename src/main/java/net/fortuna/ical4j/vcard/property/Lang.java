@@ -34,8 +34,6 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.*;
 
-import java.net.URISyntaxException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -74,7 +72,7 @@ public final class Lang extends Property {
      */
     public Lang(List<Parameter> params, String value) {
         super(Id.LANG, params);
-        final List<Locale> list = new ArrayList<Locale>();
+        final List<Locale> list = new ArrayList<>();
         for (String langString : value.split(",")) {
             list.add(new Locale(langString));
         }
@@ -127,8 +125,7 @@ public final class Lang extends Property {
         /**
          * {@inheritDoc}
          */
-        public Lang createProperty(final Group group, final List<Parameter> params, final String value)
-                throws URISyntaxException, ParseException {
+        public Lang createProperty(final Group group, final List<Parameter> params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

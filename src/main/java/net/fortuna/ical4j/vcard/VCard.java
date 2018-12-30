@@ -72,7 +72,7 @@ public final class VCard implements Serializable {
      * @param properties a list of properties
      */
     public VCard(List<Property> properties) {
-        this.properties = new CopyOnWriteArrayList<Property>(properties);
+        this.properties = new CopyOnWriteArrayList<>(properties);
     }
 
     /**
@@ -91,7 +91,7 @@ public final class VCard implements Serializable {
      * @return a list of properties matching the specified identifier
      */
     public List<Property> getProperties(final Id id) {
-        final List<Property> matches = new ArrayList<Property>();
+        final List<Property> matches = new ArrayList<>();
         for (Property p : properties) {
             if (p.getId().equals(id)) {
                 matches.add(p);
@@ -105,10 +105,11 @@ public final class VCard implements Serializable {
      * @param id a property identifier
      * @return the first matching property, or null if no properties match
      */
-    public Property getProperty(final Id id) {
+    @SuppressWarnings("unchecked")
+    public <T extends Property> T getProperty(final Id id) {
         for (Property p : properties) {
             if (p.getId().equals(id)) {
-                return p;
+                return (T) p;
             }
         }
         return null;
@@ -121,7 +122,7 @@ public final class VCard implements Serializable {
      * @return a list of non-standard properties matching the specified name
      */
     public List<Property> getExtendedProperties(final String name) {
-        final List<Property> matches = new ArrayList<Property>();
+        final List<Property> matches = new ArrayList<>();
         for (Property p : properties) {
             if (p.getId().equals(Id.EXTENDED) && p.extendedName.equals(name)) {
                 matches.add(p);

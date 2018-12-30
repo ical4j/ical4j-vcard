@@ -30,9 +30,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package net.fortuna.ical4j.vcard.parameter
-
-import groovy.util.AbstractFactory
-/**
+/**
  * $Id$
  *
  * Created on: 02/08/2009
@@ -40,9 +38,9 @@ import groovy.util.AbstractFactory
  * @author fortuna
  *
  */
-public class PrefFactory extends AbstractParameterFactory {
+class PrefFactory extends AbstractParameterFactory {
 
-    public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         Pref pref
         if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, Pref.class)) {
             pref = (Pref) value

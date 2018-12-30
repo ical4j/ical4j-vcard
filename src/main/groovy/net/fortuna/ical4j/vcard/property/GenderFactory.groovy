@@ -38,10 +38,10 @@ package net.fortuna.ical4j.vcard.property
  * @author fortuna
  *
  */
-public class GenderFactory extends AbstractPropertyFactory {
+class GenderFactory extends AbstractPropertyFactory {
 
 
-    public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         Gender gender
         if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, Gender.class)) {
             gender = (Gender) value
@@ -54,7 +54,7 @@ public class GenderFactory extends AbstractPropertyFactory {
                     gender = Gender.MALE
                 } else {
                     attributes.put('value', genderValue)
-                    gender = super.newInstance(builder, name, value, attributes);
+                    gender = super.newInstance(builder, name, value, attributes)
                 }
             } else {
                 if (Gender.FEMALE.getValue().equals(value)) {
@@ -62,7 +62,7 @@ public class GenderFactory extends AbstractPropertyFactory {
                 } else if (Gender.MALE.getValue().equals(value)) {
                     gender = Gender.MALE
                 } else {
-                    gender = super.newInstance(builder, name, value, attributes);
+                    gender = super.newInstance(builder, name, value, attributes)
                 }
             }
         }

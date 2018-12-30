@@ -38,10 +38,10 @@ package net.fortuna.ical4j.vcard.property
  * @author fortuna
  *
  */
-public class ClazzFactory extends AbstractPropertyFactory {
+class ClazzFactory extends AbstractPropertyFactory {
 
 
-    public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         Clazz clazz
         if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, Clazz.class)) {
             clazz = (Clazz) value
@@ -56,7 +56,7 @@ public class ClazzFactory extends AbstractPropertyFactory {
                     clazz = Clazz.PUBLIC
                 } else {
                     attributes.put('value', clazzValue)
-                    clazz = super.newInstance(builder, name, value, attributes);
+                    clazz = super.newInstance(builder, name, value, attributes)
                 }
             } else {
                 if (Clazz.CONFIDENTIAL.getValue().equals(value)) {
@@ -66,7 +66,7 @@ public class ClazzFactory extends AbstractPropertyFactory {
                 } else if (Clazz.PUBLIC.getValue().equals(value)) {
                     clazz = Clazz.PUBLIC
                 } else {
-                    clazz = super.newInstance(builder, name, value, attributes);
+                    clazz = super.newInstance(builder, name, value, attributes)
                 }
             }
         }

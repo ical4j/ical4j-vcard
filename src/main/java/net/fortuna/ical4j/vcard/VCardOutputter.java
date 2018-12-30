@@ -97,12 +97,8 @@ public class VCardOutputter extends AbstractOutputter {
             card.validate();
         }
 
-        final FoldingWriter writer = new FoldingWriter(out, foldLength);
-        try {
+        try (FoldingWriter writer = new FoldingWriter(out, foldLength)) {
             writer.write(card.toString());
-        }
-        finally {
-            writer.close();
         }
     }
 

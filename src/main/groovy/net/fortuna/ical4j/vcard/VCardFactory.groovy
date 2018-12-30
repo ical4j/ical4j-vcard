@@ -39,9 +39,9 @@ package net.fortuna.ical4j.vcard
  * @author fortuna
  *
  */
-public class VCardFactory extends groovy.util.AbstractFactory {
+class VCardFactory extends groovy.util.AbstractFactory {
 
-    public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
+    Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         VCard card
         if (FactoryBuilderSupport.checkValueIsType(value, name, VCard.class)) {
             card = (VCard) value
@@ -51,7 +51,7 @@ public class VCardFactory extends groovy.util.AbstractFactory {
         return card
     }
 
-    public void setChild(FactoryBuilderSupport build, Object parent, Object child) {
+    void setChild(FactoryBuilderSupport build, Object parent, Object child) {
         if (child instanceof Property) {
             parent.properties.add(child)
         }
