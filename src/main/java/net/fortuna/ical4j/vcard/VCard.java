@@ -105,10 +105,10 @@ public final class VCard implements Serializable {
      * @param id a property identifier
      * @return the first matching property, or null if no properties match
      */
-    public Property getProperty(final Id id) {
+    public <T extends Property> T getProperty(final Id id) {
         for (Property p : properties) {
             if (p.getId().equals(id)) {
-                return p;
+                return (T) p;
             }
         }
         return null;

@@ -241,10 +241,10 @@ public abstract class Property implements Serializable {
      * @param id a parameter identifier
      * @return the first matching parameter, or null if no parameters with the specified identifier are found
      */
-    public final Parameter getParameter(final Parameter.Id id) {
+    public final <T extends Parameter> T getParameter(final Parameter.Id id) {
         for (Parameter p : parameters) {
             if (p.getId().equals(id)) {
-                return p;
+                return (T) p;
             }
         }
         return null;
@@ -270,10 +270,10 @@ public abstract class Property implements Serializable {
      * @param name a non-standard parameter name
      * @return the first matching parameter, or null if no non-standard parameters with the specified name are found
      */
-    public final Parameter getExtendedParameter(final String name) {
+    public final <T extends Parameter> T getExtendedParameter(final String name) {
         for (Parameter p : parameters) {
             if (p.getId().equals(Parameter.Id.EXTENDED) && p.extendedName.equals(name)) {
-                return p;
+                return (T) p;
             }
         }
         return null;
