@@ -42,7 +42,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.mnode.ical4j:ical4j:2.+',
+    compile 'org.mnode.ical4j:ical4j:2.2.1',
             'commons-io:commons-io:2.3',
             'org.codehaus.groovy:groovy-all:2.3.6',
             "org.slf4j:jcl-over-slf4j:$slf4jVersion"
