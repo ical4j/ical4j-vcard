@@ -35,6 +35,8 @@ import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.property.Kind;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -198,5 +200,19 @@ public final class VCard implements Serializable {
         b.append("END:VCARD");
         b.append(Strings.LINE_SEPARATOR);
         return b.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof VCard) {
+            VCard card = (VCard) obj;
+            return new EqualsBuilder().append(getProperties(), card.getProperties()).isEquals();
+        }
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(getProperties()).toHashCode();
     }
 }
