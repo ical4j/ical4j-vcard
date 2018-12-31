@@ -17,5 +17,14 @@ class PropertySpec extends Specification {
 
         expect: 'properties are equal'
         property == property2
+
+        and: 'hashcodes are equal'
+        property.hashCode() == property2.hashCode()
+
+        and: 'null comparison is supported'
+        !property.equals(null)
+
+        and: 'comparison with any type is supported'
+        !property.equals(new Object())
     }
 }

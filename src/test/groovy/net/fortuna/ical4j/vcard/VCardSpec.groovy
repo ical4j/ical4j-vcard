@@ -28,5 +28,13 @@ class VCardSpec extends Specification {
         expect: 'vcards are equal'
         card == card2
 
+        and: 'hashcodes are equal'
+        card.hashCode() == card2.hashCode()
+
+        and: 'null comparison is supported'
+        !card.equals(null)
+
+        and: 'comparison with any type is supported'
+        !card.equals(new Object())
     }
 }
