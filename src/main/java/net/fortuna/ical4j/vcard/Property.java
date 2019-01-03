@@ -357,7 +357,13 @@ public abstract class Property implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+        if (obj instanceof Property) {
+            Property property = (Property) obj;
+            return new EqualsBuilder().append(group, property.getGroup()).append(id, property.getId())
+                    .append(extendedName, property.extendedName).append(getParameters(), property.getParameters())
+                    .isEquals();
+        }
+        return super.equals(obj);
     }
 
     /**
@@ -365,7 +371,7 @@ public abstract class Property implements Serializable {
      */
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        return new HashCodeBuilder().append(group).append(id).append(extendedName).append(parameters).toHashCode();
     }
     
     /**
