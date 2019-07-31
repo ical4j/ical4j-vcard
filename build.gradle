@@ -1,19 +1,22 @@
+import aQute.bnd.gradle.Bundle
+
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.hidetake:gradle-ssh-plugin:1.1.3'
+        classpath 'org.hidetake:gradle-ssh-plugin:2.10.1'
+        classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:4.2.0'
     }
 }
 
 plugins {
-    id 'pl.allegro.tech.build.axion-release' version '1.8.1'
-    id "com.jfrog.bintray" version "1.7.3"
+    id 'pl.allegro.tech.build.axion-release' version '1.10.2'
+    id "com.jfrog.bintray" version "1.8.4"
 }
 
 apply plugin: 'groovy'
-apply plugin: 'osgi'
+apply plugin: 'biz.aQute.bnd.builder'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'jacoco'
@@ -58,47 +61,36 @@ jacocoTestReport {
     }
 }
 
-jar {
-    from(project.rootDir) {
-        include "LICENSE.txt"
-    }
-    
-    manifest {
-        instruction 'Require-Capability', '''osgi.extender;filter:="(osgi.extender=osgi.serviceloader.registrar)",
-            osgi.extender;filter:="(osgi.extender=osgi.serviceloader.processor)",
-            osgi.serviceloader;filter:="(osgi.serviceloader=net.fortuna.ical4j.vcard.*)";cardinality:=multiple
-        '''
-        instruction 'Provide-Capability', '''osgi.serviceloader;osgi.serviceloader="net.fortuna.ical4j.vcard.ParameterFactory",
-            osgi.serviceloader="net.fortuna.ical4j.vcard.PropertyFactory"
-        '''
-    }
-}
-
 javadoc {
     if (JavaVersion.current().isJava8Compatible()) {
         options.addStringOption('Xdoclint:none', '-quiet')
     }
 }
 
+task bundle(type: Bundle) {
+    from(project.rootDir) {
+        include "LICENSE.txt"
+    }
+    from sourceSets.main.output
+    bndfile = 'bnd.bnd'
+}
+
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
+    archiveClassifier = 'javadoc'
     from 'build/docs/javadoc'
 }
 
 task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
-    classifier = 'sources'
+    archiveClassifier = 'sources'
 }
+
+jar.enabled = false
 
 artifacts {
-    archives jar
+    archives bundle
     archives javadocJar
     archives sourcesJar
-}
-
-signing {
-    required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
-    sign configurations.archives
 }
 
 scmVersion {
@@ -195,6 +187,12 @@ publishing {
             }
         }
     }
+}
+
+signing {
+    required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
+//    sign configurations.archives
+    sign publishing.publications.mavenArtifacts
 }
 
 bintray {
