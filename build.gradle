@@ -6,17 +6,16 @@ buildscript {
     }
     dependencies {
         classpath 'org.hidetake:gradle-ssh-plugin:2.10.1'
-        classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:4.2.0'
     }
 }
 
 plugins {
     id 'pl.allegro.tech.build.axion-release' version '1.10.2'
     id "com.jfrog.bintray" version "1.8.4"
+    id "biz.aQute.bnd.builder" version "5.0.0"
 }
 
 apply plugin: 'groovy'
-apply plugin: 'biz.aQute.bnd.builder'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'jacoco'
