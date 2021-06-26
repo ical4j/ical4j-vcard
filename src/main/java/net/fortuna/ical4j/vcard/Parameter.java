@@ -31,6 +31,9 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import net.fortuna.ical4j.model.Encodable;
+import net.fortuna.ical4j.model.ParameterCodec;
+import org.apache.commons.codec.EncoderException;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -247,7 +250,15 @@ public abstract class Parameter implements Serializable {
 */
         if (getValue() != null) {
             b.append('=');
-            b.append(getValue());
+            if (this instanceof Encodable) {
+                try {
+                    b.append(ParameterCodec.INSTANCE.encode(getValue()));
+                } catch (EncoderException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                b.append(getValue());
+            }
         }
         return b.toString();
     }

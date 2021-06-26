@@ -33,6 +33,8 @@ package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.data.UnfoldingReader;
+import net.fortuna.ical4j.model.ParameterCodec;
+import net.fortuna.ical4j.model.PropertyCodec;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.parameter.XParameter;
 import net.fortuna.ical4j.vcard.property.XProperty;
@@ -241,18 +243,24 @@ public final class VCardBuilder {
             matcher = PROPERTY_VALUE_PATTERN.matcher(line);
             if (matcher.find()) {
                 final String propertyValue = matcher.group(0);
+                String decodedValue;
+                try {
+                    decodedValue = PropertyCodec.INSTANCE.decode(propertyValue);
+                } catch (DecoderException e) {
+                    decodedValue = propertyValue;
+                }
                 final List<Parameter> params = parseParameters(line);
                 if (factory != null) {
                     if (group != null) {
-                        return factory.createProperty(group, params, propertyValue);
+                        return factory.createProperty(group, params, decodedValue);
                     } else {
-                        return factory.createProperty(params, propertyValue);
+                        return factory.createProperty(params, decodedValue);
                     }
                 } else if (isExtendedName(propertyName)) {
                     if (group != null) {
-                        property = new XProperty(group, propertyName, params, propertyValue);
+                        property = new XProperty(group, propertyName, params, decodedValue);
                     } else {
-                        property = new XProperty(propertyName, params, propertyValue);
+                        property = new XProperty(propertyName, params, decodedValue);
                     }
                 }
             }
@@ -279,13 +287,25 @@ public final class VCardBuilder {
 
                 if (factory != null) {
                     if (vals.length > 1) {
-                        parameters.add(factory.createParameter(vals[0], vals[1]));
+                        String decodedValue;
+                        try {
+                            decodedValue = ParameterCodec.INSTANCE.decode(vals[1]);
+                        } catch (DecoderException e) {
+                            decodedValue = vals[1];
+                        }
+                        parameters.add(factory.createParameter(vals[0], decodedValue));
                     } else {
                         parameters.add(factory.createParameter(vals[0], null));
                     }
                 } else if (isExtendedName(vals[0])) {
                     if (vals.length > 1) {
-                        parameters.add(new XParameter(vals[0], vals[1]));
+                        String decodedValue;
+                        try {
+                            decodedValue = ParameterCodec.INSTANCE.decode(vals[1]);
+                        } catch (DecoderException e) {
+                            decodedValue = vals[1];
+                        }
+                        parameters.add(new XParameter(vals[0], decodedValue));
                     } else {
                         parameters.add(new XParameter(vals[0], null));
                     }

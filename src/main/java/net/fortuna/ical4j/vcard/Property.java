@@ -32,9 +32,11 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.model.Encodable;
+import net.fortuna.ical4j.model.PropertyCodec;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.parameter.Value;
+import org.apache.commons.codec.EncoderException;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -397,7 +399,11 @@ public abstract class Property implements Serializable {
         }
         b.append(':');
         if (this instanceof Encodable) {
-            b.append(Strings.escape(Strings.valueOf(getValue())));
+            try {
+                b.append(PropertyCodec.INSTANCE.encode(getValue()));
+            } catch (EncoderException e) {
+                e.printStackTrace();
+            }
         } else {
             b.append(Strings.valueOf(getValue()));
         }
