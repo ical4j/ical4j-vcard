@@ -39,9 +39,9 @@ import java.util.List;
 
 /**
  * MAILER property (vCard 3.0 only).
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 24/08/2008
  *
  * @author Ben

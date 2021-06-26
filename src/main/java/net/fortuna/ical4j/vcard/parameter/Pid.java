@@ -37,9 +37,9 @@ import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * PID parameter.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 21/08/2008
  *
  * @author Ben

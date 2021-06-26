@@ -44,9 +44,9 @@ import java.util.List;
 
 /**
  * RELATED property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 21/09/2008
  *
  * @author Ben

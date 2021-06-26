@@ -69,7 +69,7 @@ public class Outlook2003Test {
     /**
      * This example has been prepared with Outlook 2003, it is full of errors,
      * but still the library should be able to parse it as well as possible.
-     * <p/>
+     * <p>
      * This test also makes use of a custom ParameterRegistry, that allows me
      * to work around the Outlook quirk, that places the TYPE parameter values
      * without the TYPE string, i.e. instead of TYPE=HOME,WORK, we have only

@@ -56,7 +56,7 @@ import static org.junit.Assert.assertEquals;
  * invalid/vcard-dirk-whitespaceafterbegin.vcf. Namely, for structured property
  * values, outlook omits the empty elements at the end of the line while the RFC
  * 2426 states that they are obligatory.
- * <p/>
+ * <p>
  * This test checks if a file with a wrong N property is parsed correctly with
  * relaxed parsing. This example is based on a file found in the field by a user
  * of the Aperture Framework.

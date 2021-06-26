@@ -38,9 +38,9 @@ import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * PREF parameter.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on: 30/12/2008
  *
  * @author Ben

@@ -40,9 +40,9 @@ import java.util.List;
 
 /**
  * GEO property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 19/09/2008
  *
  * @author Ben

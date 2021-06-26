@@ -54,7 +54,7 @@ import static org.junit.Assert.assertEquals;
  * This tests if the VALUE=URL parameter is treated correctly.
  * This parameter is from VCard 2.1. In VCard 3.0 'URL' has been superseeded by 'URI'.
  * Yet, 2.1 emails still come up in the field, especially those created with MS Outlook.
- * <p/>
+ * <p>
  * Created on: 2010-03-29
  *
  * @author antheque

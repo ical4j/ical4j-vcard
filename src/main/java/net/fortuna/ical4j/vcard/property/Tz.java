@@ -40,9 +40,9 @@ import java.util.List;
 
 /**
  * TZ property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 18/09/2008
  *
  * @author Ben

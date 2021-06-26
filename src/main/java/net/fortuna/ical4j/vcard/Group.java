@@ -38,9 +38,9 @@ import java.io.Serializable;
 
 /**
  * A property group.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on: 30/12/2008
  *
  * @author Ben

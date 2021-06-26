@@ -42,9 +42,9 @@ import java.util.List;
 
 /**
  * CALURI property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 23/10/2008
  *
  * @author Ben

@@ -39,9 +39,9 @@ import java.util.List;
 
 /**
  * @param <T> the property type created by the factory
- *            <p/>
+ *
  *            $Id$
- *            <p/>
+ *
  *            Created on: 30/10/2008
  * @author fortuna
  */

@@ -1,0 +1,5 @@
+Export-Package: net.fortuna.ical4j.vcard.*
+Import-Package: groovy.*;resolution:=optional, org.codehaus.groovy*;resolution:=optional, *
+Require-Capability: osgi.extender;filter:="(osgi.extender=osgi.serviceloader.registrar)", osgi.extender;filter:="(osgi.extender=osgi.serviceloader.processor)", osgi.serviceloader;filter:="(osgi.serviceloader=net.fortuna.ical4j.vcard.*)";cardinality:=multiple
+Provide-Capability: osgi.serviceloader;osgi.serviceloader=net.fortuna.ical4j.vcard.ParameterFactory, osgi.serviceloader;osgi.serviceloader=net.fortuna.ical4j.vcard.PropertyFactory
+Automatic-Module-Name: org.mnode.ical4j.vcard

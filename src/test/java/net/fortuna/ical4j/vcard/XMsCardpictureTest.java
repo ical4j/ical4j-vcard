@@ -50,11 +50,11 @@ import java.io.Reader;
  * X-MS-CARDPICTURE. ical4j-vcard includes a generic facility to write {@link Property}
  * subclasses for extended property. This facility cannot be used though if the
  * builder skips those lines in the first place.
- * <p/>
+ * <p>
  * This test has been created to make sure it is possible to work with extended
  * properties in ical4j-vcard
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * Created on: 2010-03-29
  *
  * @author antheque

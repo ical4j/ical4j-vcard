@@ -31,7 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import net.fortuna.ical4j.model.Escapable;
+import net.fortuna.ical4j.model.Encodable;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.*;
 
@@ -41,14 +41,14 @@ import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
  * BIRTH property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 23/08/2008
  *
  * @author Ben
  */
-public final class Birth extends Property implements Escapable {
+public final class Birth extends Property implements Encodable {
 
     private static final long serialVersionUID = -3204898745557127754L;
 

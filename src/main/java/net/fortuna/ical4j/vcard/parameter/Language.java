@@ -40,9 +40,9 @@ import java.util.Locale;
 
 /**
  * LANGUAGE parameter.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 21/08/2008
  *
  * @author Ben

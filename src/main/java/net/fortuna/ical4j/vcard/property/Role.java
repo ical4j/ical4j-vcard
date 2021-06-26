@@ -38,9 +38,9 @@ import java.util.List;
 
 /**
  * ROLE property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 21/09/2008
  *
  * @author Ben

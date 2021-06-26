@@ -41,9 +41,9 @@ import java.util.List;
 
 /**
  * URL property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 21/10/2008
  *
  * @author Ben
