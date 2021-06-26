@@ -51,25 +51,25 @@ import static org.junit.Assert.assertEquals;
  * requirements management process. It is quite simple except for the fact that
  * the N property contains a single element. Before this test was written, the N
  * class yielded a NullPointerException on this.
- * <p/>
+ * <p>
  * The specification doesn't say that the value of the N property MUST have at
  * least two components.
- * <p/>
+ * <p>
  * This file has been created with Outlook 2003, and uses my workarounds for the
  * Outlook quirks.
- * <p/>
+ * <p>
  * Moreover, the dirk-whitespaceafterbegin exhibits two problems I've
  * encountered in the field. The first is that Outlook 2003 can produce vcf
  * files with whitespace after BEGIN:VCARD.
- * <p/>
+ * <p>
  * The second problem is about the ADR property. I would like to parse files
  * with
- * <p/>
+ *
  * <pre>
  * ADR;WORK:;Szczecin
  * </pre>
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * Created on: 2010-03-29
  *
  * @author antheque

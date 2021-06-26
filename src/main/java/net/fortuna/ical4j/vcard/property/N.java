@@ -42,9 +42,9 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * N property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 23/08/2008
  *
  * @author Ben

@@ -39,7 +39,7 @@ import java.text.ParseException;
 
 /**
  * FMTTYPE parameter.
- * <p/>
+ * <p>
  * Created on 20/09/2010
  *
  * @author Mike Douglass

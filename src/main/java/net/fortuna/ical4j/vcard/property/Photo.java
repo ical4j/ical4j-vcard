@@ -52,9 +52,9 @@ import java.util.List;
 
 /**
  * PHOTO property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 23/08/2008
  *
  * @author Ben

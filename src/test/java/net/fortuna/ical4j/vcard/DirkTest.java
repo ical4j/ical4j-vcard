@@ -72,10 +72,10 @@ public class DirkTest {
      * requirements management process. It is quite simple except for the
      * fact that the N property contains a single element. Before this test
      * was written, the N class yielded a NullPointerException on this.
-     * <p/>
+     * <p>
      * The specification doesn't say that the value of the N property MUST
      * have at least two components.
-     * <p/>
+     * <p>
      * This file has been created with Outlook 2003, and uses my workarounds
      * for the Outlook quirks.
      *

@@ -40,9 +40,9 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * A property parameter.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 21/08/2008
  *
  * @author Ben

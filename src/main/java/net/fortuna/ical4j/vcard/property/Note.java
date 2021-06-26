@@ -41,9 +41,9 @@ import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
  * NOTE property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 21/10/2008
  *
  * @author Ben

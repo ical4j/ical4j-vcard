@@ -41,9 +41,9 @@ import java.util.List;
 
 /**
  * TYPE parameter.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 21/08/2008
  *
  * @author Ben

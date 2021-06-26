@@ -52,9 +52,9 @@ import java.util.List;
 
 /**
  * KEY property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 23/10/2008
  *
  * @author Ben

@@ -40,9 +40,9 @@ import static net.fortuna.ical4j.util.Strings.escape;
 
 /**
  * ORG property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 21/09/2008
  *
  * @author Ben

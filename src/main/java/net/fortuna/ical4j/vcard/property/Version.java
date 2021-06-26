@@ -40,9 +40,9 @@ import java.util.List;
 
 /**
  * VERSION property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 21/10/2008
  *
  * @author Ben

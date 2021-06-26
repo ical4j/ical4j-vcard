@@ -33,9 +33,9 @@ package net.fortuna.ical4j.vcard;
 
 /**
  * @param <T> parameter type created by the factory implementation
- *            <p/>
+ *
  *            $Id$
- *            <p/>
+ *
  *            Created on: 30/10/2008
  * @author fortuna
  */

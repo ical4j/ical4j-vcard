@@ -42,9 +42,9 @@ import java.util.List;
 
 /**
  * IMPP property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 24/08/2008
  *
  * @author Ben

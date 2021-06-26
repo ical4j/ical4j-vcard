@@ -45,9 +45,9 @@ import java.util.List;
 
 /**
  * TEL property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 24/08/2008
  *
  * @author Ben

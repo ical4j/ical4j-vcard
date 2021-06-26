@@ -37,7 +37,7 @@ import net.fortuna.ical4j.vcard.ParameterFactory;
 
 /**
  * CALSCALE parameter.
- * <p/>
+ * <p>
  * Created on 20/09/2010
  *
  * @author Mike Douglass

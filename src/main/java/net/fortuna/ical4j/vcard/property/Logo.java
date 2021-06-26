@@ -52,9 +52,9 @@ import java.util.List;
 
 /**
  * LOGO property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 21/09/2008
  *
  * @author Ben

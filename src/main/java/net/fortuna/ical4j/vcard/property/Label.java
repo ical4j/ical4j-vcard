@@ -42,9 +42,9 @@ import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
  * LABEL property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 23/08/2008
  *
  * @author Ben

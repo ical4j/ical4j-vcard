@@ -42,9 +42,9 @@ import java.util.List;
 
 /**
  * REVISION property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 21/10/2008
  *
  * @author Ben

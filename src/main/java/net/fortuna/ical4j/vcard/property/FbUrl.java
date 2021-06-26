@@ -42,9 +42,9 @@ import java.util.List;
 
 /**
  * FBURL property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 23/10/2008
  *
  * @author Ben

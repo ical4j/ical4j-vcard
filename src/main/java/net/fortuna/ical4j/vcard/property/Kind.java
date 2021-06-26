@@ -40,9 +40,9 @@ import java.util.List;
 
 /**
  * KIND property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 22/08/2008
  *
  * @author Ben

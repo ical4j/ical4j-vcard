@@ -41,9 +41,9 @@ import java.util.List;
 
 /**
  * SOURCE property.
- * <p/>
+ * <p>
  * $Id$
- * <p/>
+ * <p>
  * Created on 22/08/2008
  *
  * @author Ben
