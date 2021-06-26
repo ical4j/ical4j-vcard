@@ -33,7 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.Escapable;
+import net.fortuna.ical4j.model.Encodable;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.*;
@@ -51,7 +51,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
-public final class BDay extends Property implements Escapable {
+public final class BDay extends Property implements Encodable {
 
     private static final long serialVersionUID = 4298026868242865633L;
 

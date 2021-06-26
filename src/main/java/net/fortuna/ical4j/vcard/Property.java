@@ -31,7 +31,7 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import net.fortuna.ical4j.model.Escapable;
+import net.fortuna.ical4j.model.Encodable;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.parameter.Value;
@@ -396,10 +396,9 @@ public abstract class Property implements Serializable {
             b.append(param);
         }
         b.append(':');
-        if (this instanceof Escapable) {
+        if (this instanceof Encodable) {
             b.append(Strings.escape(Strings.valueOf(getValue())));
-        }
-        else {
+        } else {
             b.append(Strings.valueOf(getValue()));
         }
         b.append(Strings.LINE_SEPARATOR);
