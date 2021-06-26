@@ -62,6 +62,14 @@ artifacts {
     archives sourcesJar
 }
 
+scmVersion {
+    tag {
+        prefix = 'ical4j-vcard-'
+    }
+    versionCreator 'versionWithBranch'
+    branchVersionCreator = ['master': 'simple']
+}
+
 group = 'org.mnode.ical4j'
 description = 'Support for the vCard specification'
 version = scmVersion.version
