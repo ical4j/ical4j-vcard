@@ -33,7 +33,8 @@ dependencies {
     // spock
     testImplementation platform("org.spockframework:spock-bom:2.0-M4-groovy-3.0"),
             "org.spockframework:spock-core",
-            "org.slf4j:slf4j-log4j12:$slf4jVersion"
+            "org.slf4j:slf4j-log4j12:$slf4jVersion",
+            "org.apache.logging.log4j:log4j:$log4jVersion"
 }
 
 test {
