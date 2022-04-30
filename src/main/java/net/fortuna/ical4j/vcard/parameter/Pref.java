@@ -99,11 +99,16 @@ public final class Pref extends Parameter implements ParameterSupport {
             super(Id.PREF.getPname());
         }
 
-        public Pref createParameter(String name, String value) {
+        public Pref createParameter(String value) {
             if (value == null && CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
                 return Pref.PREF;
             }
             return new Pref(value);
+        }
+
+        @Override
+        public Pref createParameter() {
+            return new Pref();
         }
     }
 }

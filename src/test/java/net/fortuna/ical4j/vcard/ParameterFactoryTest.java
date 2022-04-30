@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.vcard.parameter.XParameter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -63,11 +64,11 @@ public class ParameterFactoryTest {
     }
 
     /**
-     * Test method for {@link net.fortuna.ical4j.vcard.ParameterFactory#createParameter(String, String)} .
+     * Test method for {@link XParameter#XParameter(String, String)} .
      */
     @Test
     public void testCreateParameter() {
-        Parameter param = factory.createParameter(extendedName, value);
+        Parameter param = new XParameter(extendedName, value);
         assertEquals(extendedName, param.getName());
         assertEquals(value, param.getValue());
     }
@@ -82,8 +83,8 @@ public class ParameterFactoryTest {
              * @see net.fortuna.ical4j.vcard.ParameterFactory#createParameter(java.lang.String)
              */
             @SuppressWarnings("serial")
-            public Parameter createParameter(String name, final String value) {
-                return new Parameter(name) {
+            public Parameter createParameter(final String value) {
+                return new Parameter("CUSTOM") {
                     @Override
                     public String getValue() {
                         return value;

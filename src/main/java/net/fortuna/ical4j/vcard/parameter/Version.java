@@ -72,7 +72,7 @@ public final class Version extends Parameter implements ParameterSupport {
             super(Id.VERSION.getPname());
         }
 
-        public Version createParameter(String name, String value) {
+        public Version createParameter(String value) {
             return new Version(value);
         }
     }

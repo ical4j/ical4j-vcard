@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard
 
+import net.fortuna.ical4j.model.ParameterFactoryWrapper
 import net.fortuna.ical4j.vcard.parameter.*
 import net.fortuna.ical4j.vcard.property.*
 
@@ -101,11 +102,11 @@ class ContentBuilder extends FactoryBuilderSupport {
     
     def registerParameters() {
         // parameters..
-        registerFactory('encoding', new EncodingFactory())
-        registerFactory('language', new DefaultParameterFactory(klass: Language))
-        registerFactory('pid', new DefaultParameterFactory(klass: Pid))
-        registerFactory('pref', new PrefFactory())
-        registerFactory('type', new TypeFactory())
-        registerFactory('value', new ValueFactory())
+        registerFactory('encoding', new ParameterFactoryWrapper(Encoding, new Encoding.Factory()))
+        registerFactory('language', new ParameterFactoryWrapper(Language, new Language.Factory()))
+        registerFactory('pid', new ParameterFactoryWrapper(Pid, new Pid.Factory()))
+        registerFactory('pref', new ParameterFactoryWrapper(Pref, new Pref.Factory()))
+        registerFactory('type', new ParameterFactoryWrapper(Type, new Type.Factory()))
+        registerFactory('value', new ParameterFactoryWrapper(Value, new Value.Factory()))
     }
 }

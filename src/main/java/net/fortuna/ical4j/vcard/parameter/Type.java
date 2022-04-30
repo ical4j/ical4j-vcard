@@ -122,30 +122,19 @@ public final class Type extends Parameter implements ParameterSupport {
 
     public static class Factory extends Content.Factory implements ParameterFactory<Type> {
         public Factory() {
-            super(Id.TYPE.getPname(), "HOME", "WORK", "MSG",
-                    "VOICE", "FAX", "CELL", "VIDEO", "PAGER", "BBS", "MODEM",
-                    "CAR", "ISDN", "PCS", "INTERNET", "X400", "DOM", "INTL",
-                    "POSTAL", "PARCEL");
+            super(Id.TYPE.getPname());
         }
 
-        public Type createParameter(String name, String value) {
+        public Type createParameter(String value) {
             Type parameter = null;
-            try {
-                if (Id.valueOf(name.toUpperCase()) == Id.TYPE) {
-                    if (Type.HOME.getValue().equals(value)) {
-                        parameter = Type.HOME;
-                    } else if (Type.PREF.getValue().equals(value)) {
-                        parameter = Type.PREF;
-                    } else if (Type.WORK.getValue().equals(value)) {
-                        parameter = Type.WORK;
-                    } else {
-                        parameter = new Type(value);
-                    }
-                } else {
-                    parameter = new Type(name);
-                }
-            } catch (IllegalArgumentException iae) {
-                parameter = new Type(name);
+            if (Type.HOME.getValue().equals(value)) {
+                parameter = Type.HOME;
+            } else if (Type.PREF.getValue().equals(value)) {
+                parameter = Type.PREF;
+            } else if (Type.WORK.getValue().equals(value)) {
+                parameter = Type.WORK;
+            } else {
+                parameter = new Type(value);
             }
             return parameter;
         }

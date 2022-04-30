@@ -100,7 +100,7 @@ public final class Fmttype extends Parameter implements ParameterSupport {
             super(Id.FMTTYPE.getPname());
         }
 
-        public Fmttype createParameter(String name, String value) {
+        public Fmttype createParameter(String value) {
             try {
                 return new Fmttype(value);
             } catch (Throwable t) {

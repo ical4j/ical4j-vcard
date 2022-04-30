@@ -73,7 +73,7 @@ public final class Altid extends Parameter implements ParameterSupport {
             super(Id.ALTID.getPname());
         }
 
-        public Altid createParameter(String name, String value) {
+        public Altid createParameter(String value) {
             return new Altid(value);
         }
     }

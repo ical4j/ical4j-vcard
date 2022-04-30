@@ -90,7 +90,7 @@ public final class Pid extends Parameter implements ParameterSupport {
             super(Id.PID.getPname());
         }
 
-        public Pid createParameter(String name, String value) {
+        public Pid createParameter(String value) {
             return new Pid(Integer.valueOf(value));
         }
     }

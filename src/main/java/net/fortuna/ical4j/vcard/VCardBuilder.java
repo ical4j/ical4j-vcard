@@ -84,17 +84,17 @@ public final class VCardBuilder {
     private static final Pattern PROPERTY_VALUE_PATTERN = Pattern.compile("(?<=[:]).*$");
 
     private static final Pattern PARAMETERS_PATTERN = Pattern.compile("(?<=[;])[^:]*(?=[:])");
-    
+
     private static final int BUFFER_SIZE = 1024;
-    
+
     private final BufferedReader reader;
-    
+
     private final GroupRegistry groupRegistry;
-    
+
     private final PropertyFactoryRegistry propertyFactoryRegistry;
-    
-    private final ParameterFactoryRegistry parameterFactoryRegistry;
-    
+
+    private final VCardBuilderContext vCardBuilderContext;
+
     private final boolean relaxedParsing;
 
     /**
@@ -108,26 +108,40 @@ public final class VCardBuilder {
      * @param in a reader providing vCard data
      */
     public VCardBuilder(Reader in) {
-        this(in, new GroupRegistry(), new PropertyFactoryRegistry(), new ParameterFactoryRegistry());
+        this(in, new GroupRegistry(), new PropertyFactoryRegistry(),
+                new VCardBuilderContext().withParameterFactorySupplier(new VCardParameterFactorySupplier()));
     }
-    
+
     /**
-     * @param in a reader providing vCard data
-     * @param registry a group registry used to construct vCard objects
-     * @param propertyFactoryRegistry a property factory registry used to construct
-     * vCard objects
+     * @param in                       a reader providing vCard data
+     * @param registry                 a group registry used to construct vCard objects
+     * @param propertyFactoryRegistry  a property factory registry used to construct
+     *                                 vCard objects
      * @param parameterFactoryRegistry a parameter factory registry used to construct
-     * vCard objects
+     *                                 vCard objects
+     * @deprecated use {@link VCardBuilder#VCardBuilder(Reader, GroupRegistry, PropertyFactoryRegistry, VCardBuilderContext)}
+     */
+    @Deprecated
+    public VCardBuilder(Reader in, GroupRegistry registry, PropertyFactoryRegistry propertyFactoryRegistry,
+                        ParameterFactoryRegistry parameterFactoryRegistry) {
+
+        this(in, registry, propertyFactoryRegistry,
+                new VCardBuilderContext().withParameterFactorySupplier(new VCardParameterFactorySupplier()));
+    }
+
+    /**
+     * @param in       a reader providing vCard data
+     * @param registry a group registry used to construct vCard objects
      */
     public VCardBuilder(Reader in, GroupRegistry registry, PropertyFactoryRegistry propertyFactoryRegistry,
-            ParameterFactoryRegistry parameterFactoryRegistry) {
+                        VCardBuilderContext vCardBuilderContext) {
         this.reader = new BufferedReader(new UnfoldingReader(in, BUFFER_SIZE), BUFFER_SIZE);
         this.groupRegistry = registry;
         this.propertyFactoryRegistry = propertyFactoryRegistry;
-        this.parameterFactoryRegistry = parameterFactoryRegistry;
+        this.vCardBuilderContext = vCardBuilderContext;
         this.relaxedParsing = CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING);
     }
-    
+
     /**
      * @return a new vCard object instance
      * @throws IOException where a problem occurs reading vCard data
@@ -277,14 +291,21 @@ public final class VCardBuilder {
      * @param line
      * @return a list of parameters
      */
-    private List<Parameter> parseParameters(final String line) {
+    private List<Parameter> parseParameters(final String line) throws URISyntaxException {
         final List<Parameter> parameters = new ArrayList<>();
         final Matcher matcher = PARAMETERS_PATTERN.matcher(line);
         if (matcher.find()) {
             final String[] params = matcher.group().split(";");
             for (String param : params) {
                 final String[] vals = param.split("=");
-                final ParameterFactory factory = parameterFactoryRegistry.getFactory(vals[0].toUpperCase());
+                ParameterFactory<?> factory = null;
+                final List<ParameterFactory<?>> factories = vCardBuilderContext.getParameterFactorySupplier().get();
+                for (ParameterFactory<?> f : factories) {
+                    if (f.supports(vals[0])) {
+                        factory = f;
+                        break;
+                    }
+                }
 
                 if (factory != null) {
                     if (vals.length > 1) {
@@ -294,9 +315,9 @@ public final class VCardBuilder {
                         } catch (DecoderException e) {
                             decodedValue = vals[1];
                         }
-                        parameters.add(factory.createParameter(vals[0], decodedValue));
+                        parameters.add(factory.createParameter(decodedValue));
                     } else {
-                        parameters.add(factory.createParameter(vals[0], null));
+                        parameters.add(factory.createParameter());
                     }
                 } else if (isExtendedName(vals[0])) {
                     if (vals.length > 1) {

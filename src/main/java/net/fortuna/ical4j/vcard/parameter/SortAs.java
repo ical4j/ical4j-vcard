@@ -82,7 +82,7 @@ public final class SortAs extends Parameter implements ParameterSupport {
             super(Id.SORT_AS.getPname());
         }
 
-        public SortAs createParameter(String name, String value) {
+        public SortAs createParameter(String value) {
             return new SortAs(value);
         }
     }

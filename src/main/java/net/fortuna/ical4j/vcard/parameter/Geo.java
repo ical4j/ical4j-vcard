@@ -72,7 +72,7 @@ public final class Geo extends Parameter implements ParameterSupport {
             super(Id.GEO.getPname());
         }
 
-        public Geo createParameter(String name, String value) {
+        public Geo createParameter(String value) {
             return new Geo(value);
         }
     }

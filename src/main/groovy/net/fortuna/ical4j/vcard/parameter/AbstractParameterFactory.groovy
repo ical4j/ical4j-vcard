@@ -41,7 +41,9 @@ import net.fortuna.ical4j.vcard.ParameterFactoryRegistry
  *
  * @author fortuna
  *
+ * @deprecated use {@link net.fortuna.ical4j.model.ParameterFactoryWrapper} instead.
  */
+@Deprecated
 abstract class AbstractParameterFactory extends AbstractFactory {
 
     ParameterFactoryRegistry factoryRegistry = []

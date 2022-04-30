@@ -77,8 +77,8 @@ public final class Encoding extends Parameter implements ParameterSupport {
             super(Id.ENCODING.getPname());
         }
 
-        public Encoding createParameter(String name, String value) {
-            if (Encoding.B.getValue().equals(value)) {
+        public Encoding createParameter(String value) {
+            if (Encoding.B.getValue().equalsIgnoreCase(value)) {
                 return Encoding.B;
             }
             return new Encoding(value);

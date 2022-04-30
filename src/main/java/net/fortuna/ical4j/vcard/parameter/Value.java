@@ -146,7 +146,7 @@ public final class Value extends Parameter implements ParameterSupport {
             super(Id.VALUE.getPname());
         }
 
-        public Value createParameter(String name, String value) {
+        public Value createParameter(String value) {
             Value parameter = null;
 
             if (Value.TEXT.getValue().equals(value)) {

@@ -72,7 +72,7 @@ public final class Calscale extends Parameter implements ParameterSupport {
             super(Id.CALSCALE.getPname());
         }
 
-        public Calscale createParameter(String name, String value) {
+        public Calscale createParameter(String value) {
             return new Calscale(value);
         }
     }

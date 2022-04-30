@@ -33,6 +33,10 @@ package net.fortuna.ical4j.vcard.parameter
 
 import net.fortuna.ical4j.model.Parameter
 
+/**
+ * @deprecated use {@link net.fortuna.ical4j.model.ParameterFactoryWrapper} instead.
+ */
+@Deprecated
 class DefaultParameterFactory extends AbstractParameterFactory {
 
     Class<? extends Parameter> klass

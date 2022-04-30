@@ -72,7 +72,7 @@ public final class Tz extends Parameter implements ParameterSupport {
             super(Id.TZ.getPname());
         }
 
-        public Tz createParameter(String name, String value) {
+        public Tz createParameter(String value) {
             return new Tz(value);
         }
     }

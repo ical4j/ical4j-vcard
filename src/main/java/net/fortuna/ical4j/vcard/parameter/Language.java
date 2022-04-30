@@ -103,7 +103,7 @@ public final class Language extends Parameter implements ParameterSupport {
             super(Id.LANGUAGE.getPname());
         }
 
-        public Language createParameter(String name, String value) {
+        public Language createParameter(String value) {
             return new Language(new Locale(value));
         }
     }
