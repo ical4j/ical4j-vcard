@@ -34,7 +34,7 @@ package net.fortuna.ical4j.vcard.parameter;
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
-import net.fortuna.ical4j.vcard.ParameterSupport;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 /**
  * CALSCALE parameter.
@@ -43,7 +43,7 @@ import net.fortuna.ical4j.vcard.ParameterSupport;
  *
  * @author Mike Douglass
  */
-public final class Tz extends Parameter implements ParameterSupport {
+public final class Tz extends Parameter {
 
     private static final long serialVersionUID = 12345L;
 
@@ -55,7 +55,7 @@ public final class Tz extends Parameter implements ParameterSupport {
      * @param value string representation of a property value
      */
     public Tz(String value) {
-        super(Id.TZ.getPname());
+        super(ParameterName.TZ.getPname());
         this.value = value;
     }
 
@@ -69,7 +69,7 @@ public final class Tz extends Parameter implements ParameterSupport {
 
     public static class Factory extends Content.Factory implements ParameterFactory<Tz> {
         public Factory() {
-            super(Id.TZ.getPname());
+            super(ParameterName.TZ.getPname());
         }
 
         public Tz createParameter(String value) {

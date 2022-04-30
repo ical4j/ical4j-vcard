@@ -34,7 +34,7 @@ package net.fortuna.ical4j.vcard.parameter;
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
-import net.fortuna.ical4j.vcard.ParameterSupport;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 /**
  * ENCODING parameter.
@@ -45,7 +45,7 @@ import net.fortuna.ical4j.vcard.ParameterSupport;
  *
  * @author Ben
  */
-public final class Encoding extends Parameter implements ParameterSupport {
+public final class Encoding extends Parameter {
 
     private static final long serialVersionUID = -6912042752317640817L;
 
@@ -60,7 +60,7 @@ public final class Encoding extends Parameter implements ParameterSupport {
      * @param value encoding parameter value
      */
     public Encoding(String value) {
-        super(Id.ENCODING.getPname());
+        super(ParameterName.ENCODING.getPname());
         this.value = value;
     }
 
@@ -74,7 +74,7 @@ public final class Encoding extends Parameter implements ParameterSupport {
 
     public static class Factory extends Content.Factory implements ParameterFactory<Encoding> {
         public Factory() {
-            super(Id.ENCODING.getPname());
+            super(ParameterName.ENCODING.getPname());
         }
 
         public Encoding createParameter(String value) {

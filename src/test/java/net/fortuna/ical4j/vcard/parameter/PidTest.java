@@ -31,7 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import net.fortuna.ical4j.vcard.ParameterSupport.Id;
+import net.fortuna.ical4j.vcard.ParameterName;
 import net.fortuna.ical4j.vcard.ParameterTest;
 import org.junit.Test;
 import org.junit.runners.Parameterized.Parameters;
@@ -65,8 +65,8 @@ public class PidTest extends ParameterTest {
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
         final String pidString = "1";
-        params.add(new Object[] {new Pid(1), Id.PID.toString(), pidString, 1});
-        params.add(new Object[] {new Pid(pidString), Id.PID.toString(), pidString, 1});
+        params.add(new Object[]{new Pid(1), ParameterName.PID.toString(), pidString, 1});
+        params.add(new Object[]{new Pid(pidString), ParameterName.PID.toString(), pidString, 1});
 //        params.add(new Object[] {new Pid("blah"), Id.PID.toString(), "1"});
         return params;
     }

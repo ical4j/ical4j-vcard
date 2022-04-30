@@ -34,7 +34,7 @@ package net.fortuna.ical4j.vcard.parameter;
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
-import net.fortuna.ical4j.vcard.ParameterSupport;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 /**
  * ALTID parameter.
@@ -43,7 +43,7 @@ import net.fortuna.ical4j.vcard.ParameterSupport;
  *
  * @author Mike Douglass
  */
-public final class Altid extends Parameter implements ParameterSupport {
+public final class Altid extends Parameter {
 
     private static final long serialVersionUID = 12345L;
 
@@ -55,7 +55,7 @@ public final class Altid extends Parameter implements ParameterSupport {
      * @param value string representation of a property value
      */
     public Altid(String value) {
-        super(Id.ALTID.getPname());
+        super(ParameterName.ALTID.getPname());
         this.value = value;
     }
 
@@ -70,7 +70,7 @@ public final class Altid extends Parameter implements ParameterSupport {
     public static class Factory extends Content.Factory implements ParameterFactory<Altid> {
 
         public Factory() {
-            super(Id.ALTID.getPname());
+            super(ParameterName.ALTID.getPname());
         }
 
         public Altid createParameter(String value) {

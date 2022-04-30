@@ -35,7 +35,7 @@ import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.ParameterFactory;
-import net.fortuna.ical4j.vcard.ParameterSupport;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 /**
  * PREF parameter.
@@ -46,7 +46,7 @@ import net.fortuna.ical4j.vcard.ParameterSupport;
  *
  * @author Ben
  */
-public final class Pref extends Parameter implements ParameterSupport {
+public final class Pref extends Parameter {
 
     private static final long serialVersionUID = -6246880477846039737L;
 
@@ -68,7 +68,7 @@ public final class Pref extends Parameter implements ParameterSupport {
      * @param level priority level for the pref parameter
      */
     public Pref(Integer level) {
-        super(Id.PREF.getPname());
+        super(ParameterName.PREF.getPname());
         if (level <= 0) {
             throw new IllegalArgumentException("The level of preferredness must be a positive integer");
         }
@@ -79,7 +79,7 @@ public final class Pref extends Parameter implements ParameterSupport {
      * Internal constructor.
      */
     private Pref() {
-        super(Id.PREF.getPname());
+        super(ParameterName.PREF.getPname());
         this.level = null;
     }
 
@@ -96,7 +96,7 @@ public final class Pref extends Parameter implements ParameterSupport {
 
     public static class Factory extends Content.Factory implements ParameterFactory<Pref> {
         public Factory() {
-            super(Id.PREF.getPname());
+            super(ParameterName.PREF.getPname());
         }
 
         public Pref createParameter(String value) {

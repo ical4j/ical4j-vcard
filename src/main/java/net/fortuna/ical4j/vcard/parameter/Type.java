@@ -34,7 +34,7 @@ package net.fortuna.ical4j.vcard.parameter;
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
-import net.fortuna.ical4j.vcard.ParameterSupport;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,7 +49,7 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Type extends Parameter implements ParameterSupport {
+public final class Type extends Parameter {
 
     private static final long serialVersionUID = -3644362129355908795L;
 
@@ -74,7 +74,7 @@ public final class Type extends Parameter implements ParameterSupport {
      * @param value string representation of type parameter
      */
     public Type(String value) {
-        super(Id.TYPE.getPname());
+        super(ParameterName.TYPE.getPname());
         this.types = value.split(",");
     }
 
@@ -82,7 +82,7 @@ public final class Type extends Parameter implements ParameterSupport {
      * @param types string representations of multiple nested types
      */
     public Type(String... types) {
-        super(Id.TYPE.getPname());
+        super(ParameterName.TYPE.getPname());
         this.types = types;
     }
 
@@ -90,7 +90,7 @@ public final class Type extends Parameter implements ParameterSupport {
      * @param types multiple nested types
      */
     public Type(Type... types) {
-        super(Id.TYPE.getPname());
+        super(ParameterName.TYPE.getPname());
         final List<String> typeList = new ArrayList<>();
         for (Type type : types) {
             typeList.addAll(Arrays.asList(type.getTypes()));
@@ -122,7 +122,7 @@ public final class Type extends Parameter implements ParameterSupport {
 
     public static class Factory extends Content.Factory implements ParameterFactory<Type> {
         public Factory() {
-            super(Id.TYPE.getPname());
+            super(ParameterName.TYPE.getPname());
         }
 
         public Type createParameter(String value) {

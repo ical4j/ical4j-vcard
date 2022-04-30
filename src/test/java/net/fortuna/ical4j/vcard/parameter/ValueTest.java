@@ -32,7 +32,7 @@
 package net.fortuna.ical4j.vcard.parameter;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.ParameterSupport.Id;
+import net.fortuna.ical4j.vcard.ParameterName;
 import net.fortuna.ical4j.vcard.ParameterTest;
 import org.junit.runners.Parameterized.Parameters;
 
@@ -51,11 +51,11 @@ public class ValueTest extends ParameterTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Value.BINARY, Id.VALUE.toString(), "binary"});
-        params.add(new Object[] {Value.TEXT, Id.VALUE.toString(), "text"});
-        params.add(new Object[] {Value.URI, Id.VALUE.toString(), "uri"});
+        params.add(new Object[]{Value.BINARY, ParameterName.VALUE.toString(), "binary"});
+        params.add(new Object[]{Value.TEXT, ParameterName.VALUE.toString(), "text"});
+        params.add(new Object[]{Value.URI, ParameterName.VALUE.toString(), "uri"});
         final String valueString = "blah";
-        params.add(new Object[] {new Value(valueString), Id.VALUE.toString(), valueString});
+        params.add(new Object[]{new Value(valueString), ParameterName.VALUE.toString(), valueString});
         return params;
     }
 }

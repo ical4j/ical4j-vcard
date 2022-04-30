@@ -32,7 +32,7 @@
 package net.fortuna.ical4j.vcard.parameter;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.ParameterSupport.Id;
+import net.fortuna.ical4j.vcard.ParameterName;
 import net.fortuna.ical4j.vcard.ParameterTest;
 import org.junit.runners.Parameterized.Parameters;
 
@@ -51,9 +51,9 @@ public class EncodingTest extends ParameterTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Encoding.B, Id.ENCODING.toString(), "b"});
+        params.add(new Object[]{Encoding.B, ParameterName.ENCODING.toString(), "b"});
         final String encodingString = "8-bit";
-        params.add(new Object[] {new Encoding(encodingString), Id.ENCODING.toString(), encodingString});
+        params.add(new Object[]{new Encoding(encodingString), ParameterName.ENCODING.toString(), encodingString});
         return params;
     }
 

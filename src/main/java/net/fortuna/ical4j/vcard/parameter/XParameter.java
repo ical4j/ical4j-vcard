@@ -1,12 +1,11 @@
 package net.fortuna.ical4j.vcard.parameter;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.ParameterSupport;
 
 /**
  * Created by fortuna on 1/10/14.
  */
-public class XParameter extends Parameter implements ParameterSupport {
+public class XParameter extends Parameter {
 
     private final String value;
 
