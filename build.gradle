@@ -1,20 +1,25 @@
 plugins {
     id 'java'
-    id 'groovy'
-    id "biz.aQute.bnd.builder" version "5.1.2"
     id 'java-library'
+    id 'groovy'
     id 'maven-publish'
+    id 'jacoco'
     id 'signing'
-    id 'pl.allegro.tech.build.axion-release' version '1.13.1'
-    id "nebula.optional-base" version "3.0.3"
-}
-
-repositories {
-    mavenCentral()
+    id "pl.allegro.tech.build.axion-release" version "1.13.6"
+    id "nebula.provided-base" version "7.0.0"
+    id "nebula.optional-base" version "7.0.0"
+    id "com.palantir.revapi" version "1.7.0"
+    id "net.ltgt.errorprone" version "2.0.2" apply false
+    id "biz.aQute.bnd.builder" version "$bndVersion"
+    id 'org.javamodularity.moduleplugin' version '1.7.0' apply false
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     api "org.mnode.ical4j:ical4j:$ical4jVersion",
@@ -41,7 +46,17 @@ test {
     useJUnitPlatform()
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled 'true' == jacoco_htmlReport
+    }
+}
+
 javadoc {
+    if (JavaVersion.current().isJava8Compatible()) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
     options {
         links 'https://docs.oracle.com/en/java/javase/11/docs/api/',
                 'http://ical4j.github.io/docs/ical4j/api/4.0.0-alpha6/'
@@ -66,14 +81,20 @@ artifacts {
 scmVersion {
     tag {
         prefix = 'ical4j-vcard-'
+        branchPrefix = ['ical4j-vcard-1.x-maintenance': 'jdk8_ical4j_vcard']
     }
     versionCreator 'versionWithBranch'
     branchVersionCreator = ['master': 'simple']
+    branchVersionCreator = ['ical4j-vcard-1.x-maintenance': 'simple']
 }
 
 group = 'org.mnode.ical4j'
 description = 'Support for the vCard specification'
 version = scmVersion.version
+
+revapi {
+    oldVersion = revApiOldVersion
+}
 
 ext {
     isReleaseVersion = !version.endsWith("SNAPSHOT")
