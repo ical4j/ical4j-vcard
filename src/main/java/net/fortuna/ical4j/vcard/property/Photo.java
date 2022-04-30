@@ -31,11 +31,15 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.ParameterSupport;
+import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
@@ -168,7 +172,7 @@ public final class Photo extends Property {
         assertOneOrLess(ParameterSupport.Id.VALUE);
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Photo> {
+    public static class Factory extends Content.Factory implements PropertyFactory<Photo> {
         public Factory() {
             super(Id.PHOTO.toString());
         }

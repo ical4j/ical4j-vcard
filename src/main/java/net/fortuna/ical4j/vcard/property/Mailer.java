@@ -31,9 +31,13 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.ParameterSupport;
+import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -111,7 +115,7 @@ public final class Mailer extends Property {
         }
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Mailer> {
+    public static class Factory extends Content.Factory implements PropertyFactory<Mailer> {
         public Factory() {
             super(Id.MAILER.toString());
         }

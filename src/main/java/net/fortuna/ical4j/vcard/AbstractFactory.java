@@ -5,7 +5,10 @@ import java.util.List;
 
 /**
  * Created by fortuna on 23/09/14.
+ *
+ * @deprecated use {@link net.fortuna.ical4j.model.Content.Factory} instead
  */
+@Deprecated
 public abstract class AbstractFactory {
 
     private final List<String> supportedIds;

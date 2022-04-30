@@ -31,8 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.AbstractFactory;
 import net.fortuna.ical4j.vcard.ParameterFactory;
 import net.fortuna.ical4j.vcard.ParameterSupport;
 
@@ -63,11 +63,11 @@ public final class Altid extends Parameter implements ParameterSupport {
      * {@inheritDoc}
      */
     @Override
-    public String getValue() {
+    public final String getValue() {
         return value;
     }
 
-    public static class Factory extends AbstractFactory implements ParameterFactory<Altid> {
+    public static class Factory extends Content.Factory implements ParameterFactory<Altid> {
 
         public Factory() {
             super(Id.ALTID.getPname());

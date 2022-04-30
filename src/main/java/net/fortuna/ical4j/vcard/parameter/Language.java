@@ -31,8 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.AbstractFactory;
 import net.fortuna.ical4j.vcard.ParameterFactory;
 import net.fortuna.ical4j.vcard.ParameterSupport;
 import org.apache.commons.lang3.StringUtils;
@@ -98,7 +98,7 @@ public final class Language extends Parameter implements ParameterSupport {
         return b.toString();
     }
 
-    public static class Factory extends AbstractFactory implements ParameterFactory<Language> {
+    public static class Factory extends Content.Factory implements ParameterFactory<Language> {
         public Factory() {
             super(Id.LANGUAGE.getPname());
         }

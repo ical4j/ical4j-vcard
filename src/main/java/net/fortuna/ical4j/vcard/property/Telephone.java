@@ -31,10 +31,14 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.ParameterSupport;
+import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
 import org.apache.commons.lang3.StringUtils;
@@ -174,7 +178,7 @@ public final class Telephone extends Property {
         }
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Telephone> {
+    public static class Factory extends Content.Factory implements PropertyFactory<Telephone> {
         public Factory() {
             super(Id.TEL.toString());
         }

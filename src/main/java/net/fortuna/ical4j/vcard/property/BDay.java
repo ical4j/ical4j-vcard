@@ -31,13 +31,13 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import net.fortuna.ical4j.model.Date;
-import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.Encodable;
-import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.ParameterSupport;
+import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 import java.text.ParseException;
@@ -152,7 +152,7 @@ public final class BDay extends Property implements Encodable {
         }
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<BDay> {
+    public static class Factory extends Content.Factory implements PropertyFactory<BDay> {
         public Factory() {
             super(Id.BDAY.toString());
         }

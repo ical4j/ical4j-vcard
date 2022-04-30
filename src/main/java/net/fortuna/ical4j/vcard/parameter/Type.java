@@ -31,8 +31,8 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.AbstractFactory;
 import net.fortuna.ical4j.vcard.ParameterFactory;
 import net.fortuna.ical4j.vcard.ParameterSupport;
 
@@ -120,7 +120,7 @@ public final class Type extends Parameter implements ParameterSupport {
         return b.toString();
     }
 
-    public static class Factory extends AbstractFactory implements ParameterFactory<Type> {
+    public static class Factory extends Content.Factory implements ParameterFactory<Type> {
         public Factory() {
             super(Id.TYPE.getPname(), "HOME", "WORK", "MSG",
                     "VOICE", "FAX", "CELL", "VIDEO", "PAGER", "BBS", "MODEM",
