@@ -31,9 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.AbstractFactory;
-import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterSupport;
 
 /**
  * VALUE parameter.
@@ -44,7 +45,7 @@ import net.fortuna.ical4j.vcard.ParameterFactory;
  *
  * @author Ben
  */
-public final class Value extends Parameter {
+public final class Value extends Parameter implements ParameterSupport {
 
     /**
      *
@@ -128,7 +129,7 @@ public final class Value extends Parameter {
      * @param value string representation of a value parameter
      */
     public Value(String value) {
-        super(Id.VALUE);
+        super(Id.VALUE.getPname());
         this.value = value;
     }
 
@@ -142,7 +143,7 @@ public final class Value extends Parameter {
 
     public static class Factory extends AbstractFactory implements ParameterFactory<Value> {
         public Factory() {
-            super(Id.VALUE.toString());
+            super(Id.VALUE.getPname());
         }
 
         public Value createParameter(String name, String value) {

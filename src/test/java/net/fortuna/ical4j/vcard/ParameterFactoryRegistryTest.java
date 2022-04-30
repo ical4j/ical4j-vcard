@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.parameter.Pref;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import org.junit.Test;
@@ -84,8 +85,8 @@ public class ParameterFactoryRegistryTest {
         List<Object[]> params = new ArrayList<Object[]>();
 
         ParameterFactoryRegistry registry = new ParameterFactoryRegistry();
-        params.add(new Object[]{registry, Type.PREF.getId().toString(), Type.PREF.getValue(), Type.PREF});
-        params.add(new Object[]{registry, Parameter.Id.PREF.toString(), "1", new Pref(1)});
+        params.add(new Object[]{registry, Type.PREF.getName(), Type.PREF.getValue(), Type.PREF});
+        params.add(new Object[]{registry, ParameterSupport.Id.PREF.toString(), "1", new Pref(1)});
         return params;
     }
 }

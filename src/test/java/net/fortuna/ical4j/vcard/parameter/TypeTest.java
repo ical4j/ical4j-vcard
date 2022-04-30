@@ -31,15 +31,14 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.vcard.ParameterSupport.Id;
+import net.fortuna.ical4j.vcard.ParameterTest;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.ParameterTest;
-import net.fortuna.ical4j.vcard.Parameter.Id;
-
-import org.junit.runners.Parameterized.Parameters;
 
 
 public class TypeTest extends ParameterTest {

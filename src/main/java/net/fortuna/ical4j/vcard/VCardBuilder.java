@@ -33,6 +33,7 @@ package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.data.UnfoldingReader;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterCodec;
 import net.fortuna.ical4j.model.PropertyCodec;
 import net.fortuna.ical4j.util.CompatibilityHints;

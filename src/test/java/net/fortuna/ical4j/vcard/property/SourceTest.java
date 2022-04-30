@@ -31,28 +31,27 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static org.junit.Assert.assertEquals;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import org.junit.Test;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.assertEquals;
 
 public class SourceTest extends PropertyTest {
 
     private final Source source;
     
     private final URI expectedUri;
-    
+
     public SourceTest(Source source, String expectedName,
-            String expectedValue, Parameter[] expectedParams, URI expectedUri) {
+                      String expectedValue, Parameter[] expectedParams, URI expectedUri) {
         super(source, expectedName, expectedValue, expectedParams);
         this.source = source;
         this.expectedUri = expectedUri;

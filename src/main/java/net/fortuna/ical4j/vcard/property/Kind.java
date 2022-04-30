@@ -31,8 +31,12 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.AbstractFactory;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,17 +59,17 @@ public final class Kind extends Property {
      * Standard kind.
      */
     public static final Kind INDIVIDUAL = new Kind(
-            Collections.unmodifiableList(new ArrayList<Parameter>()), "individual");
+            Collections.unmodifiableList(new ArrayList<>()), "individual");
 
     /**
      * Standard kind.
      */
-    public static final Kind GROUP = new Kind(Collections.unmodifiableList(new ArrayList<Parameter>()), "group");
+    public static final Kind GROUP = new Kind(Collections.unmodifiableList(new ArrayList<>()), "group");
 
     /**
      * Standard kind.
      */
-    public static final Kind ORG = new Kind(Collections.unmodifiableList(new ArrayList<Parameter>()), "org");
+    public static final Kind ORG = new Kind(Collections.unmodifiableList(new ArrayList<>()), "org");
 
     /**
      * Standard kind.

@@ -31,11 +31,13 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import net.fortuna.ical4j.model.Parameter;
+
 /**
  * @param <T> parameter type created by the factory implementation
- *
+ *            <p>
  *            $Id$
- *
+ *            <p>
  *            Created on: 30/10/2008
  * @author fortuna
  */

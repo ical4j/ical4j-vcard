@@ -31,17 +31,18 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import net.fortuna.ical4j.model.Parameter;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
 public class ParameterTest {
@@ -69,9 +70,9 @@ public class ParameterTest {
     public void testGetValue() {
         assertEquals(expectedValue, parameter.getValue());
     }
-    
+
     /**
-     * Test method for {@link net.fortuna.ical4j.vcard.Parameter#toString()}.
+     * Test method for {@link Parameter#toString()}.
      */
     @Test
     public void testToString() {
@@ -95,8 +96,8 @@ public class ParameterTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        
-        Parameter extended = new Parameter("extended") {
+
+        Parameter extended = new Parameter("X-extended") {
             @Override
             public String getValue() {
                 return "value";

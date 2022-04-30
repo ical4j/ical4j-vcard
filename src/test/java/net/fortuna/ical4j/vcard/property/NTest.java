@@ -31,16 +31,15 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-
-import org.junit.runners.Parameterized.Parameters;
 
 public class NTest extends PropertyTest {
 
@@ -62,10 +61,10 @@ public class NTest extends PropertyTest {
                 new N("Stevenson", "John", new String[] { "Philip", "Paul" }, new String[] { "Dr." }, new String[] {
                         "Jr.", "M.D.", "A.C.P." }), Id.N.toString(), "Stevenson;John;Philip,Paul;Dr.;Jr.,M.D.,A.C.P.",
                 new Parameter[] {} });
-        params.add(new Object[] { new N(new ArrayList<Parameter>(), "dirk"), Id.N.toString(), "dirk;;;;",
-                new Parameter[] {} });
-        params.add(new Object[] { new N(new ArrayList<Parameter>(), "Ruhsert;Patrick;;;"), Id.N.toString(),
-                "Ruhsert;Patrick;;;", new Parameter[] {} });
+        params.add(new Object[]{new N(new ArrayList<>(), "dirk"), Id.N.toString(), "dirk;;;;",
+                new Parameter[]{}});
+        params.add(new Object[]{new N(new ArrayList<>(), "Ruhsert;Patrick;;;"), Id.N.toString(),
+                "Ruhsert;Patrick;;;", new Parameter[]{}});
 
         return params;
     }

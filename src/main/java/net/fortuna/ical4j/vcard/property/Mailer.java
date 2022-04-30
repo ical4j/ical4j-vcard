@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.*;
 
@@ -104,10 +105,8 @@ public final class Mailer extends Property {
     @Override
     public void validate() throws ValidationException {
         for (Parameter param : getParameters()) {
-            final Parameter.Id id = param.getId();
-
-            if (!Parameter.Id.EXTENDED.equals(id)) {
-                throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, id));
+            if (!ParameterSupport.Id.EXTENDED.getPname().equals(param.getName())) {
+                throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getName()));
             }
         }
     }

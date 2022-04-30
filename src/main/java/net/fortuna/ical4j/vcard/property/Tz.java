@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.UtcOffset;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.*;
@@ -80,7 +81,7 @@ public final class Tz extends Property {
      */
     public Tz(List<Parameter> params, String value) {
         super(Id.TZ, params);
-        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+        if (Value.TEXT.equals(getParameter(ParameterSupport.Id.VALUE.getPname()))) {
             this.text = value;
         } else {
             this.offset = new UtcOffset(value);
@@ -107,7 +108,7 @@ public final class Tz extends Property {
     @Override
     public String getValue() {
         String value = null;
-        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+        if (Value.TEXT.equals(getParameter(ParameterSupport.Id.VALUE.getPname()))) {
             value = text;
         } else if (offset != null) {
             value = offset.toString();

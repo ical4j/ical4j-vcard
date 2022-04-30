@@ -34,6 +34,7 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Encodable;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.*;
@@ -85,7 +86,7 @@ public final class BDay extends Property implements Encodable {
      */
     public BDay(List<Parameter> params, String value) throws ParseException {
         super(Id.BDAY, params);
-        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+        if (Value.TEXT.equals(getParameter(ParameterSupport.Id.VALUE.getPname()))) {
             this.text = value;
         } else {
 
@@ -125,7 +126,7 @@ public final class BDay extends Property implements Encodable {
      */
     @Override
     public String getValue() {
-        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+        if (Value.TEXT.equals(getParameter(ParameterSupport.Id.VALUE.getPname()))) {
             return text;
         }
         return Strings.valueOf(date);
@@ -137,7 +138,7 @@ public final class BDay extends Property implements Encodable {
     @Override
     public void validate() throws ValidationException {
         // ; Only value parameter allowed
-        assertOneOrLess(Parameter.Id.VALUE);
+        assertOneOrLess(ParameterSupport.Id.VALUE);
 
         if (getParameters().size() > 1) {
             throw new ValidationException("Illegal parameter count");
@@ -146,7 +147,7 @@ public final class BDay extends Property implements Encodable {
         for (Parameter param : getParameters()) {
             if (!Value.TEXT.equals(param)) {
                 throw new ValidationException("Illegal parameter ["
-                        + param.getId() + "]");
+                        + param.getName() + "]");
             }
         }
     }

@@ -31,9 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.AbstractFactory;
-import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterSupport;
 
 /**
  * VERSION parameter.
@@ -42,7 +43,7 @@ import net.fortuna.ical4j.vcard.ParameterFactory;
  *
  * @author Mike Douglass
  */
-public final class Version extends Parameter {
+public final class Version extends Parameter implements ParameterSupport {
 
     private static final long serialVersionUID = 12345L;
 
@@ -54,7 +55,7 @@ public final class Version extends Parameter {
      * @param value string representation of a property value
      */
     public Version(String value) {
-        super(Id.VERSION);
+        super(Id.VERSION.getPname());
         this.value = value;
     }
 
@@ -68,7 +69,7 @@ public final class Version extends Parameter {
 
     public static class Factory extends AbstractFactory implements ParameterFactory<Version> {
         public Factory() {
-            super(Id.VERSION.toString());
+            super(Id.VERSION.getPname());
         }
 
         public Version createParameter(String name, String value) {

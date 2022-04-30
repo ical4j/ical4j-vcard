@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import net.fortuna.ical4j.model.Parameter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -67,7 +68,7 @@ public class ParameterFactoryTest {
     @Test
     public void testCreateParameter() {
         Parameter param = factory.createParameter(extendedName, value);
-        assertEquals(extendedName, param.extendedName);
+        assertEquals(extendedName, param.getName());
         assertEquals(value, param.getValue());
     }
 
@@ -92,7 +93,7 @@ public class ParameterFactoryTest {
 
             @Override
             public boolean supports(String id) {
-                return Parameter.Id.valueOf(id) == Parameter.Id.EXTENDED;
+                return ParameterSupport.Id.valueOf(id) == ParameterSupport.Id.EXTENDED;
             }
         };
 

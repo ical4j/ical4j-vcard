@@ -31,8 +31,12 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.AbstractFactory;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,12 +58,12 @@ public final class Gender extends Property {
     /**
      * Standard gender.
      */
-    public static final Gender MALE = new Gender(Collections.unmodifiableList(new ArrayList<Parameter>()), "M");
+    public static final Gender MALE = new Gender(Collections.unmodifiableList(new ArrayList<>()), "M");
 
     /**
      * Standard gender.
      */
-    public static final Gender FEMALE = new Gender(Collections.unmodifiableList(new ArrayList<Parameter>()), "F");
+    public static final Gender FEMALE = new Gender(Collections.unmodifiableList(new ArrayList<>()), "F");
 
     private final String value;
 

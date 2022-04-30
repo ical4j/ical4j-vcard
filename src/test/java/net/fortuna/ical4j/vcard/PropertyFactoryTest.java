@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.validate.ValidationException;
 import org.apache.commons.codec.DecoderException;
 import org.junit.Test;
@@ -77,14 +78,14 @@ public class PropertyFactoryTest {
      */
     @Test
     public void testCreateProperty() throws URISyntaxException, ParseException, DecoderException {
-        Property property = factory.createProperty(new ArrayList<Parameter>(), value);
+        Property property = factory.createProperty(new ArrayList<>(), value);
         assertEquals(extendedName, property.extendedName);
         assertEquals(value, property.getValue());
     }
 
     @Test
     public void testCreateGroupProperty() throws URISyntaxException, ParseException, DecoderException {
-        Property property = factory.createProperty(group, new ArrayList<Parameter>(), value);
+        Property property = factory.createProperty(group, new ArrayList<>(), value);
         assertEquals(group, property.getGroup());
         assertEquals(extendedName, property.extendedName);
         assertEquals(value, property.getValue());

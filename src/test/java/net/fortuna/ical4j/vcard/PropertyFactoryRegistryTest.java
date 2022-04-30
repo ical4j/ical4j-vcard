@@ -31,7 +31,14 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static junit.framework.Assert.assertEquals;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.vcard.property.Org;
+import net.fortuna.ical4j.vcard.property.Version;
+import org.apache.commons.codec.DecoderException;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -39,22 +46,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.fortuna.ical4j.vcard.property.Org;
-import net.fortuna.ical4j.vcard.property.Version;
-
-import org.apache.commons.codec.DecoderException;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import static junit.framework.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class PropertyFactoryRegistryTest {
 
     private final PropertyFactoryRegistry registry;
-    
+
     private final Group group;
-    
+
     private final String propertyName;
     
     private final String propertyValue;

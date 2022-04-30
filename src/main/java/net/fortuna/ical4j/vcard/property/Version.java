@@ -31,8 +31,12 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.AbstractFactory;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,7 +59,7 @@ public final class Version extends Property {
      * Standard version instance.
      */
     public static final Version VERSION_4_0 = new Version(
-            Collections.unmodifiableList(new ArrayList<Parameter>()), "4.0");
+            Collections.unmodifiableList(new ArrayList<>()), "4.0");
 
     private final String value;
 

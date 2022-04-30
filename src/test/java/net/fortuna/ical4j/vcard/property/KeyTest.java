@@ -31,20 +31,19 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
-
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.runners.Parameterized.Parameters;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class KeyTest extends PropertyTest {
 

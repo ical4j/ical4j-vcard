@@ -32,9 +32,10 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.model.Encodable;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.Parameter.Id;
+import net.fortuna.ical4j.vcard.ParameterSupport.Id;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -87,22 +88,22 @@ public class PropertyTest {
     @Test
     public void testGetParametersId() {
         for (Parameter p : expectedParams) {
-            assertTrue(property.getParameters(p.getId()).contains(p));
+            assertTrue(property.getParameters(p.getName()).contains(p));
         }
     }
 
     @Test
     public void testGetParameterId() {
         for (Parameter p : expectedParams) {
-            assertNotNull(property.getParameter(p.getId()));
+            assertNotNull(property.getParameter(p.getName()));
         }
     }
 
     @Test
     public void testGetExtendedParametersId() {
         for (Parameter p : expectedParams) {
-            if (Id.EXTENDED.equals(p.getId())) {
-                assertTrue(property.getExtendedParameters(p.extendedName).contains(p));
+            if (Id.EXTENDED.getPname().equals(p.getName())) {
+                assertTrue(property.getExtendedParameters(p.getName()).contains(p));
             }
         }
     }
@@ -110,8 +111,8 @@ public class PropertyTest {
     @Test
     public void testGetExtendedParameterId() {
         for (Parameter p : expectedParams) {
-            if (Id.EXTENDED.equals(p.getId())) {
-                assertNotNull(property.getExtendedParameter(p.extendedName));
+            if (Id.EXTENDED.getPname().equals(p.getName())) {
+                assertNotNull(property.getExtendedParameter(p.getName()));
             }
         }
     }

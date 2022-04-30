@@ -31,20 +31,19 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static org.junit.Assert.assertEquals;
+import net.fortuna.ical4j.model.Date;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import org.junit.Test;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.fortuna.ical4j.model.Date;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.assertEquals;
 
 public class RevisionTest extends PropertyTest {
 
@@ -53,7 +52,7 @@ public class RevisionTest extends PropertyTest {
     private final Date expectedDate;
 
     public RevisionTest(Revision revision, String expectedName, String expectedValue, Parameter[] expectedParams,
-            Date expectedDate) {
+                        Date expectedDate) {
         super(revision, expectedName, expectedValue, expectedParams);
         this.revision = revision;
         this.expectedDate = expectedDate;
@@ -69,8 +68,8 @@ public class RevisionTest extends PropertyTest {
         final List<Object[]> params = new ArrayList<Object[]>();
         Date date = new Date(0);
         params.add(new Object[] { new Revision(date), Id.REV.toString(), "19700101", new Parameter[] {}, date });
-        params.add(new Object[] { new Revision(new ArrayList<Parameter>(), "19700101"), Id.REV.toString(), "19700101",
-                new Parameter[] {}, date });
+        params.add(new Object[]{new Revision(new ArrayList<>(), "19700101"), Id.REV.toString(), "19700101",
+                new Parameter[]{}, date});
         return params;
     }
 

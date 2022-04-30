@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
@@ -108,7 +109,7 @@ public final class Photo extends Property {
      */
     public Photo(List<Parameter> params, String value) throws URISyntaxException, DecoderException {
         super(Id.PHOTO, params);
-        final Parameter valueParameter = getParameter(Parameter.Id.VALUE);
+        final Parameter valueParameter = getParameter(ParameterSupport.Id.VALUE.getPname());
         
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
@@ -164,7 +165,7 @@ public final class Photo extends Property {
 //        for (Parameter param : getParameters()) {
 //            assertPidParameter(param);
 //        }
-        assertOneOrLess(net.fortuna.ical4j.vcard.Parameter.Id.VALUE);
+        assertOneOrLess(ParameterSupport.Id.VALUE);
     }
 
     public static class Factory extends AbstractFactory implements PropertyFactory<Photo> {

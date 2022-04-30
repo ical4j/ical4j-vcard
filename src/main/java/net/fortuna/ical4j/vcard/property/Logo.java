@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
@@ -108,7 +109,7 @@ public final class Logo extends Property {
      */
     public Logo(List<Parameter> params, String value) throws URISyntaxException, DecoderException {
         super(Id.LOGO, params);
-        final Parameter valueParameter = getParameter(Parameter.Id.VALUE);
+        final Parameter valueParameter = getParameter(ParameterSupport.Id.VALUE.getPname());
         
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
@@ -143,7 +144,7 @@ public final class Logo extends Property {
     @Override
     public String getValue() {
         String stringValue = null;
-        if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
+        if (Value.URI.equals(getParameter(ParameterSupport.Id.VALUE.getPname()))) {
             stringValue = Strings.valueOf(uri);
         } else if (binary != null) {
             try {

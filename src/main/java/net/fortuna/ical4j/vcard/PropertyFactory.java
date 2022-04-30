@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import net.fortuna.ical4j.model.Parameter;
 import org.apache.commons.codec.DecoderException;
 
 import java.net.URISyntaxException;

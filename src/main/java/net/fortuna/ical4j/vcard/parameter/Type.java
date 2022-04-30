@@ -31,9 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.AbstractFactory;
-import net.fortuna.ical4j.vcard.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterSupport;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,7 +49,7 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Type extends Parameter {
+public final class Type extends Parameter implements ParameterSupport {
 
     private static final long serialVersionUID = -3644362129355908795L;
 
@@ -73,7 +74,7 @@ public final class Type extends Parameter {
      * @param value string representation of type parameter
      */
     public Type(String value) {
-        super(Id.TYPE);
+        super(Id.TYPE.getPname());
         this.types = value.split(",");
     }
 
@@ -81,7 +82,7 @@ public final class Type extends Parameter {
      * @param types string representations of multiple nested types
      */
     public Type(String... types) {
-        super(Id.TYPE);
+        super(Id.TYPE.getPname());
         this.types = types;
     }
 
@@ -89,7 +90,7 @@ public final class Type extends Parameter {
      * @param types multiple nested types
      */
     public Type(Type... types) {
-        super(Id.TYPE);
+        super(Id.TYPE.getPname());
         final List<String> typeList = new ArrayList<>();
         for (Type type : types) {
             typeList.addAll(Arrays.asList(type.getTypes()));
@@ -121,7 +122,7 @@ public final class Type extends Parameter {
 
     public static class Factory extends AbstractFactory implements ParameterFactory<Type> {
         public Factory() {
-            super(Id.TYPE.toString(), "HOME", "WORK", "MSG",
+            super(Id.TYPE.getPname(), "HOME", "WORK", "MSG",
                     "VOICE", "FAX", "CELL", "VIDEO", "PAGER", "BBS", "MODEM",
                     "CAR", "ISDN", "PCS", "INTERNET", "X400", "DOM", "INTL",
                     "POSTAL", "PARCEL");

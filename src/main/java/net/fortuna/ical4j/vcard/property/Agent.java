@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Encodable;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.*;
@@ -86,7 +87,7 @@ public final class Agent extends Property implements Encodable {
      */
     public Agent(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.AGENT, params);
-        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+        if (Value.TEXT.equals(getParameter(ParameterSupport.Id.VALUE.getPname()))) {
             this.text = value;
         } else {
             this.uri = new URI(value);
@@ -112,7 +113,7 @@ public final class Agent extends Property implements Encodable {
      */
     @Override
     public String getValue() {
-        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+        if (Value.TEXT.equals(getParameter(ParameterSupport.Id.VALUE.getPname()))) {
             return text;
         }
         return Strings.valueOf(uri);

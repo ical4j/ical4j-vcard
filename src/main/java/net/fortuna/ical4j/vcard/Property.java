@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.model.Encodable;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.PropertyCodec;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
@@ -225,28 +226,30 @@ public abstract class Property implements Serializable {
 
     /**
      * Returns a list of parameters matching the specified identifier.
-     * @param id a parameter identifier
+     *
+     * @param name a parameter identifier
      * @return a list of parameters
      */
-    public final List<Parameter> getParameters(final Parameter.Id id) {
+    public final List<Parameter> getParameters(final String name) {
         final List<Parameter> matches = new ArrayList<>();
         for (Parameter p : parameters) {
-            if (p.getId().equals(id)) {
+            if (p.getName().equals(name)) {
                 matches.add(p);
             }
         }
         return Collections.unmodifiableList(matches);
     }
-    
+
     /**
      * Returns the first parameter with a matching identifier.
-     * @param id a parameter identifier
+     *
+     * @param name a parameter identifier
      * @return the first matching parameter, or null if no parameters with the specified identifier are found
      */
     @SuppressWarnings("unchecked")
-    public final <T extends Parameter> T getParameter(final Parameter.Id id) {
+    public final <T extends Parameter> T getParameter(final String name) {
         for (Parameter p : parameters) {
-            if (p.getId().equals(id)) {
+            if (p.getName().equals(name)) {
                 return (T) p;
             }
         }
@@ -261,7 +264,7 @@ public abstract class Property implements Serializable {
     public final List<Parameter> getExtendedParameters(final String name) {
         final List<Parameter> matches = new ArrayList<>();
         for (Parameter p : parameters) {
-            if (p.getId().equals(Parameter.Id.EXTENDED) && p.extendedName.equals(name)) {
+            if (p.getName().equals(name)) {
                 matches.add(p);
             }
         }
@@ -276,7 +279,7 @@ public abstract class Property implements Serializable {
     @SuppressWarnings("unchecked")
     public final <T extends Parameter> T getExtendedParameter(final String name) {
         for (Parameter p : parameters) {
-            if (p.getId().equals(Parameter.Id.EXTENDED) && p.extendedName.equals(name)) {
+            if (p.getName().equals(name)) {
                 return (T) p;
             }
         }
@@ -307,9 +310,9 @@ public abstract class Property implements Serializable {
      * @throws ValidationException where the specified parameter is not a text parameter
      */
     protected final void assertTextParameter(final Parameter param) throws ValidationException {
-        if (!Value.TEXT.equals(param) && !Parameter.Id.LANGUAGE.equals(param.getId())
-                && !Parameter.Id.EXTENDED.equals(param.getId())) {
-            throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getId()));
+        if (!Value.TEXT.equals(param) && !ParameterSupport.Id.LANGUAGE.getPname().equals(param.getName())
+                && !ParameterSupport.Id.EXTENDED.getPname().equals(param.getName())) {
+            throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getName()));
         }
     }
     
@@ -318,8 +321,8 @@ public abstract class Property implements Serializable {
      * @throws ValidationException where the specified parameter is not a type parameter
      */
     protected final void assertTypeParameter(final Parameter param) throws ValidationException {
-        if (!Parameter.Id.TYPE.equals(param.getId())) {
-            throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getId()));
+        if (!ParameterSupport.Id.TYPE.getPname().equals(param.getName())) {
+            throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getName()));
         }
     }
     
@@ -328,8 +331,8 @@ public abstract class Property implements Serializable {
      * @throws ValidationException where the specified parameter is not a PID parameter
      */
     protected final void assertPidParameter(final Parameter param) throws ValidationException {
-        if (!Parameter.Id.PID.equals(param.getId())) {
-            throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getId()));
+        if (!ParameterSupport.Id.PID.getPname().equals(param.getName())) {
+            throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getName()));
         }
     }
     
@@ -338,18 +341,18 @@ public abstract class Property implements Serializable {
      * @throws ValidationException where the specified parameter is not a Pref parameter
      */
     protected final void assertPrefParameter(final Parameter param) throws ValidationException {
-        if (!Parameter.Id.PREF.equals(param.getId())) {
-            throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getId()));
+        if (!ParameterSupport.Id.PREF.getPname().equals(param.getName())) {
+            throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getName()));
         }
     }
-    
+
     /**
      * @param paramId a parameter identifier to validate from
      * @throws ValidationException where there is not one or less of the specified
-     *  parameter in the parameter list
+     *                             parameter in the parameter list
      */
-    protected final void assertOneOrLess(final Parameter.Id paramId) throws ValidationException {
-        if (getParameters(paramId).size() > 1) {
+    protected final void assertOneOrLess(final ParameterSupport.Id paramId) throws ValidationException {
+        if (getParameters(paramId.getPname()).size() > 1) {
             throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_COUNT_MESSAGE, paramId));
         }
     }

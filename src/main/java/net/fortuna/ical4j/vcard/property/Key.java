@@ -31,6 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
@@ -121,7 +122,7 @@ public final class Key extends Property {
      */
     public Key(Group group, List<Parameter> params, String value) throws DecoderException, URISyntaxException {
         super(group, Id.KEY, params);
-        final Parameter valueParameter = getParameter(Parameter.Id.VALUE);
+        final Parameter valueParameter = getParameter(ParameterSupport.Id.VALUE.getPname());
         
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
@@ -148,7 +149,7 @@ public final class Key extends Property {
      */
     @Override
     public String getValue() {
-        final Parameter valueParameter = getParameter(Parameter.Id.VALUE);
+        final Parameter valueParameter = getParameter(ParameterSupport.Id.VALUE.getPname());
         String stringValue = null;
         
         /*

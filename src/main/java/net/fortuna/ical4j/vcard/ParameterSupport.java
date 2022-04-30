@@ -31,14 +31,6 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import net.fortuna.ical4j.model.Encodable;
-import net.fortuna.ical4j.model.ParameterCodec;
-import org.apache.commons.codec.EncoderException;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
-import java.io.Serializable;
-
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
@@ -50,12 +42,12 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  *
  * @author Ben
  */
-public abstract class Parameter implements Serializable {
+public interface ParameterSupport {
 
     /**
      *
      */
-    private static final long serialVersionUID = 6858428041113700722L;
+//    private static final long serialVersionUID = 6858428041113700722L;
 
 //    private static Map<String, Id> idFromPname = new HashMap<String, Id>();
 
@@ -158,9 +150,9 @@ public abstract class Parameter implements Serializable {
         }
     }
 
-    private final Id id;
+//    private final Id id;
 
-    String extendedName = "";
+//    String extendedName = "";
 
 
 //    public static Id getId(String pname) {
@@ -170,58 +162,58 @@ public abstract class Parameter implements Serializable {
     /**
      * @param extendedName a non-standard parameter id
      */
-    public Parameter(String extendedName) {
-        this(Id.EXTENDED);
-        this.extendedName = extendedName;
-    }
+//    public Parameter(String extendedName) {
+//        this(Id.EXTENDED);
+//        this.extendedName = extendedName;
+//    }
 
     /**
      * @param id the parameter type
      */
-    public Parameter(Id id) {
-        this.id = id;
-    }
+//    public Parameter(Id id) {
+//        this.id = id;
+//    }
 
     /**
      * @return the id
      */
-    public final Id getId() {
-        return id;
-    }
+//    public final Id getId() {
+//        return id;
+//    }
 
     /**
      * @return a string representation of the value of the parameter
      */
-    public abstract String getValue();
+//    public abstract String getValue();
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public boolean equals(final Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
-    }
+//    @Override
+//    public boolean equals(final Object obj) {
+//        return EqualsBuilder.reflectionEquals(this, obj);
+//    }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
-    }
+//    @Override
+//    public int hashCode() {
+//        return HashCodeBuilder.reflectionHashCode(this);
+//    }
 
     /**
      * @return a vCard-compliant string representation of the parameter
      */
-    @Override
-    public final String toString() {
-        final StringBuilder b = new StringBuilder();
-        if (Id.EXTENDED.equals(id)) {
-            b.append("X-");
-            b.append(extendedName);
-        } else {
-            b.append(id.getPname());
-        }
+//    @Override
+//    public final String toString() {
+//        final StringBuilder b = new StringBuilder();
+//        if (Id.EXTENDED.equals(id)) {
+//            b.append("X-");
+//            b.append(extendedName);
+//        } else {
+//            b.append(id.getPname());
+//        }
 /*
         if (this instanceof MultiValued) {
         	MultiValued mvp = (MultiValued)this;
@@ -248,20 +240,20 @@ public abstract class Parameter implements Serializable {
             }
         }
 */
-        if (getValue() != null) {
-            b.append('=');
-            if (this instanceof Encodable) {
-                try {
-                    b.append(ParameterCodec.INSTANCE.encode(getValue()));
-                } catch (EncoderException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                b.append(getValue());
-            }
-        }
-        return b.toString();
-    }
+//        if (getValue() != null) {
+//            b.append('=');
+//            if (this instanceof Encodable) {
+//                try {
+//                    b.append(ParameterCodec.INSTANCE.encode(getValue()));
+//                } catch (EncoderException e) {
+//                    e.printStackTrace();
+//                }
+//            } else {
+//                b.append(getValue());
+//            }
+//        }
+//        return b.toString();
+//    }
 /*    
     private void addVal(StringBuilder b, 
     		String v) {

@@ -31,27 +31,26 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import static org.junit.Assert.assertEquals;
+import net.fortuna.ical4j.vcard.ParameterSupport.Id;
+import net.fortuna.ical4j.vcard.ParameterTest;
+import org.junit.Test;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.fortuna.ical4j.vcard.ParameterTest;
-import net.fortuna.ical4j.vcard.Parameter.Id;
-
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.assertEquals;
 
 
 public class PidTest extends ParameterTest {
 
     private final Pid pid;
-    
+
     private final Integer expectedPid;
-    
+
     public PidTest(Pid pid, String expectedName,
-            String expectedValue, Integer expectedPid) {
+                   String expectedValue, Integer expectedPid) {
         super(pid, expectedName, expectedValue);
         this.pid = pid;
         this.expectedPid = expectedPid;

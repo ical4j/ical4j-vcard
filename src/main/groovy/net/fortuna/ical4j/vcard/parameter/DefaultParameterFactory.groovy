@@ -31,7 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.parameter
 
-import net.fortuna.ical4j.vcard.Parameter
+import net.fortuna.ical4j.model.Parameter
 
 class DefaultParameterFactory extends AbstractParameterFactory {
 
