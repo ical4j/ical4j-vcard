@@ -32,15 +32,14 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.property.immutable.ImmutableGender;
 
 /**
  * GENDER property.
@@ -51,27 +50,17 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Gender extends Property {
+public class Gender extends GroupProperty {
 
     private static final long serialVersionUID = -2739534182576803750L;
 
-    /**
-     * Standard gender.
-     */
-    public static final Gender MALE = new Gender(Collections.unmodifiableList(new ArrayList<>()), "M");
-
-    /**
-     * Standard gender.
-     */
-    public static final Gender FEMALE = new Gender(Collections.unmodifiableList(new ArrayList<>()), "F");
-
-    private final String value;
+    private String value;
 
     /**
      * @param value string representation of a property value
      */
     public Gender(String value) {
-        super(Id.GENDER);
+        super(PropertyName.GENDER);
         this.value = value;
     }
 
@@ -81,8 +70,8 @@ public final class Gender extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    private Gender(List<Parameter> params, String value) {
-        super(Id.GENDER, params);
+    private Gender(ParameterList params, String value) {
+        super(PropertyName.GENDER, params);
         this.value = value;
     }
 
@@ -94,29 +83,40 @@ public final class Gender extends Property {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) {
+        this.value = aValue;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // TODO Auto-generated method stub
 
+        return null;
+    }
+
+    @Override
+    protected PropertyFactory<Gender> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<Gender> {
         public Factory() {
-            super(Id.GENDER.toString());
+            super(PropertyName.GENDER.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Gender createProperty(final List<Parameter> params, final String value) {
+        public Gender createProperty(final ParameterList params, final String value) {
             Gender property = null;
-            if (Gender.FEMALE.getValue().equals(value)) {
-                property = Gender.FEMALE;
-            } else if (Gender.MALE.getValue().equals(value)) {
-                property = Gender.MALE;
+            if (ImmutableGender.FEMALE.getValue().equals(value)) {
+                property = ImmutableGender.FEMALE;
+            } else if (ImmutableGender.MALE.getValue().equals(value)) {
+                property = ImmutableGender.MALE;
             } else {
                 property = new Gender(value);
             }
@@ -126,7 +126,7 @@ public final class Gender extends Property {
         /**
          * {@inheritDoc}
          */
-        public Gender createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Gender createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

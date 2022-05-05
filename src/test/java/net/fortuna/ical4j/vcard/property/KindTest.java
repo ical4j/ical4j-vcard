@@ -32,9 +32,10 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
+import net.fortuna.ical4j.vcard.property.immutable.ImmutableKind;
 import org.junit.runners.Parameterized.Parameters;
 
 import java.util.ArrayList;
@@ -50,12 +51,12 @@ public class KindTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { Kind.GROUP, Id.KIND.toString(), "group", new Parameter[] {} });
-        params.add(new Object[] { Kind.INDIVIDUAL, Id.KIND.toString(), "individual", new Parameter[] {} });
-        params.add(new Object[] { Kind.ORG, Id.KIND.toString(), "org", new Parameter[] {} });
+        params.add(new Object[]{ImmutableKind.GROUP, PropertyName.KIND.toString(), "group", new Parameter[]{}});
+        params.add(new Object[]{ImmutableKind.INDIVIDUAL, PropertyName.KIND.toString(), "individual", new Parameter[]{}});
+        params.add(new Object[]{ImmutableKind.ORG, PropertyName.KIND.toString(), "org", new Parameter[]{}});
 
         final String customKind = "couple";
-        params.add(new Object[] { new Kind(customKind), Id.KIND.toString(), customKind, new Parameter[] {} });
+        params.add(new Object[]{new Kind(customKind), PropertyName.KIND.toString(), customKind, new Parameter[]{}});
         return params;
     }
 

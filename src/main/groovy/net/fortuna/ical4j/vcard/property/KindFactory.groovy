@@ -30,6 +30,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package net.fortuna.ical4j.vcard.property
+
+import net.fortuna.ical4j.vcard.property.immutable.ImmutableKind
+
 /**
  * $Id$
  *
@@ -48,31 +51,31 @@ class KindFactory extends AbstractPropertyFactory {
         } else {
             String kindValue = attributes.remove('value')
             if (kindValue != null) {
-                if (Kind.GROUP.getValue().equalsIgnoreCase(kindValue)) {
-                    kind = Kind.GROUP
-                } else if (Kind.INDIVIDUAL.getValue().equalsIgnoreCase(kindValue)) {
-                    kind = Kind.INDIVIDUAL
-                } else if (Kind.ORG.getValue().equalsIgnoreCase(kindValue)) {
-                    kind = Kind.ORG
-                } else if (Kind.LOCATION.getValue().equalsIgnoreCase(kindValue)) {
-                    kind = Kind.LOCATION
-                } else if (Kind.THING.getValue().equalsIgnoreCase(kindValue)) {
-                    kind = Kind.THING
+                if (ImmutableKind.GROUP.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = ImmutableKind.GROUP
+                } else if (ImmutableKind.INDIVIDUAL.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = ImmutableKind.INDIVIDUAL
+                } else if (ImmutableKind.ORG.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = ImmutableKind.ORG
+                } else if (ImmutableKind.LOCATION.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = ImmutableKind.LOCATION
+                } else if (ImmutableKind.THING.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = ImmutableKind.THING
                 } else {
                     attributes.put('value', kindValue)
                     kind = super.newInstance(builder, name, value, attributes)
                 }
             } else {
-                if (Kind.GROUP.getValue().equalsIgnoreCase(value)) {
-                    kind = Kind.GROUP
-                } else if (Kind.INDIVIDUAL.getValue().equalsIgnoreCase(value)) {
-                    kind = Kind.INDIVIDUAL
-                } else if (Kind.ORG.getValue().equalsIgnoreCase(value)) {
-                    kind = Kind.ORG
-                } else if (Kind.LOCATION.getValue().equalsIgnoreCase(value)) {
-                    kind = Kind.LOCATION
-                } else if (Kind.THING.getValue().equalsIgnoreCase(value)) {
-                    kind = Kind.THING
+                if (ImmutableKind.GROUP.getValue().equalsIgnoreCase(value)) {
+                    kind = ImmutableKind.GROUP
+                } else if (ImmutableKind.INDIVIDUAL.getValue().equalsIgnoreCase(value)) {
+                    kind = ImmutableKind.INDIVIDUAL
+                } else if (ImmutableKind.ORG.getValue().equalsIgnoreCase(value)) {
+                    kind = ImmutableKind.ORG
+                } else if (ImmutableKind.LOCATION.getValue().equalsIgnoreCase(value)) {
+                    kind = ImmutableKind.LOCATION
+                } else if (ImmutableKind.THING.getValue().equalsIgnoreCase(value)) {
+                    kind = ImmutableKind.THING
                 } else {
                     kind = super.newInstance(builder, name, value, attributes)
                 }

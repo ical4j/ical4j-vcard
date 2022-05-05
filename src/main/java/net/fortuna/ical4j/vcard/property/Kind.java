@@ -32,15 +32,16 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  * KIND property.
@@ -51,45 +52,17 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Kind extends Property {
+public class Kind extends GroupProperty {
 
     private static final long serialVersionUID = -3114221975393833838L;
 
-    /**
-     * Standard kind.
-     */
-    public static final Kind INDIVIDUAL = new Kind(
-            Collections.unmodifiableList(new ArrayList<>()), "individual");
-
-    /**
-     * Standard kind.
-     */
-    public static final Kind GROUP = new Kind(Collections.unmodifiableList(new ArrayList<>()), "group");
-
-    /**
-     * Standard kind.
-     */
-    public static final Kind ORG = new Kind(Collections.unmodifiableList(new ArrayList<>()), "org");
-
-    /**
-     * Standard kind.
-     */
-    public static final Kind LOCATION = new Kind(
-            Collections.unmodifiableList(new ArrayList<Parameter>()), "location");
-
-    /**
-     * Standard kind.
-     */
-    public static final Kind THING = new Kind(
-            Collections.unmodifiableList(new ArrayList<Parameter>()), "thing");
-
-    private final String value;
+    private String value;
 
     /**
      * @param value a string representation of a kind value
      */
     public Kind(String value) {
-        super(Id.KIND);
+        super(PropertyName.KIND);
         this.value = value;
     }
 
@@ -99,8 +72,8 @@ public final class Kind extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Kind(List<Parameter> params, String value) {
-        super(Id.KIND, params);
+    public Kind(ParameterList params, String value) {
+        super(PropertyName.KIND, params);
         this.value = value;
     }
 
@@ -112,31 +85,42 @@ public final class Kind extends Property {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) throws IOException, URISyntaxException {
+        this.value = aValue;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // ; No parameters allowed
         assertParametersEmpty();
+        return null;
+    }
+
+    @Override
+    protected PropertyFactory<Kind> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<Kind> {
         public Factory() {
-            super(Id.KIND.toString());
+            super(PropertyName.KIND.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Kind createProperty(final List<Parameter> params, final String value) {
+        public Kind createProperty(final ParameterList params, final String value) {
             return new Kind(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Kind createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Kind createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

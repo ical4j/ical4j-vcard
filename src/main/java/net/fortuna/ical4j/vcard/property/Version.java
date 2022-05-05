@@ -32,15 +32,14 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion;
 
 /**
  * VERSION property.
@@ -51,23 +50,17 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Version extends Property {
+public class Version extends GroupProperty {
 
     private static final long serialVersionUID = -4345025177285348717L;
 
-    /**
-     * Standard version instance.
-     */
-    public static final Version VERSION_4_0 = new Version(
-            Collections.unmodifiableList(new ArrayList<>()), "4.0");
-
-    private final String value;
+    private String value;
 
     /**
      * @param value a version value
      */
     public Version(String value) {
-        super(Id.VERSION);
+        super(PropertyName.VERSION);
         this.value = value;
     }
 
@@ -77,8 +70,8 @@ public final class Version extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    private Version(List<Parameter> params, String value) {
-        super(Id.VERSION, params);
+    private Version(ParameterList params, String value) {
+        super(PropertyName.VERSION, params);
         this.value = value;
     }
 
@@ -90,26 +83,37 @@ public final class Version extends Property {
         return value;
     }
 
+    @Override
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // ; No parameters allowed
         assertParametersEmpty();
+        return null;
+    }
+
+    @Override
+    protected PropertyFactory<Version> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<Version> {
         public Factory() {
-            super(Id.VERSION.toString());
+            super(PropertyName.VERSION.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Version createProperty(final List<Parameter> params, final String value) {
-            if (Version.VERSION_4_0.getValue().equals(value)) {
-                return Version.VERSION_4_0;
+        public Version createProperty(final ParameterList params, final String value) {
+            if (ImmutableVersion.VERSION_4_0.getValue().equals(value)) {
+                return ImmutableVersion.VERSION_4_0;
             }
             return new Version(value);
         }
@@ -117,7 +121,7 @@ public final class Version extends Property {
         /**
          * {@inheritDoc}
          */
-        public Version createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Version createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

@@ -33,9 +33,9 @@ package net.fortuna.ical4j.vcard
 
 import net.fortuna.ical4j.vcard.parameter.Encoding
 import net.fortuna.ical4j.vcard.property.Clazz
-import net.fortuna.ical4j.vcard.property.Gender
-import net.fortuna.ical4j.vcard.property.Kind
-import net.fortuna.ical4j.vcard.property.Version
+import net.fortuna.ical4j.vcard.property.immutable.ImmutableGender
+import net.fortuna.ical4j.vcard.property.immutable.ImmutableKind
+import net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -70,29 +70,29 @@ class ContentBuilderSpec extends Specification {
 	def 'build GENDER property and assert the result'() {
 		expect:
 		assert builder.gender(value) == expectedGender
-		
+
 		where:
-		value	| expectedGender
-		'M'		| Gender.MALE
-		'F'		| Gender.FEMALE
+		value | expectedGender
+		'M'   | ImmutableGender.MALE
+		'F'   | ImmutableGender.FEMALE
 	}
 	
 	def 'build KIND property and assert the result'() {
 		expect:
 		assert builder.kind(value) == expectedKind
-		
+
 		where:
-		value			| expectedKind
-		'GROUP'			| Kind.GROUP
-		'group'			| Kind.GROUP
-		'INDIVIDUAL'	| Kind.INDIVIDUAL
-		'individual'	| Kind.INDIVIDUAL
-		'LOCATION'		| Kind.LOCATION
-		'location'		| Kind.LOCATION
-		'ORG'			| Kind.ORG
-		'org'			| Kind.ORG
-		'THING'			| Kind.THING
-		'thing'			| Kind.THING
+		value        | expectedKind
+		'GROUP'      | ImmutableKind.GROUP
+		'group'      | ImmutableKind.GROUP
+		'INDIVIDUAL' | ImmutableKind.INDIVIDUAL
+		'individual' | ImmutableKind.INDIVIDUAL
+		'LOCATION'   | ImmutableKind.LOCATION
+		'location'   | ImmutableKind.LOCATION
+		'ORG'        | ImmutableKind.ORG
+		'org'        | ImmutableKind.ORG
+		'THING'      | ImmutableKind.THING
+		'thing'      | ImmutableKind.THING
 	}
 	
 	def 'build VERSION property and assert the result'() {
@@ -101,7 +101,7 @@ class ContentBuilderSpec extends Specification {
 		
 		where:
 		value	| expectedVersion
-		'4.0'	| Version.VERSION_4_0
+		'4.0' | ImmutableVersion.VERSION_4_0
 	}
 
 	def 'build ENCODING parameter and assert the result'() {
