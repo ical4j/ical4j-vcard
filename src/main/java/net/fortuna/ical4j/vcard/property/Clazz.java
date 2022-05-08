@@ -32,15 +32,16 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  * CLAZZ property.
@@ -50,34 +51,35 @@ import java.util.List;
  * Created on 23/10/2008
  *
  * @author Ben
+ * @deprecated the CLASS property was removed from vCard v4.0
  */
-public final class Clazz extends Property {
+@Deprecated
+public class Clazz extends GroupProperty {
 
     private static final long serialVersionUID = -3339099487456754606L;
 
     /**
      * Standard classification.
      */
-    public static final Clazz PUBLIC = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()), "PUBLIC");
+    public static final Clazz PUBLIC = new Clazz("PUBLIC");
 
     /**
      * Standard classification.
      */
-    public static final Clazz PRIVATE = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()), "PRIVATE");
+    public static final Clazz PRIVATE = new Clazz("PRIVATE");
 
     /**
      * Standard classification.
      */
-    public static final Clazz CONFIDENTIAL = new Clazz(Collections.unmodifiableList(new ArrayList<Parameter>()),
-            "CONFIDENTIAL");
+    public static final Clazz CONFIDENTIAL = new Clazz("CONFIDENTIAL");
 
-    private final String value;
+    private String value;
 
     /**
      * @param value a classification value
      */
     public Clazz(String value) {
-        super(Id.CLASS);
+        super(PropertyName.CLASS);
         this.value = value;
     }
 
@@ -87,8 +89,8 @@ public final class Clazz extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Clazz(List<Parameter> params, String value) {
-        super(Id.CLASS, params);
+    public Clazz(ParameterList params, String value) {
+        super(PropertyName.CLASS, params);
         this.value = value;
     }
 
@@ -100,24 +102,35 @@ public final class Clazz extends Property {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) throws IOException, URISyntaxException {
+        this.value = aValue;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // ; No parameters allowed
         assertParametersEmpty();
+        return ValidationResult.EMPTY;
+    }
+
+    @Override
+    protected PropertyFactory<Clazz> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<Clazz> {
         public Factory() {
-            super(Id.CLASS.toString());
+            super(PropertyName.CLASS.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Clazz createProperty(final List<Parameter> params, final String value) {
+        public Clazz createProperty(final ParameterList params, final String value) {
             Clazz property = null;
             if (Clazz.CONFIDENTIAL.getValue().equals(value)) {
                 property = Clazz.CONFIDENTIAL;
@@ -134,7 +147,7 @@ public final class Clazz extends Property {
         /**
          * {@inheritDoc}
          */
-        public Clazz createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Clazz createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

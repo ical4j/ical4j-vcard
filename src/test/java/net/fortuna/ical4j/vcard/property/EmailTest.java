@@ -32,8 +32,8 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import org.junit.runners.Parameterized.Parameters;
 
@@ -51,8 +51,8 @@ public class EmailTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
         final String emailString = "test@example.com";
-        params.add(new Object[] { new Email(emailString), Id.EMAIL.toString(), emailString,
-                new Parameter[] {}, });
+        params.add(new Object[]{new Email(emailString), PropertyName.EMAIL.toString(), emailString,
+                new Parameter[]{},});
         // params.add(new Object[] {new Email("test@example.com", Type.HOME), Id.EMAIL.toString(), "test@example.com",
         // new Parameter[] {Type.HOME}});
         // params.add(new Object[] {new Email("test@example.com", Type.WORK), Id.EMAIL.toString(), "test@example.com",

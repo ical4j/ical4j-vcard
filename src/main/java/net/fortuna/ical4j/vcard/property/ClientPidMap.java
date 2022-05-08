@@ -1,22 +1,22 @@
 /**
  * Copyright (c) 2012, Ben Fortuna
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- *
- *  o Redistributions of source code must retain the above copyright
+ * <p>
+ * o Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
- *  o Redistributions in binary form must reproduce the above copyright
+ * <p>
+ * o Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
- *  o Neither the name of Ben Fortuna nor the names of any other contributors
+ * <p>
+ * o Neither the name of Ben Fortuna nor the names of any other contributors
  * may be used to endorse or promote products derived from this software
  * without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -36,40 +36,34 @@ import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.text.MessageFormat;
 
 /**
- * EMAIL property.
+ * FN property.
  * <p>
  * $Id$
  * <p>
- * Created on 24/08/2008
+ * Created on 23/08/2008
  *
  * @author Ben
  */
-public class Email extends GroupProperty {
+public class ClientPidMap extends GroupProperty {
 
-    private static final long serialVersionUID = 6134254373259957228L;
+    private static final long serialVersionUID = -3576886478408668365L;
 
     private String value;
 
     /**
-     * @param value an email address string
+     * @param value string representation of a property value
      */
-    public Email(String value) {
-        this((Group) null, value);
-    }
-
-    /**
-     * @param group property group
-     * @param value an email address string
-     */
-    public Email(Group group, String value) {
-        super(group, PropertyName.EMAIL);
+    public ClientPidMap(String value) {
+        super(PropertyName.FN);
         this.value = value;
     }
 
@@ -79,19 +73,8 @@ public class Email extends GroupProperty {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Email(ParameterList params, String value) {
-        this(null, params, value);
-    }
-
-    /**
-     * Factory constructor.
-     *
-     * @param group  property group
-     * @param params property parameters
-     * @param value  string representation of a property value
-     */
-    public Email(Group group, ParameterList params, String value) {
-        super(group, PropertyName.EMAIL, params);
+    public ClientPidMap(ParameterList params, String value) {
+        super(PropertyName.FN, params);
         this.value = value;
     }
 
@@ -113,38 +96,36 @@ public class Email extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
+        // ; Text parameters allowed
         for (Parameter param : getParameters()) {
-            if (!ParameterName.PID.toString().equals(param.getName()) &&
-                    !ParameterName.PREF.toString().equals(param.getName()) &&
-                    !ParameterName.TYPE.toString().equals(param.getName())) {
-                throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getName()));
-            }
+            assertTextParameter(param);
         }
         return ValidationResult.EMPTY;
     }
 
     @Override
-    protected PropertyFactory<Email> newFactory() {
+    protected PropertyFactory<ClientPidMap> newFactory() {
         return new Factory();
     }
 
-    public static class Factory extends Content.Factory implements PropertyFactory<Email> {
+    public static class Factory extends Content.Factory implements PropertyFactory<ClientPidMap> {
         public Factory() {
-            super(PropertyName.EMAIL.toString());
+            super(PropertyName.FN.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Email createProperty(final ParameterList params, final String value) {
-            return new Email(params, value);
+        public ClientPidMap createProperty(final ParameterList params, final String value) {
+            return new ClientPidMap(value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Email createProperty(final Group group, final ParameterList params, final String value) {
-            return new Email(group, params, value);
+        public ClientPidMap createProperty(final Group group, final ParameterList params, final String value) {
+            // TODO Auto-generated method stub
+            return null;
         }
     }
 }

@@ -32,9 +32,9 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.property.Address;
 import org.apache.commons.codec.DecoderException;
 import org.junit.Assert;
@@ -42,6 +42,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
@@ -126,9 +127,9 @@ public class DirkWhitespaceAfterBeginTest {
             VCardBuilder builder =
                     new VCardBuilder(reader, groupRegistry, propReg, parReg);
             VCard card = builder.build();
-            Property prop = card.getProperty(Id.ADR);
-            Assert.assertNotNull(prop);
-            Address adr = (Address) prop;
+            Optional<Property> prop = card.getProperty(PropertyName.ADR.toString());
+            Assert.assertTrue(prop.isPresent());
+            Address adr = (Address) prop.get();
             assertEquals("Szczecin", adr.getExtended());
         } finally {
             CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);

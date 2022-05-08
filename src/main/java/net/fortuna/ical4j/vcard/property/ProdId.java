@@ -32,13 +32,16 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 
-import java.util.List;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  * PRODID property.
@@ -49,17 +52,17 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class ProdId extends Property {
+public class ProdId extends GroupProperty {
 
     private static final long serialVersionUID = 8104072716649404803L;
 
-    private final String value;
+    private String value;
 
     /**
      * @param value a product identifier value
      */
     public ProdId(String value) {
-        super(Id.PRODID);
+        super(PropertyName.PRODID);
         this.value = value;
     }
 
@@ -69,8 +72,8 @@ public final class ProdId extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public ProdId(List<Parameter> params, String value) {
-        super(Id.PRODID, params);
+    public ProdId(ParameterList params, String value) {
+        super(PropertyName.PRODID, params);
         this.value = value;
     }
 
@@ -82,31 +85,42 @@ public final class ProdId extends Property {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) throws IOException, URISyntaxException {
+        this.value = aValue;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // ; No parameters allowed
         assertParametersEmpty();
+        return ValidationResult.EMPTY;
+    }
+
+    @Override
+    protected PropertyFactory<ProdId> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<ProdId> {
         public Factory() {
-            super(Id.PRODID.toString());
+            super(PropertyName.PRODID.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public ProdId createProperty(final List<Parameter> params, final String value) {
+        public ProdId createProperty(final ParameterList params, final String value) {
             return new ProdId(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public ProdId createProperty(final Group group, final List<Parameter> params, final String value) {
+        public ProdId createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

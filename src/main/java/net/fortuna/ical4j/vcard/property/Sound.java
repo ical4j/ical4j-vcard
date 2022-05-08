@@ -33,13 +33,11 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.util.CompatibilityHints;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.ParameterSupport;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
@@ -53,7 +51,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
+import java.util.Optional;
 
 /**
  * SOUND property.
@@ -64,7 +62,7 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Sound extends Property {
+public class Sound extends GroupProperty {
 
     private static final long serialVersionUID = -3293436282728289163L;
 
@@ -78,9 +76,9 @@ public final class Sound extends Property {
      * @param uri a URI specifying a sound location
      */
     public Sound(URI uri) {
-        super(Id.SOUND);
+        super(PropertyName.SOUND);
         this.uri = uri;
-        getParameters().add(Value.URI);
+        add(Value.URI);
     }
 
     /**
@@ -95,11 +93,11 @@ public final class Sound extends Property {
      * @param contentType the MIME type of the sound data
      */
     public Sound(byte[] binary, Type contentType) {
-        super(Id.SOUND);
+        super(PropertyName.SOUND);
         this.binary = binary;
-        getParameters().add(Encoding.B);
+        add(Encoding.B);
         if (contentType != null) {
-            getParameters().add(contentType);
+            add(contentType);
         }
     }
 
@@ -108,24 +106,11 @@ public final class Sound extends Property {
      *
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws URISyntaxException where the specified string is not a valid URI
-     * @throws DecoderException   where the specified data string cannot be decoded
+     * @throws IllegalArgumentException where the specified data string cannot be decoded
      */
-    public Sound(List<Parameter> params, String value) throws URISyntaxException, DecoderException {
-        super(Id.SOUND, params);
-        final Parameter valueParameter = getParameter(ParameterSupport.Id.VALUE.getPname());
-        
-        /*
-         * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
-         */
-        if (Value.URI.equals(valueParameter) || valueParameter != null &&
-                        CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) &&
-                        "URL".equalsIgnoreCase(valueParameter.getValue())) {
-            this.uri = new URI(value);
-        } else {
-            final BinaryDecoder decoder = new Base64();
-            this.binary = decoder.decode(value.getBytes());
-        }
+    public Sound(ParameterList params, String value) {
+        super(PropertyName.SOUND, params);
+        setValue(value);
     }
 
     /**
@@ -148,7 +133,7 @@ public final class Sound extends Property {
     @Override
     public String getValue() {
         String stringValue = null;
-        if (Value.URI.equals(getParameter(ParameterSupport.Id.VALUE.getPname()))) {
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE))) {
             stringValue = Strings.valueOf(uri);
         } else if (binary != null) {
             try {
@@ -161,34 +146,61 @@ public final class Sound extends Property {
         return stringValue;
     }
 
+    @Override
+    public void setValue(String value) {
+        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE);
+
+        /*
+         * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
+         */
+        if (valueParameter.isPresent() && "URL".equalsIgnoreCase(valueParameter.get().getValue())) {
+            try {
+                this.uri = new URI(value);
+            } catch (URISyntaxException e) {
+                throw new IllegalArgumentException(e);
+            }
+        } else {
+            final BinaryDecoder decoder = new Base64();
+            try {
+                this.binary = decoder.decode(value.getBytes());
+            } catch (DecoderException e) {
+                throw new IllegalArgumentException(e);
+            }
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         for (Parameter param : getParameters()) {
             assertPidParameter(param);
         }
+        return ValidationResult.EMPTY;
+    }
+
+    @Override
+    protected PropertyFactory<Sound> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<Sound> {
         public Factory() {
-            super(Id.SOUND.toString());
+            super(PropertyName.SOUND.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Sound createProperty(final List<Parameter> params, final String value) throws URISyntaxException,
-                DecoderException {
-
+        public Sound createProperty(final ParameterList params, final String value) {
             return new Sound(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Sound createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Sound createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

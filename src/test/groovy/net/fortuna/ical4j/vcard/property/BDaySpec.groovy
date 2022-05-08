@@ -31,15 +31,17 @@
  */
 package net.fortuna.ical4j.vcard.property
 
+import net.fortuna.ical4j.model.ParameterList
 import net.fortuna.ical4j.util.CompatibilityHints
-import net.fortuna.ical4j.vcard.Property
+import net.fortuna.ical4j.vcard.PropertyName
 import net.fortuna.ical4j.vcard.parameter.Value
 
 class BDaySpec extends AbstractPropertySpec {
 
     def 'validate string representation'() {
         expect: 'derived string representation equals expected'
-        factoryRegistry.getFactory(Property.Id.BDAY as String).createProperty([Value.TEXT], value).toString() == expectedString
+        ParameterList params = [[Value.TEXT]]
+        factoryRegistry.getFactory(PropertyName.BDAY as String).createProperty(params, value).toString() == expectedString
 
         where:
         value               | expectedString
@@ -51,7 +53,7 @@ class BDaySpec extends AbstractPropertySpec {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_VCARD_COMPATIBILITY, true)
 
         expect:
-        assert new BDay([], '1975-07-17') as String == 'BDAY:19750717\r\n'
+        assert new BDay.Factory().createProperty('1975-07-17') as String == 'BDAY:19750717\r\n'
 
         cleanup:
         CompatibilityHints.clearHintEnabled(CompatibilityHints.KEY_VCARD_COMPATIBILITY)

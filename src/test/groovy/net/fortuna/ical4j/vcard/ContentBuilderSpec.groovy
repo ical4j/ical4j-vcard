@@ -33,11 +33,14 @@ package net.fortuna.ical4j.vcard
 
 import net.fortuna.ical4j.vcard.parameter.Encoding
 import net.fortuna.ical4j.vcard.property.Clazz
-import net.fortuna.ical4j.vcard.property.immutable.ImmutableGender
 import net.fortuna.ical4j.vcard.property.immutable.ImmutableKind
-import net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion
 import spock.lang.Shared
 import spock.lang.Specification
+
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.FEMALE
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.MALE
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.*
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion.VERSION_4_0
 
 /**
  * $Id$
@@ -68,32 +71,32 @@ class ContentBuilderSpec extends Specification {
 	}
 	
 	def 'build GENDER property and assert the result'() {
-		expect:
-		assert builder.gender(value) == expectedGender
+        expect:
+        assert builder.gender(value) == expectedGender
 
-		where:
-		value | expectedGender
-		'M'   | ImmutableGender.MALE
-		'F'   | ImmutableGender.FEMALE
-	}
+        where:
+        value | expectedGender
+        'M'   | MALE
+        'F'   | FEMALE
+    }
 	
 	def 'build KIND property and assert the result'() {
-		expect:
-		assert builder.kind(value) == expectedKind
+        expect:
+        assert builder.kind(value) == expectedKind
 
-		where:
-		value        | expectedKind
-		'GROUP'      | ImmutableKind.GROUP
-		'group'      | ImmutableKind.GROUP
-		'INDIVIDUAL' | ImmutableKind.INDIVIDUAL
-		'individual' | ImmutableKind.INDIVIDUAL
-		'LOCATION'   | ImmutableKind.LOCATION
-		'location'   | ImmutableKind.LOCATION
-		'ORG'        | ImmutableKind.ORG
-		'org'        | ImmutableKind.ORG
-		'THING'      | ImmutableKind.THING
-		'thing'      | ImmutableKind.THING
-	}
+        where:
+        value        | expectedKind
+        'GROUP'      | GROUP
+        'group'      | GROUP
+        'INDIVIDUAL' | INDIVIDUAL
+        'individual' | INDIVIDUAL
+        'LOCATION'   | ImmutableKind.LOCATION
+        'location'   | ImmutableKind.LOCATION
+        'ORG'        | ORG
+        'org'        | ORG
+        'THING'      | THING
+        'thing'      | THING
+    }
 	
 	def 'build VERSION property and assert the result'() {
 		expect:
@@ -101,7 +104,7 @@ class ContentBuilderSpec extends Specification {
 		
 		where:
 		value	| expectedVersion
-		'4.0' | ImmutableVersion.VERSION_4_0
+        '4.0' | VERSION_4_0
 	}
 
 	def 'build ENCODING parameter and assert the result'() {

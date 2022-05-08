@@ -32,14 +32,15 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Locale;
 
 /**
@@ -51,17 +52,17 @@ import java.util.Locale;
  *
  * @author Ben
  */
-public final class Lang extends Property {
+public class Lang extends GroupProperty {
 
     private static final long serialVersionUID = 1863658302945551760L;
 
-    private final Locale[] locales;
+    private Locale[] locales;
 
     /**
      * @param locales one or more locales that define the language instance
      */
     public Lang(Locale... locales) {
-        super(Id.LANG);
+        super(PropertyName.LANG);
         if (locales.length == 0) {
             throw new IllegalArgumentException("Must have at least one locale");
         }
@@ -74,13 +75,9 @@ public final class Lang extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Lang(List<Parameter> params, String value) {
-        super(Id.LANG, params);
-        final List<Locale> list = new ArrayList<>();
-        for (String langString : value.split(",")) {
-            list.add(new Locale(langString));
-        }
-        this.locales = list.toArray(new Locale[list.size()]);
+    public Lang(ParameterList params, String value) {
+        super(PropertyName.LANG, params);
+        setValue(value);
     }
 
     /**
@@ -105,31 +102,41 @@ public final class Lang extends Property {
         return b.toString();
     }
 
+    @Override
+    public void setValue(String value) {
+        this.locales = Arrays.stream(value.split(","))
+                .map(Locale::new).toArray(Locale[]::new);
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        // TODO Auto-generated method stub
+    public ValidationResult validate() throws ValidationException {
+        return ValidationResult.EMPTY;
+    }
 
+    @Override
+    protected PropertyFactory<Lang> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<Lang> {
         public Factory() {
-            super(Id.LANG.toString());
+            super(PropertyName.LANG.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Lang createProperty(final List<Parameter> params, final String value) {
+        public Lang createProperty(final ParameterList params, final String value) {
             return new net.fortuna.ical4j.vcard.property.Lang(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Lang createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Lang createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

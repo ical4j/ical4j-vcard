@@ -69,7 +69,7 @@ public final class Language extends Parameter {
      * @param locale the locale for the language
      */
     public Language(Locale locale) {
-        super(ParameterName.LANGUAGE.getPname());
+        super(ParameterName.LANGUAGE.toString());
         this.locale = locale;
     }
 
@@ -100,7 +100,7 @@ public final class Language extends Parameter {
 
     public static class Factory extends Content.Factory implements ParameterFactory<Language> {
         public Factory() {
-            super(ParameterName.LANGUAGE.getPname());
+            super(ParameterName.LANGUAGE.toString());
         }
 
         public Language createParameter(String value) {

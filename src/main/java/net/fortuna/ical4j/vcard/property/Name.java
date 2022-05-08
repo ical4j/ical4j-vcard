@@ -33,13 +33,16 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Encodable;
-import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 
-import java.util.List;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -51,18 +54,20 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  * Created on 22/08/2008
  *
  * @author Ben
+ * @deprecated the NAME property was removed from vCard v4.0
  */
-public final class Name extends Property implements Encodable {
+@Deprecated
+public class Name extends GroupProperty implements Encodable {
 
     private static final long serialVersionUID = -3524639290151277814L;
 
-    private final String value;
+    private String value;
 
     /**
      * @param value a name value
      */
     public Name(String value) {
-        super(Id.NAME);
+        super(PropertyName.NAME);
         this.value = value;
     }
 
@@ -72,8 +77,8 @@ public final class Name extends Property implements Encodable {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Name(List<Parameter> params, String value) {
-        super(Id.NAME, params);
+    public Name(ParameterList params, String value) {
+        super(PropertyName.NAME, params);
         this.value = value;
     }
 
@@ -85,31 +90,42 @@ public final class Name extends Property implements Encodable {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) throws IOException, URISyntaxException {
+        this.value = aValue;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // ; No parameters allowed
         assertParametersEmpty();
+        return ValidationResult.EMPTY;
+    }
+
+    @Override
+    protected PropertyFactory<Name> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<Name> {
         public Factory() {
-            super(Id.NAME.toString());
+            super(PropertyName.NAME.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Name createProperty(final List<Parameter> params, final String value) {
+        public Name createProperty(final ParameterList params, final String value) {
             return new Name(params, unescape(value));
         }
 
         /**
          * {@inheritDoc}
          */
-        public Name createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Name createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

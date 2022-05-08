@@ -57,7 +57,7 @@ public final class SortAs extends Parameter {
      * @param value string representation of a property value
      */
     public SortAs(String value) {
-        super(ParameterName.SORT_AS.getPname());
+        super(ParameterName.SORT_AS.toString());
         this.value = value;
         segments = value.split(";", -1);
     }
@@ -79,7 +79,7 @@ public final class SortAs extends Parameter {
 
     public static class Factory extends Content.Factory implements ParameterFactory<SortAs> {
         public Factory() {
-            super(ParameterName.SORT_AS.getPname());
+            super(ParameterName.SORT_AS.toString());
         }
 
         public SortAs createParameter(String value) {

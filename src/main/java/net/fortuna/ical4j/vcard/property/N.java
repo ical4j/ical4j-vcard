@@ -33,14 +33,18 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.List;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
@@ -53,7 +57,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  *
  * @author Ben
  */
-public final class N extends Property {
+public class N extends GroupProperty {
 
     private static final long serialVersionUID = 1117450875931318523L;
 
@@ -75,7 +79,7 @@ public final class N extends Property {
      * @param suffixes        suffix components of a name
      */
     public N(String familyName, String givenName, String[] additionalNames, String[] prefixes, String[] suffixes) {
-        super(Id.N);
+        super(PropertyName.N);
         this.familyName = familyName;
         this.givenName = givenName;
         this.additionalNames = additionalNames;
@@ -89,8 +93,8 @@ public final class N extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public N(List<Parameter> params, String value) {
-        super(Id.N, params);
+    public N(ParameterList params, String value) {
+        super(PropertyName.N, params);
         final String[] names = value.split(";", -1);
         this.familyName = names[0];
         if (names.length >= 2) {
@@ -219,33 +223,44 @@ public final class N extends Property {
         return b.toString();
     }
 
+    @Override
+    public void setValue(String aValue) throws IOException, URISyntaxException {
+
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // ; Text parameters allowed
         for (Parameter param : getParameters()) {
             assertTextParameter(param);
         }
+        return ValidationResult.EMPTY;
+    }
+
+    @Override
+    protected PropertyFactory<N> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<N> {
         public Factory() {
-            super(Id.N.toString());
+            super(PropertyName.N.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public N createProperty(final List<Parameter> params, final String value) {
+        public N createProperty(final ParameterList params, final String value) {
             return new N(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public N createProperty(final Group group, final List<Parameter> params, final String value) {
+        public N createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

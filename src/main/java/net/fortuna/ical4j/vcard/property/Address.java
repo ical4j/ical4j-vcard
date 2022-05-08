@@ -32,19 +32,15 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.util.CompatibilityHints;
-import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.validate.*;
+import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Type;
-
-import java.text.ParseException;
-import java.util.List;
 
 import static net.fortuna.ical4j.util.Strings.escape;
 import static net.fortuna.ical4j.util.Strings.unescape;
+import static net.fortuna.ical4j.validate.ValidationRule.ValidationType.OneOrLess;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
@@ -56,9 +52,15 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  *
  * @author Ben
  */
-public final class Address extends Property {
+public class Address extends GroupProperty {
 
     private static final long serialVersionUID = 6538745668985015384L;
+
+    private static final Validator<Address> VALIDATOR = new PropertyValidator<>(PropertyName.ADR.toString(),
+            new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString(), ParameterName.LABEL.toString(),
+                    ParameterName.LANGUAGE.toString(), ParameterName.GEO.toString(), ParameterName.TZ.toString(),
+                    ParameterName.ALTID.toString(), ParameterName.PID.toString(), ParameterName.PREF.toString(),
+                    ParameterName.TYPE.toString()));
 
     private String poBox;
 
@@ -103,7 +105,7 @@ public final class Address extends Property {
     public Address(Group group, String poBox, String extended, String street, String locality,
                    String region, String postcode, String country, Type... types) {
 
-        super(group, Id.ADR);
+        super(group, PropertyName.ADR);
         this.poBox = poBox;
         this.extended = extended;
         this.street = street;
@@ -112,7 +114,7 @@ public final class Address extends Property {
         this.postcode = postcode;
         this.country = country;
         for (Type type : types) {
-            getParameters().add(type);
+            add(type);
         }
     }
 
@@ -120,7 +122,7 @@ public final class Address extends Property {
      * @param params property parameters
      * @param value  string representation of an address value
      */
-    public Address(List<Parameter> params, String value) throws ParseException {
+    public Address(ParameterList params, String value) {
         this(null, params, value);
     }
 
@@ -131,8 +133,8 @@ public final class Address extends Property {
      * @param params property parameters
      * @param value  string representation of an address value
      */
-    public Address(Group group, List<Parameter> params, String value) throws ParseException {
-        super(group, Id.ADR, params);
+    public Address(Group group, ParameterList params, String value) {
+        super(group, PropertyName.ADR, params);
         if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
             parseValueRelaxed(value);
         } else {
@@ -144,13 +146,18 @@ public final class Address extends Property {
      * Support for builder.
      */
     private Address() {
-        super(null, Id.ADR);
+        super(PropertyName.ADR.toString());
     }
 
-    private void parseValue(String value) throws ParseException {
+    @Override
+    public void setValue(String aValue) {
+        parseValue(aValue);
+    }
+
+    private void parseValue(String value) {
         final String[] components = value.split(";", 8);
         if (components.length < 6) {
-            throw new ParseException("ADR value must have all address components", 0);
+            throw new IllegalArgumentException("ADR value must have all address components");
         }
         this.poBox = components[0];
         this.extended = components[1];
@@ -302,39 +309,32 @@ public final class Address extends Property {
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        for (Parameter param : getParameters()) {
-            try {
-                assertTypeParameter(param);
-            } catch (ValidationException ve) {
-                try {
-                    assertTextParameter(param);
-                } catch (ValidationException ve2) {
-                    assertPidParameter(param);
-                }
-            }
-        }
+    public ValidationResult validate() throws ValidationException {
+        return VALIDATOR.validate(this);
+    }
+
+    @Override
+    protected net.fortuna.ical4j.model.PropertyFactory<?> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<Address> {
 
         public Factory() {
-            super(Id.ADR.toString());
+            super(PropertyName.ADR.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Address createProperty(final List<Parameter> params,
-                                      final String value) throws ParseException {
+        public Address createProperty(final ParameterList params, final String value) {
             return new Address(params, unescape(value));
         }
 
         /**
          * {@inheritDoc}
          */
-        public Address createProperty(final Group group, final List<Parameter> params, final String value)
-                throws ParseException {
+        public Address createProperty(final Group group, final ParameterList params, final String value) {
             return new Address(group, params, unescape(value));
         }
     }

@@ -55,7 +55,7 @@ public final class Altid extends Parameter {
      * @param value string representation of a property value
      */
     public Altid(String value) {
-        super(ParameterName.ALTID.getPname());
+        super(ParameterName.ALTID.toString());
         this.value = value;
     }
 
@@ -70,7 +70,7 @@ public final class Altid extends Parameter {
     public static class Factory extends Content.Factory implements ParameterFactory<Altid> {
 
         public Factory() {
-            super(ParameterName.ALTID.getPname());
+            super(ParameterName.ALTID.toString());
         }
 
         public Altid createParameter(String value) {

@@ -1,22 +1,22 @@
 /**
  * Copyright (c) 2012, Ben Fortuna
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- *
- *  o Redistributions of source code must retain the above copyright
+ * <p>
+ * o Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
- *  o Redistributions in binary form must reproduce the above copyright
+ * <p>
+ * o Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
- *  o Neither the name of Ben Fortuna nor the names of any other contributors
+ * <p>
+ * o Neither the name of Ben Fortuna nor the names of any other contributors
  * may be used to endorse or promote products derived from this software
  * without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -29,31 +29,47 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.fortuna.ical4j.vcard.property;
+package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
-import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import org.junit.runners.Parameterized.Parameters;
+import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterName;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+/**
+ * LABEL parameter.
+ */
+public final class Label extends Parameter {
 
-public class TitleTest extends PropertyTest {
+    private static final long serialVersionUID = 12345L;
 
-    public TitleTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
+    private final String value;
+
+    /**
+     * Factory constructor.
+     *
+     * @param value string representation of a property value
+     */
+    public Label(String value) {
+        super(ParameterName.LABEL.toString());
+        this.value = value;
     }
 
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{new Title(""), PropertyName.TITLE.toString(), "", new Parameter[]{}});
-        params.add(new Object[]{new Title("Director, Research and Development"), PropertyName.TITLE.toString(),
-                "Director, Research and Development", new Parameter[]{}});
-        return params;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getValue() {
+        return value;
     }
 
+    public static class Factory extends Content.Factory implements ParameterFactory<Label> {
+        public Factory() {
+            super(ParameterName.LABEL.toString());
+        }
+
+        public Label createParameter(String value) {
+            return new Label(value);
+        }
+    }
 }

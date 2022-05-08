@@ -32,8 +32,8 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
@@ -54,12 +54,12 @@ public class PhotoTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { new Photo(URI.create("")), Id.PHOTO.toString(), "", new Parameter[] { Value.URI } });
-        params.add(new Object[] { new Photo(new byte[0]), Id.PHOTO.toString(), "", new Parameter[] { Encoding.B } });
+        params.add(new Object[]{new Photo(URI.create("")), PropertyName.PHOTO.toString(), "", new Parameter[]{Value.URI}});
+        params.add(new Object[]{new Photo(new byte[0]), PropertyName.PHOTO.toString(), "", new Parameter[]{Encoding.B}});
 
         Type type = new Type("image/jpeg");
-        params.add(new Object[] { new Photo(new byte[0], type), Id.PHOTO.toString(), "",
-                new Parameter[] { Encoding.B, type } });
+        params.add(new Object[]{new Photo(new byte[0], type), PropertyName.PHOTO.toString(), "",
+                new Parameter[]{Encoding.B, type}});
         return params;
     }
 

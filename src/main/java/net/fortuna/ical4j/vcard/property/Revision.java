@@ -34,15 +34,16 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 
 import java.text.ParseException;
-import java.util.List;
 
 /**
  * REVISION property.
@@ -53,7 +54,7 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Revision extends Property {
+public class Revision extends GroupProperty {
 
     private static final long serialVersionUID = -1342640230576672871L;
 
@@ -63,7 +64,7 @@ public final class Revision extends Property {
      * @param date a revision date
      */
     public Revision(Date date) {
-        super(Id.REV);
+        super(PropertyName.REV);
         this.date = date;
     }
 
@@ -74,23 +75,9 @@ public final class Revision extends Property {
      * @param value  string representation of a property value
      * @throws ParseException if the specified string is not a valid date
      */
-    public Revision(List<Parameter> params, String value) throws ParseException {
-        super(Id.REV, params);
-
-        // try default patterns first, then fall back on vCard-specific patterns
-        try {
-            this.date = new DateTime(value);
-        } catch (ParseException e) {
-            try {
-                this.date = new Date(value);
-            } catch (ParseException e2) {
-                try {
-                    this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
-                } catch (ParseException e3) {
-                    this.date = new Date(value, "yyyy'-'MM'-'dd");
-                }
-            }
-        }
+    public Revision(ParameterList params, String value) {
+        super(PropertyName.REV, params);
+        setValue(value);
     }
 
     /**
@@ -108,31 +95,58 @@ public final class Revision extends Property {
         return Strings.valueOf(date);
     }
 
+    @Override
+    public void setValue(String value) {
+
+        // try default patterns first, then fall back on vCard-specific patterns
+        try {
+            this.date = new DateTime(value);
+        } catch (ParseException e) {
+            try {
+                this.date = new Date(value);
+            } catch (ParseException e2) {
+                try {
+                    this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
+                } catch (ParseException e3) {
+                    try {
+                        this.date = new Date(value, "yyyy'-'MM'-'dd");
+                    } catch (ParseException ex) {
+                        throw new IllegalArgumentException(ex);
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        // TODO Auto-generated method stub
+    public ValidationResult validate() throws ValidationException {
+        return ValidationResult.EMPTY;
+    }
 
+    @Override
+    protected PropertyFactory<Revision> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<Revision> {
         public Factory() {
-            super(Id.REV.toString());
+            super(PropertyName.REV.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Revision createProperty(final List<Parameter> params, final String value) throws ParseException {
+        public Revision createProperty(final ParameterList params, final String value) {
             return new Revision(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Revision createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Revision createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

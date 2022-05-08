@@ -1,22 +1,22 @@
 /**
  * Copyright (c) 2012, Ben Fortuna
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- *
- *  o Redistributions of source code must retain the above copyright
+ * <p>
+ * o Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
- *  o Redistributions in binary form must reproduce the above copyright
+ * <p>
+ * o Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
- *  o Neither the name of Ben Fortuna nor the names of any other contributors
+ * <p>
+ * o Neither the name of Ben Fortuna nor the names of any other contributors
  * may be used to endorse or promote products derived from this software
  * without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -49,31 +49,31 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Type extends Parameter {
+public final class MediaType extends Parameter {
 
     private static final long serialVersionUID = -3644362129355908795L;
 
     /**
      * Home type parameter.
      */
-    public static final Type HOME = new Type("home");
+    public static final MediaType HOME = new MediaType("home");
 
     /**
      * Work type parameter.
      */
-    public static final Type WORK = new Type("work");
+    public static final MediaType WORK = new MediaType("work");
 
     /**
      * Pref type parameter.
      */
-    public static final Type PREF = new Type("pref");
+    public static final MediaType PREF = new MediaType("pref");
 
     private final String[] types;
 
     /**
      * @param value string representation of type parameter
      */
-    public Type(String value) {
+    public MediaType(String value) {
         super(ParameterName.TYPE.toString());
         this.types = value.split(",");
     }
@@ -81,7 +81,7 @@ public final class Type extends Parameter {
     /**
      * @param types string representations of multiple nested types
      */
-    public Type(String... types) {
+    public MediaType(String... types) {
         super(ParameterName.TYPE.toString());
         this.types = types;
     }
@@ -89,10 +89,10 @@ public final class Type extends Parameter {
     /**
      * @param types multiple nested types
      */
-    public Type(Type... types) {
+    public MediaType(MediaType... types) {
         super(ParameterName.TYPE.toString());
         final List<String> typeList = new ArrayList<>();
-        for (Type type : types) {
+        for (MediaType type : types) {
             typeList.addAll(Arrays.asList(type.getTypes()));
         }
         this.types = typeList.toArray(new String[typeList.size()]);
@@ -120,21 +120,21 @@ public final class Type extends Parameter {
         return b.toString();
     }
 
-    public static class Factory extends Content.Factory implements ParameterFactory<Type> {
+    public static class Factory extends Content.Factory implements ParameterFactory<MediaType> {
         public Factory() {
             super(ParameterName.TYPE.toString());
         }
 
-        public Type createParameter(String value) {
-            Type parameter = null;
-            if (Type.HOME.getValue().equals(value)) {
-                parameter = Type.HOME;
-            } else if (Type.PREF.getValue().equals(value)) {
-                parameter = Type.PREF;
-            } else if (Type.WORK.getValue().equals(value)) {
-                parameter = Type.WORK;
+        public MediaType createParameter(String value) {
+            MediaType parameter = null;
+            if (MediaType.HOME.getValue().equals(value)) {
+                parameter = MediaType.HOME;
+            } else if (MediaType.PREF.getValue().equals(value)) {
+                parameter = MediaType.PREF;
+            } else if (MediaType.WORK.getValue().equals(value)) {
+                parameter = MediaType.WORK;
             } else {
-                parameter = new Type(value);
+                parameter = new MediaType(value);
             }
             return parameter;
         }

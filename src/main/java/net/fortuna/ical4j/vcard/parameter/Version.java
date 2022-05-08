@@ -55,7 +55,7 @@ public final class Version extends Parameter {
      * @param value string representation of a property value
      */
     public Version(String value) {
-        super(ParameterName.VERSION.getPname());
+        super(ParameterName.VERSION.toString());
         this.value = value;
     }
 
@@ -69,7 +69,7 @@ public final class Version extends Parameter {
 
     public static class Factory extends Content.Factory implements ParameterFactory<Version> {
         public Factory() {
-            super(ParameterName.VERSION.getPname());
+            super(ParameterName.VERSION.toString());
         }
 
         public Version createParameter(String value) {

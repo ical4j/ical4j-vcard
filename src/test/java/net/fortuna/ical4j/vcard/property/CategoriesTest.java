@@ -32,8 +32,8 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import org.junit.runners.Parameterized.Parameters;
 
@@ -56,14 +56,14 @@ public class CategoriesTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { new Categories(""), Id.CATEGORIES.toString(), "", new Parameter[] {} });
+        params.add(new Object[]{new Categories(""), PropertyName.CATEGORIES.toString(), "", new Parameter[]{}});
         final String categoryString = "TRAVEL AGENT";
-        params.add(new Object[] { new Categories(categoryString), Id.CATEGORIES.toString(), categoryString,
-                new Parameter[] {}, });
-        params.add(new Object[] { new Categories("INTERNET", "IETF", "INDUSTRY", "INFORMATION TECHNOLOGY"),
-                Id.CATEGORIES.toString(), "INTERNET,IETF,INDUSTRY,INFORMATION TECHNOLOGY", new Parameter[] {}, });
-        params.add(new Object[] { new Categories("GARDENER, LANDSCAPE"), Id.CATEGORIES.toString(),
-                "GARDENER\\, LANDSCAPE", new Parameter[] {}, });
+        params.add(new Object[]{new Categories(categoryString), PropertyName.CATEGORIES.toString(), categoryString,
+                new Parameter[]{},});
+        params.add(new Object[]{new Categories("INTERNET", "IETF", "INDUSTRY", "INFORMATION TECHNOLOGY"),
+                PropertyName.CATEGORIES.toString(), "INTERNET,IETF,INDUSTRY,INFORMATION TECHNOLOGY", new Parameter[]{},});
+        params.add(new Object[]{new Categories("GARDENER, LANDSCAPE"), PropertyName.CATEGORIES.toString(),
+                "GARDENER\\, LANDSCAPE", new Parameter[]{},});
         return params;
     }
 

@@ -68,7 +68,7 @@ public final class Pref extends Parameter {
      * @param level priority level for the pref parameter
      */
     public Pref(Integer level) {
-        super(ParameterName.PREF.getPname());
+        super(ParameterName.PREF.toString());
         if (level <= 0) {
             throw new IllegalArgumentException("The level of preferredness must be a positive integer");
         }
@@ -79,7 +79,7 @@ public final class Pref extends Parameter {
      * Internal constructor.
      */
     private Pref() {
-        super(ParameterName.PREF.getPname());
+        super(ParameterName.PREF.toString());
         this.level = null;
     }
 
@@ -96,7 +96,7 @@ public final class Pref extends Parameter {
 
     public static class Factory extends Content.Factory implements ParameterFactory<Pref> {
         public Factory() {
-            super(ParameterName.PREF.getPname());
+            super(ParameterName.PREF.toString());
         }
 
         public Pref createParameter(String value) {

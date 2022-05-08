@@ -32,8 +32,8 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import org.junit.runners.Parameterized.Parameters;
 
@@ -51,8 +51,8 @@ public class BirthTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
         final String birthString = "Mercy Hospital, Melbourne";
-        params.add(new Object[] { new Birth(birthString), Id.BIRTH.toString(),
-                birthString, new Parameter[] {}, });
+        params.add(new Object[]{new Birth(birthString), PropertyName.BIRTH.toString(),
+                birthString, new Parameter[]{},});
         return params;
     }
 }

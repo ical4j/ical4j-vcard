@@ -13,6 +13,8 @@ public enum ParameterName {
      */
     LANGUAGE,
 
+    LABEL,
+
     /**
      * Encoding parameter identifier.
      */
@@ -92,11 +94,11 @@ public enum ParameterName {
 //        	idFromPname.put(pname, this);
     }
 
-    public String getPname() {
-//        	return pname;
+    @Override
+    public String toString() {
         if (isNotEmpty(pname)) {
             return pname;
         }
-        return toString();
+        return super.toString();
     }
 }

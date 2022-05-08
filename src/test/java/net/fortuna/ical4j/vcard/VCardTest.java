@@ -31,9 +31,11 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.model.PropertyFactory;
+import net.fortuna.ical4j.model.PropertyList;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.Property.Id;
-import net.fortuna.ical4j.vcard.property.Kind;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.property.Name;
 import net.fortuna.ical4j.vcard.property.Source;
 import org.junit.Test;
@@ -47,6 +49,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.INDIVIDUAL;
 import static org.junit.Assert.*;
 
 
@@ -76,7 +79,7 @@ public class VCardTest {
     @Test
     public void testGetPropertiesName() {
         for (Property p : vCard.getProperties()) {
-            List<Property> matches = vCard.getProperties(p.getId());
+            List<GroupProperty> matches = vCard.getProperties(p.getName());
             assertNotNull(matches);
             assertTrue(matches.size() >= 1);
             assertTrue(matches.contains(p));
@@ -86,15 +89,15 @@ public class VCardTest {
     @Test
     public void testGetPropertyName() {
         for (Property p : vCard.getProperties()) {
-            assertNotNull(vCard.getProperty(p.getId()));
+            assertNotNull(vCard.getProperty(p.getName()));
         }
-        assertNull(vCard.getProperty(null));
+        assertFalse(vCard.getProperty(null).isPresent());
     }
 
     @Test
     public void testGetExtendedPropertiesName() {
-        for (Property p : vCard.getProperties(Id.EXTENDED)) {
-            List<Property> matches = vCard.getExtendedProperties(p.extendedName);
+        for (Property p : vCard.getProperties(PropertyName.EXTENDED.toString())) {
+            List<GroupProperty> matches = vCard.getProperties(p.getName());
             assertNotNull(matches);
             assertTrue(matches.size() >= 1);
             assertTrue(matches.contains(p));
@@ -103,10 +106,10 @@ public class VCardTest {
 
     @Test
     public void testGetExtendedPropertyName() {
-        for (Property p : vCard.getProperties(Id.EXTENDED)) {
-            assertNotNull(vCard.getExtendedProperty(p.extendedName));
+        for (Property p : vCard.getProperties(PropertyName.EXTENDED.toString())) {
+            assertNotNull(vCard.getProperty(p.getName()));
         }
-        assertNull(vCard.getExtendedProperty(null));
+        assertFalse(vCard.getProperty(null).isPresent());
     }
 
     @Test
@@ -119,23 +122,34 @@ public class VCardTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
 
-        params.add(new Object[] {new VCard(), 0});
-        
-        List<Property> props = new ArrayList<Property>();
+        params.add(new Object[]{new VCard(), 0});
+
+        List<Property> props = new ArrayList<>();
         props.add(new Source(URI.create("ldap://ldap.example.com/cn=Babs%20Jensen,%20o=Babsco,%20c=US")));
         props.add(new Name("Babs Jensen's Contact Information"));
-        props.add(Kind.INDIVIDUAL);
-        props.add(new Property("test") {
+        props.add(INDIVIDUAL);
+        props.add(new GroupProperty("TEST") {
             @Override
             public String getValue() {
                 return null;
             }
 
             @Override
-            public void validate() throws ValidationException {
+            public void setValue(String aValue) {
+
+            }
+
+            @Override
+            public ValidationResult validate() throws ValidationException {
+                return null;
+            }
+
+            @Override
+            protected PropertyFactory<?> newFactory() {
+                return null;
             }
         });
-        VCard vcard = new VCard(props);
+        VCard vcard = new VCard(new PropertyList(props));
         params.add(new Object[] {vcard, props.size()});
         
         return params;

@@ -34,17 +34,17 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Encodable;
 import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.ParameterSupport;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
+import java.util.Optional;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -56,8 +56,10 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  * Created on 21/09/2008
  *
  * @author Ben
+ * @deprecated the AGENT property was removed in vCard v4.0.
  */
-public final class Agent extends Property implements Encodable {
+@Deprecated
+public class Agent extends GroupProperty implements Encodable {
 
     private static final long serialVersionUID = 2670466615841142934L;
 
@@ -69,7 +71,7 @@ public final class Agent extends Property implements Encodable {
      * @param uri agent URI value
      */
     public Agent(URI uri) {
-        super(Id.AGENT);
+        super(PropertyName.AGENT);
         this.uri = uri;
     }
 
@@ -77,9 +79,9 @@ public final class Agent extends Property implements Encodable {
      * @param text agent text value
      */
     public Agent(String text) {
-        super(Id.AGENT);
+        super(PropertyName.AGENT);
         this.text = text;
-        getParameters().add(Value.TEXT);
+        add(Value.TEXT);
     }
 
     /**
@@ -89,12 +91,16 @@ public final class Agent extends Property implements Encodable {
      * @param value  string representation of an agent value
      * @throws URISyntaxException if the string value is an invalid URI
      */
-    public Agent(List<Parameter> params, String value) throws URISyntaxException {
-        super(Id.AGENT, params);
-        if (Value.TEXT.equals(getParameter(ParameterSupport.Id.VALUE.getPname()))) {
+    public Agent(ParameterList params, String value) {
+        super(PropertyName.AGENT, params);
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             this.text = value;
         } else {
-            this.uri = new URI(value);
+            try {
+                this.uri = new URI(value);
+            } catch (URISyntaxException e) {
+                throw new IllegalArgumentException(e);
+            }
         }
     }
 
@@ -117,17 +123,28 @@ public final class Agent extends Property implements Encodable {
      */
     @Override
     public String getValue() {
-        if (Value.TEXT.equals(getParameter(ParameterSupport.Id.VALUE.getPname()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             return text;
         }
         return Strings.valueOf(uri);
+    }
+
+    @Override
+    public void setValue(String aValue) throws IOException, URISyntaxException {
+        try {
+            this.uri = new URI(aValue);
+            this.text = null;
+        } catch (URISyntaxException e) {
+            this.text = aValue;
+            this.uri = null;
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         for (Parameter param : getParameters()) {
             try {
                 assertTextParameter(param);
@@ -135,24 +152,30 @@ public final class Agent extends Property implements Encodable {
                 assertPidParameter(param);
             }
         }
+        return null;
+    }
+
+    @Override
+    protected PropertyFactory<Agent> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<Agent> {
         public Factory() {
-            super(Id.AGENT.toString());
+            super(PropertyName.AGENT.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Agent createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
+        public Agent createProperty(final ParameterList params, final String value) throws URISyntaxException {
             return new Agent(params, unescape(value));
         }
 
         /**
          * {@inheritDoc}
          */
-        public Agent createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Agent createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

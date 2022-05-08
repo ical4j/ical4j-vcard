@@ -55,7 +55,7 @@ public final class Geo extends Parameter {
      * @param value string representation of a property value
      */
     public Geo(String value) {
-        super(ParameterName.GEO.getPname());
+        super(ParameterName.GEO.toString());
         this.value = value;
     }
 
@@ -69,7 +69,7 @@ public final class Geo extends Parameter {
 
     public static class Factory extends Content.Factory implements ParameterFactory<Geo> {
         public Factory() {
-            super(ParameterName.GEO.getPname());
+            super(ParameterName.GEO.toString());
         }
 
         public Geo createParameter(String value) {

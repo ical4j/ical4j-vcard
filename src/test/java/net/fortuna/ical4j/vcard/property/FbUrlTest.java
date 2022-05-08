@@ -32,8 +32,8 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import org.junit.runners.Parameterized.Parameters;
@@ -53,11 +53,11 @@ public class FbUrlTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
         String fburlString = "FTP://ftp.example.com/busy/project-a.ifb";
-        params.add(new Object[] { new FbUrl(URI.create(fburlString)),
-                Id.FBURL.toString(), fburlString, new Parameter[] {}, });
+        params.add(new Object[]{new FbUrl(URI.create(fburlString)),
+                PropertyName.FBURL.toString(), fburlString, new Parameter[]{},});
         fburlString = "http://www.example.com/busy/janedoe";
-        params.add(new Object[] { new FbUrl(URI.create(fburlString), Type.PREF),
-                Id.FBURL.toString(), fburlString, new Parameter[] { Type.PREF }, });
+        params.add(new Object[]{new FbUrl(URI.create(fburlString), Type.PREF),
+                PropertyName.FBURL.toString(), fburlString, new Parameter[]{Type.PREF},});
         return params;
     }
 

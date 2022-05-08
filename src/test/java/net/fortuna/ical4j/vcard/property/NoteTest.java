@@ -32,8 +32,8 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import org.junit.runners.Parameterized.Parameters;
 
@@ -50,9 +50,9 @@ public class NoteTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { new Note(""), Id.NOTE.toString(), "", new Parameter[] {} });
-        params.add(new Object[] { new Note("This fax number is operational 0800 to 1715 EST, Mon-Fri."),
-                Id.NOTE.toString(), "This fax number is operational 0800 to 1715 EST, Mon-Fri.", new Parameter[] {} });
+        params.add(new Object[]{new Note(""), PropertyName.NOTE.toString(), "", new Parameter[]{}});
+        params.add(new Object[]{new Note("This fax number is operational 0800 to 1715 EST, Mon-Fri."),
+                PropertyName.NOTE.toString(), "This fax number is operational 0800 to 1715 EST, Mon-Fri.", new Parameter[]{}});
         return params;
     }
 

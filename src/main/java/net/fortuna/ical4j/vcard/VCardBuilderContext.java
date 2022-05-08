@@ -1,7 +1,5 @@
 package net.fortuna.ical4j.vcard;
 
-import net.fortuna.ical4j.model.PropertyFactory;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
@@ -13,7 +11,7 @@ public class VCardBuilderContext {
 
     private Supplier<List<ParameterFactory<?>>> parameterFactorySupplier = new VCardParameterFactorySupplier();
 
-    private Supplier<List<PropertyFactory<?>>> propertyFactorySupplier = null;
+    private Supplier<List<PropertyFactory<?>>> propertyFactorySupplier = new VCardPropertyFactorySupplier();
 
     private List<String> ignoredPropertyNames = Collections.emptyList();
 

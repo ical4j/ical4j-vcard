@@ -33,13 +33,17 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.model.TextList;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 
-import java.util.List;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  * CATEGORIES property.
@@ -50,17 +54,17 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Categories extends Property {
+public class Categories extends GroupProperty {
 
     private static final long serialVersionUID = -3233034210546002366L;
 
-    private final TextList categories;
+    private TextList categories;
 
     /**
      * @param categories one or more category values
      */
     public Categories(String... categories) {
-        super(Id.CATEGORIES);
+        super(PropertyName.CATEGORIES);
         if (categories.length == 0) {
             throw new IllegalArgumentException("Must specify at least category value");
         }
@@ -73,8 +77,8 @@ public final class Categories extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Categories(List<Parameter> params, String value) {
-        super(Id.CATEGORIES);
+    public Categories(ParameterList params, String value) {
+        super(PropertyName.CATEGORIES);
         this.categories = new TextList(value);
     }
 
@@ -103,11 +107,16 @@ public final class Categories extends Property {
         return categories.toString();
     }
 
+    @Override
+    public void setValue(String aValue) throws IOException, URISyntaxException {
+        this.categories = new TextList(aValue);
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // ; Text parameters allowed
         for (Parameter param : getParameters()) {
             try {
@@ -116,24 +125,35 @@ public final class Categories extends Property {
                 assertPidParameter(param);
             }
         }
+        return ValidationResult.EMPTY;
+    }
+
+    @Override
+    protected PropertyFactory<Categories> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<Categories> {
         public Factory() {
-            super(Id.CATEGORIES.toString());
+            super(PropertyName.CATEGORIES.toString());
+        }
+
+        @Override
+        public Categories createProperty() {
+            return new Categories();
         }
 
         /**
          * {@inheritDoc}
          */
-        public Categories createProperty(final List<Parameter> params, final String value) {
+        public Categories createProperty(final ParameterList params, final String value) {
             return new Categories(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Categories createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Categories createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

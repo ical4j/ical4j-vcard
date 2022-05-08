@@ -39,9 +39,9 @@ import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.property.immutable.ImmutableKind;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.*;
 
 /**
  * KIND property.
@@ -74,7 +74,12 @@ public class Kind extends GroupProperty {
      */
     public Kind(ParameterList params, String value) {
         super(PropertyName.KIND, params);
-        this.value = value;
+        setValue(value);
+    }
+
+    public Kind(Group group, ParameterList parameters, String value) {
+        super(group, PropertyName.KIND, parameters);
+        setValue(value);
     }
 
     /**
@@ -86,7 +91,7 @@ public class Kind extends GroupProperty {
     }
 
     @Override
-    public void setValue(String aValue) throws IOException, URISyntaxException {
+    public void setValue(String aValue) {
         this.value = aValue;
     }
 
@@ -97,7 +102,7 @@ public class Kind extends GroupProperty {
     public ValidationResult validate() throws ValidationException {
         // ; No parameters allowed
         assertParametersEmpty();
-        return null;
+        return ValidationResult.EMPTY;
     }
 
     @Override
@@ -114,6 +119,19 @@ public class Kind extends GroupProperty {
          * {@inheritDoc}
          */
         public Kind createProperty(final ParameterList params, final String value) {
+            if (params.getAll().isEmpty()) {
+                if (GROUP.getValue().equalsIgnoreCase(value)) {
+                    return GROUP;
+                } else if (INDIVIDUAL.getValue().equalsIgnoreCase(value)) {
+                    return INDIVIDUAL;
+                } else if (ORG.getValue().equalsIgnoreCase(value)) {
+                    return ORG;
+                } else if (ImmutableKind.LOCATION.getValue().equalsIgnoreCase(value)) {
+                    return ImmutableKind.LOCATION;
+                } else if (THING.getValue().equalsIgnoreCase(value)) {
+                    return THING;
+                }
+            }
             return new Kind(params, value);
         }
 
@@ -121,8 +139,7 @@ public class Kind extends GroupProperty {
          * {@inheritDoc}
          */
         public Kind createProperty(final Group group, final ParameterList params, final String value) {
-            // TODO Auto-generated method stub
-            return null;
+            return new Kind(group, params, value);
         }
     }
 }

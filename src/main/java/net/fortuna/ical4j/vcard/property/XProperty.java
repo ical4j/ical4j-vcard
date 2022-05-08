@@ -1,36 +1,39 @@
 package net.fortuna.ical4j.vcard.property;
 
-import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.PropertyFactory;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.GroupProperty;
 
-import java.util.List;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  * Created by fortuna on 1/10/14.
  */
-public class XProperty extends Property {
+public class XProperty extends GroupProperty {
 
-    private final String value;
+    private String value;
 
-    public XProperty(String extendedName, String value) {
-        super(extendedName);
+    public XProperty(String name, String value) {
+        super(name);
         this.value = value;
     }
 
-    public XProperty(Group group, String extendedName, String value) {
-        super(group, extendedName);
+    public XProperty(Group group, String name, String value) {
+        super(group, name);
         this.value = value;
     }
 
-    public XProperty(String extendedName, List<Parameter> parameters, String value) {
-        super(extendedName, parameters);
+    public XProperty(String name, ParameterList parameters, String value) {
+        super(name, parameters);
         this.value = value;
     }
 
-    public XProperty(Group group, String extendedName, List<Parameter> parameters, String value) {
-        super(group, extendedName, parameters);
+    public XProperty(Group group, String name, ParameterList parameters, String value) {
+        super(group, name, parameters);
         this.value = value;
     }
 
@@ -40,7 +43,17 @@ public class XProperty extends Property {
     }
 
     @Override
-    public void validate() throws ValidationException {
+    public void setValue(String aValue) throws IOException, URISyntaxException {
+        this.value = aValue;
+    }
 
+    @Override
+    public ValidationResult validate() throws ValidationException {
+        return ValidationResult.EMPTY;
+    }
+
+    @Override
+    protected PropertyFactory<XProperty> newFactory() {
+        throw new UnsupportedOperationException("Factory not supported for custom properties");
     }
 }

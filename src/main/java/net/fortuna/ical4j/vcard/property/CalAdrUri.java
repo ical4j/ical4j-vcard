@@ -32,17 +32,18 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 /**
  * CALADRURI property.
@@ -53,21 +54,21 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class CalAdrUri extends Property {
+public class CalAdrUri extends GroupProperty {
 
     private static final long serialVersionUID = -6507220241297111022L;
 
-    private final URI uri;
+    private URI uri;
 
     /**
      * @param uri   calendar URI
      * @param types options calendar types
      */
     public CalAdrUri(URI uri, Type... types) {
-        super(Id.CALADRURI);
+        super(PropertyName.CALADRURI);
         this.uri = uri;
         for (Type type : types) {
-            getParameters().add(type);
+            add(type);
         }
     }
 
@@ -76,9 +77,9 @@ public final class CalAdrUri extends Property {
      * @param value  string representation of a property value
      * @throws URISyntaxException where the specified value is not a valid URI
      */
-    public CalAdrUri(List<Parameter> params, String value) throws URISyntaxException {
-        super(Id.CALADRURI);
-        this.uri = new URI(value);
+    public CalAdrUri(ParameterList params, String value) {
+        super(PropertyName.CALADRURI, params);
+        setValue(value);
     }
 
     /**
@@ -96,33 +97,44 @@ public final class CalAdrUri extends Property {
         return Strings.valueOf(uri);
     }
 
+    @Override
+    public void setValue(String aValue) {
+        try {
+            this.uri = new URI(aValue);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        // TODO Auto-generated method stub
+    public ValidationResult validate() throws ValidationException {
+        return ValidationResult.EMPTY;
+    }
 
+    @Override
+    protected PropertyFactory<CalAdrUri> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<CalAdrUri> {
         public Factory() {
-            super(Id.CALADRURI.toString());
+            super(PropertyName.CALADRURI.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public CalAdrUri createProperty(final List<Parameter> params, final String value)
-                throws URISyntaxException {
-
+        public CalAdrUri createProperty(final ParameterList params, final String value) {
             return new CalAdrUri(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public CalAdrUri createProperty(final Group group, final List<Parameter> params, final String value) {
+        public CalAdrUri createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

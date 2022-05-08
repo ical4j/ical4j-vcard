@@ -31,9 +31,9 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.property.Org;
-import net.fortuna.ical4j.vcard.property.Version;
 import org.apache.commons.codec.DecoderException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,6 +47,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion.VERSION_4_0;
 
 @RunWith(Parameterized.class)
 public class PropertyFactoryRegistryTest {
@@ -83,26 +84,26 @@ public class PropertyFactoryRegistryTest {
      */
     @Test
     public void testGetFactoryCreateProperty() throws URISyntaxException, ParseException, DecoderException {
-        PropertyFactory<? extends Property> factory = registry.getFactory(propertyName);
+        PropertyFactory<? extends GroupProperty> factory = registry.getFactory(propertyName);
         if (group != null) {
-            assertEquals(expectedProperty, factory.createProperty(group, new ArrayList<Parameter>(), propertyValue));
+            assertEquals(expectedProperty, factory.createProperty(group, new ParameterList(), propertyValue));
         }
         else {
-            assertEquals(expectedProperty, factory.createProperty(new ArrayList<Parameter>(), propertyValue));
+            assertEquals(expectedProperty, factory.createProperty(new ParameterList(), propertyValue));
         }
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        
+
         PropertyFactoryRegistry registry = new PropertyFactoryRegistry();
-        params.add(new Object[] {registry, null, Version.VERSION_4_0.getId().toString(),
-                Version.VERSION_4_0.getValue(), Version.VERSION_4_0});
-        
+        params.add(new Object[]{registry, null, VERSION_4_0.getId().toString(),
+                VERSION_4_0.getValue(), VERSION_4_0});
+
         Org org = new Org(Group.WORK, "iCal4j");
-        params.add(new Object[] {registry, org.getGroup(), org.getId().toString(), org.getValue(), org});
-        
+        params.add(new Object[]{registry, org.getGroup(), org.getId().toString(), org.getValue(), org});
+
         return params;
     }
 }

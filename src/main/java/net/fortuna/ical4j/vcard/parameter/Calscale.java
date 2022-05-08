@@ -55,7 +55,7 @@ public final class Calscale extends Parameter {
      * @param value string representation of a property value
      */
     public Calscale(String value) {
-        super(ParameterName.CALSCALE.getPname());
+        super(ParameterName.CALSCALE.toString());
         this.value = value;
     }
 
@@ -69,7 +69,7 @@ public final class Calscale extends Parameter {
 
     public static class Factory extends Content.Factory implements ParameterFactory<Calscale> {
         public Factory() {
-            super(ParameterName.CALSCALE.getPname());
+            super(ParameterName.CALSCALE.toString());
         }
 
         public Calscale createParameter(String value) {

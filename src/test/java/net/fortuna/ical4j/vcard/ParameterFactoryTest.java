@@ -94,7 +94,7 @@ public class ParameterFactoryTest {
 
             @Override
             public boolean supports(String id) {
-                return ParameterSupport.Id.valueOf(id) == ParameterSupport.Id.EXTENDED;
+                return ParameterName.valueOf(id) == ParameterName.EXTENDED;
             }
         };
 

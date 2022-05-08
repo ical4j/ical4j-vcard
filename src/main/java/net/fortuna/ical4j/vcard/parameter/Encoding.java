@@ -60,7 +60,7 @@ public final class Encoding extends Parameter {
      * @param value encoding parameter value
      */
     public Encoding(String value) {
-        super(ParameterName.ENCODING.getPname());
+        super(ParameterName.ENCODING.toString());
         this.value = value;
     }
 
@@ -74,7 +74,7 @@ public final class Encoding extends Parameter {
 
     public static class Factory extends Content.Factory implements ParameterFactory<Encoding> {
         public Factory() {
-            super(ParameterName.ENCODING.getPname());
+            super(ParameterName.ENCODING.toString());
         }
 
         public Encoding createParameter(String value) {

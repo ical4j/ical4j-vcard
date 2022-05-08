@@ -33,7 +33,8 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import org.junit.Test;
 import org.junit.runners.Parameterized.Parameters;
@@ -67,8 +68,8 @@ public class RevisionTest extends PropertyTest {
     public static Collection<Object[]> parameters() throws ParseException {
         final List<Object[]> params = new ArrayList<Object[]>();
         Date date = new Date(0);
-        params.add(new Object[] { new Revision(date), Id.REV.toString(), "19700101", new Parameter[] {}, date });
-        params.add(new Object[]{new Revision(new ArrayList<>(), "19700101"), Id.REV.toString(), "19700101",
+        params.add(new Object[]{new Revision(date), PropertyName.REV.toString(), "19700101", new Parameter[]{}, date});
+        params.add(new Object[]{new Revision(new ParameterList(), "19700101"), PropertyName.REV.toString(), "19700101",
                 new Parameter[]{}, date});
         return params;
     }

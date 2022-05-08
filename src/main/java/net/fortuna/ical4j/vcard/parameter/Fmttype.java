@@ -61,7 +61,7 @@ public final class Fmttype extends Parameter {
      * @param value string representation of a property value
      */
     public Fmttype(String value) throws ParseException {
-        super(ParameterName.FMTTYPE.getPname());
+        super(ParameterName.FMTTYPE.toString());
         this.value = value;
         final String[] segments = value.split("/", -1);
 
@@ -97,7 +97,7 @@ public final class Fmttype extends Parameter {
 
     public static class Factory extends Content.Factory implements ParameterFactory<Fmttype> {
         public Factory() {
-            super(ParameterName.FMTTYPE.getPname());
+            super(ParameterName.FMTTYPE.toString());
         }
 
         public Fmttype createParameter(String value) {

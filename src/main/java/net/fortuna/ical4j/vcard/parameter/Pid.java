@@ -66,7 +66,7 @@ public final class Pid extends Parameter {
      * @param pid integer representation of a PID
      */
     public Pid(Integer pid) {
-        super(ParameterName.PID.getPname());
+        super(ParameterName.PID.toString());
         this.pid = pid;
     }
 
@@ -87,7 +87,7 @@ public final class Pid extends Parameter {
 
     public static class Factory extends Content.Factory implements ParameterFactory<Pid> {
         public Factory() {
-            super(ParameterName.PID.getPname());
+            super(ParameterName.PID.toString());
         }
 
         public Pid createParameter(String value) {

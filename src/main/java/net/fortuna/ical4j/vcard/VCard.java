@@ -31,147 +31,98 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.model.PropertyContainer;
+import net.fortuna.ical4j.model.PropertyList;
 import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.validate.ValidationEntry;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.Property.Id;
-import net.fortuna.ical4j.vcard.property.Kind;
+import net.fortuna.ical4j.validate.ValidationResult;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.GROUP;
 
 /**
  * vCard object.
- *
+ * <p>
  * $Id$
- *
+ * <p>
  * Created on 21/08/2008
  *
  * @author Ben
- *
  */
-public final class VCard implements Serializable {
+public class VCard implements Serializable, PropertyContainer {
 
     /**
      *
      */
     private static final long serialVersionUID = -4784034340843199392L;
 
-    private final List<Property> properties;
+    private PropertyList properties;
 
     /**
      * Default constructor.
      */
     public VCard() {
-        this(new ArrayList<Property>());
+        this(new PropertyList());
     }
 
     /**
      * @param properties a list of properties
      */
-    public VCard(List<Property> properties) {
-        this.properties = new CopyOnWriteArrayList<>(properties);
+    public VCard(PropertyList properties) {
+        this.properties = properties;
     }
 
     /**
      * Returns a reference to the list of properties for the VCard instance. Note that
      * any changes to this list are reflected in the VCard object list.
+     *
      * @return the properties
      */
-    public List<Property> getProperties() {
+    public PropertyList getPropertyList() {
         return properties;
     }
 
-    /**
-     * Returns a list of properties for the VCard instance with a matching identifier. Any modifications
-     * to this list will not affect the list referenced by the VCard instance.
-     * @param id a property identifier
-     * @return a list of properties matching the specified identifier
-     */
-    public List<Property> getProperties(final Id id) {
-        final List<Property> matches = new ArrayList<>();
-        for (Property p : properties) {
-            if (p.getId().equals(id)) {
-                matches.add(p);
-            }
-        }
-        return Collections.unmodifiableList(matches);
-    }
-
-    /**
-     * Returns the first property found matching the specified identifier.
-     * @param id a property identifier
-     * @return the first matching property, or null if no properties match
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends Property> T getProperty(final Id id) {
-        for (Property p : properties) {
-            if (p.getId().equals(id)) {
-                return (T) p;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Returns a list of non-standard properties for the VCard instance with a matching name. Any modifications
-     * to this list will not affect the list referenced by the VCard instance.
-     * @param name a non-standard property name
-     * @return a list of non-standard properties matching the specified name
-     */
-    public List<Property> getExtendedProperties(final String name) {
-        final List<Property> matches = new ArrayList<>();
-        for (Property p : properties) {
-            if (p.getId().equals(Id.EXTENDED) && p.extendedName.equals(name)) {
-                matches.add(p);
-            }
-        }
-        return Collections.unmodifiableList(matches);
-    }
-
-    /**
-     * Returns the first non-standard property found matching the specified name.
-     * @param name a non-standard property name
-     * @return the first matching property, or null if no properties match
-     */
-    public Property getExtendedProperty(final String name) {
-        for (Property p : properties) {
-            if (p.getId().equals(Id.EXTENDED) && p.extendedName.equals(name)) {
-                return p;
-            }
-        }
-        return null;
+    @Override
+    public void setPropertyList(PropertyList properties) {
+        this.properties = properties;
     }
 
     /**
      * @throws ValidationException where validation fails
      */
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
+        ValidationResult result = new ValidationResult();
+
         // ;A vCard object MUST include the VERSION and FN properties.
-        assertOne(Property.Id.VERSION);
-        assertOne(Property.Id.FN);
+        assertOne(PropertyName.VERSION);
+        assertOne(PropertyName.FN);
         //assertOne(Property.Id.N);
-        
+
         boolean isKindGroup = false;
-        
-        final List<Property> properties = getProperties(Id.KIND);
+
+        final List<Property> properties = getProperties(PropertyName.KIND.toString());
         if (properties.size() > 1) {
-            throw new ValidationException("Property [" + Id.KIND + "] must be specified zero or once");
+            result.getEntries().add(new ValidationEntry("Property [" + PropertyName.KIND + "] must be specified zero or once",
+                    ValidationEntry.Severity.ERROR, "VCARD"));
         } else if (properties.size() == 1) {
-        	isKindGroup = properties.iterator().next().getValue().equals(Kind.GROUP.getValue());
+            isKindGroup = properties.iterator().next().getValue().equals(GROUP.getValue());
         }
 
         for (Property property : getProperties()) {
-            if (!isKindGroup && (property.getId().equals(Id.MEMBER))) {
-                throw new ValidationException("Property [" + Id.MEMBER + 
-                		"] can only be specified if the KIND property value is \"group\".");
+            if (!isKindGroup && (property.getName().equals(PropertyName.MEMBER.toString()))) {
+                result.getEntries().add(new ValidationEntry("Property [" + PropertyName.MEMBER +
+                        "] can only be specified if the KIND property value is \"group\".",
+                        ValidationEntry.Severity.ERROR, "VCARD"));
             }
-            property.validate();
+            result.merge(property.validate());
         }
+        return result;
     }
 
 
@@ -179,8 +130,8 @@ public final class VCard implements Serializable {
      * @param propertyId
      * @throws ValidationException
      */
-    private void assertOne(final Property.Id propertyId) throws ValidationException {
-        final List<Property> properties = getProperties(propertyId);
+    private void assertOne(final PropertyName propertyId) throws ValidationException {
+        final List<Property> properties = getProperties(propertyId.toString());
         if (properties.size() != 1) {
             throw new ValidationException("Property [" + propertyId + "] must be specified once");
         }
@@ -191,15 +142,8 @@ public final class VCard implements Serializable {
      */
     @Override
     public String toString() {
-        final StringBuilder b = new StringBuilder();
-        b.append("BEGIN:VCARD");
-        b.append(Strings.LINE_SEPARATOR);
-        for (Property prop : properties) {
-            b.append(prop);
-        }
-        b.append("END:VCARD");
-        b.append(Strings.LINE_SEPARATOR);
-        return b.toString();
+        return "BEGIN:VCARD" + Strings.LINE_SEPARATOR + properties + "END:VCARD" +
+                Strings.LINE_SEPARATOR;
     }
 
     @Override

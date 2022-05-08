@@ -62,6 +62,9 @@ public final class Value extends Parameter {
      */
     public static final Value URI = new Value("uri");
 
+    @Deprecated
+    public static final Value URL = new Value("URL");
+
     /**
      * Date value parameter.
      */
@@ -129,7 +132,7 @@ public final class Value extends Parameter {
      * @param value string representation of a value parameter
      */
     public Value(String value) {
-        super(ParameterName.VALUE.getPname());
+        super(ParameterName.VALUE.toString());
         this.value = value;
     }
 
@@ -143,7 +146,7 @@ public final class Value extends Parameter {
 
     public static class Factory extends Content.Factory implements ParameterFactory<Value> {
         public Factory() {
-            super(ParameterName.VALUE.getPname());
+            super(ParameterName.VALUE.toString());
         }
 
         public Value createParameter(String value) {

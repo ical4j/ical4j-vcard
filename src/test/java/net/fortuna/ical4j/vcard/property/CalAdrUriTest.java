@@ -32,8 +32,8 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.Property.Id;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import org.junit.runners.Parameterized.Parameters;
@@ -53,11 +53,11 @@ public class CalAdrUriTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
         String uriString = "http://example.com/calendar/jdoe";
-        params.add(new Object[] { new CalAdrUri(URI.create(uriString)),
-                Id.CALADRURI.toString(), uriString, new Parameter[] {}, });
+        params.add(new Object[]{new CalAdrUri(URI.create(uriString)),
+                PropertyName.CALADRURI.toString(), uriString, new Parameter[]{},});
         uriString = "mailto:janedoe@example.com";
-        params.add(new Object[] { new CalAdrUri(URI.create(uriString), Type.PREF),
-                Id.CALADRURI.toString(), uriString, new Parameter[] { Type.PREF }, });
+        params.add(new Object[]{new CalAdrUri(URI.create(uriString), Type.PREF),
+                PropertyName.CALADRURI.toString(), uriString, new Parameter[]{Type.PREF},});
         return params;
     }
 }

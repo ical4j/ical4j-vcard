@@ -32,9 +32,9 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.net.QuotedPrintableCodec;
@@ -94,16 +94,17 @@ public class DirkTest {
         PropertyFactoryRegistry propReg = new PropertyFactoryRegistry();
         ParameterFactoryRegistry parReg = new ParameterFactoryRegistry();
 
-		/*
+        /*
          * The custom registry allows the file to be parsed correctly. It's the
-		 * first workaround for the Outlook problem.
-		 */
+         * first workaround for the Outlook problem.
+         */
         VCardBuilder builder =
                 new VCardBuilder(reader, groupRegistry, propReg, parReg);
 
         VCard card = builder.build();
-        assertEquals("Dirk", card.getProperty(Id.FN).getValue());
-        assertEquals("The canonical Dirk\r\n", getDecodedPropertyalue(card.getProperty(Id.NOTE)));
+        assertEquals("Dirk", card.getRequiredProperty(PropertyName.FN.toString()).getValue());
+        assertEquals("The canonical Dirk\r\n",
+                getDecodedPropertyalue(card.getRequiredProperty(PropertyName.NOTE.toString())));
     }
 
     /**
@@ -112,7 +113,7 @@ public class DirkTest {
      * @throws DecoderException
      */
     private String getDecodedPropertyalue(Property prop) throws DecoderException {
-        Encoding enc = (Encoding) prop.getParameter(ParameterSupport.Id.ENCODING.getPname());
+        Encoding enc = (Encoding) prop.getRequiredParameter(ParameterName.ENCODING.toString());
         String val = prop.getValue();
         if (enc != null && enc.getValue().equalsIgnoreCase("QUOTED-PRINTABLE")) {
 			

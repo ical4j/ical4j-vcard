@@ -39,7 +39,9 @@ import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.property.immutable.ImmutableGender;
+
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.FEMALE;
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.MALE;
 
 /**
  * GENDER property.
@@ -72,7 +74,12 @@ public class Gender extends GroupProperty {
      */
     private Gender(ParameterList params, String value) {
         super(PropertyName.GENDER, params);
-        this.value = value;
+        setValue(value);
+    }
+
+    public Gender(Group group, ParameterList parameters, String value) {
+        super(group, PropertyName.GENDER, parameters);
+        setValue(value);
     }
 
     /**
@@ -93,9 +100,7 @@ public class Gender extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // TODO Auto-generated method stub
-
-        return null;
+        return ValidationResult.EMPTY;
     }
 
     @Override
@@ -112,23 +117,21 @@ public class Gender extends GroupProperty {
          * {@inheritDoc}
          */
         public Gender createProperty(final ParameterList params, final String value) {
-            Gender property = null;
-            if (ImmutableGender.FEMALE.getValue().equals(value)) {
-                property = ImmutableGender.FEMALE;
-            } else if (ImmutableGender.MALE.getValue().equals(value)) {
-                property = ImmutableGender.MALE;
-            } else {
-                property = new Gender(value);
+            if (params.getAll().isEmpty()) {
+                if (FEMALE.getValue().equalsIgnoreCase(value)) {
+                    return FEMALE;
+                } else if (MALE.getValue().equalsIgnoreCase(value)) {
+                    return MALE;
+                }
             }
-            return property;
+            return new Gender(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
         public Gender createProperty(final Group group, final ParameterList params, final String value) {
-            // TODO Auto-generated method stub
-            return null;
+            return new Gender(group, params, value);
         }
     }
 }

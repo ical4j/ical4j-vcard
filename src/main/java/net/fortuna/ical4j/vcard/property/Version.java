@@ -39,7 +39,8 @@ import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion;
+
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion.VERSION_4_0;
 
 /**
  * VERSION property.
@@ -72,7 +73,12 @@ public class Version extends GroupProperty {
      */
     private Version(ParameterList params, String value) {
         super(PropertyName.VERSION, params);
-        this.value = value;
+        setValue(value);
+    }
+
+    public Version(Group group, ParameterList parameters, String value) {
+        super(group, PropertyName.VERSION, parameters);
+        setValue(value);
     }
 
     /**
@@ -95,7 +101,7 @@ public class Version extends GroupProperty {
     public ValidationResult validate() throws ValidationException {
         // ; No parameters allowed
         assertParametersEmpty();
-        return null;
+        return ValidationResult.EMPTY;
     }
 
     @Override
@@ -112,18 +118,19 @@ public class Version extends GroupProperty {
          * {@inheritDoc}
          */
         public Version createProperty(final ParameterList params, final String value) {
-            if (ImmutableVersion.VERSION_4_0.getValue().equals(value)) {
-                return ImmutableVersion.VERSION_4_0;
+            if (params.getAll().isEmpty()) {
+                if (VERSION_4_0.getValue().equalsIgnoreCase(value)) {
+                    return VERSION_4_0;
+                }
             }
-            return new Version(value);
+            return new Version(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
         public Version createProperty(final Group group, final ParameterList params, final String value) {
-            // TODO Auto-generated method stub
-            return null;
+            return new Version(group, params, value);
         }
     }
 }

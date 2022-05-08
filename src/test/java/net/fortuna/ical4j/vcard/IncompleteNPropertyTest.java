@@ -32,9 +32,9 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.property.N;
 import org.apache.commons.codec.DecoderException;
@@ -95,7 +95,7 @@ public class IncompleteNPropertyTest {
                 new VCardBuilder(reader, groupRegistry, propReg, parReg);
 
         VCard card = builder.build();
-        N n = (N) card.getProperty(Id.N);
+        N n = card.getRequiredProperty(PropertyName.N.toString());
         assertEquals("Mylka", n.getFamilyName());
         assertEquals("Antoni", n.getGivenName());
         Assert.assertArrayEquals(new String[]{""}, n.getAdditionalNames());
@@ -109,7 +109,7 @@ public class IncompleteNPropertyTest {
      * @throws DecoderException
      */
     private String getDecodedPropertyalue(Property prop) throws DecoderException {
-        Encoding enc = (Encoding) prop.getParameter(ParameterSupport.Id.ENCODING.getPname());
+        Encoding enc = prop.getRequiredParameter(ParameterName.ENCODING.toString());
         String val = prop.getValue();
         if (enc != null && enc.getValue().equalsIgnoreCase("QUOTED-PRINTABLE")) {
 			

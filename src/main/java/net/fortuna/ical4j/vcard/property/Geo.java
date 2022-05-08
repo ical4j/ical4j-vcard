@@ -32,15 +32,18 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Property;
+import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 
+import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.List;
+import java.net.URISyntaxException;
 
 /**
  * GEO property.
@@ -51,7 +54,7 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Geo extends Property {
+public class Geo extends GroupProperty {
 
     private static final long serialVersionUID = 1533383111522264554L;
 
@@ -66,7 +69,7 @@ public final class Geo extends Property {
      * @param longitude a longitude value
      */
     public Geo(BigDecimal latitude, BigDecimal longitude) {
-        super(Id.GEO);
+        super(PropertyName.GEO);
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -77,7 +80,7 @@ public final class Geo extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Geo(List<Parameter> params, String value) {
+    public Geo(ParameterList params, String value) {
         this(null, params, value);
     }
 
@@ -88,8 +91,8 @@ public final class Geo extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Geo(Group group, List<Parameter> params, String value) {
-        super(group, Id.GEO, params);
+    public Geo(Group group, ParameterList params, String value) {
+        super(group, PropertyName.GEO, params);
         // Allow comma as a separator if relaxed parsing enabled..
         String[] components = null;
         if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
@@ -107,6 +110,11 @@ public final class Geo extends Property {
     @Override
     public String getValue() {
         return getLatitude() + DELIMITER + getLongitude();
+    }
+
+    @Override
+    public void setValue(String aValue) throws IOException, URISyntaxException {
+
     }
 
     /**
@@ -127,27 +135,33 @@ public final class Geo extends Property {
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // ; No parameters allowed
         assertParametersEmpty();
+        return ValidationResult.EMPTY;
+    }
+
+    @Override
+    protected PropertyFactory<Geo> newFactory() {
+        return new Factory();
     }
 
     public static class Factory extends Content.Factory implements PropertyFactory<Geo> {
         public Factory() {
-            super(Id.GEO.toString());
+            super(PropertyName.GEO.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Geo createProperty(final List<Parameter> params, final String value) {
+        public Geo createProperty(final ParameterList params, final String value) {
             return new Geo(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Geo createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Geo createProperty(final Group group, final ParameterList params, final String value) {
             return new Geo(group, params, value);
         }
     }
