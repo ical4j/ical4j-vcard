@@ -38,8 +38,6 @@ import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.text.MessageFormat;
 
 /**
@@ -104,7 +102,7 @@ public class Email extends GroupProperty {
     }
 
     @Override
-    public void setValue(String aValue) throws IOException, URISyntaxException {
+    public void setValue(String aValue) {
         this.value = aValue;
     }
 

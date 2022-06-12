@@ -41,7 +41,6 @@ import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
@@ -90,15 +89,10 @@ public class Related extends GroupProperty {
      *
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws URISyntaxException if the specified URI value is not a valid URI
      */
-    public Related(ParameterList params, String value) throws URISyntaxException {
+    public Related(ParameterList params, String value) {
         super(PropertyName.RELATED, params);
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
-            this.text = value;
-        } else {
-            this.uri = new URI(value);
-        }
+        setValue(value);
     }
 
     /**
@@ -120,8 +114,16 @@ public class Related extends GroupProperty {
     }
 
     @Override
-    public void setValue(String aValue) throws IOException, URISyntaxException {
-
+    public void setValue(String value) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
+            this.text = value;
+        } else {
+            try {
+                this.uri = new URI(value);
+            } catch (URISyntaxException e) {
+                throw new IllegalArgumentException(e);
+            }
+        }
     }
 
     /**
@@ -152,7 +154,7 @@ public class Related extends GroupProperty {
         /**
          * {@inheritDoc}
          */
-        public Related createProperty(final ParameterList params, final String value) throws URISyntaxException {
+        public Related createProperty(final ParameterList params, final String value) {
             return new Related(params, value);
         }
 

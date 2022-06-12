@@ -77,11 +77,10 @@ public class CalUri extends GroupProperty {
      *
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws URISyntaxException where the specified string value is not a valid URI
      */
-    public CalUri(ParameterList params, String value) throws URISyntaxException {
+    public CalUri(ParameterList params, String value) {
         super(PropertyName.CALURI);
-        this.uri = new URI(value);
+        setValue(value);
     }
 
     /**
@@ -100,8 +99,12 @@ public class CalUri extends GroupProperty {
     }
 
     @Override
-    public void setValue(String aValue) throws URISyntaxException {
-        this.uri = new URI(aValue);
+    public void setValue(String aValue) {
+        try {
+            this.uri = new URI(aValue);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     /**
@@ -125,7 +128,7 @@ public class CalUri extends GroupProperty {
         /**
          * {@inheritDoc}
          */
-        public CalUri createProperty(final ParameterList params, final String value) throws URISyntaxException {
+        public CalUri createProperty(final ParameterList params, final String value) {
             return new CalUri(params, value);
         }
 

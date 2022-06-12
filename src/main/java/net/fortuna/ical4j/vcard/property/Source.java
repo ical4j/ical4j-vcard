@@ -70,11 +70,10 @@ public class Source extends GroupProperty {
      *
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws URISyntaxException where the specified string is not a valid URI
      */
-    public Source(ParameterList params, String value) throws URISyntaxException {
+    public Source(ParameterList params, String value) {
         super(PropertyName.SOURCE, params);
-        this.uri = new URI(value);
+        setValue(value);
     }
 
     /**
@@ -93,8 +92,12 @@ public class Source extends GroupProperty {
     }
 
     @Override
-    public void setValue(String value) throws URISyntaxException {
-        this.uri = new URI(value);
+    public void setValue(String value) {
+        try {
+            this.uri = new URI(value);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     /**
@@ -125,7 +128,7 @@ public class Source extends GroupProperty {
         /**
          * {@inheritDoc}
          */
-        public Source createProperty(final ParameterList params, final String value) throws URISyntaxException {
+        public Source createProperty(final ParameterList params, final String value) {
             return new Source(params, value);
         }
 

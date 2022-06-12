@@ -7,9 +7,6 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.GroupProperty;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 /**
  * Created by fortuna on 1/10/14.
  */
@@ -43,7 +40,7 @@ public class XProperty extends GroupProperty {
     }
 
     @Override
-    public void setValue(String aValue) throws IOException, URISyntaxException {
+    public void setValue(String aValue) {
         this.value = aValue;
     }
 

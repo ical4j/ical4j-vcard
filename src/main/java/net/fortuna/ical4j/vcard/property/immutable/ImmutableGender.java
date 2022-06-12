@@ -1,9 +1,9 @@
 package net.fortuna.ical4j.vcard.property.immutable;
 
-import net.fortuna.ical4j.model.ImmutableContent;
+import net.fortuna.ical4j.model.property.immutable.ImmutableProperty;
 import net.fortuna.ical4j.vcard.property.Gender;
 
-public class ImmutableGender extends Gender implements ImmutableContent {
+public class ImmutableGender extends Gender implements ImmutableProperty {
 
     /**
      * Standard gender.
@@ -16,10 +16,5 @@ public class ImmutableGender extends Gender implements ImmutableContent {
 
     public ImmutableGender(String value) {
         super(value);
-    }
-
-    @Override
-    public void setValue(String aValue) {
-        throwException();
     }
 }

@@ -77,11 +77,10 @@ public class FbUrl extends GroupProperty {
      *
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws URISyntaxException where the specified value is not a valid URI
      */
-    public FbUrl(ParameterList params, String value) throws URISyntaxException {
+    public FbUrl(ParameterList params, String value) {
         super(PropertyName.FBURL, params);
-        this.uri = new URI(value);
+        setValue(value);
     }
 
     /**
@@ -100,8 +99,12 @@ public class FbUrl extends GroupProperty {
     }
 
     @Override
-    public void setValue(String aValue) throws URISyntaxException {
-        this.uri = new URI(aValue);
+    public void setValue(String aValue) {
+        try {
+            this.uri = new URI(aValue);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     /**
@@ -125,7 +128,7 @@ public class FbUrl extends GroupProperty {
         /**
          * {@inheritDoc}
          */
-        public FbUrl createProperty(final ParameterList params, final String value) throws URISyntaxException {
+        public FbUrl createProperty(final ParameterList params, final String value) {
             return new FbUrl(params, value);
         }
 

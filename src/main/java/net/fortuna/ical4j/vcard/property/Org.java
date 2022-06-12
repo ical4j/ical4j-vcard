@@ -41,9 +41,6 @@ import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 import static net.fortuna.ical4j.util.Strings.escape;
 
 /**
@@ -131,7 +128,7 @@ public class Org extends GroupProperty {
     }
 
     @Override
-    public void setValue(String value) throws IOException, URISyntaxException {
+    public void setValue(String value) {
         this.values = value.split(VALUES_SPLIT_REGEX);
     }
 

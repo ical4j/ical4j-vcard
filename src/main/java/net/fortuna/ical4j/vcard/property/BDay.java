@@ -39,8 +39,6 @@ import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.Optional;
 
@@ -87,29 +85,7 @@ public class BDay extends GroupProperty implements Encodable {
      */
     public BDay(ParameterList params, String value) {
         super(PropertyName.BDAY, params);
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
-            this.text = value;
-        } else {
-
-            // try default patterns first, then fall back on vCard-specific patterns
-            try {
-                this.date = new Date(value);
-            } catch (ParseException e) {
-                try {
-                    this.date = new DateTime(value);
-                } catch (ParseException e2) {
-                    try {
-                        this.date = new Date(value, "yyyy'-'MM'-'dd");
-                    } catch (ParseException e3) {
-                        try {
-                            this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
-                        } catch (ParseException ex) {
-                            throw new IllegalArgumentException(ex);
-                        }
-                    }
-                }
-            }
-        }
+        setValue(value);
     }
 
     /**
@@ -138,8 +114,30 @@ public class BDay extends GroupProperty implements Encodable {
     }
 
     @Override
-    public void setValue(String aValue) throws IOException, URISyntaxException {
+    public void setValue(String value) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
+            this.text = value;
+        } else {
 
+            // try default patterns first, then fall back on vCard-specific patterns
+            try {
+                this.date = new Date(value);
+            } catch (ParseException e) {
+                try {
+                    this.date = new DateTime(value);
+                } catch (ParseException e2) {
+                    try {
+                        this.date = new Date(value, "yyyy'-'MM'-'dd");
+                    } catch (ParseException e3) {
+                        try {
+                            this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
+                        } catch (ParseException ex) {
+                            throw new IllegalArgumentException(ex);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**

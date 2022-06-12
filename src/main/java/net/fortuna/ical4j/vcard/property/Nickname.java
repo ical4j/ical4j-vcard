@@ -41,9 +41,6 @@ import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 /**
  * NICKNAME property.
  * <p>
@@ -104,7 +101,7 @@ public class Nickname extends GroupProperty {
     }
 
     @Override
-    public void setValue(String value) throws IOException, URISyntaxException {
+    public void setValue(String value) {
         this.names = value.split(",");
     }
 

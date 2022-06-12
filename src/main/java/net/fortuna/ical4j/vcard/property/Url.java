@@ -73,9 +73,8 @@ public class Url extends GroupProperty {
      *
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws URISyntaxException where the specified value is not a valid URI
      */
-    public Url(ParameterList params, String value) throws URISyntaxException {
+    public Url(ParameterList params, String value) {
         super(PropertyName.URL, params);
         setValue(value);
     }
@@ -96,8 +95,12 @@ public class Url extends GroupProperty {
     }
 
     @Override
-    public void setValue(String value) throws URISyntaxException {
-        this.uri = new URI(value);
+    public void setValue(String value) {
+        try {
+            this.uri = new URI(value);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     /**
@@ -124,7 +127,7 @@ public class Url extends GroupProperty {
         /**
          * {@inheritDoc}
          */
-        public Url createProperty(final ParameterList params, final String value) throws URISyntaxException {
+        public Url createProperty(final ParameterList params, final String value) {
             return new Url(params, value);
         }
 

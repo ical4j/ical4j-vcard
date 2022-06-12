@@ -43,9 +43,6 @@ import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
@@ -61,7 +58,7 @@ public class N extends GroupProperty {
 
     private static final long serialVersionUID = 1117450875931318523L;
 
-    private final String familyName;
+    private String familyName;
 
     private String givenName;
 
@@ -95,49 +92,7 @@ public class N extends GroupProperty {
      */
     public N(ParameterList params, String value) {
         super(PropertyName.N, params);
-        final String[] names = value.split(";", -1);
-        this.familyName = names[0];
-        if (names.length >= 2) {
-            this.givenName = names[1];
-        }
-
-        if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
-            parseValueRelaxed(names);
-        } else {
-            parseValue(names);
-        }
-    }
-
-    /**
-     * @param names an array of names
-     */
-    private void parseValueRelaxed(String[] names) {
-        // support VCARD 3.0 by allowing optional section..
-        if (names.length >= 3) {
-            this.additionalNames = names[2].split(",");
-        }
-        if (names.length >= 4) {
-            this.prefixes = names[3].split(",");
-        }
-        if (names.length >= 5) {
-            this.suffixes = names[4].split(",");
-        }
-    }
-
-    /**
-     * @param names an array of names
-     */
-    private void parseValue(String[] names) {
-        // support VCARD 3.0 by allowing optional section..
-        if (names.length > 2) {
-            this.additionalNames = names[2].split(",");
-        }
-        if (names.length > 3) {
-            this.prefixes = names[3].split(",");
-        }
-        if (names.length > 4) {
-            this.suffixes = names[4].split(",");
-        }
+        setValue(value);
     }
 
     /**
@@ -224,8 +179,50 @@ public class N extends GroupProperty {
     }
 
     @Override
-    public void setValue(String aValue) throws IOException, URISyntaxException {
+    public void setValue(String value) {
+        final String[] names = value.split(";", -1);
+        this.familyName = names[0];
+        if (names.length >= 2) {
+            this.givenName = names[1];
+        }
 
+        if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
+            parseValueRelaxed(names);
+        } else {
+            parseValue(names);
+        }
+    }
+
+    /**
+     * @param names an array of names
+     */
+    private void parseValueRelaxed(String[] names) {
+        // support VCARD 3.0 by allowing optional section..
+        if (names.length >= 3) {
+            this.additionalNames = names[2].split(",");
+        }
+        if (names.length >= 4) {
+            this.prefixes = names[3].split(",");
+        }
+        if (names.length >= 5) {
+            this.suffixes = names[4].split(",");
+        }
+    }
+
+    /**
+     * @param names an array of names
+     */
+    private void parseValue(String[] names) {
+        // support VCARD 3.0 by allowing optional section..
+        if (names.length > 2) {
+            this.additionalNames = names[2].split(",");
+        }
+        if (names.length > 3) {
+            this.prefixes = names[3].split(",");
+        }
+        if (names.length > 4) {
+            this.suffixes = names[4].split(",");
+        }
     }
 
     /**

@@ -40,9 +40,6 @@ import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 /**
  * CLAZZ property.
  * <p>
@@ -103,7 +100,7 @@ public class Clazz extends GroupProperty {
     }
 
     @Override
-    public void setValue(String aValue) throws IOException, URISyntaxException {
+    public void setValue(String aValue) {
         this.value = aValue;
     }
 

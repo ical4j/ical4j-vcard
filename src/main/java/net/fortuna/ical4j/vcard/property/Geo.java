@@ -41,9 +41,7 @@ import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
 
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.net.URISyntaxException;
 
 /**
  * GEO property.
@@ -60,9 +58,9 @@ public class Geo extends GroupProperty {
 
     private static final String DELIMITER = ";";
 
-    private final BigDecimal latitude;
+    private BigDecimal latitude;
 
-    private final BigDecimal longitude;
+    private BigDecimal longitude;
 
     /**
      * @param latitude  a latitude value
@@ -93,15 +91,7 @@ public class Geo extends GroupProperty {
      */
     public Geo(Group group, ParameterList params, String value) {
         super(group, PropertyName.GEO, params);
-        // Allow comma as a separator if relaxed parsing enabled..
-        String[] components = null;
-        if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
-            components = value.split("[;,]");
-        } else {
-            components = value.split(DELIMITER);
-        }
-        this.latitude = new BigDecimal(components[0]);
-        this.longitude = new BigDecimal(components[1]);
+        setValue(value);
     }
 
     /**
@@ -113,8 +103,16 @@ public class Geo extends GroupProperty {
     }
 
     @Override
-    public void setValue(String aValue) throws IOException, URISyntaxException {
-
+    public void setValue(String value) {
+        // Allow comma as a separator if relaxed parsing enabled..
+        String[] components = null;
+        if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
+            components = value.split("[;,]");
+        } else {
+            components = value.split(DELIMITER);
+        }
+        this.latitude = new BigDecimal(components[0]);
+        this.longitude = new BigDecimal(components[1]);
     }
 
     /**

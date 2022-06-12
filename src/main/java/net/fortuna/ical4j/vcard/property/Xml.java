@@ -42,9 +42,6 @@ import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
@@ -90,7 +87,7 @@ public class Xml extends GroupProperty implements Encodable {
     }
 
     @Override
-    public void setValue(String aValue) throws IOException, URISyntaxException {
+    public void setValue(String aValue) {
         this.value = aValue;
     }
 

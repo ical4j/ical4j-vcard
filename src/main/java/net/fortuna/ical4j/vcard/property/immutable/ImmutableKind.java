@@ -1,11 +1,9 @@
 package net.fortuna.ical4j.vcard.property.immutable;
 
-import net.fortuna.ical4j.model.ImmutableContent;
-import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.model.property.immutable.ImmutableProperty;
 import net.fortuna.ical4j.vcard.property.Kind;
 
-public class ImmutableKind extends Kind implements ImmutableContent {
+public class ImmutableKind extends Kind implements ImmutableProperty {
 
     /**
      * Standard kind.
@@ -30,34 +28,5 @@ public class ImmutableKind extends Kind implements ImmutableContent {
 
     public ImmutableKind(String value) {
         super(value);
-    }
-
-    @Override
-    public <T extends Property> T add(Parameter parameter) {
-        throwException();
-        return null;
-    }
-
-    @Override
-    public <T extends Property> T remove(Parameter parameter) {
-        throwException();
-        return null;
-    }
-
-    @Override
-    public <T extends Property> T removeAll(String... parameterName) {
-        throwException();
-        return null;
-    }
-
-    @Override
-    public <T extends Property> T replace(Parameter parameter) {
-        throwException();
-        return null;
-    }
-
-    @Override
-    public void setValue(String aValue) {
-        throwException();
     }
 }

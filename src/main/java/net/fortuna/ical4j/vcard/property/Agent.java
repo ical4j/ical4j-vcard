@@ -41,7 +41,6 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
@@ -130,7 +129,7 @@ public class Agent extends GroupProperty implements Encodable {
     }
 
     @Override
-    public void setValue(String aValue) throws IOException, URISyntaxException {
+    public void setValue(String aValue) {
         try {
             this.uri = new URI(aValue);
             this.text = null;
@@ -168,7 +167,7 @@ public class Agent extends GroupProperty implements Encodable {
         /**
          * {@inheritDoc}
          */
-        public Agent createProperty(final ParameterList params, final String value) throws URISyntaxException {
+        public Agent createProperty(final ParameterList params, final String value) {
             return new Agent(params, unescape(value));
         }
 

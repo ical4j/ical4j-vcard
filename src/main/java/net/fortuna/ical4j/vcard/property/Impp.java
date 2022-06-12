@@ -75,11 +75,10 @@ public class Impp extends GroupProperty {
     /**
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws URISyntaxException where the specified value is not a valid URI
      */
-    public Impp(ParameterList params, String value) throws URISyntaxException {
+    public Impp(ParameterList params, String value) {
         super(PropertyName.IMPP, params);
-        this.uri = new URI(value);
+        setValue(value);
     }
 
     /**
@@ -98,8 +97,12 @@ public class Impp extends GroupProperty {
     }
 
     @Override
-    public void setValue(String value) throws URISyntaxException {
-        this.uri = new URI(value);
+    public void setValue(String value) {
+        try {
+            this.uri = new URI(value);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     /**
@@ -123,7 +126,7 @@ public class Impp extends GroupProperty {
         /**
          * {@inheritDoc}
          */
-        public Impp createProperty(final ParameterList params, final String value) throws URISyntaxException {
+        public Impp createProperty(final ParameterList params, final String value) {
             return new Impp(params, value);
         }
 
