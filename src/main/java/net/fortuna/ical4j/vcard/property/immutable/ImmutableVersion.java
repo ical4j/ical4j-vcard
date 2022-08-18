@@ -2,7 +2,7 @@ package net.fortuna.ical4j.vcard.property.immutable;
 
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.Property;
-import net.fortuna.ical4j.model.property.immutable.ImmutableProperty;
+import net.fortuna.ical4j.model.property.ImmutableProperty;
 import net.fortuna.ical4j.vcard.property.Version;
 
 public class ImmutableVersion extends Version implements ImmutableProperty {
