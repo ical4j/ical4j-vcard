@@ -31,17 +31,16 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-
-import org.junit.runners.Parameterized.Parameters;
 
 public class LangTest extends PropertyTest {
 
@@ -54,9 +53,9 @@ public class LangTest extends PropertyTest {
         final List<Object[]> params = new ArrayList<Object[]>();
 
         Locale locale = new Locale("en");
-        params.add(new Object[] { new Lang(locale), Id.LANG.toString(), "en", new Parameter[] {} });
-        params.add(new Object[] { new Lang(locale, new Locale("fr")), Id.LANG.toString(), "en,fr",
-                new Parameter[] {} });
+        params.add(new Object[]{new Lang(locale), PropertyName.LANG.toString(), "en", new Parameter[]{}});
+        params.add(new Object[]{new Lang(locale, new Locale("fr")), PropertyName.LANG.toString(), "en,fr",
+                new Parameter[]{}});
         return params;
     }
 

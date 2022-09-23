@@ -31,12 +31,15 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import net.fortuna.ical4j.vcard.Property
+import net.fortuna.ical4j.model.ParameterList
+import net.fortuna.ical4j.model.Property
 
 /**
  * @author fortuna
  *
+ * @deprecated use {@link net.fortuna.ical4j.model.PropertyFactoryWrapper} instead
  */
+@Deprecated
 class DefaultPropertyFactory extends AbstractPropertyFactory {
 
     Class<? extends Property> klass
@@ -52,7 +55,7 @@ class DefaultPropertyFactory extends AbstractPropertyFactory {
     }
 
     protected Object newInstance(String name, List parameters, String value) {
-        factoryRegistry.getFactory(name).createProperty(parameters, value)
+        factoryRegistry.getFactory(name).createProperty(new ParameterList(parameters), value)
     }
 }
 

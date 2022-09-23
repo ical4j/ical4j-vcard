@@ -31,9 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import net.fortuna.ical4j.vcard.AbstractFactory;
-import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 /**
  * ALTID parameter.
@@ -54,7 +55,7 @@ public final class Altid extends Parameter {
      * @param value string representation of a property value
      */
     public Altid(String value) {
-        super(Id.ALTID);
+        super(ParameterName.ALTID.toString());
         this.value = value;
     }
 
@@ -62,17 +63,17 @@ public final class Altid extends Parameter {
      * {@inheritDoc}
      */
     @Override
-    public String getValue() {
+    public final String getValue() {
         return value;
     }
 
-    public static class Factory extends AbstractFactory implements ParameterFactory<Altid> {
+    public static class Factory extends Content.Factory implements ParameterFactory<Altid> {
 
         public Factory() {
-            super(Id.ALTID.toString());
+            super(ParameterName.ALTID.toString());
         }
 
-        public Altid createParameter(String name, String value) {
+        public Altid createParameter(String value) {
             return new Altid(value);
         }
     }

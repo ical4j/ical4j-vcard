@@ -31,20 +31,19 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import net.fortuna.ical4j.vcard.parameter.Encoding;
+import net.fortuna.ical4j.vcard.parameter.Type;
+import net.fortuna.ical4j.vcard.parameter.Value;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-import net.fortuna.ical4j.vcard.parameter.Encoding;
-import net.fortuna.ical4j.vcard.parameter.Type;
-import net.fortuna.ical4j.vcard.parameter.Value;
-
-import org.junit.runners.Parameterized.Parameters;
 
 public class LogoTest extends PropertyTest {
 
@@ -55,12 +54,12 @@ public class LogoTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { new Logo(URI.create("")), Id.LOGO.toString(), "", new Parameter[] { Value.URI } });
-        params.add(new Object[] { new Logo(new byte[0]), Id.LOGO.toString(), "", new Parameter[] { Encoding.B } });
+        params.add(new Object[]{new Logo(URI.create("")), PropertyName.LOGO.toString(), "", new Parameter[]{Value.URI}});
+        params.add(new Object[]{new Logo(new byte[0]), PropertyName.LOGO.toString(), "", new Parameter[]{Encoding.B}});
 
         Type type = new Type("image/jpeg");
-        params.add(new Object[] { new Logo(new byte[0], type), Id.LOGO.toString(), "",
-                new Parameter[] { Encoding.B, type } });
+        params.add(new Object[]{new Logo(new byte[0], type), PropertyName.LOGO.toString(), "",
+                new Parameter[]{Encoding.B, type}});
         return params;
     }
 

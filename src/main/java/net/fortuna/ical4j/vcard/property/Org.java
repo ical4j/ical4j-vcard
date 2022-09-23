@@ -31,10 +31,15 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
-
-import java.util.List;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 
 import static net.fortuna.ical4j.util.Strings.escape;
 
@@ -47,7 +52,7 @@ import static net.fortuna.ical4j.util.Strings.escape;
  *
  * @author Ben
  */
-public final class Org extends Property {
+public class Org extends GroupProperty {
 
     private static final long serialVersionUID = -1435956318814896568L;
 
@@ -70,7 +75,7 @@ public final class Org extends Property {
      * @param value one or more organization values
      */
     public Org(Group group, String... value) {
-        super(group, Id.ORG);
+        super(group, PropertyName.ORG);
         if (value.length == 0) {
             throw new IllegalArgumentException("Must specify at least one organization");
         }
@@ -83,7 +88,7 @@ public final class Org extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Org(List<Parameter> params, String value) {
+    public Org(ParameterList params, String value) {
         this(null, params, value);
     }
 
@@ -94,8 +99,8 @@ public final class Org extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Org(Group group, List<Parameter> params, String value) {
-        super(group, Id.ORG, params);
+    public Org(Group group, ParameterList params, String value) {
+        super(group, PropertyName.ORG, params);
         this.values = value.split(VALUES_SPLIT_REGEX);
     }
 
@@ -122,11 +127,16 @@ public final class Org extends Property {
         return b.toString();
     }
 
+    @Override
+    public void setValue(String value) {
+        this.values = value.split(VALUES_SPLIT_REGEX);
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // ; Text parameters allowed
         for (Parameter param : getParameters()) {
             try {
@@ -135,24 +145,30 @@ public final class Org extends Property {
                 assertPidParameter(param);
             }
         }
+        return ValidationResult.EMPTY;
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Org> {
+    @Override
+    protected PropertyFactory<Org> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Org> {
         public Factory() {
-            super(Id.ORG.toString());
+            super(PropertyName.ORG.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Org createProperty(final List<Parameter> params, final String value) {
+        public Org createProperty(final ParameterList params, final String value) {
             return new Org(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Org createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Org createProperty(final Group group, final ParameterList params, final String value) {
             return new Org(group, params, value);
         }
     }

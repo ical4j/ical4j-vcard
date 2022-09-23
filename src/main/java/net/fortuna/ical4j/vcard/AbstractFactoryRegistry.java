@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by fortuna on 23/09/14.
  */
+@Deprecated
 public abstract class AbstractFactoryRegistry<T> {
 
     private final ServiceLoader<T> factoryLoader;

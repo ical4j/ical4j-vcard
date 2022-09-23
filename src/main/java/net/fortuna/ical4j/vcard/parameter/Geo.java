@@ -31,9 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import net.fortuna.ical4j.vcard.AbstractFactory;
-import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 /**
  * GEO parameter.
@@ -54,7 +55,7 @@ public final class Geo extends Parameter {
      * @param value string representation of a property value
      */
     public Geo(String value) {
-        super(Id.GEO);
+        super(ParameterName.GEO.toString());
         this.value = value;
     }
 
@@ -66,12 +67,12 @@ public final class Geo extends Parameter {
         return value;
     }
 
-    public static class Factory extends AbstractFactory implements ParameterFactory<Geo> {
+    public static class Factory extends Content.Factory implements ParameterFactory<Geo> {
         public Factory() {
-            super(Id.GEO.toString());
+            super(ParameterName.GEO.toString());
         }
 
-        public Geo createParameter(String name, String value) {
+        public Geo createParameter(String value) {
             return new Geo(value);
         }
     }

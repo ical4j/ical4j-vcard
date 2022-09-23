@@ -35,14 +35,15 @@ import java.util.ServiceLoader;
 
 /**
  * Registry for standard and non-standard property factories.
- * 
+ * <p>
  * $Id$
- *
+ * <p>
  * Created on: 05/01/2009
  *
  * @author Ben
- *
+ * @deprecated use {@link VCardPropertyFactorySupplier} instead.
  */
+@Deprecated
 public class PropertyFactoryRegistry extends AbstractFactoryRegistry<PropertyFactory> {
 
     public PropertyFactoryRegistry() {

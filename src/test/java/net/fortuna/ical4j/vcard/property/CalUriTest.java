@@ -31,18 +31,17 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import net.fortuna.ical4j.vcard.parameter.Type;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.junit.runners.Parameterized.Parameters;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-import net.fortuna.ical4j.vcard.parameter.Type;
 
 public class CalUriTest extends PropertyTest {
 
@@ -54,11 +53,11 @@ public class CalUriTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
         String caluriString = "ftp://ftp.example.com/calA.ics";
-        params.add(new Object[] { new CalUri(URI.create(caluriString)), Id.CALURI.toString(),
-                caluriString, new Parameter[] {}, });
+        params.add(new Object[]{new CalUri(URI.create(caluriString)), PropertyName.CALURI.toString(),
+                caluriString, new Parameter[]{},});
         caluriString = "http://cal.example.com/calA";
-        params.add(new Object[] { new CalUri(URI.create(caluriString), Type.PREF),
-                Id.CALURI.toString(), caluriString, new Parameter[] { Type.PREF }, });
+        params.add(new Object[]{new CalUri(URI.create(caluriString), Type.PREF),
+                PropertyName.CALURI.toString(), caluriString, new Parameter[]{Type.PREF},});
         return params;
     }
 }

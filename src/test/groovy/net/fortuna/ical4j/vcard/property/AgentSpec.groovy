@@ -31,14 +31,16 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import net.fortuna.ical4j.vcard.Property
+import net.fortuna.ical4j.model.ParameterList
+import net.fortuna.ical4j.vcard.PropertyName
 import net.fortuna.ical4j.vcard.parameter.Value
 
 class AgentSpec extends AbstractPropertySpec {
 
     def 'validate string representation'() {
         expect: 'derived string representation equals expected'
-        factoryRegistry.getFactory(Property.Id.AGENT as String).createProperty([Value.TEXT], value).toString() == expectedString
+        ParameterList params = [[Value.TEXT]]
+        factoryRegistry.getFactory(PropertyName.AGENT as String).createProperty(params, value).toString() == expectedString
 
         where:
         value         | expectedString

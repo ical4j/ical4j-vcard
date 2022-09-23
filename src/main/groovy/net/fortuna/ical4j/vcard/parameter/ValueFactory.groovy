@@ -40,7 +40,9 @@ package net.fortuna.ical4j.vcard.parameter
  *
  * @author fortuna
  *
+ * @deprecated use {@link net.fortuna.ical4j.model.ParameterFactoryWrapper} instead.
  */
+@Deprecated
 class ValueFactory extends AbstractParameterFactory{
 
 

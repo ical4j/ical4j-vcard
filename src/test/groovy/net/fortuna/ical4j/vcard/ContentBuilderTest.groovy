@@ -30,12 +30,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package net.fortuna.ical4j.vcard
-
-import net.fortuna.ical4j.vcard.parameter.Encoding
-import net.fortuna.ical4j.vcard.property.Gender
-import net.fortuna.ical4j.vcard.property.Version
-import net.fortuna.ical4j.vcard.property.Clazz
-import net.fortuna.ical4j.vcard.property.Kind
 /**
  * $Id$
  *
@@ -58,7 +52,7 @@ public class ContentBuilderTest extends GroovyTestCase {
         }
         card.validate()
         
-        assert card.properties.size() == 4
+        assert card.getPropertyList().all.size() == 4
         
         println card
     }

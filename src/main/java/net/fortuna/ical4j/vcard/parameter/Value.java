@@ -31,9 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import net.fortuna.ical4j.vcard.AbstractFactory;
-import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 /**
  * VALUE parameter.
@@ -60,6 +61,9 @@ public final class Value extends Parameter {
      * URI value parameter.
      */
     public static final Value URI = new Value("uri");
+
+    @Deprecated
+    public static final Value URL = new Value("URL");
 
     /**
      * Date value parameter.
@@ -128,7 +132,7 @@ public final class Value extends Parameter {
      * @param value string representation of a value parameter
      */
     public Value(String value) {
-        super(Id.VALUE);
+        super(ParameterName.VALUE.toString());
         this.value = value;
     }
 
@@ -140,12 +144,12 @@ public final class Value extends Parameter {
         return value;
     }
 
-    public static class Factory extends AbstractFactory implements ParameterFactory<Value> {
+    public static class Factory extends Content.Factory implements ParameterFactory<Value> {
         public Factory() {
-            super(Id.VALUE.toString());
+            super(ParameterName.VALUE.toString());
         }
 
-        public Value createParameter(String name, String value) {
+        public Value createParameter(String value) {
             Value parameter = null;
 
             if (Value.TEXT.getValue().equals(value)) {

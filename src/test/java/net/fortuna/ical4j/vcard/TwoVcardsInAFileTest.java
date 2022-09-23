@@ -31,17 +31,15 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static org.junit.Assert.assertEquals;
+import net.fortuna.ical4j.data.ParserException;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.vcard.Property.Id;
-
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created on: 2009-02-25
@@ -61,10 +59,10 @@ public class TwoVcardsInAFileTest {
 	public void testRfc2426Example() throws IOException, ParserException {
 		File file = new File("src/test/resources/samples/vcard-rfc2426.vcf");
 		VCardBuilder builder = new VCardBuilder(new FileReader(file));
-		
+
 		List<VCard> cards = builder.buildAll();
 		assertEquals(2, cards.size());
-		assertEquals("Frank Dawson",cards.get(0).getProperty(Id.FN).getValue());
-		assertEquals("Tim Howes",cards.get(1).getProperty(Id.FN).getValue());		
+		assertEquals("Frank Dawson", cards.get(0).getRequiredProperty(PropertyName.FN.toString()).getValue());
+		assertEquals("Tim Howes", cards.get(1).getRequiredProperty(PropertyName.FN.toString()).getValue());
 	}
 }

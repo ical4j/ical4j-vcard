@@ -31,9 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import net.fortuna.ical4j.vcard.AbstractFactory;
-import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 /**
  * SORT-AS parameter.
@@ -56,7 +57,7 @@ public final class SortAs extends Parameter {
      * @param value string representation of a property value
      */
     public SortAs(String value) {
-        super(Id.SORT_AS);
+        super(ParameterName.SORT_AS.toString());
         this.value = value;
         segments = value.split(";", -1);
     }
@@ -76,12 +77,12 @@ public final class SortAs extends Parameter {
         return segments;
     }
 
-    public static class Factory extends AbstractFactory implements ParameterFactory<SortAs> {
+    public static class Factory extends Content.Factory implements ParameterFactory<SortAs> {
         public Factory() {
-            super(Id.SORT_AS.toString());
+            super(ParameterName.SORT_AS.toString());
         }
 
-        public SortAs createParameter(String name, String value) {
+        public SortAs createParameter(String value) {
             return new SortAs(value);
         }
     }

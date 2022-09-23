@@ -31,13 +31,14 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import net.fortuna.ical4j.vcard.Property
+
+import net.fortuna.ical4j.vcard.PropertyName
 
 class NoteSpec extends AbstractPropertySpec {
 
     def 'validate string representation'() {
         expect: 'derived string representation equals expected'
-        factoryRegistry.getFactory(Property.Id.NOTE as String).createProperty([], value).toString() == expectedString
+        factoryRegistry.getFactory(PropertyName.NOTE as String).createProperty(value).toString() == expectedString
 
         where:
         value               | expectedString

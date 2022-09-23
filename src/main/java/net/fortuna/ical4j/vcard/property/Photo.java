@@ -31,9 +31,12 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
@@ -48,7 +51,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
+import java.util.Optional;
 
 /**
  * PHOTO property.
@@ -59,7 +62,7 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Photo extends Property {
+public class Photo extends GroupProperty {
 
     private static final long serialVersionUID = 5927040228596008262L;
 
@@ -73,9 +76,9 @@ public final class Photo extends Property {
      * @param uri a URI that specifies the location of a photo
      */
     public Photo(URI uri) {
-        super(Id.PHOTO);
+        super(PropertyName.PHOTO);
         this.uri = uri;
-        getParameters().add(Value.URI);
+        add(Value.URI);
     }
 
     /**
@@ -90,11 +93,11 @@ public final class Photo extends Property {
      * @param contentType the MIME type of the photo data
      */
     public Photo(byte[] binary, Type contentType) {
-        super(Id.PHOTO);
+        super(PropertyName.PHOTO);
         this.binary = binary;
-        getParameters().add(Encoding.B);
+        add(Encoding.B);
         if (contentType != null) {
-            getParameters().add(contentType);
+            add(contentType);
         }
     }
 
@@ -103,24 +106,16 @@ public final class Photo extends Property {
      *
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws URISyntaxException where the specified URI value is not a valid URI
-     * @throws DecoderException   where the specified photo data value cannot be decoded
+     * @throws IllegalArgumentException where the specified photo data value cannot be decoded
      */
-    public Photo(List<Parameter> params, String value) throws URISyntaxException, DecoderException {
-        super(Id.PHOTO, params);
-        final Parameter valueParameter = getParameter(Parameter.Id.VALUE);
-        
-        /*
-         * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
-         */
-        if (Value.URI.equals(valueParameter) || valueParameter != null &&
-                        CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) &&
-                        "URL".equalsIgnoreCase(valueParameter.getValue())) {
-            this.uri = new URI(value);
-        } else {
-            final BinaryDecoder decoder = new Base64();
-            this.binary = decoder.decode(value.getBytes());
-        }
+    public Photo(ParameterList params, String value) {
+        super(PropertyName.PHOTO, params);
+        setValue(value);
+    }
+
+    public Photo(Group group, ParameterList parameters, String value) {
+        super(group, PropertyName.PHOTO, parameters);
+        setValue(value);
     }
 
     /**
@@ -156,37 +151,63 @@ public final class Photo extends Property {
         return stringValue;
     }
 
+    @Override
+    public void setValue(String value) {
+        /*
+         * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
+         */
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE)) ||
+                CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) &&
+                        Optional.of(Value.URL).equals(getParameter(ParameterName.VALUE))) {
+            try {
+                this.uri = new URI(value);
+            } catch (URISyntaxException e) {
+                throw new IllegalArgumentException(e);
+            }
+        } else {
+            final BinaryDecoder decoder = new Base64();
+            try {
+                this.binary = decoder.decode(value.getBytes());
+            } catch (DecoderException e) {
+                throw new IllegalArgumentException(e);
+            }
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
 //        for (Parameter param : getParameters()) {
 //            assertPidParameter(param);
 //        }
-        assertOneOrLess(net.fortuna.ical4j.vcard.Parameter.Id.VALUE);
+        assertOneOrLess(ParameterName.VALUE);
+        return ValidationResult.EMPTY;
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Photo> {
+    @Override
+    protected PropertyFactory<Photo> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Photo> {
         public Factory() {
-            super(Id.PHOTO.toString());
+            super(PropertyName.PHOTO.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Photo createProperty(final List<Parameter> params, final String value) throws URISyntaxException,
-                DecoderException {
-
+        public Photo createProperty(final ParameterList params, final String value) {
             return new Photo(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Photo createProperty(final Group group, final List<Parameter> params, final String value) {
-            // TODO Auto-generated method stub
-            return null;
+        public Photo createProperty(final Group group, final ParameterList params, final String value) {
+            return new Photo(group, params, value);
         }
     }
 }

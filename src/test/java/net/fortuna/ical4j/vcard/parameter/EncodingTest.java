@@ -31,30 +31,29 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.vcard.ParameterName;
+import net.fortuna.ical4j.vcard.ParameterTest;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.ParameterTest;
-import net.fortuna.ical4j.vcard.Parameter.Id;
-
-import org.junit.runners.Parameterized.Parameters;
 
 
 public class EncodingTest extends ParameterTest {
 
     public EncodingTest(Parameter parameter, String expectedName,
-            String expectedValue) {
+                        String expectedValue) {
         super(parameter, expectedName, expectedValue);
     }
     
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Encoding.B, Id.ENCODING.toString(), "b"});
+        params.add(new Object[]{Encoding.B, ParameterName.ENCODING.toString(), "b"});
         final String encodingString = "8-bit";
-        params.add(new Object[] {new Encoding(encodingString), Id.ENCODING.toString(), encodingString});
+        params.add(new Object[]{new Encoding(encodingString), ParameterName.ENCODING.toString(), encodingString});
         return params;
     }
 

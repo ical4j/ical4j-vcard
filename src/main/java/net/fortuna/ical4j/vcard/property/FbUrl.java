@@ -31,14 +31,19 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 /**
  * FBURL property.
@@ -49,21 +54,21 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class FbUrl extends Property {
+public class FbUrl extends GroupProperty {
 
     private static final long serialVersionUID = 7406097765207265428L;
 
-    private final URI uri;
+    private URI uri;
 
     /**
      * @param uri   a free/busy URI
      * @param types optional property classifiers
      */
     public FbUrl(URI uri, Type... types) {
-        super(Id.FBURL);
+        super(PropertyName.FBURL);
         this.uri = uri;
         for (Type type : types) {
-            getParameters().add(type);
+            add(type);
         }
     }
 
@@ -72,11 +77,10 @@ public final class FbUrl extends Property {
      *
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws URISyntaxException where the specified value is not a valid URI
      */
-    public FbUrl(List<Parameter> params, String value) throws URISyntaxException {
-        super(Id.FBURL, params);
-        this.uri = new URI(value);
+    public FbUrl(ParameterList params, String value) {
+        super(PropertyName.FBURL, params);
+        setValue(value);
     }
 
     /**
@@ -94,31 +98,44 @@ public final class FbUrl extends Property {
         return Strings.valueOf(uri);
     }
 
+    @Override
+    public void setValue(String aValue) {
+        try {
+            this.uri = new URI(aValue);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        // TODO Auto-generated method stub
-
+    public ValidationResult validate() throws ValidationException {
+        return ValidationResult.EMPTY;
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<FbUrl> {
+    @Override
+    protected PropertyFactory<FbUrl> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<FbUrl> {
         public Factory() {
-            super(Id.FBURL.toString());
+            super(PropertyName.FBURL.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public FbUrl createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
+        public FbUrl createProperty(final ParameterList params, final String value) {
             return new FbUrl(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public FbUrl createProperty(final Group group, final List<Parameter> params, final String value) {
+        public FbUrl createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

@@ -31,13 +31,18 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 /**
  * UID property.
@@ -48,17 +53,17 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Uid extends Property {
+public class Uid extends GroupProperty {
 
     private static final long serialVersionUID = -7120539613021006347L;
 
-    private final URI uri;
+    private URI uri;
 
     /**
      * @param uri a URI for a uid definition
      */
     public Uid(URI uri) {
-        super(Id.UID);
+        super(PropertyName.UID);
         this.uri = uri;
     }
 
@@ -67,11 +72,10 @@ public final class Uid extends Property {
      *
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws URISyntaxException where the specified value is not a valid URI
      */
-    public Uid(List<Parameter> params, String value) throws URISyntaxException {
-        super(Id.UID, params);
-        this.uri = new URI(value);
+    public Uid(ParameterList params, String value) {
+        super(PropertyName.UID, params);
+        setValue(value);
     }
 
     /**
@@ -89,31 +93,46 @@ public final class Uid extends Property {
         return Strings.valueOf(uri);
     }
 
+    @Override
+    public void setValue(String value) {
+        try {
+            this.uri = new URI(value);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // ; No parameters allowed
         assertParametersEmpty();
+        return ValidationResult.EMPTY;
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Uid> {
+    @Override
+    protected PropertyFactory<Uid> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Uid> {
         public Factory() {
-            super(Id.UID.toString());
+            super(PropertyName.UID.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Uid createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
+        public Uid createProperty(final ParameterList params, final String value) {
             return new Uid(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Uid createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Uid createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

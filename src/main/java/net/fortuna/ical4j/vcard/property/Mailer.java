@@ -31,11 +31,14 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 
 import java.text.MessageFormat;
-import java.util.List;
 
 /**
  * MAILER property (vCard 3.0 only).
@@ -45,12 +48,14 @@ import java.util.List;
  * Created on 24/08/2008
  *
  * @author Ben
+ * @deprecated the MAILER property was removed from vCard v4.0
  */
-public final class Mailer extends Property {
+@Deprecated
+public class Mailer extends GroupProperty {
 
     private static final long serialVersionUID = 6134254373259957228L;
 
-    private final String value;
+    private String value;
 
     /**
      * @param value an email address string
@@ -64,7 +69,7 @@ public final class Mailer extends Property {
      * @param value an email address string
      */
     public Mailer(Group group, String value) {
-        super(group, Id.MAILER);
+        super(group, PropertyName.MAILER);
         this.value = value;
     }
 
@@ -74,7 +79,7 @@ public final class Mailer extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Mailer(List<Parameter> params, String value) {
+    public Mailer(ParameterList params, String value) {
         this(null, params, value);
     }
 
@@ -85,8 +90,8 @@ public final class Mailer extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Mailer(Group group, List<Parameter> params, String value) {
-        super(group, Id.MAILER, params);
+    public Mailer(Group group, ParameterList params, String value) {
+        super(group, PropertyName.MAILER, params);
         this.value = value;
     }
 
@@ -98,36 +103,45 @@ public final class Mailer extends Property {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) {
+        this.value = aValue;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         for (Parameter param : getParameters()) {
-            final Parameter.Id id = param.getId();
-
-            if (!Parameter.Id.EXTENDED.equals(id)) {
-                throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, id));
+            if (!ParameterName.EXTENDED.toString().equals(param.getName())) {
+                throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getName()));
             }
         }
+        return ValidationResult.EMPTY;
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Mailer> {
+    @Override
+    protected PropertyFactory<Mailer> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Mailer> {
         public Factory() {
-            super(Id.MAILER.toString());
+            super(PropertyName.MAILER.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Mailer createProperty(final List<Parameter> params, final String value) {
+        public Mailer createProperty(final ParameterList params, final String value) {
             return new Mailer(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Mailer createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Mailer createProperty(final Group group, final ParameterList params, final String value) {
             return new Mailer(group, params, value);
         }
     }

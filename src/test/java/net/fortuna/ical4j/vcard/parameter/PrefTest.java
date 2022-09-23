@@ -31,14 +31,13 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.vcard.ParameterName;
+import net.fortuna.ical4j.vcard.ParameterTest;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import net.fortuna.ical4j.vcard.ParameterTest;
-import net.fortuna.ical4j.vcard.Parameter.Id;
-
-import org.junit.runners.Parameterized.Parameters;
 
 
 public class PrefTest extends ParameterTest {
@@ -50,7 +49,7 @@ public class PrefTest extends ParameterTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Pref(1), Id.PREF.toString(), "1"});
+        params.add(new Object[]{new Pref(1), ParameterName.PREF.toString(), "1"});
         return params;
     }
 

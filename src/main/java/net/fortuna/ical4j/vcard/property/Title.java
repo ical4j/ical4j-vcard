@@ -31,11 +31,16 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Encodable;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
-
-import java.util.List;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -48,17 +53,17 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
-public final class Title extends Property implements Encodable {
+public class Title extends GroupProperty implements Encodable {
 
     private static final long serialVersionUID = -8410924945367427773L;
 
-    private final String value;
+    private String value;
 
     /**
      * @param value a title string
      */
     public Title(String value) {
-        super(Id.TITLE);
+        super(PropertyName.TITLE);
         this.value = value;
     }
 
@@ -68,8 +73,8 @@ public final class Title extends Property implements Encodable {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Title(List<Parameter> params, String value) {
-        super(Id.TITLE, params);
+    public Title(ParameterList params, String value) {
+        super(PropertyName.TITLE, params);
         this.value = value;
     }
 
@@ -81,11 +86,16 @@ public final class Title extends Property implements Encodable {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) {
+        this.value = aValue;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // ; Text parameters allowed
         for (Parameter param : getParameters()) {
             try {
@@ -94,24 +104,30 @@ public final class Title extends Property implements Encodable {
                 assertPidParameter(param);
             }
         }
+        return ValidationResult.EMPTY;
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Title> {
+    @Override
+    protected PropertyFactory<Title> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Title> {
         public Factory() {
-            super(Id.TITLE.toString());
+            super(PropertyName.TITLE.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Title createProperty(final List<Parameter> params, final String value) {
+        public Title createProperty(final ParameterList params, final String value) {
             return new Title(params, unescape(value));
         }
 
         /**
          * {@inheritDoc}
          */
-        public Title createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Title createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

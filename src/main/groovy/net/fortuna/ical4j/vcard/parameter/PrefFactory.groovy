@@ -37,7 +37,9 @@ package net.fortuna.ical4j.vcard.parameter
  *
  * @author fortuna
  *
+ * @deprecated use {@link net.fortuna.ical4j.model.ParameterFactoryWrapper} instead.
  */
+@Deprecated
 class PrefFactory extends AbstractParameterFactory {
 
     Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {

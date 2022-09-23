@@ -31,15 +31,14 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.vcard.ParameterName;
+import net.fortuna.ical4j.vcard.ParameterTest;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.ParameterTest;
-import net.fortuna.ical4j.vcard.Parameter.Id;
-
-import org.junit.runners.Parameterized.Parameters;
 
 
 public class TypeTest extends ParameterTest {
@@ -52,14 +51,14 @@ public class TypeTest extends ParameterTest {
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
         final String homeString = "home";
-        params.add(new Object[] {Type.HOME, Id.TYPE.toString(), homeString});
+        params.add(new Object[]{Type.HOME, ParameterName.TYPE.toString(), homeString});
         final String prefString = "pref";
-        params.add(new Object[] {Type.PREF, Id.TYPE.toString(), prefString});
-        params.add(new Object[] {Type.WORK, Id.TYPE.toString(), "work"});
+        params.add(new Object[]{Type.PREF, ParameterName.TYPE.toString(), prefString});
+        params.add(new Object[]{Type.WORK, ParameterName.TYPE.toString(), "work"});
         final String homePrefString = "home,pref";
-        params.add(new Object[] {new Type(homePrefString), Id.TYPE.toString(), homePrefString});
-        params.add(new Object[] {new Type(homeString, prefString), Id.TYPE.toString(), homePrefString});
-        params.add(new Object[] {new Type(Type.HOME, Type.PREF), Id.TYPE.toString(), homePrefString});
+        params.add(new Object[]{new Type(homePrefString), ParameterName.TYPE.toString(), homePrefString});
+        params.add(new Object[]{new Type(homeString, prefString), ParameterName.TYPE.toString(), homePrefString});
+        params.add(new Object[]{new Type(Type.HOME, Type.PREF), ParameterName.TYPE.toString(), homePrefString});
         return params;
     }
 }

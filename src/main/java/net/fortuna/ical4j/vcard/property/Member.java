@@ -31,13 +31,19 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 /**
  * MEMBER property.
@@ -48,17 +54,17 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Member extends Property {
+public class Member extends GroupProperty {
 
     private static final long serialVersionUID = 6622845049765958916L;
 
-    private final URI uri;
+    private URI uri;
 
     /**
      * @param uri a URI that represents a member
      */
     public Member(URI uri) {
-        super(Id.MEMBER);
+        super(PropertyName.MEMBER);
         this.uri = uri;
     }
 
@@ -67,11 +73,10 @@ public final class Member extends Property {
      *
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws URISyntaxException where the specified value is an invalid URI
      */
-    public Member(List<Parameter> params, String value) throws URISyntaxException {
-        super(Id.MEMBER, params);
-        this.uri = new URI(value);
+    public Member(ParameterList params, String value) {
+        super(PropertyName.MEMBER, params);
+        setValue(value);
     }
 
     /**
@@ -89,32 +94,47 @@ public final class Member extends Property {
         return Strings.valueOf(uri);
     }
 
+    @Override
+    public void setValue(String value) {
+        try {
+            this.uri = new URI(value);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         for (Parameter param : getParameters()) {
             assertPidParameter(param);
         }
+        return ValidationResult.EMPTY;
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Member> {
+    @Override
+    protected PropertyFactory<Member> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Member> {
         public Factory() {
-            super(Id.MEMBER.toString());
+            super(PropertyName.MEMBER.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Member createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
+        public Member createProperty(final ParameterList params, final String value) {
             return new Member(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Member createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Member createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

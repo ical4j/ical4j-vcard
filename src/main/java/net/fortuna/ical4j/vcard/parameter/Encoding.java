@@ -31,9 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import net.fortuna.ical4j.vcard.AbstractFactory;
-import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 /**
  * ENCODING parameter.
@@ -59,7 +60,7 @@ public final class Encoding extends Parameter {
      * @param value encoding parameter value
      */
     public Encoding(String value) {
-        super(Id.ENCODING);
+        super(ParameterName.ENCODING.toString());
         this.value = value;
     }
 
@@ -71,13 +72,13 @@ public final class Encoding extends Parameter {
         return value;
     }
 
-    public static class Factory extends AbstractFactory implements ParameterFactory<Encoding> {
+    public static class Factory extends Content.Factory implements ParameterFactory<Encoding> {
         public Factory() {
-            super(Id.ENCODING.toString());
+            super(ParameterName.ENCODING.toString());
         }
 
-        public Encoding createParameter(String name, String value) {
-            if (Encoding.B.getValue().equals(value)) {
+        public Encoding createParameter(String value) {
+            if (Encoding.B.getValue().equalsIgnoreCase(value)) {
                 return Encoding.B;
             }
             return new Encoding(value);

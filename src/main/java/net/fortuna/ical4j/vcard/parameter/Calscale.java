@@ -31,9 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import net.fortuna.ical4j.vcard.AbstractFactory;
-import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 /**
  * CALSCALE parameter.
@@ -54,7 +55,7 @@ public final class Calscale extends Parameter {
      * @param value string representation of a property value
      */
     public Calscale(String value) {
-        super(Id.CALSCALE);
+        super(ParameterName.CALSCALE.toString());
         this.value = value;
     }
 
@@ -66,12 +67,12 @@ public final class Calscale extends Parameter {
         return value;
     }
 
-    public static class Factory extends AbstractFactory implements ParameterFactory<Calscale> {
+    public static class Factory extends Content.Factory implements ParameterFactory<Calscale> {
         public Factory() {
-            super(Id.CALSCALE.toString());
+            super(ParameterName.CALSCALE.toString());
         }
 
-        public Calscale createParameter(String name, String value) {
+        public Calscale createParameter(String value) {
             return new Calscale(value);
         }
     }

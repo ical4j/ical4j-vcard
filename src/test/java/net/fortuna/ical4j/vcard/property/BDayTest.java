@@ -31,25 +31,23 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import net.fortuna.ical4j.model.Date;
+import net.fortuna.ical4j.model.DateTime;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import net.fortuna.ical4j.vcard.parameter.Value;
+import org.junit.Test;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
-import net.fortuna.ical4j.model.Date;
-import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-import net.fortuna.ical4j.vcard.parameter.Value;
-
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.*;
 
 public class BDayTest extends PropertyTest {
 
@@ -58,7 +56,7 @@ public class BDayTest extends PropertyTest {
     private final Class<?> expectedDateType;
 
     public BDayTest(BDay property, String expectedName, String expectedValue, Parameter[] expectedParams,
-            Class<?> expectedDateType) {
+                    Class<?> expectedDateType) {
 
         super(property, expectedName, expectedValue, expectedParams);
         this.property = property;
@@ -88,26 +86,25 @@ public class BDayTest extends PropertyTest {
 
         try {
             String dateString = "19690415";
-            params.add(new Object[] { new BDay(new Date(dateString)), Id.BDAY.toString(), dateString,
-                    new Parameter[] {}, Date.class, });
+            params.add(new Object[]{new BDay(new Date(dateString)), PropertyName.BDAY.toString(), dateString,
+                    new Parameter[]{}, Date.class,});
             dateString = "15730125T180322Z";
-            params.add(new Object[] { new BDay(new DateTime(dateString)), Id.BDAY.toString(),
-                    dateString, new Parameter[] {}, DateTime.class, });
+            params.add(new Object[]{new BDay(new DateTime(dateString)), PropertyName.BDAY.toString(),
+                    dateString, new Parameter[]{}, DateTime.class,});
         } catch (ParseException pe) {
             pe.printStackTrace();
         }
         String dateString = "19690416";
-        params.add(new Object[] { new BDay(new ArrayList<Parameter>(), dateString), Id.BDAY.toString(), dateString,
-                new Parameter[] {}, Date.class, });
+        params.add(new Object[]{new BDay(new ParameterList(), dateString), PropertyName.BDAY.toString(), dateString,
+                new Parameter[]{}, Date.class,});
         dateString = "15730125T180323Z";
-        params.add(new Object[] { new BDay(new ArrayList<Parameter>(), dateString), Id.BDAY.toString(),
-                dateString, new Parameter[] {}, DateTime.class, });
-        params.add(new Object[] { new BDay(""), Id.BDAY.toString(), "", new Parameter[] { Value.TEXT }, null });
-        final List<Parameter> bdayParams = new ArrayList<Parameter>();
-        bdayParams.add(Value.TEXT);
+        params.add(new Object[]{new BDay(new ParameterList(), dateString), PropertyName.BDAY.toString(),
+                dateString, new Parameter[]{}, DateTime.class,});
+        params.add(new Object[]{new BDay(""), PropertyName.BDAY.toString(), "", new Parameter[]{Value.TEXT}, null});
+        final ParameterList bdayParams = new ParameterList(Collections.singletonList(Value.TEXT));
         final String bdayString = "Circa 400, bce";
-        params.add(new Object[] { new BDay(bdayParams, bdayString), Id.BDAY.toString(), bdayString,
-                new Parameter[] { Value.TEXT }, null, });
+        params.add(new Object[]{new BDay(bdayParams, bdayString), PropertyName.BDAY.toString(), bdayString,
+                new Parameter[]{Value.TEXT}, null,});
         return params;
     }
 }

@@ -31,7 +31,10 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import org.apache.commons.codec.DecoderException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,7 +52,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Parameterized.class)
 public class PropertyFactoryTest {
 
-    private final PropertyFactory<Property> factory;
+    private final PropertyFactory<GroupProperty> factory;
 
     private final Group group;
 
@@ -61,7 +64,7 @@ public class PropertyFactoryTest {
      * @param factory
      * @param value
      */
-    public PropertyFactoryTest(PropertyFactory<Property> factory, Group group, String name, String value) {
+    public PropertyFactoryTest(PropertyFactory<GroupProperty> factory, Group group, String name, String value) {
         this.factory = factory;
         this.group = group;
         this.extendedName = name;
@@ -69,7 +72,7 @@ public class PropertyFactoryTest {
     }
 
     /**
-     * Test method for {@link net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.util.List, String)} .
+     * Test method for {@link net.fortuna.ical4j.vcard.PropertyFactory#createProperty(ParameterList, String)} .
      *
      * @throws ParseException
      * @throws URISyntaxException
@@ -77,16 +80,16 @@ public class PropertyFactoryTest {
      */
     @Test
     public void testCreateProperty() throws URISyntaxException, ParseException, DecoderException {
-        Property property = factory.createProperty(new ArrayList<Parameter>(), value);
-        assertEquals(extendedName, property.extendedName);
+        Property property = factory.createProperty(new ParameterList(), value);
+        assertEquals(extendedName, property.getName());
         assertEquals(value, property.getValue());
     }
 
     @Test
     public void testCreateGroupProperty() throws URISyntaxException, ParseException, DecoderException {
-        Property property = factory.createProperty(group, new ArrayList<Parameter>(), value);
+        GroupProperty property = factory.createProperty(group, new ParameterList(), value);
         assertEquals(group, property.getGroup());
-        assertEquals(extendedName, property.extendedName);
+        assertEquals(extendedName, property.getName());
         assertEquals(value, property.getValue());
     }
 
@@ -94,24 +97,35 @@ public class PropertyFactoryTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
 
-        PropertyFactory<Property> factory = new PropertyFactory<Property>() {
+        PropertyFactory<GroupProperty> factory = new PropertyFactory<GroupProperty>() {
             /*
              * (non-Javadoc)
              * @see net.fortuna.ical4j.vcard.PropertyFactory#createProperty(java.lang.String)
              */
             @SuppressWarnings("serial")
-            public Property createProperty(final List<Parameter> params, final String value) {
-                return new Property("extended") {
+            public GroupProperty createProperty(final ParameterList params, final String value) {
+                return new GroupProperty("extended") {
                     @Override
                     public String getValue() {
                         return value;
+                    }
+
+                    @Override
+                    public void setValue(String aValue) {
+
                     }
 
                     /* (non-Javadoc)
                      * @see net.fortuna.ical4j.vcard.Property#validate()
                      */
                     @Override
-                    public void validate() throws ValidationException {
+                    public ValidationResult validate() throws ValidationException {
+                        return null;
+                    }
+
+                    @Override
+                    protected net.fortuna.ical4j.model.PropertyFactory<?> newFactory() {
+                        return null;
                     }
                 };
             }
@@ -120,26 +134,36 @@ public class PropertyFactoryTest {
              * {@inheritDoc}
              */
             @SuppressWarnings("serial")
-            public Property createProperty(Group group, final List<Parameter> params, final String value)
-                    throws URISyntaxException, ParseException {
-                return new Property(group, "extended") {
+            public GroupProperty createProperty(Group group, final ParameterList params, final String value) {
+                return new GroupProperty(group, "extended") {
                     @Override
                     public String getValue() {
                         return value;
+                    }
+
+                    @Override
+                    public void setValue(String aValue) {
+
                     }
 
                     /* (non-Javadoc)
                      * @see net.fortuna.ical4j.vcard.Property#validate()
                      */
                     @Override
-                    public void validate() throws ValidationException {
+                    public ValidationResult validate() throws ValidationException {
+                        return null;
+                    }
+
+                    @Override
+                    protected net.fortuna.ical4j.model.PropertyFactory<?> newFactory() {
+                        return null;
                     }
                 };
             }
 
             @Override
             public boolean supports(String id) {
-                return Property.Id.valueOf(id) == Property.Id.EXTENDED;
+                return PropertyName.valueOf(id) == PropertyName.EXTENDED;
             }
         };
 

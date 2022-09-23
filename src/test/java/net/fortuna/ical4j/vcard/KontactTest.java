@@ -33,7 +33,6 @@ package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.Property.Id;
 import org.apache.commons.codec.DecoderException;
 import org.junit.Test;
 
@@ -80,7 +79,7 @@ public class KontactTest {
 		VCardBuilder builder = new VCardBuilder(reader);
 
 		VCard card = builder.build();
-		assertEquals("Antoni Mylka", card.getProperty(Id.FN).getValue());
+		assertEquals("Antoni Mylka", card.getRequiredProperty(PropertyName.FN.toString()).getValue());
 		
 
 	}

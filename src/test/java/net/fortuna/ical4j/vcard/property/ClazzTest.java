@@ -31,33 +31,32 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.junit.runners.Parameterized.Parameters;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
 
 
 public class ClazzTest extends PropertyTest {
 
     public ClazzTest(Property property, String expectedName,
-            String expectedValue, Parameter[] expectedParams) {
+                     String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Clazz.CONFIDENTIAL, Id.CLASS.toString(), "CONFIDENTIAL", new Parameter[] {}});
-        params.add(new Object[] {Clazz.PRIVATE, Id.CLASS.toString(), "PRIVATE", new Parameter[] {}});
-        params.add(new Object[] {Clazz.PUBLIC, Id.CLASS.toString(), "PUBLIC", new Parameter[] {}});
+        params.add(new Object[]{Clazz.CONFIDENTIAL, PropertyName.CLASS.toString(), "CONFIDENTIAL", new Parameter[]{}});
+        params.add(new Object[]{Clazz.PRIVATE, PropertyName.CLASS.toString(), "PRIVATE", new Parameter[]{}});
+        params.add(new Object[]{Clazz.PUBLIC, PropertyName.CLASS.toString(), "PUBLIC", new Parameter[]{}});
         final String clazzString = "mammal";
-        params.add(new Object[] {new Clazz(clazzString), Id.CLASS.toString(), clazzString, new Parameter[] {}});
+        params.add(new Object[]{new Clazz(clazzString), PropertyName.CLASS.toString(), clazzString, new Parameter[]{}});
         return params;
     }
 

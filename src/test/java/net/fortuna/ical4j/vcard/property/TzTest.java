@@ -31,32 +31,31 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import net.fortuna.ical4j.vcard.parameter.Value;
+import org.junit.runners.Parameterized.Parameters;
+
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.runners.Parameterized.Parameters;
-
-import net.fortuna.ical4j.model.UtcOffset;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-import net.fortuna.ical4j.vcard.parameter.Value;
-
 
 public class TzTest extends PropertyTest {
 
-	public TzTest(Property property, String expectedName, String expectedValue,
-			Parameter[] expectedParams) {
-		super(property, expectedName, expectedValue, expectedParams);
-	}
+    public TzTest(Property property, String expectedName, String expectedValue,
+                  Parameter[] expectedParams) {
+        super(property, expectedName, expectedValue, expectedParams);
+    }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {new Tz(""), Id.TZ.toString(), "", new Parameter[] {Value.TEXT}});
-        params.add(new Object[] {new Tz(new UtcOffset("+1000")), Id.TZ.toString(), "+1000", new Parameter[] {}});
+        params.add(new Object[]{new Tz(""), PropertyName.TZ.toString(), "", new Parameter[]{Value.TEXT}});
+        params.add(new Object[]{new Tz(ZoneOffset.of("+1000")), PropertyName.TZ.toString(), "+1000", new Parameter[]{}});
         return params;
     }
 

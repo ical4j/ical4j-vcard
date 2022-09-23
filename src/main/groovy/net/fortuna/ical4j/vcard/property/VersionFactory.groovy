@@ -30,6 +30,10 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package net.fortuna.ical4j.vcard.property
+
+
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion.VERSION_4_0
+
 /**
  * $Id$
  *
@@ -37,7 +41,9 @@ package net.fortuna.ical4j.vcard.property
  *
  * @author fortuna
  *
+ * @deprecated use {@link net.fortuna.ical4j.model.PropertyFactoryWrapper} instead
  */
+@Deprecated
 class VersionFactory extends AbstractPropertyFactory {
 
 
@@ -48,15 +54,15 @@ class VersionFactory extends AbstractPropertyFactory {
         } else {
             String versionValue = attributes.remove('value')
             if (versionValue != null) {
-                if (Version.VERSION_4_0.getValue().equals(versionValue)) {
-                    version = Version.VERSION_4_0
+                if (VERSION_4_0.getValue().equals(versionValue)) {
+                    version = VERSION_4_0
                 } else {
                     attributes.put('value', versionValue)
                     version = super.newInstance(builder, name, value, attributes)
                 }
             } else {
-                if (Version.VERSION_4_0.getValue().equals(value)) {
-                    version = Version.VERSION_4_0
+                if (VERSION_4_0.getValue().equals(value)) {
+                    version = VERSION_4_0
                 } else {
                     version = super.newInstance(builder, name, value, attributes)
                 }

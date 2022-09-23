@@ -30,6 +30,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package net.fortuna.ical4j.vcard.property
+
+
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.FEMALE
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.MALE
+
 /**
  * $Id$
  *
@@ -37,7 +42,9 @@ package net.fortuna.ical4j.vcard.property
  *
  * @author fortuna
  *
+ * @deprecated use {@link net.fortuna.ical4j.model.PropertyFactoryWrapper} instead
  */
+@Deprecated
 class GenderFactory extends AbstractPropertyFactory {
 
 
@@ -48,19 +55,19 @@ class GenderFactory extends AbstractPropertyFactory {
         } else {
             String genderValue = attributes.remove('value')
             if (genderValue != null) {
-                if (Gender.FEMALE.getValue().equals(genderValue)) {
-                    gender = Gender.FEMALE
-                } else if (Gender.MALE.getValue().equals(genderValue)) {
-                    gender = Gender.MALE
+                if (FEMALE.getValue().equals(genderValue)) {
+                    gender = FEMALE
+                } else if (MALE.getValue().equals(genderValue)) {
+                    gender = MALE
                 } else {
                     attributes.put('value', genderValue)
                     gender = super.newInstance(builder, name, value, attributes)
                 }
             } else {
-                if (Gender.FEMALE.getValue().equals(value)) {
-                    gender = Gender.FEMALE
-                } else if (Gender.MALE.getValue().equals(value)) {
-                    gender = Gender.MALE
+                if (FEMALE.getValue().equals(value)) {
+                    gender = FEMALE
+                } else if (MALE.getValue().equals(value)) {
+                    gender = MALE
                 } else {
                     gender = super.newInstance(builder, name, value, attributes)
                 }

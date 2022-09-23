@@ -31,9 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import net.fortuna.ical4j.vcard.AbstractFactory;
-import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterName;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Locale;
@@ -68,7 +69,7 @@ public final class Language extends Parameter {
      * @param locale the locale for the language
      */
     public Language(Locale locale) {
-        super(Id.LANGUAGE);
+        super(ParameterName.LANGUAGE.toString());
         this.locale = locale;
     }
 
@@ -97,12 +98,12 @@ public final class Language extends Parameter {
         return b.toString();
     }
 
-    public static class Factory extends AbstractFactory implements ParameterFactory<Language> {
+    public static class Factory extends Content.Factory implements ParameterFactory<Language> {
         public Factory() {
-            super(Id.LANGUAGE.toString());
+            super(ParameterName.LANGUAGE.toString());
         }
 
-        public Language createParameter(String name, String value) {
+        public Language createParameter(String value) {
             return new Language(new Locale(value));
         }
     }

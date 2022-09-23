@@ -31,10 +31,15 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
-
-import java.util.List;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 
 /**
  * SORT-STRING property.
@@ -45,17 +50,17 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class SortString extends Property {
+public class SortString extends GroupProperty {
 
     private static final long serialVersionUID = 980796364808362907L;
 
-    private final String value;
+    private String value;
 
     /**
      * @param value a sort string value
      */
     public SortString(String value) {
-        super(Id.SORT_STRING);
+        super(PropertyName.SORT_STRING);
         this.value = value;
     }
 
@@ -65,8 +70,8 @@ public final class SortString extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public SortString(List<Parameter> params, String value) {
-        super(Id.SORT_STRING, params);
+    public SortString(ParameterList params, String value) {
+        super(PropertyName.SORT_STRING, params);
         this.value = value;
     }
 
@@ -78,33 +83,44 @@ public final class SortString extends Property {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) {
+        this.value = aValue;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // ; Text parameters allowed
         for (Parameter param : getParameters()) {
             assertTextParameter(param);
         }
+        return ValidationResult.EMPTY;
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<SortString> {
+    @Override
+    protected PropertyFactory<SortString> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<SortString> {
         public Factory() {
-            super(Id.SORT_STRING.toString());
+            super(PropertyName.SORT_STRING.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public SortString createProperty(final List<Parameter> params, final String value) {
+        public SortString createProperty(final ParameterList params, final String value) {
             return new SortString(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public SortString createProperty(final Group group, final List<Parameter> params, final String value) {
+        public SortString createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

@@ -31,16 +31,16 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import net.fortuna.ical4j.model.Date;
-import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.Encodable;
+import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
 import java.text.ParseException;
-import java.util.List;
+import java.util.Optional;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -51,7 +51,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
-public final class BDay extends Property implements Encodable {
+public class BDay extends GroupProperty implements Encodable {
 
     private static final long serialVersionUID = 4298026868242865633L;
 
@@ -63,7 +63,7 @@ public final class BDay extends Property implements Encodable {
      * @param date date of birth
      */
     public BDay(Date date) {
-        super(Id.BDAY);
+        super(PropertyName.BDAY);
         this.date = date;
     }
 
@@ -71,9 +71,9 @@ public final class BDay extends Property implements Encodable {
      * @param text non-structured date of birth
      */
     public BDay(String text) {
-        super(Id.BDAY);
+        super(PropertyName.BDAY);
         this.text = text;
-        getParameters().add(Value.TEXT);
+        add(Value.TEXT);
     }
 
     /**
@@ -81,29 +81,11 @@ public final class BDay extends Property implements Encodable {
      *
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws ParseException if the property value is an invalid date
+     * @throws IllegalArgumentException if the property value is an invalid date
      */
-    public BDay(List<Parameter> params, String value) throws ParseException {
-        super(Id.BDAY, params);
-        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
-            this.text = value;
-        } else {
-
-            // try default patterns first, then fall back on vCard-specific patterns
-            try {
-                this.date = new Date(value);
-            } catch (ParseException e) {
-                try {
-                    this.date = new DateTime(value);
-                } catch (ParseException e2) {
-                    try {
-                        this.date = new Date(value, "yyyy'-'MM'-'dd");
-                    } catch (ParseException e3) {
-                        this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
-                    }
-                }
-            }
-        }
+    public BDay(ParameterList params, String value) {
+        super(PropertyName.BDAY, params);
+        setValue(value);
     }
 
     /**
@@ -125,19 +107,46 @@ public final class BDay extends Property implements Encodable {
      */
     @Override
     public String getValue() {
-        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             return text;
         }
         return Strings.valueOf(date);
+    }
+
+    @Override
+    public void setValue(String value) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
+            this.text = value;
+        } else {
+
+            // try default patterns first, then fall back on vCard-specific patterns
+            try {
+                this.date = new Date(value);
+            } catch (ParseException e) {
+                try {
+                    this.date = new DateTime(value);
+                } catch (ParseException e2) {
+                    try {
+                        this.date = new Date(value, "yyyy'-'MM'-'dd");
+                    } catch (ParseException e3) {
+                        try {
+                            this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
+                        } catch (ParseException ex) {
+                            throw new IllegalArgumentException(ex);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // ; Only value parameter allowed
-        assertOneOrLess(Parameter.Id.VALUE);
+        assertOneOrLess(ParameterName.VALUE);
 
         if (getParameters().size() > 1) {
             throw new ValidationException("Illegal parameter count");
@@ -146,27 +155,33 @@ public final class BDay extends Property implements Encodable {
         for (Parameter param : getParameters()) {
             if (!Value.TEXT.equals(param)) {
                 throw new ValidationException("Illegal parameter ["
-                        + param.getId() + "]");
+                        + param.getName() + "]");
             }
         }
+        return ValidationResult.EMPTY;
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<BDay> {
+    @Override
+    protected PropertyFactory<BDay> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<BDay> {
         public Factory() {
-            super(Id.BDAY.toString());
+            super(PropertyName.BDAY.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public BDay createProperty(final List<Parameter> params, final String value) throws ParseException {
+        public BDay createProperty(final ParameterList params, final String value) {
             return new BDay(params, unescape(value));
         }
 
         /**
          * {@inheritDoc}
          */
-        public BDay createProperty(final Group group, final List<Parameter> params, final String value) {
+        public BDay createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

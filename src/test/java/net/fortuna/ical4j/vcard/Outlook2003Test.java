@@ -32,9 +32,9 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.Property.Id;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.property.BDay;
 import net.fortuna.ical4j.vcard.property.Org;
@@ -99,7 +99,7 @@ public class Outlook2003Test {
 
         VCard card = builder.build();
         assertEquals("Antoni Jozef Mylka jun.",
-                card.getProperty(Id.FN).getValue());
+                card.getRequiredProperty(PropertyName.FN.toString()).getValue());
 		
 		/*
 		 * To test whether the file has really been parsed correctly, we
@@ -125,7 +125,7 @@ public class Outlook2003Test {
 		 * the crappy Outlook 2003 folding, but we would still like to
 		 * get something. 
 		 */
-        Property labelProperty = card.getProperty(Id.LABEL);
+        Property labelProperty = card.getRequiredProperty(PropertyName.LABEL.toString());
         String labelvalue = labelProperty.getValue();
         assertEquals(
                 "3.10=0D=0ATrippstadter Str. 122=0D=0AKaiserslautern, " +
@@ -149,7 +149,7 @@ public class Outlook2003Test {
 		 * value is not converted to a date, and te BDay.getDate() method
 		 * returns null.
 		 */
-        BDay bday = (BDay) card.getProperty(Id.BDAY);
+        BDay bday = card.getRequiredProperty(PropertyName.BDAY.toString());
         assertNotNull(bday.getDate());
         assertEquals("19800118", bday.getValue());
 		
@@ -158,7 +158,7 @@ public class Outlook2003Test {
 		 * property was invalid. There should be TWO values for this file
 		 * and the org property.
 		 */
-        String[] vals = ((Org) card.getProperty(Id.ORG)).getValues();
+        String[] vals = ((Org) card.getRequiredProperty(PropertyName.ORG.toString())).getValues();
         assertEquals(2, vals.length);
         assertEquals("DFKI", vals[0]);
         assertEquals("Knowledge-Management", vals[1]);
@@ -170,7 +170,7 @@ public class Outlook2003Test {
      * @throws DecoderException
      */
     private String getDecodedPropertyalue(Property prop) throws DecoderException {
-        Encoding enc = (Encoding) prop.getParameter(Parameter.Id.ENCODING);
+        Encoding enc = (Encoding) prop.getRequiredParameter(ParameterName.ENCODING.toString());
         String val = prop.getValue();
         if (enc != null && enc.getValue().equalsIgnoreCase("QUOTED-PRINTABLE")) {
 			

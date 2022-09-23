@@ -31,6 +31,8 @@
  */
 package net.fortuna.ical4j.vcard
 
+import net.fortuna.ical4j.model.Property
+
 /**
  * $Id$
  *
@@ -53,7 +55,7 @@ class VCardFactory extends groovy.util.AbstractFactory {
 
     void setChild(FactoryBuilderSupport build, Object parent, Object child) {
         if (child instanceof Property) {
-            parent.properties.add(child)
+            parent.add(child)
         }
     }
 

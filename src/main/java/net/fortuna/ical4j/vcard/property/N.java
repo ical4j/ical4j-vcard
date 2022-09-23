@@ -31,12 +31,17 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 import org.apache.commons.lang3.ArrayUtils;
-
-import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
@@ -49,11 +54,11 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  *
  * @author Ben
  */
-public final class N extends Property {
+public class N extends GroupProperty {
 
     private static final long serialVersionUID = 1117450875931318523L;
 
-    private final String familyName;
+    private String familyName;
 
     private String givenName;
 
@@ -71,7 +76,7 @@ public final class N extends Property {
      * @param suffixes        suffix components of a name
      */
     public N(String familyName, String givenName, String[] additionalNames, String[] prefixes, String[] suffixes) {
-        super(Id.N);
+        super(PropertyName.N);
         this.familyName = familyName;
         this.givenName = givenName;
         this.additionalNames = additionalNames;
@@ -85,51 +90,9 @@ public final class N extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public N(List<Parameter> params, String value) {
-        super(Id.N, params);
-        final String[] names = value.split(";", -1);
-        this.familyName = names[0];
-        if (names.length >= 2) {
-            this.givenName = names[1];
-        }
-
-        if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
-            parseValueRelaxed(names);
-        } else {
-            parseValue(names);
-        }
-    }
-
-    /**
-     * @param names an array of names
-     */
-    private void parseValueRelaxed(String[] names) {
-        // support VCARD 3.0 by allowing optional section..
-        if (names.length >= 3) {
-            this.additionalNames = names[2].split(",");
-        }
-        if (names.length >= 4) {
-            this.prefixes = names[3].split(",");
-        }
-        if (names.length >= 5) {
-            this.suffixes = names[4].split(",");
-        }
-    }
-
-    /**
-     * @param names an array of names
-     */
-    private void parseValue(String[] names) {
-        // support VCARD 3.0 by allowing optional section..
-        if (names.length > 2) {
-            this.additionalNames = names[2].split(",");
-        }
-        if (names.length > 3) {
-            this.prefixes = names[3].split(",");
-        }
-        if (names.length > 4) {
-            this.suffixes = names[4].split(",");
-        }
+    public N(ParameterList params, String value) {
+        super(PropertyName.N, params);
+        setValue(value);
     }
 
     /**
@@ -215,33 +178,86 @@ public final class N extends Property {
         return b.toString();
     }
 
+    @Override
+    public void setValue(String value) {
+        final String[] names = value.split(";", -1);
+        this.familyName = names[0];
+        if (names.length >= 2) {
+            this.givenName = names[1];
+        }
+
+        if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
+            parseValueRelaxed(names);
+        } else {
+            parseValue(names);
+        }
+    }
+
+    /**
+     * @param names an array of names
+     */
+    private void parseValueRelaxed(String[] names) {
+        // support VCARD 3.0 by allowing optional section..
+        if (names.length >= 3) {
+            this.additionalNames = names[2].split(",");
+        }
+        if (names.length >= 4) {
+            this.prefixes = names[3].split(",");
+        }
+        if (names.length >= 5) {
+            this.suffixes = names[4].split(",");
+        }
+    }
+
+    /**
+     * @param names an array of names
+     */
+    private void parseValue(String[] names) {
+        // support VCARD 3.0 by allowing optional section..
+        if (names.length > 2) {
+            this.additionalNames = names[2].split(",");
+        }
+        if (names.length > 3) {
+            this.prefixes = names[3].split(",");
+        }
+        if (names.length > 4) {
+            this.suffixes = names[4].split(",");
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         // ; Text parameters allowed
         for (Parameter param : getParameters()) {
             assertTextParameter(param);
         }
+        return ValidationResult.EMPTY;
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<N> {
+    @Override
+    protected PropertyFactory<N> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<N> {
         public Factory() {
-            super(Id.N.toString());
+            super(PropertyName.N.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public N createProperty(final List<Parameter> params, final String value) {
+        public N createProperty(final ParameterList params, final String value) {
             return new N(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public N createProperty(final Group group, final List<Parameter> params, final String value) {
+        public N createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

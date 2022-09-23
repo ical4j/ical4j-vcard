@@ -31,9 +31,12 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import net.fortuna.ical4j.util.CompatibilityHints;
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
@@ -48,7 +51,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
+import java.util.Optional;
 
 /**
  * LOGO property.
@@ -59,7 +62,7 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Logo extends Property {
+public class Logo extends GroupProperty {
 
     private static final long serialVersionUID = 7255763733402012595L;
 
@@ -73,9 +76,9 @@ public final class Logo extends Property {
      * @param uri a URI that specifies the location of a logo
      */
     public Logo(URI uri) {
-        super(Id.LOGO);
+        super(PropertyName.LOGO);
         this.uri = uri;
-        getParameters().add(Value.URI);
+        add(Value.URI);
     }
 
     /**
@@ -90,11 +93,11 @@ public final class Logo extends Property {
      * @param contentType the MIME type of the logo data
      */
     public Logo(byte[] binary, Type contentType) {
-        super(Id.LOGO);
+        super(PropertyName.LOGO);
         this.binary = binary;
-        getParameters().add(Encoding.B);
+        add(Encoding.B);
         if (contentType != null) {
-            getParameters().add(contentType);
+            add(contentType);
         }
     }
 
@@ -106,21 +109,9 @@ public final class Logo extends Property {
      * @throws URISyntaxException where the specified URI value is an invalid URI
      * @throws DecoderException   where the specified logo data value cannot be decoded
      */
-    public Logo(List<Parameter> params, String value) throws URISyntaxException, DecoderException {
-        super(Id.LOGO, params);
-        final Parameter valueParameter = getParameter(Parameter.Id.VALUE);
-        
-        /*
-         * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
-         */
-        if (Value.URI.equals(valueParameter) || valueParameter != null &&
-                        CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) &&
-                        "URL".equalsIgnoreCase(valueParameter.getValue())) {
-            this.uri = new URI(value);
-        } else {
-            final BinaryDecoder decoder = new Base64();
-            this.binary = decoder.decode(value.getBytes());
-        }
+    public Logo(ParameterList params, String value) {
+        super(PropertyName.LOGO, params);
+        setValue(value);
     }
 
     /**
@@ -143,7 +134,7 @@ public final class Logo extends Property {
     @Override
     public String getValue() {
         String stringValue = null;
-        if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE))) {
             stringValue = Strings.valueOf(uri);
         } else if (binary != null) {
             try {
@@ -156,34 +147,61 @@ public final class Logo extends Property {
         return stringValue;
     }
 
+    @Override
+    public void setValue(String value) {
+        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE);
+
+        /*
+         * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
+         */
+        if (valueParameter.isPresent() && "URL".equalsIgnoreCase(valueParameter.get().getValue())) {
+            try {
+                this.uri = new URI(value);
+            } catch (URISyntaxException e) {
+                throw new IllegalArgumentException(e);
+            }
+        } else {
+            final BinaryDecoder decoder = new Base64();
+            try {
+                this.binary = decoder.decode(value.getBytes());
+            } catch (DecoderException e) {
+                throw new IllegalArgumentException(e);
+            }
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         for (Parameter param : getParameters()) {
             assertPidParameter(param);
         }
+        return ValidationResult.EMPTY;
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Logo> {
+    @Override
+    protected PropertyFactory<Logo> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Logo> {
         public Factory() {
-            super(Id.LOGO.toString());
+            super(PropertyName.LOGO.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Logo createProperty(final List<Parameter> params, final String value) throws URISyntaxException,
-                DecoderException {
-
+        public Logo createProperty(final ParameterList params, final String value) {
             return new Logo(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Logo createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Logo createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

@@ -31,12 +31,17 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Encodable;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.parameter.Type;
-
-import java.util.List;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -48,22 +53,24 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  * Created on 23/08/2008
  *
  * @author Ben
+ * @deprecated the LABEL property was removed from vCard v4.0
  */
-public final class Label extends Property implements Encodable {
+@Deprecated
+public class Label extends GroupProperty implements Encodable {
 
     private static final long serialVersionUID = -3634101566227652040L;
 
-    private final String value;
+    private String value;
 
     /**
      * @param value a string representation of a label value
      * @param types optional property types
      */
     public Label(String value, Type... types) {
-        super(Id.LABEL);
+        super(PropertyName.LABEL);
         this.value = value;
         for (Type type : types) {
-            getParameters().add(type);
+            add(type);
         }
     }
 
@@ -73,8 +80,8 @@ public final class Label extends Property implements Encodable {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Label(List<Parameter> params, String value) {
-        super(Id.LABEL, params);
+    public Label(ParameterList params, String value) {
+        super(PropertyName.LABEL, params);
         this.value = value;
     }
 
@@ -86,11 +93,16 @@ public final class Label extends Property implements Encodable {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) {
+        this.value = aValue;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
+    public ValidationResult validate() throws ValidationException {
         for (Parameter param : getParameters()) {
             try {
                 assertTypeParameter(param);
@@ -102,24 +114,30 @@ public final class Label extends Property implements Encodable {
                 }
             }
         }
+        return ValidationResult.EMPTY;
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Label> {
+    @Override
+    protected PropertyFactory<Label> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Label> {
         public Factory() {
-            super(Id.LABEL.toString());
+            super(PropertyName.LABEL.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Label createProperty(final List<Parameter> params, final String value) {
+        public Label createProperty(final ParameterList params, final String value) {
             return new Label(params, unescape(value));
         }
 
         /**
          * {@inheritDoc}
          */
-        public Label createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Label createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }
