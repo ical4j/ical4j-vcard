@@ -62,21 +62,6 @@ javadoc {
     }
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    archiveClassifier.set('javadoc')
-    from 'build/docs/javadoc'
-}
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
-    archiveClassifier.set('sources')
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
 scmVersion {
     tag {
         prefix = 'ical4j-vcard-'
@@ -95,6 +80,31 @@ scmVersion {
 group = 'org.mnode.ical4j'
 description = 'Support for the vCard specification'
 version = scmVersion.version
+
+jar {
+    manifest {
+        attributes(
+                'Implementation-Title': 'iCal4j vCard',
+                'Implementation-Version': version,
+                'Implementation-Vendor': 'Ben Fortuna'
+        )
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set('javadoc')
+    from 'build/docs/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    archiveClassifier.set('sources')
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
 
 revapi {
     oldVersion = revApiOldVersion
