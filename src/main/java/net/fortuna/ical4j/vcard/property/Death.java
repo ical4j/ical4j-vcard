@@ -52,6 +52,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
+@Deprecated
 public class Death extends GroupProperty implements Encodable {
 
     private static final long serialVersionUID = 3009228294165154307L;

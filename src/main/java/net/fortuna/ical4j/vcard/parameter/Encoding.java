@@ -45,6 +45,7 @@ import net.fortuna.ical4j.vcard.ParameterName;
  *
  * @author Ben
  */
+@Deprecated
 public final class Encoding extends Parameter {
 
     private static final long serialVersionUID = -6912042752317640817L;

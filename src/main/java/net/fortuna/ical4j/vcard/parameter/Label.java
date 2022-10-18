@@ -39,6 +39,7 @@ import net.fortuna.ical4j.vcard.ParameterName;
 /**
  * LABEL parameter.
  */
+@Deprecated
 public final class Label extends Parameter {
 
     private static final long serialVersionUID = 12345L;

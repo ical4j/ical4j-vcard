@@ -52,6 +52,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
+@Deprecated
 public class Birth extends GroupProperty implements Encodable {
 
     private static final long serialVersionUID = -3204898745557127754L;

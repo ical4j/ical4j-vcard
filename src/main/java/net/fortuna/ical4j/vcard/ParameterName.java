@@ -13,12 +13,12 @@ public enum ParameterName {
      */
     LANGUAGE,
 
-    LABEL,
+    @Deprecated LABEL,
 
     /**
      * Encoding parameter identifier.
      */
-    ENCODING,
+    @Deprecated ENCODING,
     /**
      * Value parameter identifier.
      */
@@ -57,7 +57,7 @@ public enum ParameterName {
     /**
      * Geo parameter identifier.
      */
-    GEO,
+    @Deprecated GEO,
 
     /**
      * Tz parameter identifier.
@@ -72,7 +72,7 @@ public enum ParameterName {
     /**
      * Fmttype parameter identifier.
      */
-    FMTTYPE,
+    @Deprecated FMTTYPE,
 
     // 7.10. Extended Properties and Parameters
 

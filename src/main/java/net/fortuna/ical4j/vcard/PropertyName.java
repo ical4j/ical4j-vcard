@@ -6,25 +6,34 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  * Enumeration of property identifiers.
  */
 public enum PropertyName {
-    // 7.1.  General Properties
+    // 6.1.  General Properties
     SOURCE, @Deprecated NAME, KIND, XML,
-    // 7.2.  Identification Properties
-    FN, N, NICKNAME, PHOTO, BDAY, DDAY, BIRTH, DEATH, ANNIVERSARY, GENDER,
-    // 7.3.  Delivery Addressing Properties
+
+    // 6.2.  Identification Properties
+    FN, N, NICKNAME, PHOTO, BDAY, @Deprecated DDAY, @Deprecated BIRTH, @Deprecated DEATH, ANNIVERSARY, GENDER,
+
+    // 6.3.  Delivery Addressing Properties
     ADR, @Deprecated LABEL,
-    // 7.4.  Communications Properties
+
+    // 6.4.  Communications Properties
     TEL, EMAIL, IMPP, LANG,
-    // 7.5.  Geographical Properties
+
+    // 6.5.  Geographical Properties
     TZ, GEO,
-    // 7.6.  Organizational Properties
+
+    // 6.6.  Organizational Properties
     TITLE, ROLE, LOGO, @Deprecated AGENT, ORG, MEMBER, RELATED,
-    // 7.7.  Explanatory Properties
-    CATEGORIES, NOTE, PRODID, REV, SORT_STRING("SORT-STRING"), SOUND, UID, CLIENTPIDMAP, URL, VERSION,
-    // 7.8.  Security Properties
+
+    // 6.7.  Explanatory Properties
+    CATEGORIES, NOTE, PRODID, REV, @Deprecated SORT_STRING("SORT-STRING"), SOUND, UID, CLIENTPIDMAP, URL, VERSION,
+
+    // 6.8.  Security Properties
     @Deprecated CLASS, KEY,
-    // 7.9.  Calendar Properties
+
+    // 6.9.  Calendar Properties
     FBURL, CALADRURI, CALURI,
-    // 7.10. Extended Properties and Parameters
+
+    // 6.10. Extended Properties and Parameters
     EXTENDED,
 
     // RFC2426 - vCard 3.0

@@ -53,6 +53,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
+@Deprecated
 public class DDay extends GroupProperty implements Encodable {
 
     private static final long serialVersionUID = 3969167775362943497L;

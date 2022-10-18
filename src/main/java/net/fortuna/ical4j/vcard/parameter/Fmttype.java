@@ -45,6 +45,7 @@ import java.text.ParseException;
  *
  * @author Mike Douglass
  */
+@Deprecated
 public final class Fmttype extends Parameter {
 
     private static final long serialVersionUID = 12345L;

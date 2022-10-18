@@ -43,6 +43,7 @@ import net.fortuna.ical4j.vcard.ParameterName;
  *
  * @author Mike Douglass
  */
+@Deprecated
 public final class Version extends Parameter {
 
     private static final long serialVersionUID = 12345L;

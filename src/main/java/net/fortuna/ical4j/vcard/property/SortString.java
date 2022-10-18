@@ -50,6 +50,7 @@ import net.fortuna.ical4j.vcard.PropertyName;
  *
  * @author Ben
  */
+@Deprecated
 public class SortString extends GroupProperty {
 
     private static final long serialVersionUID = 980796364808362907L;
