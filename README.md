@@ -1,6 +1,6 @@
 # iCal4j vCard - vCard parser and object model
 
-[RFC6530]: https://tools.ietf.org/html/rfc6530
+[RFC6350]: https://tools.ietf.org/html/rfc6350
 
 [Bintray Releases]: https://bintray.com/ical4j/maven/ical4j-vcard
 
@@ -30,7 +30,7 @@
 
 ## Introduction
 
-iCal4j vCard is a Java library used to read and write vCard data streams as defined in [RFC6530]. The vCard standard
+iCal4j vCard is a Java library used to read and write vCard data streams as defined in [RFC6350]. The vCard standard
 provides a common data format used to store information about contact information.
 
  - For a concise description of the goals and directions of iCal4j vCard please
@@ -46,7 +46,7 @@ provides a common data format used to store information about contact informatio
 
 ### Specifications
 
-* [RFC6530]
+* [RFC6350]
 
 
 ### Redistribution
