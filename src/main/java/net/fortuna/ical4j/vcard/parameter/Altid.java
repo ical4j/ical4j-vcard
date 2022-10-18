@@ -63,7 +63,7 @@ public final class Altid extends Parameter {
      * {@inheritDoc}
      */
     @Override
-    public final String getValue() {
+    public String getValue() {
         return value;
     }
 

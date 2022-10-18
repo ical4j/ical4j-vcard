@@ -203,8 +203,7 @@ public final class VCardBuilder {
                 Property property;
                 try {
                     property = parseProperty(line);
-                }
-                catch (URISyntaxException | ParseException | DecoderException e) {
+                } catch (URISyntaxException e) {
                     throw new ParserException("Error parsing line", totalLineNo, e);
                 }
                 if (property != null) {
@@ -224,21 +223,21 @@ public final class VCardBuilder {
         
         return vcard;
     }
-    
+
     /**
      * @param line
      * @return a property instance
-     * @throws ParseException 
-     * @throws URISyntaxException 
-     * @throws DecoderException 
+     * @throws ParseException
+     * @throws URISyntaxException
+     * @throws DecoderException
      */
-    private Property parseProperty(final String line) throws URISyntaxException, ParseException, DecoderException {
+    private Property parseProperty(final String line) throws URISyntaxException {
         Property property = null;
         Matcher matcher = PROPERTY_NAME_PATTERN.matcher(line);
         if (matcher.find()) {
             Optional<PropertyFactory<?>> factory;
             Group group = null;
-            
+
             final String propertyName = matcher.group().toUpperCase();
             if (propertyName.indexOf('.') >= 0) {
                 final String[] groupProperty = propertyName.split("\\.");
@@ -287,7 +286,7 @@ public final class VCardBuilder {
      * @param line
      * @return a list of parameters
      */
-    private ParameterList parseParameters(final String line) throws URISyntaxException {
+    private ParameterList parseParameters(final String line) {
         final List<Parameter> parameters = new ArrayList<>();
         final Matcher matcher = PARAMETERS_PATTERN.matcher(line);
         if (matcher.find()) {
