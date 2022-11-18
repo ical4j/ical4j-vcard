@@ -32,131 +32,55 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.parameter.Value;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.text.MessageFormat;
 import java.util.Optional;
 
 /**
  * A vCard property.
- *
+ * <p>
  * $Id$
- *
+ * <p>
  * Created on 21/08/2008
  *
  * @author Ben
- *
  */
-public abstract class GroupProperty extends Property {
+public interface GroupProperty {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 7813173744145071469L;
+    void setPrefix(String prefix);
 
-    protected static final String ILLEGAL_PARAMETER_MESSAGE = "Illegal parameter [{0}]";
+    String getPrefix();
 
-    private static final String ILLEGAL_PARAMETER_COUNT_MESSAGE = "Parameter [{0}] exceeds allowable count";
-
-    private final Group group;
-
-    /**
-     * @param propertyName a non-standard property name
-     */
-    public GroupProperty(String propertyName) {
-        this(null, propertyName);
+    default void setGroup(Group group) {
+        setPrefix(group.toString());
     }
 
-    /**
-     * @param group a property group
-     * @param propertyName the non-standard property name
-     */
-    public GroupProperty(Group group, String propertyName) {
-        this(group, propertyName, new ParameterList());
+    default Group getGroup() {
+//        return Group.Id.valueOf(getPrefix());
+        return null;
     }
 
-    /**
-     * @param propertyName a non-standard property name
-     * @param parameters property parameters
-     */
-    public GroupProperty(String propertyName, ParameterList parameters) {
-        this(null, propertyName, parameters);
-    }
+    String ILLEGAL_PARAMETER_MESSAGE = "Illegal parameter [{0}]";
 
-    /**
-     * @param group a property group
-     * @param propertyName the non-standard property name
-     * @param parameters property parameters
-     */
-    public GroupProperty(Group group, String propertyName, ParameterList parameters) {
-        super(propertyName, parameters);
-        this.group = group;
-    }
-
-    /**
-     * @param id the property type
-     */
-    public GroupProperty(PropertyName id) {
-        this(null, id);
-    }
-
-    /**
-     * @param group a property group
-     * @param id a standard property identifier
-     */
-    public GroupProperty(Group group, PropertyName id) {
-        this(group, id, new ParameterList());
-    }
-
-    /**
-     * @param id a standard property identifier
-     * @param parameters property parameters
-     */
-    protected GroupProperty(PropertyName id, ParameterList parameters) {
-        this(null, id, parameters);
-    }
-
-    /**
-     * @param group a property group
-     * @param id a standard property identifier
-     * @param parameters property parameters
-     */
-    protected GroupProperty(Group group, PropertyName id, ParameterList parameters) {
-        super(id.toString(), parameters);
-        this.group = group;
-    }
+    String ILLEGAL_PARAMETER_COUNT_MESSAGE = "Parameter [{0}] exceeds allowable count";
 
     /**
      * @return the group
      */
-    public final Group getGroup() {
-        return group;
+//    Group getGroup();
+    static <P extends Parameter> Optional<P> getParameter(Property p, ParameterName name) {
+        return p.getParameter(name.toString());
     }
-
-    /**
-     * @return the id
-     */
-    @Deprecated
-    public final PropertyName getId() {
-        return PropertyName.valueOf(getName());
-    }
-
-    public <P extends Parameter> Optional<P> getParameter(ParameterName name) {
-        return getParameter(name.toString());
-    }
-
 
     /**
      * @throws ValidationException where the parameter list is not empty
      */
-    protected final void assertParametersEmpty() throws ValidationException {
-        if (!getParameters().isEmpty()) {
-            throw new ValidationException("No parameters allowed for property: " + getName());
+    default void assertParametersEmpty(Property p) throws ValidationException {
+        if (!p.getParameters().isEmpty()) {
+            throw new ValidationException("No parameters allowed for property: " + p.getName());
         }
     }
 
@@ -164,7 +88,7 @@ public abstract class GroupProperty extends Property {
      * @param param a parameter to validate
      * @throws ValidationException where the specified parameter is not a text parameter
      */
-    protected final void assertTextParameter(final Parameter param) throws ValidationException {
+    default void assertTextParameter(final Parameter param) throws ValidationException {
         if (!Value.TEXT.equals(param) && !ParameterName.LANGUAGE.toString().equals(param.getName())
                 && !ParameterName.EXTENDED.toString().equals(param.getName())) {
             throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getName()));
@@ -175,7 +99,7 @@ public abstract class GroupProperty extends Property {
      * @param param a parameter to validate
      * @throws ValidationException where the specified parameter is not a type parameter
      */
-    protected final void assertTypeParameter(final Parameter param) throws ValidationException {
+    default void assertTypeParameter(final Parameter param) throws ValidationException {
         if (!ParameterName.TYPE.toString().equals(param.getName())) {
             throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getName()));
         }
@@ -185,7 +109,7 @@ public abstract class GroupProperty extends Property {
      * @param param a parameter to validate
      * @throws ValidationException where the specified parameter is not a PID parameter
      */
-    protected final void assertPidParameter(final Parameter param) throws ValidationException {
+    default void assertPidParameter(final Parameter param) throws ValidationException {
         if (!ParameterName.PID.toString().equals(param.getName())) {
             throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getName()));
         }
@@ -195,7 +119,7 @@ public abstract class GroupProperty extends Property {
      * @param param a parameter to validate
      * @throws ValidationException where the specified parameter is not a Pref parameter
      */
-    protected final void assertPrefParameter(final Parameter param) throws ValidationException {
+    static void assertPrefParameter(final Parameter param) throws ValidationException {
         if (!ParameterName.PREF.toString().equals(param.getName())) {
             throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getName()));
         }
@@ -206,45 +130,9 @@ public abstract class GroupProperty extends Property {
      * @throws ValidationException where there is not one or less of the specified
      *                             parameter in the parameter list
      */
-    protected final void assertOneOrLess(final ParameterName paramId) throws ValidationException {
-        if (getParameters(paramId.toString()).size() > 1) {
+    static void assertOneOrLess(Property property, final ParameterName paramId) throws ValidationException {
+        if (property.getParameters(paramId.toString()).size() > 1) {
             throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_COUNT_MESSAGE, paramId));
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(final Object arg0) {
-        if (arg0 instanceof GroupProperty) {
-            final GroupProperty p = (GroupProperty) arg0;
-            return getName().equals(p.getName())
-                    && new EqualsBuilder().append(group, p.getGroup())
-                    .append(getValue(), p.getValue()).append(getParameterList(),
-                            p.getParameterList()).isEquals();
-        }
-        return super.equals(arg0);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode() {
-        // as property name is case-insensitive generate hash for uppercase..
-        return new HashCodeBuilder().append(group).append(getName().toUpperCase()).append(
-                getValue()).append(getParameterList()).toHashCode();
-    }
-
-    /**
-     * @return a vCard-compliant string representation of the property
-     */
-    @Override
-    public final String toString() {
-        if (group != null) {
-            return group.toString() + '.' + super.toString();
-        }
-        return super.toString();
     }
 }

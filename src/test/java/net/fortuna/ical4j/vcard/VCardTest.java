@@ -79,7 +79,7 @@ public class VCardTest {
     @Test
     public void testGetPropertiesName() {
         for (Property p : vCard.getProperties()) {
-            List<GroupProperty> matches = vCard.getProperties(p.getName());
+            List<Property> matches = vCard.getProperties(p.getName());
             assertNotNull(matches);
             assertTrue(matches.size() >= 1);
             assertTrue(matches.contains(p));
@@ -97,7 +97,7 @@ public class VCardTest {
     @Test
     public void testGetExtendedPropertiesName() {
         for (Property p : vCard.getProperties(PropertyName.EXTENDED.toString())) {
-            List<GroupProperty> matches = vCard.getProperties(p.getName());
+            List<Property> matches = vCard.getProperties(p.getName());
             assertNotNull(matches);
             assertTrue(matches.size() >= 1);
             assertTrue(matches.contains(p));
@@ -128,7 +128,7 @@ public class VCardTest {
         props.add(new Source(URI.create("ldap://ldap.example.com/cn=Babs%20Jensen,%20o=Babsco,%20c=US")));
         props.add(new Name("Babs Jensen's Contact Information"));
         props.add(INDIVIDUAL);
-        props.add(new GroupProperty("TEST") {
+        props.add(new Property("TEST") {
             @Override
             public String getValue() {
                 return null;

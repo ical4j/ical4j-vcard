@@ -44,7 +44,9 @@ import java.io.Serializable;
  * Created on: 30/12/2008
  *
  * @author Ben
+ * @deprecated predefined groups are no longer part of the vCard specification.
  */
+@Deprecated
 public class Group implements Serializable {
 
     /**

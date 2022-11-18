@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 
 /**
  * @param <T> the property type created by the factory
@@ -41,7 +42,7 @@ import net.fortuna.ical4j.model.ParameterList;
  *            Created on: 30/10/2008
  * @author fortuna
  */
-public interface PropertyFactory<T extends GroupProperty> extends net.fortuna.ical4j.model.PropertyFactory<T> {
+public interface PropertyFactory<T extends Property> extends net.fortuna.ical4j.model.PropertyFactory<T> {
 
     /**
      * @param group  the property group
@@ -49,7 +50,9 @@ public interface PropertyFactory<T extends GroupProperty> extends net.fortuna.ic
      * @param value  a property value used to construct a new instance
      * @return a new property instance
      * @throws IllegalArgumentException where an invalid encoded value is specified in the property value
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
+    @Deprecated
     T createProperty(Group group, ParameterList params, String value);
 
     default T createProperty() {

@@ -98,11 +98,11 @@ public class PropertyFactoryRegistryTest {
         List<Object[]> params = new ArrayList<Object[]>();
 
         PropertyFactoryRegistry registry = new PropertyFactoryRegistry();
-        params.add(new Object[]{registry, null, VERSION_4_0.getId().toString(),
+        params.add(new Object[]{registry, null, VERSION_4_0.getName(),
                 VERSION_4_0.getValue(), VERSION_4_0});
 
         Org org = new Org(Group.WORK, "iCal4j");
-        params.add(new Object[]{registry, org.getGroup(), org.getId().toString(), org.getValue(), org});
+        params.add(new Object[]{registry, org.getGroup(), org.getName(), org.getValue(), org});
 
         return params;
     }

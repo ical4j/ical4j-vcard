@@ -159,7 +159,7 @@ public class PropertyTest {
     public static Collection<Object[]> parameters() throws Exception {
         List<Object[]> params = new ArrayList<Object[]>();
 
-        GroupProperty extended = new GroupProperty("X-extended") {
+        Property extended = new Property("X-extended") {
             @Override
             public String getValue() {
                 return "value";
@@ -192,7 +192,7 @@ public class PropertyTest {
             }
         };
 
-        extended = new GroupProperty("X-extended2") {
+        extended = new Property("X-extended2") {
             @Override
             public String getValue() {
                 return "value2";
