@@ -80,15 +80,14 @@ public class PropertyFactoryRegistryTest {
     /**
      * @throws URISyntaxException
      * @throws ParseException
-     * @throws DecoderException 
+     * @throws DecoderException
      */
     @Test
-    public void testGetFactoryCreateProperty() throws URISyntaxException, ParseException, DecoderException {
-        PropertyFactory<? extends GroupProperty> factory = registry.getFactory(propertyName);
+    public void testGetFactoryCreateProperty() {
+        PropertyFactory<? extends Property> factory = registry.getFactory(propertyName);
         if (group != null) {
             assertEquals(expectedProperty, factory.createProperty(group, new ParameterList(), propertyValue));
-        }
-        else {
+        } else {
             assertEquals(expectedProperty, factory.createProperty(new ParameterList(), propertyValue));
         }
     }
