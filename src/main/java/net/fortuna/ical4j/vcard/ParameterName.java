@@ -49,6 +49,8 @@ public enum ParameterName {
      */
     CALSCALE,
 
+    MEDIATYPE,
+
     /**
      * Sort-as parameter identifier.
      */
@@ -57,7 +59,7 @@ public enum ParameterName {
     /**
      * Geo parameter identifier.
      */
-    @Deprecated GEO,
+    GEO,
 
     /**
      * Tz parameter identifier.

@@ -47,6 +47,8 @@ public final class Calscale extends Parameter {
 
     private static final long serialVersionUID = 12345L;
 
+    public static final Calscale GREGORIAN = new Calscale("gregorian");
+
     private final String value;
 
     /**
@@ -73,6 +75,9 @@ public final class Calscale extends Parameter {
         }
 
         public Calscale createParameter(String value) {
+            if (GREGORIAN.getValue().equals(value)) {
+                return GREGORIAN;
+            }
             return new Calscale(value);
         }
     }

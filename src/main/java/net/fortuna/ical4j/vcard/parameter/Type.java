@@ -66,6 +66,7 @@ public final class Type extends Parameter {
     /**
      * Pref type parameter.
      */
+    @Deprecated
     public static final Type PREF = new Type("pref");
 
     private final String[] types;

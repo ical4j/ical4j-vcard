@@ -36,10 +36,6 @@ import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
 import net.fortuna.ical4j.vcard.ParameterName;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * TYPE parameter.
  * <p>
@@ -53,56 +49,14 @@ public final class MediaType extends Parameter {
 
     private static final long serialVersionUID = -3644362129355908795L;
 
-    /**
-     * Home type parameter.
-     */
-    public static final MediaType HOME = new MediaType("home");
-
-    /**
-     * Work type parameter.
-     */
-    public static final MediaType WORK = new MediaType("work");
-
-    /**
-     * Pref type parameter.
-     */
-    public static final MediaType PREF = new MediaType("pref");
-
-    private final String[] types;
+    private final String value;
 
     /**
      * @param value string representation of type parameter
      */
     public MediaType(String value) {
-        super(ParameterName.TYPE.toString());
-        this.types = value.split(",");
-    }
-
-    /**
-     * @param types string representations of multiple nested types
-     */
-    public MediaType(String... types) {
-        super(ParameterName.TYPE.toString());
-        this.types = types;
-    }
-
-    /**
-     * @param types multiple nested types
-     */
-    public MediaType(MediaType... types) {
-        super(ParameterName.TYPE.toString());
-        final List<String> typeList = new ArrayList<>();
-        for (MediaType type : types) {
-            typeList.addAll(Arrays.asList(type.getTypes()));
-        }
-        this.types = typeList.toArray(new String[typeList.size()]);
-    }
-
-    /**
-     * @return the types
-     */
-    public String[] getTypes() {
-        return types;
+        super(ParameterName.MEDIATYPE.toString());
+        this.value = value;
     }
 
     /**
@@ -110,33 +64,16 @@ public final class MediaType extends Parameter {
      */
     @Override
     public String getValue() {
-        final StringBuilder b = new StringBuilder();
-        for (int i = 0; i < types.length; i++) {
-            b.append(types[i]);
-            if (i < types.length - 1) {
-                b.append(',');
-            }
-        }
-        return b.toString();
+        return value;
     }
 
     public static class Factory extends Content.Factory implements ParameterFactory<MediaType> {
         public Factory() {
-            super(ParameterName.TYPE.toString());
+            super(ParameterName.MEDIATYPE.toString());
         }
 
         public MediaType createParameter(String value) {
-            MediaType parameter = null;
-            if (MediaType.HOME.getValue().equals(value)) {
-                parameter = MediaType.HOME;
-            } else if (MediaType.PREF.getValue().equals(value)) {
-                parameter = MediaType.PREF;
-            } else if (MediaType.WORK.getValue().equals(value)) {
-                parameter = MediaType.WORK;
-            } else {
-                parameter = new MediaType(value);
-            }
-            return parameter;
+            return new MediaType(value);
         }
     }
 }

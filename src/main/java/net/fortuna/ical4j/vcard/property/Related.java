@@ -59,6 +59,27 @@ public class Related extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = -3319959600372278036L;
 
+    public static Type TYPE_CONTACT = new Type("contact");
+    public static Type TYPE_ACQUAINTANCE = new Type("acquaintance");
+    public static Type TYPE_FRIEND = new Type("friend");
+    public static Type TYPE_MET = new Type("met");
+    public static Type TYPE_COWORKER = new Type("co-worker");
+    public static Type TYPE_COLLEAGUE = new Type("colleague");
+    public static Type TYPE_CORESIDENT = new Type("co-resident");
+    public static Type TYPE_NEIGHBOR = new Type("neighbor");
+    public static Type TYPE_CHILD = new Type("child");
+    public static Type TYPE_PARENT = new Type("parent");
+    public static Type TYPE_SIBLING = new Type("sibling");
+    public static Type TYPE_SPOUSE = new Type("spouse");
+    public static Type TYPE_KIN = new Type("kin");
+    public static Type TYPE_MUSE = new Type("muse");
+    public static Type TYPE_CRUSH = new Type("crush");
+    public static Type TYPE_DATE = new Type("date");
+    public static Type TYPE_SWEETHEART = new Type("sweetheart");
+    public static Type TYPE_ME = new Type("me");
+    public static Type TYPE_AGENT = new Type("agent");
+    public static Type TYPE_EMERGENCY = new Type("emergency");
+
     private URI uri;
 
     private String text;

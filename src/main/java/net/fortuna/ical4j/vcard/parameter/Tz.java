@@ -36,6 +36,8 @@ import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
 import net.fortuna.ical4j.vcard.ParameterName;
 
+import java.net.URI;
+
 /**
  * CALSCALE parameter.
  * <p>
@@ -47,7 +49,7 @@ public final class Tz extends Parameter {
 
     private static final long serialVersionUID = 12345L;
 
-    private final String value;
+    private final URI uri;
 
     /**
      * Factory constructor.
@@ -56,7 +58,7 @@ public final class Tz extends Parameter {
      */
     public Tz(String value) {
         super(ParameterName.TZ.toString());
-        this.value = value;
+        this.uri = URI.create(value);
     }
 
     /**
@@ -64,7 +66,7 @@ public final class Tz extends Parameter {
      */
     @Override
     public String getValue() {
-        return value;
+        return uri.toString();
     }
 
     public static class Factory extends Content.Factory implements ParameterFactory<Tz> {

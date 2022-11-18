@@ -59,6 +59,20 @@ public class Telephone extends Property implements PropertyValidatorSupport, Gro
 
     private static final long serialVersionUID = -7747040131815077325L;
 
+    public static Type TYPE_TEXT = new Type("text");
+
+    public static Type TYPE_VOICE = new Type("voice");
+
+    public static Type TYPE_FAX = new Type("fax");
+
+    public static Type TYPE_CELL = new Type("cell");
+
+    public static Type TYPE_VIDEO = new Type("video");
+
+    public static Type TYPE_PAGER = new Type("pager");
+
+    public static Type TYPE_TEXTPHONE = new Type("textphone");
+
     private static final String TEL_SCHEME = "tel";
 
     private URI uri;

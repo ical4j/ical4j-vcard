@@ -59,7 +59,7 @@ public final class SortAs extends Parameter {
     public SortAs(String value) {
         super(ParameterName.SORT_AS.toString());
         this.value = value;
-        segments = value.split(";", -1);
+        segments = value.split(",", -1);
     }
 
     /**

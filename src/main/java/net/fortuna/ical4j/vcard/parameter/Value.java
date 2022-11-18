@@ -108,6 +108,7 @@ public final class Value extends Parameter {
     /**
      * Binary value parameter.
      */
+    @Deprecated
     public static final Value BINARY = new Value("binary");
 
     /**
@@ -124,6 +125,7 @@ public final class Value extends Parameter {
      * Resource
      * duration value parameter.
      */
+    @Deprecated
     public static final Value DURATION = new Value("duration");
 
     private final String value;

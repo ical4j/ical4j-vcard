@@ -36,6 +36,8 @@ import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
 import net.fortuna.ical4j.vcard.ParameterName;
 
+import java.net.URI;
+
 /**
  * GEO parameter.
  * <p>
@@ -43,12 +45,11 @@ import net.fortuna.ical4j.vcard.ParameterName;
  *
  * @author Mike Douglass
  */
-@Deprecated
 public final class Geo extends Parameter {
 
     private static final long serialVersionUID = 12345L;
 
-    private final String value;
+    private final URI uri;
 
     /**
      * Factory constructor.
@@ -57,7 +58,7 @@ public final class Geo extends Parameter {
      */
     public Geo(String value) {
         super(ParameterName.GEO.toString());
-        this.value = value;
+        this.uri = URI.create(value);
     }
 
     /**
@@ -65,7 +66,7 @@ public final class Geo extends Parameter {
      */
     @Override
     public String getValue() {
-        return value;
+        return uri.toString();
     }
 
     public static class Factory extends Content.Factory implements ParameterFactory<Geo> {
