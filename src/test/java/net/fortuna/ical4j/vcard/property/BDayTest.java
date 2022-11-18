@@ -31,10 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import net.fortuna.ical4j.model.Date;
-import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Value;
@@ -42,6 +39,8 @@ import org.junit.Test;
 import org.junit.runners.Parameterized.Parameters;
 
 import java.text.ParseException;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -84,22 +83,19 @@ public class BDayTest extends PropertyTest {
     public static Collection<Object[]> parameters() throws ParseException {
         final List<Object[]> params = new ArrayList<Object[]>();
 
-        try {
-            String dateString = "19690415";
-            params.add(new Object[]{new BDay(new Date(dateString)), PropertyName.BDAY.toString(), dateString,
-                    new Parameter[]{}, Date.class,});
-            dateString = "15730125T180322Z";
-            params.add(new Object[]{new BDay(new DateTime(dateString)), PropertyName.BDAY.toString(),
-                    dateString, new Parameter[]{}, DateTime.class,});
-        } catch (ParseException pe) {
-            pe.printStackTrace();
-        }
-        String dateString = "19690416";
+        String dateString = "19690415";
+        params.add(new Object[]{new BDay(TemporalAdapter.parse(dateString).getTemporal()), PropertyName.BDAY.toString(), dateString,
+                new Parameter[]{}, LocalDate.class,});
+        dateString = "15730125T180322Z";
+        params.add(new Object[]{new BDay(TemporalAdapter.parse(dateString).getTemporal()), PropertyName.BDAY.toString(),
+                dateString, new Parameter[]{}, Instant.class,});
+
+        dateString = "19690416";
         params.add(new Object[]{new BDay(new ParameterList(), dateString), PropertyName.BDAY.toString(), dateString,
-                new Parameter[]{}, Date.class,});
+                new Parameter[]{}, LocalDate.class,});
         dateString = "15730125T180323Z";
         params.add(new Object[]{new BDay(new ParameterList(), dateString), PropertyName.BDAY.toString(),
-                dateString, new Parameter[]{}, DateTime.class,});
+                dateString, new Parameter[]{}, Instant.class,});
         params.add(new Object[]{new BDay(""), PropertyName.BDAY.toString(), "", new Parameter[]{Value.TEXT}, null});
         final ParameterList bdayParams = new ParameterList(Collections.singletonList(Value.TEXT));
         final String bdayString = "Circa 400, bce";
