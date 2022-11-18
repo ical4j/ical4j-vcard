@@ -32,13 +32,11 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
-
-import java.text.MessageFormat;
 
 /**
  * MAILER property (vCard 3.0 only).
@@ -51,7 +49,7 @@ import java.text.MessageFormat;
  * @deprecated the MAILER property was removed from vCard v4.0
  */
 @Deprecated
-public class Mailer extends GroupProperty {
+public class Mailer extends Property implements PropertyValidatorSupport, GroupProperty {
 
     private static final long serialVersionUID = 6134254373259957228L;
 
@@ -61,16 +59,19 @@ public class Mailer extends GroupProperty {
      * @param value an email address string
      */
     public Mailer(String value) {
-        this((Group) null, value);
+        super(PropertyName.MAILER.toString());
+        this.value = value;
     }
 
     /**
      * @param group property group
      * @param value an email address string
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
+    @Deprecated
     public Mailer(Group group, String value) {
-        super(group, PropertyName.MAILER);
-        this.value = value;
+        this(value);
+        setGroup(group);
     }
 
     /**
@@ -80,7 +81,8 @@ public class Mailer extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Mailer(ParameterList params, String value) {
-        this(null, params, value);
+        super(PropertyName.MAILER.toString(), params);
+        this.value = value;
     }
 
     /**
@@ -89,10 +91,12 @@ public class Mailer extends GroupProperty {
      * @param group  property group
      * @param params property parameters
      * @param value  string representation of a property value
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
+    @Deprecated
     public Mailer(Group group, ParameterList params, String value) {
-        super(group, PropertyName.MAILER, params);
-        this.value = value;
+        this(params, value);
+        setGroup(group);
     }
 
     /**
@@ -113,12 +117,7 @@ public class Mailer extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        for (Parameter param : getParameters()) {
-            if (!ParameterName.EXTENDED.toString().equals(param.getName())) {
-                throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getName()));
-            }
-        }
-        return ValidationResult.EMPTY;
+        return MAILER.validate(this);
     }
 
     @Override

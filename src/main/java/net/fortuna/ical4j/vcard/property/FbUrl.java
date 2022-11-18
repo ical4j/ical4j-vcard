@@ -33,13 +33,14 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 import java.net.URI;
@@ -54,7 +55,7 @@ import java.net.URISyntaxException;
  *
  * @author Ben
  */
-public class FbUrl extends GroupProperty {
+public class FbUrl extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = 7406097765207265428L;
 
@@ -65,7 +66,7 @@ public class FbUrl extends GroupProperty {
      * @param types optional property classifiers
      */
     public FbUrl(URI uri, Type... types) {
-        super(PropertyName.FBURL);
+        super(PropertyName.FBURL.toString());
         this.uri = uri;
         for (Type type : types) {
             add(type);
@@ -79,7 +80,7 @@ public class FbUrl extends GroupProperty {
      * @param value  string representation of a property value
      */
     public FbUrl(ParameterList params, String value) {
-        super(PropertyName.FBURL, params);
+        super(PropertyName.FBURL.toString(), params);
         setValue(value);
     }
 
@@ -112,7 +113,7 @@ public class FbUrl extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return ValidationResult.EMPTY;
+        return FBURL.validate(this);
     }
 
     @Override

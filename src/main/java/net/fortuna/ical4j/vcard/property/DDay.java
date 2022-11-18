@@ -54,7 +54,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  * @author Ben
  */
 @Deprecated
-public class DDay extends GroupProperty implements Encodable {
+public class DDay extends Property implements Encodable, PropertyValidatorSupport {
 
     private static final long serialVersionUID = 3969167775362943497L;
 
@@ -66,7 +66,7 @@ public class DDay extends GroupProperty implements Encodable {
      * @param date date of death
      */
     public DDay(Date date) {
-        super(PropertyName.DDAY);
+        super(PropertyName.DDAY.toString());
         this.date = date;
     }
 
@@ -74,7 +74,7 @@ public class DDay extends GroupProperty implements Encodable {
      * @param description unstructured time of death
      */
     public DDay(String description) {
-        super(PropertyName.DDAY);
+        super(PropertyName.DDAY.toString());
         this.text = description;
         add(Value.TEXT);
     }
@@ -87,7 +87,7 @@ public class DDay extends GroupProperty implements Encodable {
      * @throws ParseException where the specified value is not a valid date representation
      */
     public DDay(ParameterList params, String value) {
-        super(PropertyName.DDAY, params);
+        super(PropertyName.DDAY.toString(), params);
         setValue(value);
     }
 
@@ -110,7 +110,7 @@ public class DDay extends GroupProperty implements Encodable {
      */
     @Override
     public String getValue() {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             return text;
         }
         return Strings.valueOf(date);
@@ -118,7 +118,7 @@ public class DDay extends GroupProperty implements Encodable {
 
     @Override
     public void setValue(String value) {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             this.text = value;
         } else {
             try {
@@ -138,19 +138,7 @@ public class DDay extends GroupProperty implements Encodable {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; Only value parameter allowed
-        assertOneOrLess(ParameterName.VALUE);
-
-        if (getParameters().size() > 1) {
-            throw new ValidationException("Illegal parameter count");
-        }
-
-        for (Parameter param : getParameters()) {
-            if (!Value.TEXT.equals(param)) {
-                throw new ValidationException("Illegal parameter [" + param.getName() + "]");
-            }
-        }
-        return ValidationResult.EMPTY;
+        return DDAY.validate(this);
     }
 
     @Override

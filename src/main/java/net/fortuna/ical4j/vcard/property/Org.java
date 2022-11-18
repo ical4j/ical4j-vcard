@@ -32,14 +32,11 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.*;
 
 import static net.fortuna.ical4j.util.Strings.escape;
 
@@ -52,7 +49,7 @@ import static net.fortuna.ical4j.util.Strings.escape;
  *
  * @author Ben
  */
-public class Org extends GroupProperty {
+public class Org extends Property implements PropertyValidatorSupport, GroupProperty {
 
     private static final long serialVersionUID = -1435956318814896568L;
 
@@ -67,19 +64,22 @@ public class Org extends GroupProperty {
      * @param value one or more organization values
      */
     public Org(String... value) {
-        this(null, value);
+        super(PropertyName.ORG.toString());
+        if (value.length == 0) {
+            throw new IllegalArgumentException("Must specify at least one organization");
+        }
+        this.values = value;
     }
 
     /**
      * @param group a property group
      * @param value one or more organization values
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
+    @Deprecated
     public Org(Group group, String... value) {
-        super(group, PropertyName.ORG);
-        if (value.length == 0) {
-            throw new IllegalArgumentException("Must specify at least one organization");
-        }
-        this.values = value;
+        this(value);
+        setGroup(group);
     }
 
     /**
@@ -89,7 +89,8 @@ public class Org extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Org(ParameterList params, String value) {
-        this(null, params, value);
+        super(PropertyName.ORG.toString(), params);
+        this.values = value.split(VALUES_SPLIT_REGEX);
     }
 
     /**
@@ -98,10 +99,12 @@ public class Org extends GroupProperty {
      * @param group  a property group
      * @param params property parameters
      * @param value  string representation of a property value
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
+    @Deprecated
     public Org(Group group, ParameterList params, String value) {
-        super(group, PropertyName.ORG, params);
-        this.values = value.split(VALUES_SPLIT_REGEX);
+        this(params, value);
+        setGroup(group);
     }
 
     /**
@@ -137,15 +140,7 @@ public class Org extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; Text parameters allowed
-        for (Parameter param : getParameters()) {
-            try {
-                assertTextParameter(param);
-            } catch (ValidationException ve) {
-                assertPidParameter(param);
-            }
-        }
-        return ValidationResult.EMPTY;
+        return ORG.validate(this);
     }
 
     @Override

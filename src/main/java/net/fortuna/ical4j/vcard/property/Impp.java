@@ -33,13 +33,14 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 import java.net.URI;
@@ -54,7 +55,7 @@ import java.net.URISyntaxException;
  *
  * @author Ben
  */
-public class Impp extends GroupProperty {
+public class Impp extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = 4042305605468586600L;
 
@@ -65,7 +66,7 @@ public class Impp extends GroupProperty {
      * @param types optional property classifiers
      */
     public Impp(URI uri, Type... types) {
-        super(PropertyName.IMPP);
+        super(PropertyName.IMPP.toString());
         this.uri = uri;
         for (Type type : types) {
             add(type);
@@ -77,7 +78,7 @@ public class Impp extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Impp(ParameterList params, String value) {
-        super(PropertyName.IMPP, params);
+        super(PropertyName.IMPP.toString(), params);
         setValue(value);
     }
 
@@ -110,7 +111,7 @@ public class Impp extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return ValidationResult.EMPTY;
+        return IMPP.validate(this);
     }
 
     @Override

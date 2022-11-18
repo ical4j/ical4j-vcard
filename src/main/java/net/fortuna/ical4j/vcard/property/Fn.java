@@ -32,14 +32,14 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 /**
  * FN property.
@@ -50,7 +50,7 @@ import net.fortuna.ical4j.vcard.PropertyName;
  *
  * @author Ben
  */
-public class Fn extends GroupProperty {
+public class Fn extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = -3576886478408668365L;
 
@@ -60,7 +60,7 @@ public class Fn extends GroupProperty {
      * @param value string representation of a property value
      */
     public Fn(String value) {
-        super(PropertyName.FN);
+        super(PropertyName.FN.toString());
         this.value = value;
     }
 
@@ -71,7 +71,7 @@ public class Fn extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Fn(ParameterList params, String value) {
-        super(PropertyName.FN, params);
+        super(PropertyName.FN.toString(), params);
         this.value = value;
     }
 
@@ -93,11 +93,7 @@ public class Fn extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; Text parameters allowed
-        for (Parameter param : getParameters()) {
-            assertTextParameter(param);
-        }
-        return ValidationResult.EMPTY;
+        return FN.validate(this);
     }
 
     @Override

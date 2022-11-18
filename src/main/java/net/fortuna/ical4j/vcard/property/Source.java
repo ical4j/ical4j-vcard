@@ -32,12 +32,14 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
-import net.fortuna.ical4j.vcard.parameter.Value;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -51,7 +53,7 @@ import java.net.URISyntaxException;
  *
  * @author Ben
  */
-public class Source extends GroupProperty {
+public class Source extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = -8097388189864368448L;
 
@@ -61,7 +63,7 @@ public class Source extends GroupProperty {
      * @param uri a URI specifying a source location
      */
     public Source(URI uri) {
-        super(PropertyName.SOURCE);
+        super(PropertyName.SOURCE.toString());
         this.uri = uri;
     }
 
@@ -72,7 +74,7 @@ public class Source extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Source(ParameterList params, String value) {
-        super(PropertyName.SOURCE, params);
+        super(PropertyName.SOURCE.toString(), params);
         setValue(value);
     }
 
@@ -105,14 +107,7 @@ public class Source extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; Only source parameters allowed
-        for (Parameter param : getParameters()) {
-            if (!Value.URI.equals(param) && !ParameterName.EXTENDED.toString().equals(param.getName())
-                    && !ParameterName.PID.toString().equals(param.getName())) {
-                throw new ValidationException("Illegal parameter [" + param.getName() + "]");
-            }
-        }
-        return ValidationResult.EMPTY;
+        return SOURCE.validate(this);
     }
 
     @Override

@@ -31,15 +31,18 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import net.fortuna.ical4j.model.*;
-import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Encodable;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.TemporalAdapter;
+import net.fortuna.ical4j.model.property.DateProperty;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
-import java.text.ParseException;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.Temporal;
 import java.util.Optional;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
@@ -51,27 +54,25 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
-public class BDay extends GroupProperty implements Encodable {
+public class BDay<T extends Temporal> extends DateProperty<T> implements Encodable, PropertyValidatorSupport {
 
     private static final long serialVersionUID = 4298026868242865633L;
-
-    private Date date;
 
     private String text;
 
     /**
      * @param date date of birth
      */
-    public BDay(Date date) {
-        super(PropertyName.BDAY);
-        this.date = date;
+    public BDay(T date) {
+        super(PropertyName.BDAY.toString());
+        setDate(date);
     }
 
     /**
      * @param text non-structured date of birth
      */
     public BDay(String text) {
-        super(PropertyName.BDAY);
+        super(PropertyName.BDAY.toString());
         this.text = text;
         add(Value.TEXT);
     }
@@ -84,15 +85,8 @@ public class BDay extends GroupProperty implements Encodable {
      * @throws IllegalArgumentException if the property value is an invalid date
      */
     public BDay(ParameterList params, String value) {
-        super(PropertyName.BDAY, params);
+        super(PropertyName.BDAY.toString(), params);
         setValue(value);
-    }
-
-    /**
-     * @return the date
-     */
-    public Date getDate() {
-        return date;
     }
 
     /**
@@ -107,35 +101,22 @@ public class BDay extends GroupProperty implements Encodable {
      */
     @Override
     public String getValue() {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             return text;
         }
-        return Strings.valueOf(date);
+        return super.getValue();
     }
 
     @Override
     public void setValue(String value) {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             this.text = value;
         } else {
-
             // try default patterns first, then fall back on vCard-specific patterns
             try {
-                this.date = new Date(value);
-            } catch (ParseException e) {
-                try {
-                    this.date = new DateTime(value);
-                } catch (ParseException e2) {
-                    try {
-                        this.date = new Date(value, "yyyy'-'MM'-'dd");
-                    } catch (ParseException e3) {
-                        try {
-                            this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
-                        } catch (ParseException ex) {
-                            throw new IllegalArgumentException(ex);
-                        }
-                    }
-                }
+                super.setValue(value);
+            } catch (DateTimeParseException e) {
+                setDate((T) TemporalAdapter.parse(value, DateFormatSupport.RELAXED_PARSE_FORMAT).getTemporal());
             }
         }
     }
@@ -145,28 +126,29 @@ public class BDay extends GroupProperty implements Encodable {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
+        return BDAY.validate(this);
         // ; Only value parameter allowed
-        assertOneOrLess(ParameterName.VALUE);
-
-        if (getParameters().size() > 1) {
-            throw new ValidationException("Illegal parameter count");
-        }
-
-        for (Parameter param : getParameters()) {
-            if (!Value.TEXT.equals(param)) {
-                throw new ValidationException("Illegal parameter ["
-                        + param.getName() + "]");
-            }
-        }
-        return ValidationResult.EMPTY;
+//        assertOneOrLess(ParameterName.VALUE);
+//
+//        if (getParameters().size() > 1) {
+//            throw new ValidationException("Illegal parameter count");
+//        }
+//
+//        for (Parameter param : getParameters()) {
+//            if (!Value.TEXT.equals(param)) {
+//                throw new ValidationException("Illegal parameter ["
+//                        + param.getName() + "]");
+//            }
+//        }
+//        return ValidationResult.EMPTY;
     }
 
     @Override
-    protected PropertyFactory<BDay> newFactory() {
-        return new Factory();
+    protected PropertyFactory<BDay<T>> newFactory() {
+        return new Factory<>();
     }
 
-    public static class Factory extends Content.Factory implements PropertyFactory<BDay> {
+    public static class Factory<T extends Temporal> extends Content.Factory implements PropertyFactory<BDay<T>> {
         public Factory() {
             super(PropertyName.BDAY.toString());
         }
@@ -174,14 +156,14 @@ public class BDay extends GroupProperty implements Encodable {
         /**
          * {@inheritDoc}
          */
-        public BDay createProperty(final ParameterList params, final String value) {
-            return new BDay(params, unescape(value));
+        public BDay<T> createProperty(final ParameterList params, final String value) {
+            return new BDay<>(params, unescape(value));
         }
 
         /**
          * {@inheritDoc}
          */
-        public BDay createProperty(final Group group, final ParameterList params, final String value) {
+        public BDay<T> createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

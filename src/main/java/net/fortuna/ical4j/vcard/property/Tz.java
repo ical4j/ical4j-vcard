@@ -33,6 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.ZoneOffsetAdapter;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
@@ -52,7 +53,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Tz extends GroupProperty {
+public class Tz extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = 930436197799477318L;
 
@@ -64,7 +65,7 @@ public class Tz extends GroupProperty {
      * @param offset the offset from UTC for the timezone
      */
     public Tz(ZoneOffset offset) {
-        super(PropertyName.TZ);
+        super(PropertyName.TZ.toString());
         this.offset = new ZoneOffsetAdapter(offset);
     }
 
@@ -72,7 +73,7 @@ public class Tz extends GroupProperty {
      * @param text an unstructured timezone value
      */
     public Tz(String text) {
-        super(PropertyName.TZ);
+        super(PropertyName.TZ.toString());
         this.text = text;
         add(Value.TEXT);
     }
@@ -84,8 +85,8 @@ public class Tz extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Tz(ParameterList params, String value) {
-        super(PropertyName.TZ, params);
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
+        super(PropertyName.TZ.toString(), params);
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             this.text = value;
         } else {
             this.offset = new ZoneOffsetAdapter(ZoneOffset.of(value));
@@ -112,7 +113,7 @@ public class Tz extends GroupProperty {
     @Override
     public String getValue() {
         String value = null;
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             value = text;
         } else if (offset != null) {
             value = offset.toString();
@@ -138,9 +139,7 @@ public class Tz extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; No parameters allowed
-        assertParametersEmpty();
-        return ValidationResult.EMPTY;
+        return TZ.validate(this);
     }
 
     @Override

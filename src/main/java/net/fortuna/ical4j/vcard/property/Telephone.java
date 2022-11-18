@@ -32,8 +32,8 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
@@ -44,7 +44,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.MessageFormat;
 import java.util.Optional;
 
 /**
@@ -56,7 +55,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Telephone extends GroupProperty {
+public class Telephone extends Property implements PropertyValidatorSupport, GroupProperty {
 
     private static final long serialVersionUID = -7747040131815077325L;
 
@@ -71,21 +70,24 @@ public class Telephone extends GroupProperty {
      * @param types optional parameter types
      */
     public Telephone(URI uri, Type... types) {
-        this(null, uri, types);
+        super(PropertyName.TEL.toString());
+        this.uri = normalise(uri);
+        add(Value.URI);
+        for (Type type : types) {
+            add(type);
+        }
     }
 
     /**
      * @param group a property group
      * @param uri   specifies the URI of a telephone definition
      * @param types optional parameter types
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
+    @Deprecated
     public Telephone(Group group, URI uri, Type... types) {
-        super(group, PropertyName.TEL);
-        this.uri = normalise(uri);
-        add(Value.URI);
-        for (Type type : types) {
-            add(type);
-        }
+        this(uri, types);
+        setGroup(group);
     }
 
     /**
@@ -95,7 +97,7 @@ public class Telephone extends GroupProperty {
      * @param types optional parameter types
      */
     public Telephone(String value, Type... types) {
-        super(null, PropertyName.TEL);
+        super(PropertyName.TEL.toString());
         this.value = value;
         for (Type type : types) {
             add(type);
@@ -110,7 +112,8 @@ public class Telephone extends GroupProperty {
      * @throws URISyntaxException where the specified value is not a valid URI
      */
     public Telephone(ParameterList params, String value) {
-        this(null, params, value);
+        super(PropertyName.TEL.toString(), params);
+        setValue(value);
     }
 
     /**
@@ -120,10 +123,12 @@ public class Telephone extends GroupProperty {
      * @param params property parameters
      * @param value  string representation of a property value
      * @throws URISyntaxException where the specified value is not a valid URI
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
+    @Deprecated
     public Telephone(Group group, ParameterList params, String value) {
-        super(group, PropertyName.TEL, params);
-        setValue(value);
+        this(params, value);
+        setGroup(group);
     }
 
     private URI normalise(URI uri) {
@@ -161,7 +166,7 @@ public class Telephone extends GroupProperty {
 
     @Override
     public void setValue(String value) {
-        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE))) {
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString()))) {
             try {
                 this.uri = normalise(new URI(value.trim().replaceAll("\\s+", "-")));
             } catch (URISyntaxException e) {
@@ -177,14 +182,7 @@ public class Telephone extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        for (Parameter param : getParameters()) {
-            if (!ParameterName.PID.toString().equals(param.getName()) &&
-                    !ParameterName.PREF.toString().equals(param.getName()) &&
-                    !ParameterName.TYPE.toString().equals(param.getName())) {
-                throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getName()));
-            }
-        }
-        return ValidationResult.EMPTY;
+        return PropertyValidatorSupport.TEL.validate(this);
     }
 
     @Override

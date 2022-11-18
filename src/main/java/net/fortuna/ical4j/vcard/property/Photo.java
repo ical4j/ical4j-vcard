@@ -33,6 +33,7 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
@@ -62,7 +63,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Photo extends GroupProperty {
+public class Photo extends Property implements PropertyValidatorSupport, GroupProperty {
 
     private static final long serialVersionUID = 5927040228596008262L;
 
@@ -76,7 +77,7 @@ public class Photo extends GroupProperty {
      * @param uri a URI that specifies the location of a photo
      */
     public Photo(URI uri) {
-        super(PropertyName.PHOTO);
+        super(PropertyName.PHOTO.toString());
         this.uri = uri;
         add(Value.URI);
     }
@@ -93,7 +94,7 @@ public class Photo extends GroupProperty {
      * @param contentType the MIME type of the photo data
      */
     public Photo(byte[] binary, Type contentType) {
-        super(PropertyName.PHOTO);
+        super(PropertyName.PHOTO.toString());
         this.binary = binary;
         add(Encoding.B);
         if (contentType != null) {
@@ -109,13 +110,20 @@ public class Photo extends GroupProperty {
      * @throws IllegalArgumentException where the specified photo data value cannot be decoded
      */
     public Photo(ParameterList params, String value) {
-        super(PropertyName.PHOTO, params);
+        super(PropertyName.PHOTO.toString(), params);
         setValue(value);
     }
 
+    /**
+     * @param group
+     * @param parameters
+     * @param value
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
+     */
+    @Deprecated
     public Photo(Group group, ParameterList parameters, String value) {
-        super(group, PropertyName.PHOTO, parameters);
-        setValue(value);
+        this(parameters, value);
+        setGroup(group);
     }
 
     /**
@@ -156,9 +164,9 @@ public class Photo extends GroupProperty {
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
          */
-        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE)) ||
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString())) ||
                 CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) &&
-                        Optional.of(Value.URL).equals(getParameter(ParameterName.VALUE))) {
+                        Optional.of(Value.URL).equals(getParameter(ParameterName.VALUE.toString()))) {
             try {
                 this.uri = new URI(value);
             } catch (URISyntaxException e) {
@@ -179,11 +187,7 @@ public class Photo extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-//        for (Parameter param : getParameters()) {
-//            assertPidParameter(param);
-//        }
-        assertOneOrLess(ParameterName.VALUE);
-        return ValidationResult.EMPTY;
+        return PHOTO.validate(this);
     }
 
     @Override

@@ -33,8 +33,8 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Encodable;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
@@ -58,7 +58,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  * @deprecated the AGENT property was removed in vCard v4.0.
  */
 @Deprecated
-public class Agent extends GroupProperty implements Encodable {
+public class Agent extends Property implements Encodable, PropertyValidatorSupport {
 
     private static final long serialVersionUID = 2670466615841142934L;
 
@@ -70,7 +70,7 @@ public class Agent extends GroupProperty implements Encodable {
      * @param uri agent URI value
      */
     public Agent(URI uri) {
-        super(PropertyName.AGENT);
+        super(PropertyName.AGENT.toString());
         this.uri = uri;
     }
 
@@ -78,7 +78,7 @@ public class Agent extends GroupProperty implements Encodable {
      * @param text agent text value
      */
     public Agent(String text) {
-        super(PropertyName.AGENT);
+        super(PropertyName.AGENT.toString());
         this.text = text;
         add(Value.TEXT);
     }
@@ -91,8 +91,8 @@ public class Agent extends GroupProperty implements Encodable {
      * @throws URISyntaxException if the string value is an invalid URI
      */
     public Agent(ParameterList params, String value) {
-        super(PropertyName.AGENT, params);
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
+        super(PropertyName.AGENT.toString(), params);
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             this.text = value;
         } else {
             try {
@@ -122,7 +122,7 @@ public class Agent extends GroupProperty implements Encodable {
      */
     @Override
     public String getValue() {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             return text;
         }
         return Strings.valueOf(uri);
@@ -144,14 +144,15 @@ public class Agent extends GroupProperty implements Encodable {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        for (Parameter param : getParameters()) {
-            try {
-                assertTextParameter(param);
-            } catch (ValidationException ve) {
-                assertPidParameter(param);
-            }
-        }
-        return null;
+        return AGENT.validate(this);
+//        for (Parameter param : getParameters()) {
+//            try {
+//                assertTextParameter(param);
+//            } catch (ValidationException ve) {
+//                assertPidParameter(param);
+//            }
+//        }
+//        return null;
     }
 
     @Override

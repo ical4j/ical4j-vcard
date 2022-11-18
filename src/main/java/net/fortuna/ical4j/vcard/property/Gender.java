@@ -33,12 +33,10 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.*;
 
 import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.FEMALE;
 import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.MALE;
@@ -52,7 +50,7 @@ import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.MALE;
  *
  * @author Ben
  */
-public class Gender extends GroupProperty {
+public class Gender extends Property implements PropertyValidatorSupport, GroupProperty {
 
     private static final long serialVersionUID = -2739534182576803750L;
 
@@ -62,7 +60,7 @@ public class Gender extends GroupProperty {
      * @param value string representation of a property value
      */
     public Gender(String value) {
-        super(PropertyName.GENDER);
+        super(PropertyName.GENDER.toString());
         this.value = value;
     }
 
@@ -73,13 +71,20 @@ public class Gender extends GroupProperty {
      * @param value  string representation of a property value
      */
     private Gender(ParameterList params, String value) {
-        super(PropertyName.GENDER, params);
+        super(PropertyName.GENDER.toString(), params);
         setValue(value);
     }
 
+    /**
+     * @param group
+     * @param parameters
+     * @param value
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
+     */
+    @Deprecated
     public Gender(Group group, ParameterList parameters, String value) {
-        super(group, PropertyName.GENDER, parameters);
-        setValue(value);
+        this(parameters, value);
+        setGroup(group);
     }
 
     /**

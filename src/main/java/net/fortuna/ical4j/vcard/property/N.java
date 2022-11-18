@@ -32,15 +32,15 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 import org.apache.commons.lang3.ArrayUtils;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -54,7 +54,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  *
  * @author Ben
  */
-public class N extends GroupProperty {
+public class N extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = 1117450875931318523L;
 
@@ -76,7 +76,7 @@ public class N extends GroupProperty {
      * @param suffixes        suffix components of a name
      */
     public N(String familyName, String givenName, String[] additionalNames, String[] prefixes, String[] suffixes) {
-        super(PropertyName.N);
+        super(PropertyName.N.toString());
         this.familyName = familyName;
         this.givenName = givenName;
         this.additionalNames = additionalNames;
@@ -91,7 +91,7 @@ public class N extends GroupProperty {
      * @param value  string representation of a property value
      */
     public N(ParameterList params, String value) {
-        super(PropertyName.N, params);
+        super(PropertyName.N.toString(), params);
         setValue(value);
     }
 
@@ -230,11 +230,7 @@ public class N extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; Text parameters allowed
-        for (Parameter param : getParameters()) {
-            assertTextParameter(param);
-        }
-        return ValidationResult.EMPTY;
+        return N.validate(this);
     }
 
     @Override

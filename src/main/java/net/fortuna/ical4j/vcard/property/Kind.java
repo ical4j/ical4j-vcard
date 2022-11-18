@@ -33,12 +33,10 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.property.immutable.ImmutableKind;
 
 import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.*;
@@ -52,7 +50,7 @@ import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.*;
  *
  * @author Ben
  */
-public class Kind extends GroupProperty {
+public class Kind extends Property implements PropertyValidatorSupport, GroupProperty {
 
     private static final long serialVersionUID = -3114221975393833838L;
 
@@ -62,7 +60,7 @@ public class Kind extends GroupProperty {
      * @param value a string representation of a kind value
      */
     public Kind(String value) {
-        super(PropertyName.KIND);
+        super(PropertyName.KIND.toString());
         this.value = value;
     }
 
@@ -73,13 +71,20 @@ public class Kind extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Kind(ParameterList params, String value) {
-        super(PropertyName.KIND, params);
+        super(PropertyName.KIND.toString(), params);
         setValue(value);
     }
 
+    /**
+     * @param group
+     * @param parameters
+     * @param value
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
+     */
+    @Deprecated
     public Kind(Group group, ParameterList parameters, String value) {
-        super(group, PropertyName.KIND, parameters);
-        setValue(value);
+        this(parameters, value);
+        setGroup(group);
     }
 
     /**
@@ -100,9 +105,7 @@ public class Kind extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; No parameters allowed
-        assertParametersEmpty();
-        return ValidationResult.EMPTY;
+        return KIND.validate(this);
     }
 
     @Override
@@ -124,8 +127,8 @@ public class Kind extends GroupProperty {
                     return GROUP;
                 } else if (INDIVIDUAL.getValue().equalsIgnoreCase(value)) {
                     return INDIVIDUAL;
-                } else if (ORG.getValue().equalsIgnoreCase(value)) {
-                    return ORG;
+                } else if (ImmutableKind.ORG.getValue().equalsIgnoreCase(value)) {
+                    return ImmutableKind.ORG;
                 } else if (ImmutableKind.LOCATION.getValue().equalsIgnoreCase(value)) {
                     return ImmutableKind.LOCATION;
                 } else if (THING.getValue().equalsIgnoreCase(value)) {

@@ -33,14 +33,14 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Encodable;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -53,7 +53,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
-public class Note extends GroupProperty implements Encodable {
+public class Note extends Property implements Encodable, PropertyValidatorSupport {
 
     private static final long serialVersionUID = -1435219426295284759L;
 
@@ -63,7 +63,7 @@ public class Note extends GroupProperty implements Encodable {
      * @param value a note value
      */
     public Note(String value) {
-        super(PropertyName.NOTE);
+        super(PropertyName.NOTE.toString());
         this.value = value;
     }
 
@@ -74,7 +74,7 @@ public class Note extends GroupProperty implements Encodable {
      * @param value  string representation of a property value
      */
     public Note(ParameterList params, String value) {
-        super(PropertyName.NOTE, params);
+        super(PropertyName.NOTE.toString(), params);
         this.value = value;
     }
 
@@ -96,15 +96,7 @@ public class Note extends GroupProperty implements Encodable {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; Text parameters allowed
-        for (Parameter param : getParameters()) {
-            try {
-                assertTextParameter(param);
-            } catch (ValidationException ve) {
-                assertPidParameter(param);
-            }
-        }
-        return ValidationResult.EMPTY;
+        return NOTE.validate(this);
     }
 
     @Override

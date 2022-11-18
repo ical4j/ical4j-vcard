@@ -33,14 +33,14 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Encodable;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
@@ -56,7 +56,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  * @deprecated the LABEL property was removed from vCard v4.0
  */
 @Deprecated
-public class Label extends GroupProperty implements Encodable {
+public class Label extends Property implements Encodable, PropertyValidatorSupport {
 
     private static final long serialVersionUID = -3634101566227652040L;
 
@@ -67,7 +67,7 @@ public class Label extends GroupProperty implements Encodable {
      * @param types optional property types
      */
     public Label(String value, Type... types) {
-        super(PropertyName.LABEL);
+        super(PropertyName.LABEL.toString());
         this.value = value;
         for (Type type : types) {
             add(type);
@@ -81,7 +81,7 @@ public class Label extends GroupProperty implements Encodable {
      * @param value  string representation of a property value
      */
     public Label(ParameterList params, String value) {
-        super(PropertyName.LABEL, params);
+        super(PropertyName.LABEL.toString(), params);
         this.value = value;
     }
 
@@ -103,18 +103,7 @@ public class Label extends GroupProperty implements Encodable {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        for (Parameter param : getParameters()) {
-            try {
-                assertTypeParameter(param);
-            } catch (ValidationException ve) {
-                try {
-                    assertTextParameter(param);
-                } catch (ValidationException ve2) {
-                    assertPidParameter(param);
-                }
-            }
-        }
-        return ValidationResult.EMPTY;
+        return LABEL.validate(this);
     }
 
     @Override

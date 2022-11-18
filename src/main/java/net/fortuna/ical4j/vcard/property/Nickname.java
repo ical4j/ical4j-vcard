@@ -32,14 +32,14 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 /**
  * NICKNAME property.
@@ -50,7 +50,7 @@ import net.fortuna.ical4j.vcard.PropertyName;
  *
  * @author Ben
  */
-public class Nickname extends GroupProperty {
+public class Nickname extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = 2512809288464680577L;
 
@@ -60,7 +60,7 @@ public class Nickname extends GroupProperty {
      * @param names one or more nickname values
      */
     public Nickname(String... names) {
-        super(PropertyName.NICKNAME);
+        super(PropertyName.NICKNAME.toString());
         if (names.length == 0) {
             throw new IllegalArgumentException("Must specify at least one nickname");
         }
@@ -74,7 +74,7 @@ public class Nickname extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Nickname(ParameterList params, String value) {
-        super(PropertyName.NICKNAME, params);
+        super(PropertyName.NICKNAME.toString(), params);
         this.names = value.split(",");
     }
 
@@ -110,15 +110,7 @@ public class Nickname extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; Text parameters allowed
-        for (Parameter param : getParameters()) {
-            try {
-                assertTextParameter(param);
-            } catch (ValidationException ve) {
-                assertPidParameter(param);
-            }
-        }
-        return ValidationResult.EMPTY;
+        return NICKNAME.validate(this);
     }
 
     @Override

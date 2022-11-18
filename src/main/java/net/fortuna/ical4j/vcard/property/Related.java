@@ -32,8 +32,8 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
@@ -55,7 +55,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Related extends GroupProperty {
+public class Related extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = -3319959600372278036L;
 
@@ -68,7 +68,7 @@ public class Related extends GroupProperty {
      * @param types optional types of the text value
      */
     public Related(String text, Type... types) {
-        super(PropertyName.RELATED);
+        super(PropertyName.RELATED.toString());
         this.text = text;
         add(Value.TEXT);
         Arrays.stream(types).forEach(this::add);
@@ -79,7 +79,7 @@ public class Related extends GroupProperty {
      * @param types optional types of the URI value
      */
     public Related(URI uri, Type... types) {
-        super(PropertyName.RELATED);
+        super(PropertyName.RELATED.toString());
         this.uri = uri;
         Arrays.stream(types).forEach(this::add);
     }
@@ -91,7 +91,7 @@ public class Related extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Related(ParameterList params, String value) {
-        super(PropertyName.RELATED, params);
+        super(PropertyName.RELATED.toString(), params);
         setValue(value);
     }
 
@@ -107,7 +107,7 @@ public class Related extends GroupProperty {
      */
     @Override
     public String getValue() {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             return text;
         }
         return Strings.valueOf(uri);
@@ -115,7 +115,7 @@ public class Related extends GroupProperty {
 
     @Override
     public void setValue(String value) {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             this.text = value;
         } else {
             try {
@@ -131,14 +131,7 @@ public class Related extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        for (Parameter param : getParameters()) {
-            try {
-                assertTypeParameter(param);
-            } catch (ValidationException ve) {
-                assertPidParameter(param);
-            }
-        }
-        return ValidationResult.EMPTY;
+        return RELATED.validate(this);
     }
 
     @Override

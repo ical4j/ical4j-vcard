@@ -33,12 +33,13 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -52,7 +53,7 @@ import java.util.Locale;
  *
  * @author Ben
  */
-public class Lang extends GroupProperty {
+public class Lang extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = 1863658302945551760L;
 
@@ -62,7 +63,7 @@ public class Lang extends GroupProperty {
      * @param locales one or more locales that define the language instance
      */
     public Lang(Locale... locales) {
-        super(PropertyName.LANG);
+        super(PropertyName.LANG.toString());
         if (locales.length == 0) {
             throw new IllegalArgumentException("Must have at least one locale");
         }
@@ -76,7 +77,7 @@ public class Lang extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Lang(ParameterList params, String value) {
-        super(PropertyName.LANG, params);
+        super(PropertyName.LANG.toString(), params);
         setValue(value);
     }
 
@@ -113,7 +114,7 @@ public class Lang extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return ValidationResult.EMPTY;
+        return LANG.validate(this);
     }
 
     @Override

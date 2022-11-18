@@ -32,13 +32,11 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
-
-import java.text.MessageFormat;
 
 /**
  * EMAIL property.
@@ -49,7 +47,7 @@ import java.text.MessageFormat;
  *
  * @author Ben
  */
-public class Email extends GroupProperty {
+public class Email extends Property implements PropertyValidatorSupport, GroupProperty {
 
     private static final long serialVersionUID = 6134254373259957228L;
 
@@ -59,16 +57,19 @@ public class Email extends GroupProperty {
      * @param value an email address string
      */
     public Email(String value) {
-        this((Group) null, value);
+        super(PropertyName.EMAIL.toString());
+        this.value = value;
     }
 
     /**
      * @param group property group
      * @param value an email address string
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
+    @Deprecated
     public Email(Group group, String value) {
-        super(group, PropertyName.EMAIL);
-        this.value = value;
+        this(value);
+        setGroup(group);
     }
 
     /**
@@ -78,7 +79,8 @@ public class Email extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Email(ParameterList params, String value) {
-        this(null, params, value);
+        super(PropertyName.EMAIL.toString(), params);
+        this.value = value;
     }
 
     /**
@@ -89,8 +91,8 @@ public class Email extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Email(Group group, ParameterList params, String value) {
-        super(group, PropertyName.EMAIL, params);
-        this.value = value;
+        this(params, value);
+        setGroup(group);
     }
 
     /**
@@ -111,14 +113,7 @@ public class Email extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        for (Parameter param : getParameters()) {
-            if (!ParameterName.PID.toString().equals(param.getName()) &&
-                    !ParameterName.PREF.toString().equals(param.getName()) &&
-                    !ParameterName.TYPE.toString().equals(param.getName())) {
-                throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, param.getName()));
-            }
-        }
-        return ValidationResult.EMPTY;
+        return EMAIL.validate(this);
     }
 
     @Override

@@ -33,13 +33,14 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 import java.net.URI;
@@ -54,7 +55,7 @@ import java.net.URISyntaxException;
  *
  * @author Ben
  */
-public class CalAdrUri extends GroupProperty {
+public class CalAdrUri extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = -6507220241297111022L;
 
@@ -65,7 +66,7 @@ public class CalAdrUri extends GroupProperty {
      * @param types options calendar types
      */
     public CalAdrUri(URI uri, Type... types) {
-        super(PropertyName.CALADRURI);
+        super(PropertyName.CALADRURI.toString());
         this.uri = uri;
         for (Type type : types) {
             add(type);
@@ -78,7 +79,7 @@ public class CalAdrUri extends GroupProperty {
      * @throws URISyntaxException where the specified value is not a valid URI
      */
     public CalAdrUri(ParameterList params, String value) {
-        super(PropertyName.CALADRURI, params);
+        super(PropertyName.CALADRURI.toString(), params);
         setValue(value);
     }
 
@@ -111,7 +112,7 @@ public class CalAdrUri extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return ValidationResult.EMPTY;
+        return CALADRURI.validate(this);
     }
 
     @Override

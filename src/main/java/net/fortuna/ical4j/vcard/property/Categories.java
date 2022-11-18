@@ -32,15 +32,15 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.TextList;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 /**
  * CATEGORIES property.
@@ -51,7 +51,7 @@ import net.fortuna.ical4j.vcard.PropertyName;
  *
  * @author Ben
  */
-public class Categories extends GroupProperty {
+public class Categories extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = -3233034210546002366L;
 
@@ -61,7 +61,7 @@ public class Categories extends GroupProperty {
      * @param categories one or more category values
      */
     public Categories(String... categories) {
-        super(PropertyName.CATEGORIES);
+        super(PropertyName.CATEGORIES.toString());
         if (categories.length == 0) {
             throw new IllegalArgumentException("Must specify at least category value");
         }
@@ -75,7 +75,7 @@ public class Categories extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Categories(ParameterList params, String value) {
-        super(PropertyName.CATEGORIES);
+        super(PropertyName.CATEGORIES.toString());
         this.categories = new TextList(value);
     }
 
@@ -114,15 +114,7 @@ public class Categories extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; Text parameters allowed
-        for (Parameter param : getParameters()) {
-            try {
-                assertTextParameter(param);
-            } catch (ValidationException ve) {
-                assertPidParameter(param);
-            }
-        }
-        return ValidationResult.EMPTY;
+        return PropertyValidatorSupport.CATEGORIES.validate(this);
     }
 
     @Override

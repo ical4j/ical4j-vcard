@@ -33,12 +33,13 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 /**
  * PRODID property.
@@ -49,7 +50,7 @@ import net.fortuna.ical4j.vcard.PropertyName;
  *
  * @author Ben
  */
-public class ProdId extends GroupProperty {
+public class ProdId extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = 8104072716649404803L;
 
@@ -59,7 +60,7 @@ public class ProdId extends GroupProperty {
      * @param value a product identifier value
      */
     public ProdId(String value) {
-        super(PropertyName.PRODID);
+        super(PropertyName.PRODID.toString());
         this.value = value;
     }
 
@@ -70,7 +71,7 @@ public class ProdId extends GroupProperty {
      * @param value  string representation of a property value
      */
     public ProdId(ParameterList params, String value) {
-        super(PropertyName.PRODID, params);
+        super(PropertyName.PRODID.toString(), params);
         this.value = value;
     }
 
@@ -92,9 +93,7 @@ public class ProdId extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; No parameters allowed
-        assertParametersEmpty();
-        return ValidationResult.EMPTY;
+        return PropertyValidatorSupport.PRODID.validate(this);
     }
 
     @Override

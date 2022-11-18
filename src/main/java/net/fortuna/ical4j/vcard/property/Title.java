@@ -33,14 +33,14 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Encodable;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -53,7 +53,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
-public class Title extends GroupProperty implements Encodable {
+public class Title extends Property implements Encodable, PropertyValidatorSupport {
 
     private static final long serialVersionUID = -8410924945367427773L;
 
@@ -63,7 +63,7 @@ public class Title extends GroupProperty implements Encodable {
      * @param value a title string
      */
     public Title(String value) {
-        super(PropertyName.TITLE);
+        super(PropertyName.TITLE.toString());
         this.value = value;
     }
 
@@ -74,7 +74,7 @@ public class Title extends GroupProperty implements Encodable {
      * @param value  string representation of a property value
      */
     public Title(ParameterList params, String value) {
-        super(PropertyName.TITLE, params);
+        super(PropertyName.TITLE.toString(), params);
         this.value = value;
     }
 
@@ -96,15 +96,7 @@ public class Title extends GroupProperty implements Encodable {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; Text parameters allowed
-        for (Parameter param : getParameters()) {
-            try {
-                assertTextParameter(param);
-            } catch (ValidationException ve) {
-                assertPidParameter(param);
-            }
-        }
-        return ValidationResult.EMPTY;
+        return TITLE.validate(this);
     }
 
     @Override

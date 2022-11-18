@@ -34,6 +34,7 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
@@ -62,7 +63,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Logo extends GroupProperty {
+public class Logo extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = 7255763733402012595L;
 
@@ -76,7 +77,7 @@ public class Logo extends GroupProperty {
      * @param uri a URI that specifies the location of a logo
      */
     public Logo(URI uri) {
-        super(PropertyName.LOGO);
+        super(PropertyName.LOGO.toString());
         this.uri = uri;
         add(Value.URI);
     }
@@ -93,7 +94,7 @@ public class Logo extends GroupProperty {
      * @param contentType the MIME type of the logo data
      */
     public Logo(byte[] binary, Type contentType) {
-        super(PropertyName.LOGO);
+        super(PropertyName.LOGO.toString());
         this.binary = binary;
         add(Encoding.B);
         if (contentType != null) {
@@ -110,7 +111,7 @@ public class Logo extends GroupProperty {
      * @throws DecoderException   where the specified logo data value cannot be decoded
      */
     public Logo(ParameterList params, String value) {
-        super(PropertyName.LOGO, params);
+        super(PropertyName.LOGO.toString(), params);
         setValue(value);
     }
 
@@ -134,7 +135,7 @@ public class Logo extends GroupProperty {
     @Override
     public String getValue() {
         String stringValue = null;
-        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE))) {
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString()))) {
             stringValue = Strings.valueOf(uri);
         } else if (binary != null) {
             try {
@@ -149,7 +150,7 @@ public class Logo extends GroupProperty {
 
     @Override
     public void setValue(String value) {
-        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE);
+        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE.toString());
 
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
@@ -175,10 +176,7 @@ public class Logo extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        for (Parameter param : getParameters()) {
-            assertPidParameter(param);
-        }
-        return ValidationResult.EMPTY;
+        return LOGO.validate(this);
     }
 
     @Override

@@ -33,14 +33,15 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.CompatibilityHints;
-import net.fortuna.ical4j.validate.*;
+import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 import static net.fortuna.ical4j.util.Strings.escape;
 import static net.fortuna.ical4j.util.Strings.unescape;
-import static net.fortuna.ical4j.validate.ValidationRule.ValidationType.OneOrLess;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
@@ -52,15 +53,9 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  *
  * @author Ben
  */
-public class Address extends GroupProperty {
+public class Address extends Property implements PropertyValidatorSupport, GroupProperty {
 
     private static final long serialVersionUID = 6538745668985015384L;
-
-    private static final Validator<Address> VALIDATOR = new PropertyValidator<>(PropertyName.ADR.toString(),
-            new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString(), ParameterName.LABEL.toString(),
-                    ParameterName.LANGUAGE.toString(), ParameterName.GEO.toString(), ParameterName.TZ.toString(),
-                    ParameterName.ALTID.toString(), ParameterName.PID.toString(), ParameterName.PREF.toString(),
-                    ParameterName.TYPE.toString()));
 
     private String poBox;
 
@@ -88,24 +83,8 @@ public class Address extends GroupProperty {
      */
     public Address(String poBox, String extended, String street, String locality,
                    String region, String postcode, String country, Type... types) {
-        this(null, poBox, extended, street, locality, region, postcode, country, types);
-    }
 
-    /**
-     * @param group    property group
-     * @param poBox    post office box address component
-     * @param extended extended address component
-     * @param street   street address component
-     * @param locality locality address component
-     * @param region   region address component
-     * @param postcode postal code address component
-     * @param country  country address component
-     * @param types    optional address types
-     */
-    public Address(Group group, String poBox, String extended, String street, String locality,
-                   String region, String postcode, String country, Type... types) {
-
-        super(group, PropertyName.ADR);
+        super(PropertyName.ADR.toString());
         this.poBox = poBox;
         this.extended = extended;
         this.street = street;
@@ -119,11 +98,36 @@ public class Address extends GroupProperty {
     }
 
     /**
+     * @param group    property group
+     * @param poBox    post office box address component
+     * @param extended extended address component
+     * @param street   street address component
+     * @param locality locality address component
+     * @param region   region address component
+     * @param postcode postal code address component
+     * @param country  country address component
+     * @param types    optional address types
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
+     */
+    @Deprecated
+    public Address(Group group, String poBox, String extended, String street, String locality,
+                   String region, String postcode, String country, Type... types) {
+
+        this(poBox, extended, street, locality, region, postcode, country, types);
+        setGroup(group);
+    }
+
+    /**
      * @param params property parameters
      * @param value  string representation of an address value
      */
     public Address(ParameterList params, String value) {
-        this(null, params, value);
+        super(PropertyName.ADR.toString(), params);
+        if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
+            parseValueRelaxed(value);
+        } else {
+            parseValue(value);
+        }
     }
 
     /**
@@ -132,14 +136,13 @@ public class Address extends GroupProperty {
      * @param group  property group
      * @param params property parameters
      * @param value  string representation of an address value
+     *
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
+    @Deprecated
     public Address(Group group, ParameterList params, String value) {
-        super(group, PropertyName.ADR, params);
-        if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
-            parseValueRelaxed(value);
-        } else {
-            parseValue(value);
-        }
+        this(params, value);
+        setGroup(group);
     }
 
     /**
@@ -310,7 +313,7 @@ public class Address extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return VALIDATOR.validate(this);
+        return ADDRESS.validate(this);
     }
 
     @Override

@@ -34,6 +34,7 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
@@ -62,7 +63,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Sound extends GroupProperty {
+public class Sound extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = -3293436282728289163L;
 
@@ -76,7 +77,7 @@ public class Sound extends GroupProperty {
      * @param uri a URI specifying a sound location
      */
     public Sound(URI uri) {
-        super(PropertyName.SOUND);
+        super(PropertyName.SOUND.toString());
         this.uri = uri;
         add(Value.URI);
     }
@@ -93,7 +94,7 @@ public class Sound extends GroupProperty {
      * @param contentType the MIME type of the sound data
      */
     public Sound(byte[] binary, Type contentType) {
-        super(PropertyName.SOUND);
+        super(PropertyName.SOUND.toString());
         this.binary = binary;
         add(Encoding.B);
         if (contentType != null) {
@@ -109,7 +110,7 @@ public class Sound extends GroupProperty {
      * @throws IllegalArgumentException where the specified data string cannot be decoded
      */
     public Sound(ParameterList params, String value) {
-        super(PropertyName.SOUND, params);
+        super(PropertyName.SOUND.toString(), params);
         setValue(value);
     }
 
@@ -133,7 +134,7 @@ public class Sound extends GroupProperty {
     @Override
     public String getValue() {
         String stringValue = null;
-        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE))) {
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString()))) {
             stringValue = Strings.valueOf(uri);
         } else if (binary != null) {
             try {
@@ -148,7 +149,7 @@ public class Sound extends GroupProperty {
 
     @Override
     public void setValue(String value) {
-        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE);
+        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE.toString());
 
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
@@ -174,10 +175,7 @@ public class Sound extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        for (Parameter param : getParameters()) {
-            assertPidParameter(param);
-        }
-        return ValidationResult.EMPTY;
+        return SOUND.validate(this);
     }
 
     @Override

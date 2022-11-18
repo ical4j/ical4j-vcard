@@ -32,14 +32,14 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 /**
  * SORT-STRING property.
@@ -51,7 +51,7 @@ import net.fortuna.ical4j.vcard.PropertyName;
  * @author Ben
  */
 @Deprecated
-public class SortString extends GroupProperty {
+public class SortString extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = 980796364808362907L;
 
@@ -61,7 +61,7 @@ public class SortString extends GroupProperty {
      * @param value a sort string value
      */
     public SortString(String value) {
-        super(PropertyName.SORT_STRING);
+        super(PropertyName.SORT_STRING.toString());
         this.value = value;
     }
 
@@ -72,7 +72,7 @@ public class SortString extends GroupProperty {
      * @param value  string representation of a property value
      */
     public SortString(ParameterList params, String value) {
-        super(PropertyName.SORT_STRING, params);
+        super(PropertyName.SORT_STRING.toString(), params);
         this.value = value;
     }
 
@@ -94,11 +94,7 @@ public class SortString extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; Text parameters allowed
-        for (Parameter param : getParameters()) {
-            assertTextParameter(param);
-        }
-        return ValidationResult.EMPTY;
+        return SORT_STRING.validate(this);
     }
 
     @Override

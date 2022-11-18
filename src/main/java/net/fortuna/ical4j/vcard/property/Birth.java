@@ -34,12 +34,13 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Encodable;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -53,7 +54,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  * @author Ben
  */
 @Deprecated
-public class Birth extends GroupProperty implements Encodable {
+public class Birth extends Property implements Encodable, PropertyValidatorSupport {
 
     private static final long serialVersionUID = -3204898745557127754L;
 
@@ -63,7 +64,7 @@ public class Birth extends GroupProperty implements Encodable {
      * @param value string representation of a birth value
      */
     public Birth(String value) {
-        super(PropertyName.BIRTH);
+        super(PropertyName.BIRTH.toString());
         this.value = value;
     }
 
@@ -74,7 +75,7 @@ public class Birth extends GroupProperty implements Encodable {
      * @param value  string representation of a property value
      */
     public Birth(ParameterList params, String value) {
-        super(PropertyName.BIRTH, params);
+        super(PropertyName.BIRTH.toString(), params);
         this.value = value;
     }
 
@@ -96,7 +97,7 @@ public class Birth extends GroupProperty implements Encodable {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return ValidationResult.EMPTY;
+        return BIRTH.validate(this);
     }
 
     @Override

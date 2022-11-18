@@ -34,12 +34,13 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Encodable;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -54,7 +55,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  * @deprecated the NAME property was removed from vCard v4.0
  */
 @Deprecated
-public class Name extends GroupProperty implements Encodable {
+public class Name extends Property implements Encodable, PropertyValidatorSupport {
 
     private static final long serialVersionUID = -3524639290151277814L;
 
@@ -64,7 +65,7 @@ public class Name extends GroupProperty implements Encodable {
      * @param value a name value
      */
     public Name(String value) {
-        super(PropertyName.NAME);
+        super(PropertyName.NAME.toString());
         this.value = value;
     }
 
@@ -75,7 +76,7 @@ public class Name extends GroupProperty implements Encodable {
      * @param value  string representation of a property value
      */
     public Name(ParameterList params, String value) {
-        super(PropertyName.NAME, params);
+        super(PropertyName.NAME.toString(), params);
         this.value = value;
     }
 
@@ -97,9 +98,7 @@ public class Name extends GroupProperty implements Encodable {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; No parameters allowed
-        assertParametersEmpty();
-        return ValidationResult.EMPTY;
+        return PropertyValidatorSupport.NAME.validate(this);
     }
 
     @Override

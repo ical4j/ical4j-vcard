@@ -34,12 +34,15 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Encodable;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.property.DateProperty;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
+
+import java.time.temporal.Temporal;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -52,7 +55,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
-public class Anniversary extends GroupProperty implements Encodable {
+public class Anniversary<T extends Temporal> extends DateProperty<T> implements Encodable, PropertyValidatorSupport {
 
     private static final long serialVersionUID = 3009228294165154307L;
 
@@ -62,7 +65,7 @@ public class Anniversary extends GroupProperty implements Encodable {
      * @param value a death string value
      */
     public Anniversary(String value) {
-        super(PropertyName.DEATH);
+        super(PropertyName.ANNIVERSARY.toString());
         this.value = value;
     }
 
@@ -73,7 +76,7 @@ public class Anniversary extends GroupProperty implements Encodable {
      * @param value  string representation of a property value
      */
     public Anniversary(ParameterList params, String value) {
-        super(PropertyName.DEATH, params);
+        super(PropertyName.ANNIVERSARY.toString(), params);
         this.value = value;
     }
 
@@ -95,30 +98,30 @@ public class Anniversary extends GroupProperty implements Encodable {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return ValidationResult.EMPTY;
+        return ANNIVERSARY.validate(this);
     }
 
     @Override
-    protected PropertyFactory<Anniversary> newFactory() {
-        return new Factory();
+    protected PropertyFactory<Anniversary<T>> newFactory() {
+        return new Factory<>();
     }
 
-    public static class Factory extends Content.Factory implements PropertyFactory<Anniversary> {
+    public static class Factory<T extends Temporal> extends Content.Factory implements PropertyFactory<Anniversary<T>> {
         public Factory() {
-            super(PropertyName.DEATH.toString());
+            super(PropertyName.ANNIVERSARY.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Anniversary createProperty(final ParameterList params, final String value) {
-            return new Anniversary(params, unescape(value));
+        public Anniversary<T> createProperty(final ParameterList params, final String value) {
+            return new Anniversary<>(params, unescape(value));
         }
 
         /**
          * {@inheritDoc}
          */
-        public Anniversary createProperty(final Group group, final ParameterList params, final String value) {
+        public Anniversary<T> createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

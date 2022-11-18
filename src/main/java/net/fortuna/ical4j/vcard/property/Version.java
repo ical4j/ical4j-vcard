@@ -33,12 +33,13 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 import static net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion.VERSION_4_0;
 
@@ -51,7 +52,7 @@ import static net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion.VERSI
  *
  * @author Ben
  */
-public class Version extends GroupProperty {
+public class Version extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = -4345025177285348717L;
 
@@ -61,7 +62,7 @@ public class Version extends GroupProperty {
      * @param value a version value
      */
     public Version(String value) {
-        super(PropertyName.VERSION);
+        super(PropertyName.VERSION.toString());
         this.value = value;
     }
 
@@ -72,12 +73,7 @@ public class Version extends GroupProperty {
      * @param value  string representation of a property value
      */
     private Version(ParameterList params, String value) {
-        super(PropertyName.VERSION, params);
-        setValue(value);
-    }
-
-    public Version(Group group, ParameterList parameters, String value) {
-        super(group, PropertyName.VERSION, parameters);
+        super(PropertyName.VERSION.toString(), params);
         setValue(value);
     }
 
@@ -99,9 +95,7 @@ public class Version extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; No parameters allowed
-        assertParametersEmpty();
-        return ValidationResult.EMPTY;
+        return PropertyValidatorSupport.VERSION.validate(this);
     }
 
     @Override
@@ -130,7 +124,7 @@ public class Version extends GroupProperty {
          * {@inheritDoc}
          */
         public Version createProperty(final Group group, final ParameterList params, final String value) {
-            return new Version(group, params, value);
+            throw new UnsupportedOperationException();
         }
     }
 }

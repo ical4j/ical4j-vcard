@@ -34,6 +34,7 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
@@ -62,7 +63,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Key extends GroupProperty {
+public class Key extends Property implements PropertyValidatorSupport, GroupProperty {
 
     private static final long serialVersionUID = -6645173064940148955L;
 
@@ -76,7 +77,7 @@ public class Key extends GroupProperty {
      * @param uri a key URI
      */
     public Key(URI uri) {
-        super(PropertyName.KEY);
+        super(PropertyName.KEY.toString());
         this.uri = uri;
         add(Value.URI);
     }
@@ -93,7 +94,7 @@ public class Key extends GroupProperty {
      * @param contentType key MIME type
      */
     public Key(byte[] binary, Type contentType) {
-        super(PropertyName.KEY);
+        super(PropertyName.KEY.toString());
         this.binary = binary;
         add(Encoding.B);
         if (contentType != null) {
@@ -110,7 +111,8 @@ public class Key extends GroupProperty {
      * @throws URISyntaxException where the specified string is not a valid URI
      */
     public Key(ParameterList params, String value) {
-        this(null, params, value);
+        super(PropertyName.KEY.toString(), params);
+        setValue(value);
     }
 
     /**
@@ -121,10 +123,12 @@ public class Key extends GroupProperty {
      * @param value  string representation of a property value
      * @throws DecoderException   if the specified string is not a valid key encoding
      * @throws URISyntaxException where the specified string is not a valid URI
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
+    @Deprecated
     public Key(Group group, ParameterList params, String value) {
-        super(group, PropertyName.KEY, params);
-        setValue(value);
+        this(params, value);
+        setGroup(group);
     }
 
     /**
@@ -139,7 +143,7 @@ public class Key extends GroupProperty {
      */
     @Override
     public String getValue() {
-        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE);
+        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE.toString());
         String stringValue = null;
         
         /*
@@ -160,7 +164,7 @@ public class Key extends GroupProperty {
 
     @Override
     public void setValue(String value) {
-        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE);
+        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE.toString());
 
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
@@ -186,10 +190,7 @@ public class Key extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        for (Parameter param : getParameters()) {
-            assertPidParameter(param);
-        }
-        return ValidationResult.EMPTY;
+        return KEY.validate(this);
     }
 
     @Override

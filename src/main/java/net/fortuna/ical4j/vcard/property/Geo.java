@@ -33,13 +33,11 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.*;
 
 import java.math.BigDecimal;
 
@@ -52,7 +50,7 @@ import java.math.BigDecimal;
  *
  * @author Ben
  */
-public class Geo extends GroupProperty {
+public class Geo extends Property implements PropertyValidatorSupport, GroupProperty {
 
     private static final long serialVersionUID = 1533383111522264554L;
 
@@ -67,7 +65,7 @@ public class Geo extends GroupProperty {
      * @param longitude a longitude value
      */
     public Geo(BigDecimal latitude, BigDecimal longitude) {
-        super(PropertyName.GEO);
+        super(PropertyName.GEO.toString());
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -79,7 +77,8 @@ public class Geo extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Geo(ParameterList params, String value) {
-        this(null, params, value);
+        super(PropertyName.GEO.toString(), params);
+        setValue(value);
     }
 
     /**
@@ -88,10 +87,12 @@ public class Geo extends GroupProperty {
      * @param group  property group
      * @param params property parameters
      * @param value  string representation of a property value
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
+    @Deprecated
     public Geo(Group group, ParameterList params, String value) {
-        super(group, PropertyName.GEO, params);
-        setValue(value);
+        this(params, value);
+        setGroup(group);
     }
 
     /**
@@ -134,9 +135,7 @@ public class Geo extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; No parameters allowed
-        assertParametersEmpty();
-        return ValidationResult.EMPTY;
+        return PropertyValidatorSupport.GEO.validate(this);
     }
 
     @Override

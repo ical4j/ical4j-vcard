@@ -33,13 +33,14 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -53,7 +54,7 @@ import java.net.URISyntaxException;
  *
  * @author Ben
  */
-public class Uid extends GroupProperty {
+public class Uid extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = -7120539613021006347L;
 
@@ -63,7 +64,7 @@ public class Uid extends GroupProperty {
      * @param uri a URI for a uid definition
      */
     public Uid(URI uri) {
-        super(PropertyName.UID);
+        super(PropertyName.UID.toString());
         this.uri = uri;
     }
 
@@ -74,7 +75,7 @@ public class Uid extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Uid(ParameterList params, String value) {
-        super(PropertyName.UID, params);
+        super(PropertyName.UID.toString(), params);
         setValue(value);
     }
 
@@ -107,9 +108,7 @@ public class Uid extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; No parameters allowed
-        assertParametersEmpty();
-        return ValidationResult.EMPTY;
+        return PropertyValidatorSupport.UID.validate(this);
     }
 
     @Override

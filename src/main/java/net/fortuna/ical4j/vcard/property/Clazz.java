@@ -33,12 +33,13 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 /**
  * CLAZZ property.
@@ -51,7 +52,7 @@ import net.fortuna.ical4j.vcard.PropertyName;
  * @deprecated the CLASS property was removed from vCard v4.0
  */
 @Deprecated
-public class Clazz extends GroupProperty {
+public class Clazz extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = -3339099487456754606L;
 
@@ -76,7 +77,7 @@ public class Clazz extends GroupProperty {
      * @param value a classification value
      */
     public Clazz(String value) {
-        super(PropertyName.CLASS);
+        super(PropertyName.CLASS.toString());
         this.value = value;
     }
 
@@ -87,7 +88,7 @@ public class Clazz extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Clazz(ParameterList params, String value) {
-        super(PropertyName.CLASS, params);
+        super(PropertyName.CLASS.toString(), params);
         this.value = value;
     }
 
@@ -109,9 +110,7 @@ public class Clazz extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; No parameters allowed
-        assertParametersEmpty();
-        return ValidationResult.EMPTY;
+        return PropertyValidatorSupport.CLASS.validate(this);
     }
 
     @Override

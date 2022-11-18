@@ -32,14 +32,14 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Content;
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.GroupProperty;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 /**
  * ROLE property.
@@ -50,7 +50,7 @@ import net.fortuna.ical4j.vcard.PropertyName;
  *
  * @author Ben
  */
-public class Role extends GroupProperty {
+public class Role extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = -2967228242683105498L;
 
@@ -60,7 +60,7 @@ public class Role extends GroupProperty {
      * @param value a role string value
      */
     public Role(String value) {
-        super(PropertyName.ROLE);
+        super(PropertyName.ROLE.toString());
         this.value = value;
     }
 
@@ -71,7 +71,7 @@ public class Role extends GroupProperty {
      * @param value  string representation of a property value
      */
     public Role(ParameterList params, String value) {
-        super(PropertyName.ROLE, params);
+        super(PropertyName.ROLE.toString(), params);
         this.value = value;
     }
 
@@ -93,15 +93,7 @@ public class Role extends GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        // ; Text parameters allowed
-        for (Parameter param : getParameters()) {
-            try {
-                assertTextParameter(param);
-            } catch (ValidationException ve) {
-                assertPidParameter(param);
-            }
-        }
-        return ValidationResult.EMPTY;
+        return ROLE.validate(this);
     }
 
     @Override
