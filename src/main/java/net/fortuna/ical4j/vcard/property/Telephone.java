@@ -196,7 +196,10 @@ public class Telephone extends Property implements PropertyValidatorSupport, Gro
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return PropertyValidatorSupport.TEL.validate(this);
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString()))) {
+            return TEL_URI.validate(this);
+        }
+        return TEL_TEXT.validate(this);
     }
 
     @Override

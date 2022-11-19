@@ -37,9 +37,7 @@ import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
-
-import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.FEMALE;
-import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.MALE;
+import net.fortuna.ical4j.vcard.property.immutable.ImmutableGender;
 
 /**
  * GENDER property.
@@ -54,14 +52,36 @@ public class Gender extends Property implements PropertyValidatorSupport, GroupP
 
     private static final long serialVersionUID = -2739534182576803750L;
 
-    private String value;
+    public static final String MALE = "M";
+    public static final String FEMALE = "F";
+
+    public static final String OTHER = "O";
+
+    public static final String NONE = "N";
+
+    public static final String UNKNOWN = "U";
+
+    private String sex;
+
+    private String text;
+
 
     /**
      * @param value string representation of a property value
      */
     public Gender(String value) {
         super(PropertyName.GENDER.toString());
-        this.value = value;
+        String[] components = value.split(";");
+        this.sex = components[0];
+        if (components.length > 1) {
+            this.text = components[1];
+        }
+    }
+
+    public Gender(String sex, String text) {
+        super(PropertyName.GENDER.toString());
+        this.sex = sex;
+        this.text = text;
     }
 
     /**
@@ -73,6 +93,12 @@ public class Gender extends Property implements PropertyValidatorSupport, GroupP
     private Gender(ParameterList params, String value) {
         super(PropertyName.GENDER.toString(), params);
         setValue(value);
+    }
+
+    public Gender(ParameterList params, String sex, String text) {
+        super(PropertyName.GENDER.toString(), params);
+        this.sex = sex;
+        this.text = text;
     }
 
     /**
@@ -92,12 +118,19 @@ public class Gender extends Property implements PropertyValidatorSupport, GroupP
      */
     @Override
     public String getValue() {
-        return value;
+        if (text != null && !text.isEmpty()) {
+            return sex + ";" + text;
+        }
+        return sex;
     }
 
     @Override
     public void setValue(String aValue) {
-        this.value = aValue;
+        String[] components = aValue.split(";");
+        this.sex = components[0];
+        if (components.length > 1) {
+            this.text = components[1];
+        }
     }
 
     /**
@@ -105,7 +138,7 @@ public class Gender extends Property implements PropertyValidatorSupport, GroupP
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return ValidationResult.EMPTY;
+        return GENDER.validate(this);
     }
 
     @Override
@@ -123,10 +156,16 @@ public class Gender extends Property implements PropertyValidatorSupport, GroupP
          */
         public Gender createProperty(final ParameterList params, final String value) {
             if (params.getAll().isEmpty()) {
-                if (FEMALE.getValue().equalsIgnoreCase(value)) {
-                    return FEMALE;
-                } else if (MALE.getValue().equalsIgnoreCase(value)) {
-                    return MALE;
+                if (ImmutableGender.FEMALE.getValue().equalsIgnoreCase(value)) {
+                    return ImmutableGender.FEMALE;
+                } else if (ImmutableGender.MALE.getValue().equalsIgnoreCase(value)) {
+                    return ImmutableGender.MALE;
+                } else if (ImmutableGender.OTHER.getValue().equalsIgnoreCase(value)) {
+                    return ImmutableGender.OTHER;
+                } else if (ImmutableGender.NONE.getValue().equalsIgnoreCase(value)) {
+                    return ImmutableGender.NONE;
+                } else if (ImmutableGender.UNKNOWN.getValue().equalsIgnoreCase(value)) {
+                    return ImmutableGender.UNKNOWN;
                 }
             }
             return new Gender(params, value);

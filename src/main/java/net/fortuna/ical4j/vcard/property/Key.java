@@ -190,7 +190,10 @@ public class Key extends Property implements PropertyValidatorSupport, GroupProp
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return KEY.validate(this);
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+            return KEY_TEXT.validate(this);
+        }
+        return KEY_URI.validate(this);
     }
 
     @Override

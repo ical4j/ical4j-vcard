@@ -13,7 +13,7 @@ public enum ParameterName {
      */
     LANGUAGE,
 
-    @Deprecated LABEL,
+    LABEL,
 
     /**
      * Encoding parameter identifier.

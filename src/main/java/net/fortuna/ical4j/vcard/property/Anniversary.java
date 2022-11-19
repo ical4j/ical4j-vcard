@@ -37,12 +37,11 @@ import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.model.property.DateProperty;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
+import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.parameter.Value;
 
 import java.time.temporal.Temporal;
+import java.util.Optional;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -98,7 +97,10 @@ public class Anniversary<T extends Temporal> extends DateProperty<T> implements 
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return ANNIVERSARY.validate(this);
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+            return ANNIVERSARY_TEXT.validate(this);
+        }
+        return ANNIVERSARY_DATE.validate(this);
     }
 
     @Override

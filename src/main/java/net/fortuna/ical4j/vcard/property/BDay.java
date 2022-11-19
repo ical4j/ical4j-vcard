@@ -126,21 +126,10 @@ public class BDay<T extends Temporal> extends DateProperty<T> implements Encodab
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return BDAY.validate(this);
-        // ; Only value parameter allowed
-//        assertOneOrLess(ParameterName.VALUE);
-//
-//        if (getParameters().size() > 1) {
-//            throw new ValidationException("Illegal parameter count");
-//        }
-//
-//        for (Parameter param : getParameters()) {
-//            if (!Value.TEXT.equals(param)) {
-//                throw new ValidationException("Illegal parameter ["
-//                        + param.getName() + "]");
-//            }
-//        }
-//        return ValidationResult.EMPTY;
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+            return BDAY_TEXT.validate(this);
+        }
+        return BDAY_DATE.validate(this);
     }
 
     @Override

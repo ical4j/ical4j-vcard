@@ -152,7 +152,10 @@ public class Related extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return RELATED.validate(this);
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+            return RELATED_TEXT.validate(this);
+        }
+        return RELATED_URI.validate(this);
     }
 
     @Override

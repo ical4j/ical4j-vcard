@@ -139,7 +139,12 @@ public class Tz extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return TZ.validate(this);
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString()))) {
+            return TZ_URI.validate(this);
+        } else if (Optional.of(Value.UTC_OFFSET).equals(getParameter(ParameterName.VALUE.toString()))) {
+            return TZ_UTC_OFFSET.validate(this);
+        }
+        return TZ_TEXT.validate(this);
     }
 
     @Override

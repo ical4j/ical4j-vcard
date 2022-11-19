@@ -10,11 +10,18 @@ public class ImmutableGender extends Gender implements ImmutableProperty {
     /**
      * Standard gender.
      */
-    public static final Gender MALE = new ImmutableGender("M");
+    public static final Gender MALE = new ImmutableGender(Gender.MALE);
+
     /**
      * Standard gender.
      */
-    public static final Gender FEMALE = new ImmutableGender("F");
+    public static final Gender FEMALE = new ImmutableGender(Gender.FEMALE);
+
+    public static final Gender OTHER = new ImmutableGender(Gender.OTHER);
+
+    public static final Gender NONE = new ImmutableGender(Gender.NONE);
+
+    public static final Gender UNKNOWN = new ImmutableGender(Gender.UNKNOWN);
 
     public ImmutableGender(String value) {
         super(value);
