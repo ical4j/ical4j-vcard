@@ -53,14 +53,14 @@ public class GeoTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{new Geo(BigDecimal.ZERO, BigDecimal.ZERO), PropertyName.GEO.toString(), "0;0",
+        // enable relaxed parsing for non-standard GEO support..
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
+        params.add(new Object[]{new Geo(BigDecimal.ZERO, BigDecimal.ZERO), PropertyName.GEO.toString(), "0,0",
                 new Parameter[]{},});
-        final String geoString = "34.15345;-12.34523";
+        final String geoString = "34.15345,-12.34523";
         params.add(new Object[]{new Geo(new ParameterList(), geoString), PropertyName.GEO.toString(),
                 geoString, new Parameter[]{},});
 
-        // enable relaxed parsing for non-standard GEO support..
-        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
         params.add(new Object[]{new Geo(new ParameterList(), geoString), PropertyName.GEO.toString(),
                 geoString, new Parameter[]{},});
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
