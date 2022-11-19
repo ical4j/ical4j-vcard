@@ -54,7 +54,7 @@ public class Geo extends Property implements PropertyValidatorSupport, GroupProp
 
     private static final long serialVersionUID = 1533383111522264554L;
 
-    private static final String DELIMITER = ";";
+    private static final String DELIMITER = ",";
 
     private BigDecimal latitude;
 
