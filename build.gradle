@@ -73,7 +73,7 @@ scmVersion {
     versionCreator 'versionWithBranch'
     branchVersionCreator = ['master': 'simple']
     branchVersionCreator = ['ical4j-vcard-1.x-maintenance': 'simple']
-    branchVersionCreator = ['feature/refactor': 'simple']
+    branchVersionCreator = ['develop': 'simple']
     nextVersion {
         suffix = 'pre'
         separator = '-'
