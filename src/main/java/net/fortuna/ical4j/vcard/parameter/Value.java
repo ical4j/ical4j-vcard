@@ -55,12 +55,12 @@ public final class Value extends Parameter {
     /**
      * Text value parameter.
      */
-    public static final Value TEXT = new Value("text");
+    public static final Value TEXT = new Value("TEXT");
 
     /**
      * URI value parameter.
      */
-    public static final Value URI = new Value("uri");
+    public static final Value URI = new Value("URI");
 
     @Deprecated
     public static final Value URL = new Value("URL");
@@ -68,65 +68,65 @@ public final class Value extends Parameter {
     /**
      * Date value parameter.
      */
-    public static final Value DATE = new Value("date");
+    public static final Value DATE = new Value("DATE");
 
     /**
      * Time value parameter.
      */
-    public static final Value TIME = new Value("time");
+    public static final Value TIME = new Value("TIME");
 
     /**
      * date-time value parameter.
      */
-    public static final Value DATE_TIME = new Value("date-time");
+    public static final Value DATE_TIME = new Value("DATE-TIME");
 
     /**
      * date-and-or-time value parameter.
      */
-    public static final Value DATE_AND_OR_TIME = new Value("date-and-or-time");
+    public static final Value DATE_AND_OR_TIME = new Value("DATE-AND-OR-TIME");
 
     /**
      * Timestamp value parameter.
      */
-    public static final Value TIMESTAMP = new Value("timestamp");
+    public static final Value TIMESTAMP = new Value("TIMESTAMP");
 
     /**
      * Boolean value parameter.
      */
-    public static final Value BOOLEAN = new Value("boolean");
+    public static final Value BOOLEAN = new Value("BOOLEAN");
 
     /**
      * Integer value parameter.
      */
-    public static final Value INTEGER = new Value("integer");
+    public static final Value INTEGER = new Value("INTEGER");
 
     /**
      * Float value parameter.
      */
-    public static final Value FLOAT = new Value("float");
+    public static final Value FLOAT = new Value("FLOAT");
 
     /**
      * Binary value parameter.
      */
     @Deprecated
-    public static final Value BINARY = new Value("binary");
+    public static final Value BINARY = new Value("BINARY");
 
     /**
      * language-tag value parameter.
      */
-    public static final Value LANGUAGE_TAG = new Value("language-tag");
+    public static final Value LANGUAGE_TAG = new Value("LANGUAGE-TAG");
 
     /**
      * utc-offset value parameter.
      */
-    public static final Value UTC_OFFSET = new Value("utc-offset");
+    public static final Value UTC_OFFSET = new Value("UTC-OFFSET");
 
     /**
      * Resource
      * duration value parameter.
      */
     @Deprecated
-    public static final Value DURATION = new Value("duration");
+    public static final Value DURATION = new Value("DURATION");
 
     private final String value;
 

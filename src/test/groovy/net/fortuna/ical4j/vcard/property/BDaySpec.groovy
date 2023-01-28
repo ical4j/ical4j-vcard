@@ -45,7 +45,7 @@ class BDaySpec extends AbstractPropertySpec {
 
         where:
         value               | expectedString
-        'April 1st\\, 2001' | 'BDAY;VALUE=text:April 1st\\, 2001\r\n'
+        'April 1st\\, 2001' | 'BDAY;VALUE=TEXT:April 1st\\, 2001\r\n'
     }
 
     def 'test date parsing with relaxed parsing enabled'() {
@@ -53,7 +53,7 @@ class BDaySpec extends AbstractPropertySpec {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_VCARD_COMPATIBILITY, true)
 
         expect:
-        assert new BDay.Factory().createProperty('1975-07-17') as String == 'BDAY:19750717\r\n'
+        assert new BDay.Factory().createProperty('1975-07-17') as String == 'BDAY;VALUE=DATE:19750717\r\n'
 
         cleanup:
         CompatibilityHints.clearHintEnabled(CompatibilityHints.KEY_VCARD_COMPATIBILITY)

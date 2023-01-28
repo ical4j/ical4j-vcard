@@ -51,9 +51,9 @@ public class ValueTest extends ParameterTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{Value.BINARY, ParameterName.VALUE.toString(), "binary"});
-        params.add(new Object[]{Value.TEXT, ParameterName.VALUE.toString(), "text"});
-        params.add(new Object[]{Value.URI, ParameterName.VALUE.toString(), "uri"});
+        params.add(new Object[]{Value.BINARY, ParameterName.VALUE.toString(), "BINARY"});
+        params.add(new Object[]{Value.TEXT, ParameterName.VALUE.toString(), "TEXT"});
+        params.add(new Object[]{Value.URI, ParameterName.VALUE.toString(), "URI"});
         final String valueString = "blah";
         params.add(new Object[]{new Value(valueString), ParameterName.VALUE.toString(), valueString});
         return params;

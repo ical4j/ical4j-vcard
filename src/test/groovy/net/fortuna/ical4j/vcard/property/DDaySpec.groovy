@@ -44,7 +44,7 @@ class DDaySpec extends AbstractPropertySpec {
 
         where:
         value               | expectedString
-        'April 1st\\, 2001' | 'DDAY;VALUE=text:April 1st\\, 2001\r\n'
+        'April 1st\\, 2001' | 'DDAY;VALUE=TEXT:April 1st\\, 2001\r\n'
     }
 
 }

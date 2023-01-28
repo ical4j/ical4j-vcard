@@ -44,8 +44,8 @@ class AgentSpec extends AbstractPropertySpec {
 
         where:
         value         | expectedString
-        'Agent 99'    | 'AGENT;VALUE=text:Agent 99\r\n'
-        'Agent\\n 99' | 'AGENT;VALUE=text:Agent\\n 99\r\n'
+        'Agent 99'    | 'AGENT;VALUE=TEXT:Agent 99\r\n'
+        'Agent\\n 99' | 'AGENT;VALUE=TEXT:Agent\\n 99\r\n'
     }
 
 }
