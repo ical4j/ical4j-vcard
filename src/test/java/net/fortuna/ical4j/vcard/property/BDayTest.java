@@ -85,7 +85,7 @@ public class BDayTest extends PropertyTest {
 
         String dateString = "19690415";
         params.add(new Object[]{new BDay(TemporalAdapter.parse(dateString).getTemporal()), PropertyName.BDAY.toString(), dateString,
-                new Parameter[]{}, LocalDate.class,});
+                new Parameter[]{Value.DATE}, LocalDate.class,});
         dateString = "15730125T180322Z";
         params.add(new Object[]{new BDay(TemporalAdapter.parse(dateString).getTemporal()), PropertyName.BDAY.toString(),
                 dateString, new Parameter[]{}, Instant.class,});
