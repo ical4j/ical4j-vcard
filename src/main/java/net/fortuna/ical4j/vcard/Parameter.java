@@ -103,6 +103,8 @@ public abstract class Parameter implements Serializable {
          * Calscale parameter identifier.
          */
         CALSCALE,
+        
+        MEDIATYPE,
 
         /**
          * Sort-as parameter identifier.
