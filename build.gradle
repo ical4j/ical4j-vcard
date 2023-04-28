@@ -73,7 +73,7 @@ scmVersion {
 
 group = 'org.mnode.ical4j'
 description = 'Support for the vCard specification'
-version = scmVersion.version
+version = '1.0.9'
 
 ext {
     isReleaseVersion = !version.endsWith("SNAPSHOT")
@@ -109,25 +109,13 @@ publishing {
 
     repositories {
         maven {
-            name = "OSSRH"
-            url = !isReleaseVersion ? "https://oss.sonatype.org/content/repositories/snapshots/" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            name = "bluemind-release"
+            url = "https://forge.bluemind.net/nexus/content/repositories/thirdparty/"
             credentials {
-                username = System.getenv("MAVEN_USERNAME")
-                password = System.getenv("MAVEN_PASSWORD")
+                username project.repoUser
+                password project.repoPassword
             }
         }
-//        maven {
-//            name = "GitHubPackages"
-//            url = uri("https://maven.pkg.github.com/ical4j/ical4j")
-//            credentials {
-//                username = System.getenv("GPR_USERNAME")
-//                password = System.getenv("GPR_TOKEN")
-//            }
-//        }
     }
 }
 
-signing {
-    required { isReleaseVersion }
-    sign publishing.publications.ical4j_vcard
-}
