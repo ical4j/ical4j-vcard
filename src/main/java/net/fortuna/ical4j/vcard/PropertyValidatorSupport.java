@@ -6,6 +6,8 @@ import net.fortuna.ical4j.validate.ValidationRule;
 import net.fortuna.ical4j.validate.Validator;
 import net.fortuna.ical4j.vcard.parameter.Value;
 import net.fortuna.ical4j.vcard.property.*;
+import net.fortuna.ical4j.vcard.property.immutable.ImmutableKind;
+import net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -119,7 +121,9 @@ public interface PropertyValidatorSupport {
                     ParameterName.TYPE.toString(), ParameterName.LANGUAGE.toString(), ParameterName.ALTID.toString()),
             TEXT_VALUE);
 
-    Validator<Gender> GENDER = new PropertyValidator<>(PropertyName.GENDER.toString(), TEXT_VALUE);
+    Validator<Gender> GENDER = new PropertyValidator<>(PropertyName.GENDER.toString(), TEXT_VALUE,
+            new ValidationRule<>(ValueMatch, "(?i)" + String.join("|", Gender.NONE,
+                    Gender.FEMALE, Gender.MALE, Gender.OTHER, Gender.UNKNOWN)));
 
     Validator<Geo> GEO = new PropertyValidator<>(PropertyName.GEO.toString(),
             new ValidationRule<>(OneOrLess, ParameterName.ALTID.toString(), ParameterName.PID.toString(),
@@ -141,7 +145,10 @@ public interface PropertyValidatorSupport {
             TEXT_VALUE);
 
     Validator<Kind> KIND = new PropertyValidator<>(PropertyName.KIND.toString(),
-            TEXT_VALUE);
+            TEXT_VALUE,
+            new ValidationRule<>(ValueMatch, "(?i)" + String.join("|",
+                    ImmutableKind.INDIVIDUAL.getValue(), ImmutableKind.GROUP.getValue(), ImmutableKind.ORG.getValue(),
+                    ImmutableKind.LOCATION.getValue(), ImmutableKind.THING.getValue())));
 
     Validator<Label> LABEL = new PropertyValidator<>(PropertyName.LABEL.toString(),
             new ValidationRule<>(OneOrLess, ParameterName.PID.toString(), ParameterName.VALUE.toString(),
@@ -265,7 +272,8 @@ public interface PropertyValidatorSupport {
                     ParameterName.PREF.toString(), ParameterName.TYPE.toString(), ParameterName.MEDIATYPE.toString()),
             URI_VALUE);
 
-    Validator<Version> VERSION = new PropertyValidator<>(PropertyName.VERSION.toString(), TEXT_VALUE);
+    Validator<Version> VERSION = new PropertyValidator<>(PropertyName.VERSION.toString(), TEXT_VALUE,
+            new ValidationRule<>(ValueMatch, "(?i)" + ImmutableVersion.VERSION_4_0.getValue()));
 
     Validator<Xml> XML = new PropertyValidator<>(PropertyName.XML.toString(),
             new ValidationRule<>(OneOrLess, ParameterName.ALTID.toString()),
