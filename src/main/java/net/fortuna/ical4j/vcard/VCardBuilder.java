@@ -260,18 +260,15 @@ public final class VCardBuilder {
                     decodedValue = propertyValue;
                 }
                 final ParameterList params = parseParameters(line);
+
                 if (factory.isPresent()) {
-                    if (group != null) {
-                        return factory.get().createProperty(group, params, decodedValue);
-                    } else {
-                        return factory.get().createProperty(params, decodedValue);
-                    }
+                    property = factory.get().createProperty(params, decodedValue);
                 } else if (isExtendedName(propertyName)) {
-                    if (group != null) {
-                        property = new XProperty(group, propertyName, params, decodedValue);
-                    } else {
-                        property = new XProperty(propertyName, params, decodedValue);
-                    }
+                    property = new XProperty(propertyName, params, decodedValue);
+                }
+
+                if (group != null && property instanceof GroupProperty) {
+                    ((GroupProperty) property).setGroup(group);
                 }
             }
         }

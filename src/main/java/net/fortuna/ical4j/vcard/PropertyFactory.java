@@ -53,7 +53,13 @@ public interface PropertyFactory<T extends Property> extends net.fortuna.ical4j.
      * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
     @Deprecated
-    T createProperty(Group group, ParameterList params, String value);
+    default T createProperty(Group group, ParameterList params, String value) {
+        T property = createProperty(params, value);
+        if (property instanceof GroupProperty) {
+            ((GroupProperty) property).setGroup(group);
+        }
+        return property;
+    }
 
     default T createProperty() {
         throw new UnsupportedOperationException();

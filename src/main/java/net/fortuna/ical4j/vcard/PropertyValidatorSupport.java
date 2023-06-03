@@ -12,8 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static net.fortuna.ical4j.model.Parameter.VALUE;
-import static net.fortuna.ical4j.validate.ValidationRule.ValidationType.None;
-import static net.fortuna.ical4j.validate.ValidationRule.ValidationType.OneOrLess;
+import static net.fortuna.ical4j.validate.ValidationRule.ValidationType.*;
 
 public interface PropertyValidatorSupport {
 
@@ -94,6 +93,11 @@ public interface PropertyValidatorSupport {
 
     Validator<ClientPidMap> CLIENTPIDMAP = new PropertyValidator<>(PropertyName.CLIENTPIDMAP.toString(),
             new ValidationRule<>(None, ParameterName.PID.toString()));
+
+    Validator<ContactBy> CONTACT_BY_VALIDATOR = new PropertyValidator<>(PropertyName.CONTACT_BY.toString(),
+            new ValidationRule<>(OneOrLess, ParameterName.TYPE.toString(), ParameterName.PREF.toString()),
+            new ValidationRule<>(ValueMatch, "(?i)" + String.join("|", ContactBy.ADR, ContactBy.EMAIL,
+                    ContactBy.IMPP, ContactBy.TEL, "X-[A-Z0-9-]+")));
 
     Validator<DDay> DDAY = new PropertyValidator<>(PropertyName.DDAY.toString(),
             new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString()));

@@ -36,6 +36,9 @@ public enum PropertyName {
     // 6.10. Extended Properties and Parameters
     EXTENDED,
 
+    // JSContact extensions..
+    CONTACT_BY,
+
     // RFC2426 - vCard 3.0
     // 3.3
     @Deprecated MAILER;
