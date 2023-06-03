@@ -44,7 +44,7 @@ public class ContactBy extends Property implements PropertyValidatorSupport {
 
     @Override
     protected PropertyFactory<?> newFactory() {
-        return null;
+        return new Factory();
     }
 
     @Override

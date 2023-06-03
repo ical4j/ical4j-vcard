@@ -39,6 +39,16 @@ public enum PropertyName {
     // JSContact extensions..
     CONTACT_BY,
 
+    CREATED,
+
+    DEFLANGUAGE,
+
+    GRAMGENDER,
+
+    PRONOUNS,
+
+    SOCIALPROFILE,
+
     // RFC2426 - vCard 3.0
     // 3.3
     @Deprecated MAILER;

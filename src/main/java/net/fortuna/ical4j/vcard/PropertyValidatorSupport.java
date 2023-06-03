@@ -101,10 +101,15 @@ public interface PropertyValidatorSupport {
             new ValidationRule<>(ValueMatch, "(?i)" + String.join("|", ContactBy.ADR, ContactBy.EMAIL,
                     ContactBy.IMPP, ContactBy.TEL, "X-[A-Z0-9-]+")));
 
+    Validator<Created> CREATED_VALIDATOR = new PropertyValidator<>(PropertyName.CREATED.toString(),
+            TIMESTAMP_VALUE);
+
     Validator<DDay> DDAY = new PropertyValidator<>(PropertyName.DDAY.toString(),
             new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString()));
 
     Validator<Death> DEATH = new PropertyValidator<>(PropertyName.DEATH.toString());
+
+    Validator<DefLanguage> DEF_LANGUAGE_VALIDATOR = new PropertyValidator<>(PropertyName.DEFLANGUAGE.toString());
 
     Validator<Email> EMAIL = new PropertyValidator<>(PropertyName.EMAIL.toString(),
             new ValidationRule<>(OneOrLess, ParameterName.PID.toString(), ParameterName.PREF.toString(),
@@ -129,6 +134,12 @@ public interface PropertyValidatorSupport {
             new ValidationRule<>(OneOrLess, ParameterName.ALTID.toString(), ParameterName.PID.toString(),
                     ParameterName.PREF.toString(), ParameterName.TYPE.toString(), ParameterName.MEDIATYPE.toString()),
             URI_VALUE);
+
+    Validator<GramGender> GRAM_GENDER_VALIDATOR = new PropertyValidator<>(PropertyName.GRAMGENDER.toString(),
+            new ValidationRule<>(ValueMatch, "(?i)" + String.join("|", GramGender.ANIMATE,
+                    GramGender.COMMON, GramGender.FEMININE, GramGender.INANIMATE, GramGender.MASCULINE,
+                    GramGender.NEUTER, "X-[A-Z0-9-]+")));
+
     Validator<Impp> IMPP = new PropertyValidator<>(PropertyName.IMPP.toString(),
             new ValidationRule<>(OneOrLess, ParameterName.PID.toString(), ParameterName.PREF.toString(),
                     ParameterName.TYPE.toString(), ParameterName.MEDIATYPE.toString(), ParameterName.ALTID.toString()),
@@ -202,6 +213,10 @@ public interface PropertyValidatorSupport {
 
     Validator<ProdId> PRODID = new PropertyValidator<>(PropertyName.PRODID.toString(), TEXT_VALUE);
 
+    Validator<Pronouns> PRONOUNS_VALIDATOR = new PropertyValidator<>(PropertyName.PRONOUNS.toString(), TEXT_VALUE,
+            new ValidationRule<>(OneOrLess, ParameterName.PREF.toString(), ParameterName.ALTID.toString(),
+                    ParameterName.TYPE.toString(), ParameterName.LANGUAGE.toString()));
+
     Validator<Related> RELATED_TEXT = new PropertyValidator<>(PropertyName.RELATED.toString(),
             new ValidationRule<>(OneOrLess, ParameterName.PID.toString(), ParameterName.PREF.toString(),
                     ParameterName.ALTID.toString(), ParameterName.TYPE.toString(), ParameterName.LANGUAGE.toString()),
@@ -218,6 +233,15 @@ public interface PropertyValidatorSupport {
             new ValidationRule<>(OneOrLess, ParameterName.LANGUAGE.toString(), ParameterName.PID.toString(),
                     ParameterName.PREF.toString(), ParameterName.ALTID.toString(), ParameterName.TYPE.toString()),
             TEXT_VALUE);
+
+
+    Validator<SocialProfile> SOCIAL_PROFILE_TEXT_VALIDATOR = new PropertyValidator<>(PropertyName.TEL.toString(),
+            new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString()),
+            TEXT_VALUE);
+
+    Validator<SocialProfile> SOCIAL_PROFILE_URI_VALIDATOR = new PropertyValidator<>(PropertyName.TEL.toString(),
+            new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString()),
+            URI_VALUE);
 
     Validator<SortString> SORT_STRING = new PropertyValidator<>(PropertyName.SORT_STRING.toString(),
             new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString()));
