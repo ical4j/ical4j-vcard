@@ -47,6 +47,7 @@ provides a common data format used to store information about contact informatio
 ### Specifications
 
 * [RFC6350]
+* [draft-ietf-calext-vcard-jscontact-extensions](https://www.ietf.org/archive/id/draft-ietf-calext-vcard-jscontact-extensions-07.html)
 
 
 ### Redistribution
