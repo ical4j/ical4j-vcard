@@ -28,6 +28,8 @@ public class ImmutableKind extends Kind implements ImmutableProperty {
      */
     public static final Kind THING = new ImmutableKind("thing");
 
+    public static final Kind APPLICATION = new ImmutableKind("application");
+
     public ImmutableKind(String value) {
         super(value);
     }
