@@ -33,7 +33,6 @@ package net.fortuna.ical4j.vcard
 
 import net.fortuna.ical4j.vcard.parameter.Encoding
 import net.fortuna.ical4j.vcard.property.Clazz
-import net.fortuna.ical4j.vcard.property.immutable.ImmutableKind
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -81,22 +80,22 @@ class ContentBuilderSpec extends Specification {
     }
 	
 	def 'build KIND property and assert the result'() {
-        expect:
-        assert builder.kind(value) == expectedKind
+		expect:
+		assert builder.kind(value) == expectedKind
 
-        where:
-        value        | expectedKind
-        'GROUP'      | GROUP
-        'group'      | GROUP
-        'INDIVIDUAL' | INDIVIDUAL
-        'individual' | INDIVIDUAL
-        'LOCATION'   | ImmutableKind.LOCATION
-        'location'   | ImmutableKind.LOCATION
-        'ORG'        | ORG
-        'org'        | ORG
-        'THING'      | THING
-        'thing'      | THING
-    }
+		where:
+		value         | expectedKind
+		'GROUP'       | GROUP
+		'group'       | GROUP
+		'INDIVIDUAL'  | INDIVIDUAL
+		'individual'  | INDIVIDUAL
+		'LOCATION'    | LOCATION
+		'location'    | LOCATION
+		'ORG'         | ORG
+		'org'         | ORG
+		'APPLICATION' | APPLICATION
+		'device'      | DEVICE
+	}
 	
 	def 'build VERSION property and assert the result'() {
 		expect:

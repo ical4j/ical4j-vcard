@@ -62,8 +62,10 @@ class KindFactory extends AbstractPropertyFactory {
                     kind = ORG
                 } else if (LOCATION.getValue().equalsIgnoreCase(kindValue)) {
                     kind = LOCATION
-                } else if (THING.getValue().equalsIgnoreCase(kindValue)) {
-                    kind = THING
+                } else if (APPLICATION.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = APPLICATION
+                } else if (DEVICE.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = DEVICE
                 } else {
                     attributes.put('value', kindValue)
                     kind = super.newInstance(builder, name, value, attributes)
@@ -77,8 +79,10 @@ class KindFactory extends AbstractPropertyFactory {
                     kind = ORG
                 } else if (LOCATION.getValue().equalsIgnoreCase(value)) {
                     kind = LOCATION
-                } else if (THING.getValue().equalsIgnoreCase(value)) {
-                    kind = THING
+                } else if (APPLICATION.getValue().equalsIgnoreCase(value)) {
+                    kind = APPLICATION
+                } else if (DEVICE.getValue().equalsIgnoreCase(value)) {
+                    kind = DEVICE
                 } else {
                     kind = super.newInstance(builder, name, value, attributes)
                 }

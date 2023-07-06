@@ -23,12 +23,18 @@ public class ImmutableKind extends Kind implements ImmutableProperty {
      * Standard kind.
      */
     public static final Kind LOCATION = new ImmutableKind("location");
+
     /**
      * Standard kind.
+     *
+     * @deprecated use alternative kinds such as {@link ImmutableKind#APPLICATION} or {@link ImmutableKind#DEVICE}.
      */
+    @Deprecated
     public static final Kind THING = new ImmutableKind("thing");
 
     public static final Kind APPLICATION = new ImmutableKind("application");
+
+    public static final Kind DEVICE = new ImmutableKind("device");
 
     public ImmutableKind(String value) {
         super(value);

@@ -131,8 +131,10 @@ public class Kind extends Property implements PropertyValidatorSupport, GroupPro
                     return ImmutableKind.ORG;
                 } else if (ImmutableKind.LOCATION.getValue().equalsIgnoreCase(value)) {
                     return ImmutableKind.LOCATION;
-                } else if (THING.getValue().equalsIgnoreCase(value)) {
-                    return THING;
+                } else if (APPLICATION.getValue().equalsIgnoreCase(value)) {
+                    return APPLICATION;
+                } else if (DEVICE.getValue().equalsIgnoreCase(value)) {
+                    return DEVICE;
                 }
             }
             return new Kind(params, value);

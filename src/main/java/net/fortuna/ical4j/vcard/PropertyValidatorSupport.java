@@ -159,7 +159,8 @@ public interface PropertyValidatorSupport {
             TEXT_VALUE,
             new ValidationRule<>(ValueMatch, "(?i)" + String.join("|",
                     ImmutableKind.INDIVIDUAL.getValue(), ImmutableKind.GROUP.getValue(), ImmutableKind.ORG.getValue(),
-                    ImmutableKind.LOCATION.getValue(), ImmutableKind.THING.getValue())));
+                    ImmutableKind.LOCATION.getValue(), ImmutableKind.APPLICATION.getValue(),
+                    ImmutableKind.DEVICE.getValue())));
 
     Validator<Label> LABEL = new PropertyValidator<>(PropertyName.LABEL.toString(),
             new ValidationRule<>(OneOrLess, ParameterName.PID.toString(), ParameterName.VALUE.toString(),
