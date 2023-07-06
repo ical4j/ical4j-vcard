@@ -34,7 +34,7 @@ public enum PropertyName {
     FBURL, CALADRURI, CALURI,
 
     // 6.10. Extended Properties and Parameters
-    EXTENDED,
+    EXTENDED, CONTACT_URI,
 
     // JSContact extensions..
     CONTACT_BY,

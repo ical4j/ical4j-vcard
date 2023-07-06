@@ -84,6 +84,11 @@ public interface PropertyValidatorSupport {
                     ParameterName.PREF.toString(), ParameterName.TYPE.toString(), ParameterName.MEDIATYPE.toString()),
             URI_VALUE);
 
+    Validator<ContactUri> CONTACT_URI = new PropertyValidator<>(PropertyName.CONTACT_URI.toString(),
+            new ValidationRule<>(OneOrLess, ParameterName.ALTID.toString(), ParameterName.PID.toString(),
+                    ParameterName.PREF.toString(), ParameterName.TYPE.toString(), ParameterName.MEDIATYPE.toString()),
+            URI_VALUE);
+
     Validator<Categories> CATEGORIES = new PropertyValidator<>(PropertyName.CATEGORIES.toString(),
             new ValidationRule<>(OneOrLess, ParameterName.PID.toString(), ParameterName.PREF.toString(),
                     ParameterName.TYPE.toString(), ParameterName.ALTID.toString()),
