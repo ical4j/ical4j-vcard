@@ -1890,6 +1890,11 @@ acceptedBreaks:
         \ java.lang.String)"
         justification: "major_version_update"
       - code: "java.method.exception.checkedRemoved"
+        old: "method void net.fortuna.ical4j.vcard.property.Member::<init>(java.util.List<net.fortuna.ical4j.vcard.Parameter>,\
+        \ java.lang.String) throws java.net.URISyntaxException"
+        new: "method void net.fortuna.ical4j.vcard.property.Member::<init>(net.fortuna.ical4j.vcard.VCard)"
+        justification: "extend_constructor_signatures"
+      - code: "java.method.exception.checkedRemoved"
         old: "method void net.fortuna.ical4j.vcard.property.Photo::<init>(java.util.List<net.fortuna.ical4j.vcard.Parameter>,\
         \ java.lang.String) throws java.net.URISyntaxException, org.apache.commons.codec.DecoderException"
         new: "method void net.fortuna.ical4j.vcard.property.Photo::<init>(net.fortuna.ical4j.model.ParameterList,\
@@ -3173,6 +3178,11 @@ acceptedBreaks:
         new: "method T net.fortuna.ical4j.model.PropertyFactory<T extends net.fortuna.ical4j.model.Property>::createProperty(java.lang.String)\
         \ throws java.net.URISyntaxException @ net.fortuna.ical4j.vcard.property.Version.Factory"
         justification: "major_refactor"
+      - code: "java.method.numberOfParametersChanged"
+        old: "method void net.fortuna.ical4j.vcard.property.Member::<init>(java.util.List<net.fortuna.ical4j.vcard.Parameter>,\
+        \ java.lang.String) throws java.net.URISyntaxException"
+        new: "method void net.fortuna.ical4j.vcard.property.Member::<init>(net.fortuna.ical4j.vcard.VCard)"
+        justification: "extend_constructor_signatures"
       - code: "java.method.parameterTypeChanged"
         old: "parameter <T extends net.fortuna.ical4j.vcard.Property> T net.fortuna.ical4j.vcard.VCard::getProperty(===net.fortuna.ical4j.vcard.Property.Id===)"
         new: "parameter <T extends net.fortuna.ical4j.model.Property> java.util.Optional<T>\

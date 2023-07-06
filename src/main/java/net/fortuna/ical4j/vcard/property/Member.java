@@ -37,10 +37,7 @@ import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.PropertyFactory;
-import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
+import net.fortuna.ical4j.vcard.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -68,6 +65,12 @@ public class Member extends Property implements PropertyValidatorSupport {
         this.uri = uri;
     }
 
+    public Member(VCard card) {
+        super(PropertyName.MEMBER.toString());
+        Uid uid = card.getRequiredProperty(PropertyName.UID.toString());
+        setUri(uid.getUri());
+    }
+
     /**
      * Factory constructor.
      *
@@ -77,6 +80,10 @@ public class Member extends Property implements PropertyValidatorSupport {
     public Member(ParameterList params, String value) {
         super(PropertyName.MEMBER.toString(), params);
         setValue(value);
+    }
+
+    public void setUri(URI uri) {
+        this.uri = uri;
     }
 
     /**
