@@ -78,6 +78,8 @@ public enum ParameterName {
 
     // 7.10. Extended Properties and Parameters
 
+    CC,
+
     /**
      * Non-standard parameter identifier.
      */
