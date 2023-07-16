@@ -37,7 +37,6 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -60,9 +59,9 @@ public class TwoVcardsInAFileTest {
 		File file = new File("src/test/resources/samples/vcard-rfc2426.vcf");
 		VCardBuilder builder = new VCardBuilder(new FileReader(file));
 
-		List<VCard> cards = builder.buildAll();
-		assertEquals(2, cards.size());
-		assertEquals("Frank Dawson", cards.get(0).getRequiredProperty(PropertyName.FN.toString()).getValue());
-		assertEquals("Tim Howes", cards.get(1).getRequiredProperty(PropertyName.FN.toString()).getValue());
+		VCardList cards = builder.buildAll();
+		assertEquals(2, cards.getAll().size());
+		assertEquals("Frank Dawson", cards.getAll().get(0).getRequiredProperty(PropertyName.FN.toString()).getValue());
+		assertEquals("Tim Howes", cards.getAll().get(1).getRequiredProperty(PropertyName.FN.toString()).getValue());
 	}
 }

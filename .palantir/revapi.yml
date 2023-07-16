@@ -3624,6 +3624,12 @@ acceptedBreaks:
         \ extends net.fortuna.ical4j.vcard.GroupProperty>"
         justification: "major_refactor"
       - code: "java.method.returnTypeChanged"
+        old: "method java.util.List<net.fortuna.ical4j.vcard.VCard> net.fortuna.ical4j.vcard.VCardBuilder::buildAll()\
+        \ throws java.io.IOException, net.fortuna.ical4j.data.ParserException"
+        new: "method net.fortuna.ical4j.vcard.VCardList net.fortuna.ical4j.vcard.VCardBuilder::buildAll()\
+        \ throws java.io.IOException, net.fortuna.ical4j.data.ParserException"
+        justification: "improve_multiple_card_support"
+      - code: "java.method.returnTypeChanged"
         old: "method net.fortuna.ical4j.model.Date net.fortuna.ical4j.vcard.property.BDay::getDate()"
         new: "method T net.fortuna.ical4j.model.property.DateProperty<T extends java.time.temporal.Temporal>::getDate()\
         \ @ net.fortuna.ical4j.vcard.property.BDay<T extends java.time.temporal.Temporal>"

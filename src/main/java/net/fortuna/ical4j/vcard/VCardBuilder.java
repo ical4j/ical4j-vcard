@@ -147,20 +147,20 @@ public final class VCardBuilder {
     
     /**
      * @return a list of vCard object instances
-     * @throws IOException where a problem occurs reading vCard data
+     * @throws IOException     where a problem occurs reading vCard data
      * @throws ParserException where parsing vCard data fails
      */
-    public List<VCard> buildAll() throws IOException, ParserException {
-    	final List<VCard> cards = new ArrayList<>();
-    	while (true) {
-    	    final VCard card = build(false);
-    	    if (card == null) {
-    	        break;
-    	    } else {
-    	        cards.add(card);
-    	    }
-    	}
-        return Collections.unmodifiableList(cards);
+    public VCardList buildAll() throws IOException, ParserException {
+        final List<VCard> cards = new ArrayList<>();
+        while (true) {
+            final VCard card = build(false);
+            if (card == null) {
+                break;
+            } else {
+                cards.add(card);
+            }
+        }
+        return new VCardList(Collections.unmodifiableList(cards));
     }
     
     /**

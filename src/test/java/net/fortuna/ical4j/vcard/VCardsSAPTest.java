@@ -40,7 +40,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 
@@ -73,10 +72,10 @@ public class VCardsSAPTest {
 		File file = new File(
 				"src/test/resources/samples/vcard-vCards-SAP.vcf");
 		Reader reader = new FileReader(file);
-		VCardBuilder builder = 
+		VCardBuilder builder =
 				new VCardBuilder(reader);
 
-		Collection<VCard> cards = builder.buildAll();
-		assertEquals(30, cards.size());
+		VCardList cards = builder.buildAll();
+		assertEquals(30, cards.getAll().size());
 	}
 }
