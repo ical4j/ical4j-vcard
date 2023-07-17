@@ -7,6 +7,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * An immutable list of cards with functional mutator support.
+ */
 public class VCardList {
 
     private final List<VCard> cards;
