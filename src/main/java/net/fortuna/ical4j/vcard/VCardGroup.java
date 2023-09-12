@@ -42,4 +42,12 @@ public class VCardGroup implements VCardContainer {
     public VCard getLatestRevision() {
         return getRevisions().get(0);
     }
+
+    @Override
+    public VCardContainer add(VCard component) {
+        if (!cardPredicate.test(component)) {
+            throw new IllegalArgumentException("Invalid component for this group");
+        }
+        return VCardContainer.super.add(component);
+    }
 }
