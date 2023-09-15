@@ -45,7 +45,7 @@ import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
- * NOTE property.
+ * XML property.
  * <p>
  * $Id$
  * <p>
@@ -60,10 +60,10 @@ public class Xml extends Property implements Encodable, PropertyValidatorSupport
     private String value;
 
     /**
-     * @param value a note value
+     * @param value an xml value
      */
     public Xml(String value) {
-        super(PropertyName.NOTE.toString());
+        super(PropertyName.XML.toString());
         this.value = value;
     }
 
@@ -74,7 +74,7 @@ public class Xml extends Property implements Encodable, PropertyValidatorSupport
      * @param value  string representation of a property value
      */
     public Xml(ParameterList params, String value) {
-        super(PropertyName.NOTE.toString(), params);
+        super(PropertyName.XML.toString(), params);
         this.value = value;
     }
 
@@ -106,7 +106,7 @@ public class Xml extends Property implements Encodable, PropertyValidatorSupport
 
     public static class Factory extends Content.Factory implements PropertyFactory<Xml> {
         public Factory() {
-            super(PropertyName.NOTE.toString());
+            super(PropertyName.XML.toString());
         }
 
         /**
