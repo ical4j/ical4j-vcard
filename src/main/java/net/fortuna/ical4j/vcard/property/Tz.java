@@ -31,12 +31,18 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import net.fortuna.ical4j.model.UtcOffset;
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.model.ZoneOffsetAdapter;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
-import java.util.List;
+import java.time.DateTimeException;
+import java.time.ZoneOffset;
+import java.util.Optional;
 
 /**
  * TZ property.
@@ -47,29 +53,29 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Tz extends Property {
+public class Tz extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = 930436197799477318L;
 
-    private UtcOffset offset;
+    private ZoneOffsetAdapter offset;
 
     private String text;
 
     /**
      * @param offset the offset from UTC for the timezone
      */
-    public Tz(UtcOffset offset) {
-        super(Id.TZ);
-        this.offset = offset;
+    public Tz(ZoneOffset offset) {
+        super(PropertyName.TZ.toString());
+        this.offset = new ZoneOffsetAdapter(offset);
     }
 
     /**
      * @param text an unstructured timezone value
      */
     public Tz(String text) {
-        super(Id.TZ);
+        super(PropertyName.TZ.toString());
         this.text = text;
-        getParameters().add(Value.TEXT);
+        add(Value.TEXT);
     }
 
     /**
@@ -78,20 +84,20 @@ public final class Tz extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Tz(List<Parameter> params, String value) {
-        super(Id.TZ, params);
-        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+    public Tz(ParameterList params, String value) {
+        super(PropertyName.TZ.toString(), params);
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             this.text = value;
         } else {
-            this.offset = new UtcOffset(value);
+            this.offset = new ZoneOffsetAdapter(ZoneOffset.of(value));
         }
     }
 
     /**
      * @return the offset
      */
-    public UtcOffset getOffset() {
-        return offset;
+    public ZoneOffset getOffset() {
+        return offset.getOffset();
     }
 
     /**
@@ -107,7 +113,7 @@ public final class Tz extends Property {
     @Override
     public String getValue() {
         String value = null;
-        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             value = text;
         } else if (offset != null) {
             value = offset.toString();
@@ -115,31 +121,53 @@ public final class Tz extends Property {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) {
+        try {
+            offset = new ZoneOffsetAdapter(ZoneOffset.of(aValue));
+            text = null;
+            remove(Value.TEXT);
+        } catch (DateTimeException e) {
+            text = aValue;
+            offset = null;
+            replace(Value.TEXT);
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        // ; No parameters allowed
-        assertParametersEmpty();
+    public ValidationResult validate() throws ValidationException {
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString()))) {
+            return TZ_URI.validate(this);
+        } else if (Optional.of(Value.UTC_OFFSET).equals(getParameter(ParameterName.VALUE.toString()))) {
+            return TZ_UTC_OFFSET.validate(this);
+        }
+        return TZ_TEXT.validate(this);
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Tz> {
+    @Override
+    protected PropertyFactory<Tz> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Tz> {
         public Factory() {
-            super(Id.TZ.toString());
+            super(PropertyName.TZ.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Tz createProperty(final List<Parameter> params, final String value) {
+        public Tz createProperty(final ParameterList params, final String value) {
             return new Tz(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Tz createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Tz createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

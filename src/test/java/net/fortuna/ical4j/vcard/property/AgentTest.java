@@ -31,18 +31,17 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import net.fortuna.ical4j.vcard.parameter.Value;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.junit.runners.Parameterized.Parameters;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-import net.fortuna.ical4j.vcard.parameter.Value;
 
 public class AgentTest extends PropertyTest {
 
@@ -53,13 +52,13 @@ public class AgentTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { new Agent(""), Id.AGENT.toString(), "", new Parameter[] { Value.TEXT } });
+        params.add(new Object[]{new Agent(""), PropertyName.AGENT.toString(), "", new Parameter[]{Value.TEXT}});
         String agentString = "Agent 99";
-        params.add(new Object[] { new Agent(agentString), Id.AGENT.toString(), agentString,
-                new Parameter[] { Value.TEXT }, });
+        params.add(new Object[]{new Agent(agentString), PropertyName.AGENT.toString(), agentString,
+                new Parameter[]{Value.TEXT},});
         agentString = "http://thereisnoagent.com";
-        params.add(new Object[] { new Agent(URI.create(agentString)), Id.AGENT.toString(),
-                agentString, new Parameter[] {}, });
+        params.add(new Object[]{new Agent(URI.create(agentString)), PropertyName.AGENT.toString(),
+                agentString, new Parameter[]{},});
         return params;
     }
 }

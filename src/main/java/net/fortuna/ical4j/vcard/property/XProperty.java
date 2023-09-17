@@ -1,37 +1,53 @@
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.model.PropertyFactory;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-
-import java.util.List;
+import net.fortuna.ical4j.vcard.GroupProperty;
 
 /**
  * Created by fortuna on 1/10/14.
  */
-public class XProperty extends Property {
+public class XProperty extends Property implements GroupProperty {
 
-    private final String value;
+    private String value;
 
-    public XProperty(String extendedName, String value) {
-        super(extendedName);
+    public XProperty(String name, String value) {
+        super(name);
         this.value = value;
     }
 
-    public XProperty(Group group, String extendedName, String value) {
-        super(group, extendedName);
+    /**
+     * @param group
+     * @param name
+     * @param value
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
+     */
+    @Deprecated
+    public XProperty(Group group, String name, String value) {
+        this(name, value);
+        setGroup(group);
+    }
+
+    public XProperty(String name, ParameterList parameters, String value) {
+        super(name, parameters);
         this.value = value;
     }
 
-    public XProperty(String extendedName, List<Parameter> parameters, String value) {
-        super(extendedName, parameters);
-        this.value = value;
-    }
-
-    public XProperty(Group group, String extendedName, List<Parameter> parameters, String value) {
-        super(group, extendedName, parameters);
-        this.value = value;
+    /**
+     * @param group
+     * @param name
+     * @param parameters
+     * @param value
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
+     */
+    @Deprecated
+    public XProperty(Group group, String name, ParameterList parameters, String value) {
+        this(name, parameters, value);
+        setGroup(group);
     }
 
     @Override
@@ -40,7 +56,17 @@ public class XProperty extends Property {
     }
 
     @Override
-    public void validate() throws ValidationException {
+    public void setValue(String aValue) {
+        this.value = aValue;
+    }
 
+    @Override
+    public ValidationResult validate() throws ValidationException {
+        return ValidationResult.EMPTY;
+    }
+
+    @Override
+    protected PropertyFactory<XProperty> newFactory() {
+        throw new UnsupportedOperationException("Factory not supported for custom properties");
     }
 }

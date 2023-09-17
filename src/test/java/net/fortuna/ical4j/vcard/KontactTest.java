@@ -32,9 +32,11 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.Property.Id;
 import org.apache.commons.codec.DecoderException;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -48,27 +50,38 @@ import static org.junit.Assert.assertEquals;
  * Created on: 2009-02-26
  *
  * @author antheque
- *
  */
 public class KontactTest {
+
+	@Before
+	public void setup() {
+		// enable relaxed parsing for non-standard GEO support..
+		CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
+	}
+
+	@After
+	public void teardown() {
+		// enable relaxed parsing for non-standard GEO support..
+		CompatibilityHints.clearHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING);
+	}
 
 	/**
 	 * This example has been prepared with Kontact, it is OK, except for 
 	 * the BDAY date, that uses an extended format: 
-	 * 
+	 *
 	 * 1985-01-28T00:00:00Z
-	 * 
+	 *
 	 * This is acceptable according to the  draft-ietf-vcarddav-vcardrev-05.txt,
 	 * but wasn't acceptable in RFC2445. Before this test was written
 	 * the implementation of the BDAY property from vcard used the
 	 * DateTime class from ical4j, which was much more restrictive and
 	 * didn't accept the above-mentioned date. 
-	 * 
-	 * 
-	 * @throws ParserException 
-	 * @throws IOException 
-	 * @throws ValidationException 
-	 * @throws DecoderException 
+	 *
+	 *
+	 * @throws ParserException
+	 * @throws IOException
+	 * @throws ValidationException
+	 * @throws DecoderException
 	 */
 	@Test
 //	@Ignore
@@ -80,8 +93,8 @@ public class KontactTest {
 		VCardBuilder builder = new VCardBuilder(reader);
 
 		VCard card = builder.build();
-		assertEquals("Antoni Mylka", card.getProperty(Id.FN).getValue());
-		
+		assertEquals("Antoni Mylka", card.getRequiredProperty(PropertyName.FN.toString()).getValue());
+
 
 	}
 }

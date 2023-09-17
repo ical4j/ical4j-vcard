@@ -41,14 +41,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * A registry for standard and non-standard property groups.
- * 
+ * <p>
  * $Id$
- *
+ * <p>
  * Created on: 05/01/2009
  *
  * @author Ben
- *
+ * @deprecated predefined groups are no longer part of the vCard specification.
  */
+@Deprecated
 public class GroupRegistry {
 
     private static final Log LOG = LogFactory.getLog(GroupRegistry.class);

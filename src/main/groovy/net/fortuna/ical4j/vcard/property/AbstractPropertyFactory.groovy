@@ -31,7 +31,7 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import net.fortuna.ical4j.vcard.Parameter
+import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.vcard.PropertyFactoryRegistry
 
 /**
@@ -41,7 +41,9 @@ import net.fortuna.ical4j.vcard.PropertyFactoryRegistry
  *
  * @author fortuna
  *
+ * @deprecated use {@link net.fortuna.ical4j.model.PropertyFactoryWrapper} instead
  */
+@Deprecated
 abstract class AbstractPropertyFactory extends AbstractFactory {
 
     PropertyFactoryRegistry factoryRegistry = []
@@ -63,7 +65,7 @@ abstract class AbstractPropertyFactory extends AbstractFactory {
 
     void setChild(FactoryBuilderSupport build, Object parent, Object child) {
         if (child instanceof Parameter) {
-            parent.parameters.add(child)
+            parent.add(child)
         }
     }
 }

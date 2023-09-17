@@ -37,7 +37,9 @@ package net.fortuna.ical4j.vcard.property
  *
  * @author fortuna
  *
+ * @deprecated use {@link net.fortuna.ical4j.model.PropertyFactoryWrapper} instead
  */
+@Deprecated
 class ClazzFactory extends AbstractPropertyFactory {
 
 

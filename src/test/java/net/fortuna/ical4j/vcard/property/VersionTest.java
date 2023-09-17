@@ -31,29 +31,30 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-
-import org.junit.runners.Parameterized.Parameters;
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion.VERSION_4_0;
 
 public class VersionTest extends PropertyTest {
 
     public VersionTest(Property property, String expectedName,
-            String expectedValue, Parameter[] expectedParams) {
+                       String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { Version.VERSION_4_0, Id.VERSION.toString(), "4.0", new Parameter[] {} });
-        params.add(new Object[] { new Version("3.0"), Id.VERSION.toString(), "3.0", new Parameter[] {} });
+        params.add(new Object[]{VERSION_4_0, PropertyName.VERSION.toString(), "4.0", new Parameter[]{}});
+        params.add(new Object[]{new Version("3.0"), PropertyName.VERSION.toString(), "3.0", new Parameter[]{}});
         return params;
     }
 

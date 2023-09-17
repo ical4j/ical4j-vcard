@@ -31,11 +31,12 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
-
-import java.text.MessageFormat;
-import java.util.List;
 
 /**
  * EMAIL property.
@@ -46,26 +47,29 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Email extends Property {
+public class Email extends Property implements PropertyValidatorSupport, GroupProperty {
 
     private static final long serialVersionUID = 6134254373259957228L;
 
-    private final String value;
+    private String value;
 
     /**
      * @param value an email address string
      */
     public Email(String value) {
-        this((Group) null, value);
+        super(PropertyName.EMAIL.toString());
+        this.value = value;
     }
 
     /**
      * @param group property group
      * @param value an email address string
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
+    @Deprecated
     public Email(Group group, String value) {
-        super(group, Id.EMAIL);
-        this.value = value;
+        this(value);
+        setGroup(group);
     }
 
     /**
@@ -74,8 +78,9 @@ public final class Email extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Email(List<Parameter> params, String value) {
-        this(null, params, value);
+    public Email(ParameterList params, String value) {
+        super(PropertyName.EMAIL.toString(), params);
+        this.value = value;
     }
 
     /**
@@ -85,9 +90,9 @@ public final class Email extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Email(Group group, List<Parameter> params, String value) {
-        super(group, Id.EMAIL, params);
-        this.value = value;
+    public Email(Group group, ParameterList params, String value) {
+        this(params, value);
+        setGroup(group);
     }
 
     /**
@@ -98,38 +103,40 @@ public final class Email extends Property {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) {
+        this.value = aValue;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        for (Parameter param : getParameters()) {
-            final Parameter.Id id = param.getId();
-
-            if (!Parameter.Id.PID.equals(id) &&
-                    !Parameter.Id.PREF.equals(id) &&
-                    !Parameter.Id.TYPE.equals(id)) {
-                throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, id));
-            }
-        }
+    public ValidationResult validate() throws ValidationException {
+        return EMAIL.validate(this);
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Email> {
+    @Override
+    protected PropertyFactory<Email> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Email> {
         public Factory() {
-            super(Id.EMAIL.toString());
+            super(PropertyName.EMAIL.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Email createProperty(final List<Parameter> params, final String value) {
+        public Email createProperty(final ParameterList params, final String value) {
             return new Email(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Email createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Email createProperty(final Group group, final ParameterList params, final String value) {
             return new Email(group, params, value);
         }
     }

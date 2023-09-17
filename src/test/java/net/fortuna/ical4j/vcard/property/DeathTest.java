@@ -31,16 +31,15 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.junit.runners.Parameterized.Parameters;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
 
 public class DeathTest extends PropertyTest {
 
@@ -52,11 +51,11 @@ public class DeathTest extends PropertyTest {
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
         String deathString = "Somewhere in the Pacific Ocean";
-        params.add(new Object[] { new Death(deathString), Id.DEATH.toString(),
-                deathString, new Parameter[] {}, });
+        params.add(new Object[]{new Death(deathString), PropertyName.DEATH.toString(),
+                deathString, new Parameter[]{},});
         deathString = "Lunar expedition, Moon";
-        params.add(new Object[] { new Death(deathString), Id.DEATH.toString(), deathString,
-                new Parameter[] {}, });
+        params.add(new Object[]{new Death(deathString), PropertyName.DEATH.toString(), deathString,
+                new Parameter[]{},});
         return params;
     }
 

@@ -31,21 +31,22 @@
  */
 package net.fortuna.ical4j.vcard;
 
+import net.fortuna.ical4j.model.Parameter;
+
 /**
  * @param <T> parameter type created by the factory implementation
- *
+ *            <p>
  *            $Id$
- *
+ *            <p>
  *            Created on: 30/10/2008
  * @author fortuna
  */
-public interface ParameterFactory<T extends Parameter> {
+public interface ParameterFactory<T extends Parameter> extends net.fortuna.ical4j.model.ParameterFactory<T> {
 
     /**
-     * @param value a parameter value used to create a new instance
-     * @return a new parameter instance
+     * @return a default parameter instance
      */
-    T createParameter(String name, String value);
-
-    boolean supports(String id);
+    default T createParameter() {
+        throw new UnsupportedOperationException();
+    }
 }

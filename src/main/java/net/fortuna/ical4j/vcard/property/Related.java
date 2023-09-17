@@ -31,8 +31,12 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
@@ -40,7 +44,7 @@ import net.fortuna.ical4j.vcard.parameter.Value;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Optional;
 
 /**
  * RELATED property.
@@ -51,23 +55,56 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Related extends Property {
+public class Related extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = -3319959600372278036L;
+
+    public static Type TYPE_CONTACT = new Type("contact");
+    public static Type TYPE_ACQUAINTANCE = new Type("acquaintance");
+    public static Type TYPE_FRIEND = new Type("friend");
+    public static Type TYPE_MET = new Type("met");
+    public static Type TYPE_COWORKER = new Type("co-worker");
+    public static Type TYPE_COLLEAGUE = new Type("colleague");
+    public static Type TYPE_CORESIDENT = new Type("co-resident");
+    public static Type TYPE_NEIGHBOR = new Type("neighbor");
+    public static Type TYPE_CHILD = new Type("child");
+    public static Type TYPE_PARENT = new Type("parent");
+    public static Type TYPE_SIBLING = new Type("sibling");
+    public static Type TYPE_SPOUSE = new Type("spouse");
+    public static Type TYPE_KIN = new Type("kin");
+    public static Type TYPE_MUSE = new Type("muse");
+    public static Type TYPE_CRUSH = new Type("crush");
+    public static Type TYPE_DATE = new Type("date");
+    public static Type TYPE_SWEETHEART = new Type("sweetheart");
+    public static Type TYPE_ME = new Type("me");
+    public static Type TYPE_AGENT = new Type("agent");
+    public static Type TYPE_EMERGENCY = new Type("emergency");
 
     private URI uri;
 
     private String text;
 
     /**
+     * @param card  a related card entity
+     * @param types optional types of the text value
+     */
+    public Related(VCard card, Type... types) {
+        super(PropertyName.RELATED.toString());
+        Uid cardUid = card.getRequiredProperty(PropertyName.UID.toString());
+        this.uri = cardUid.getUri();
+        add(Value.URI);
+        Arrays.stream(types).forEach(this::add);
+    }
+
+    /**
      * @param text  a related text value
      * @param types optional types of the text value
      */
     public Related(String text, Type... types) {
-        super(Id.RELATED);
+        super(PropertyName.RELATED.toString());
         this.text = text;
-        getParameters().add(Value.TEXT);
-        getParameters().addAll(Arrays.asList(types));
+        add(Value.TEXT);
+        Arrays.stream(types).forEach(this::add);
     }
 
     /**
@@ -75,9 +112,9 @@ public final class Related extends Property {
      * @param types optional types of the URI value
      */
     public Related(URI uri, Type... types) {
-        super(Id.RELATED);
+        super(PropertyName.RELATED.toString());
         this.uri = uri;
-        getParameters().addAll(Arrays.asList(types));
+        Arrays.stream(types).forEach(this::add);
     }
 
     /**
@@ -85,15 +122,10 @@ public final class Related extends Property {
      *
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws URISyntaxException if the specified URI value is not a valid URI
      */
-    public Related(List<Parameter> params, String value) throws URISyntaxException {
-        super(Id.RELATED, params);
-        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
-            this.text = value;
-        } else {
-            this.uri = new URI(value);
-        }
+    public Related(ParameterList params, String value) {
+        super(PropertyName.RELATED.toString(), params);
+        setValue(value);
     }
 
     /**
@@ -108,42 +140,57 @@ public final class Related extends Property {
      */
     @Override
     public String getValue() {
-        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             return text;
         }
         return Strings.valueOf(uri);
+    }
+
+    @Override
+    public void setValue(String value) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+            this.text = value;
+        } else {
+            try {
+                this.uri = new URI(value);
+            } catch (URISyntaxException e) {
+                throw new IllegalArgumentException(e);
+            }
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        for (Parameter param : getParameters()) {
-            try {
-                assertTypeParameter(param);
-            } catch (ValidationException ve) {
-                assertPidParameter(param);
-            }
+    public ValidationResult validate() throws ValidationException {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+            return RELATED_TEXT.validate(this);
         }
+        return RELATED_URI.validate(this);
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Related> {
+    @Override
+    protected PropertyFactory<Related> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Related> {
         public Factory() {
-            super(Id.RELATED.toString());
+            super(PropertyName.RELATED.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Related createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
+        public Related createProperty(final ParameterList params, final String value) {
             return new Related(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Related createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Related createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

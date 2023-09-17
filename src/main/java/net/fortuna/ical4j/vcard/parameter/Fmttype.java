@@ -31,9 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import net.fortuna.ical4j.vcard.AbstractFactory;
-import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 import java.text.ParseException;
 
@@ -44,6 +45,7 @@ import java.text.ParseException;
  *
  * @author Mike Douglass
  */
+@Deprecated
 public final class Fmttype extends Parameter {
 
     private static final long serialVersionUID = 12345L;
@@ -60,7 +62,7 @@ public final class Fmttype extends Parameter {
      * @param value string representation of a property value
      */
     public Fmttype(String value) throws ParseException {
-        super(Id.FMTTYPE);
+        super(ParameterName.FMTTYPE.toString());
         this.value = value;
         final String[] segments = value.split("/", -1);
 
@@ -94,12 +96,12 @@ public final class Fmttype extends Parameter {
         return subtype;
     }
 
-    public static class Factory extends AbstractFactory implements ParameterFactory<Fmttype> {
+    public static class Factory extends Content.Factory implements ParameterFactory<Fmttype> {
         public Factory() {
-            super(Id.FMTTYPE.toString());
+            super(ParameterName.FMTTYPE.toString());
         }
 
-        public Fmttype createParameter(String name, String value) {
+        public Fmttype createParameter(String value) {
             try {
                 return new Fmttype(value);
             } catch (Throwable t) {

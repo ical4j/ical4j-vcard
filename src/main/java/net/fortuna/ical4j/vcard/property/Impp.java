@@ -31,14 +31,20 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 /**
  * IMPP property.
@@ -49,32 +55,31 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Impp extends Property {
+public class Impp extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = 4042305605468586600L;
 
-    private final URI uri;
+    private URI uri;
 
     /**
      * @param uri   instant messaging URI
      * @param types optional property classifiers
      */
     public Impp(URI uri, Type... types) {
-        super(Id.IMPP);
+        super(PropertyName.IMPP.toString());
         this.uri = uri;
         for (Type type : types) {
-            getParameters().add(type);
+            add(type);
         }
     }
 
     /**
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws URISyntaxException where the specified value is not a valid URI
      */
-    public Impp(List<Parameter> params, String value) throws URISyntaxException {
-        super(Id.IMPP, params);
-        this.uri = new URI(value);
+    public Impp(ParameterList params, String value) {
+        super(PropertyName.IMPP.toString(), params);
+        setValue(value);
     }
 
     /**
@@ -92,31 +97,44 @@ public final class Impp extends Property {
         return Strings.valueOf(uri);
     }
 
+    @Override
+    public void setValue(String value) {
+        try {
+            this.uri = new URI(value);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        // TODO Auto-generated method stub
-
+    public ValidationResult validate() throws ValidationException {
+        return IMPP.validate(this);
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Impp> {
+    @Override
+    protected PropertyFactory<Impp> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Impp> {
         public Factory() {
-            super(Id.IMPP.toString());
+            super(PropertyName.IMPP.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Impp createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
+        public Impp createProperty(final ParameterList params, final String value) {
             return new Impp(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Impp createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Impp createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

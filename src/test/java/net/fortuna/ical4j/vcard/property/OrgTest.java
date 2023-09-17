@@ -31,39 +31,39 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.runners.Parameterized.Parameters;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-
 public class OrgTest extends PropertyTest {
 
     public OrgTest(Property property, String expectedName,
-            String expectedValue, Parameter[] expectedParams) {
+                   String expectedValue, Parameter[] expectedParams) {
         super(property, expectedName, expectedValue, expectedParams);
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { new Org(""), Id.ORG.toString(), "",
-                new Parameter[] {} });
-        params.add(new Object[] {
+        params.add(new Object[]{new Org(""), PropertyName.ORG.toString(), "",
+                new Parameter[]{}});
+        params.add(new Object[]{
                 new Org("ABC, Inc.", "North American Division", "Marketing"),
-                Id.ORG.toString(),
+                PropertyName.ORG.toString(),
                 "ABC\\, Inc.;North American Division;Marketing",
-                new Parameter[] {} });
-        params.add(new Object[] {
-                new Org(new ArrayList<Parameter>(), "ABC, Inc.;North American Division;Marketing"),
-                Id.ORG.toString(),
+                new Parameter[]{}});
+        params.add(new Object[]{
+                new Org(new ParameterList(), "ABC, Inc.;North American Division;Marketing"),
+                PropertyName.ORG.toString(),
                 "ABC\\, Inc.;North American Division;Marketing",
-                new Parameter[] {} });
+                new Parameter[]{}});
         return params;
     }
 

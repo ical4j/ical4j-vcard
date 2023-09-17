@@ -31,9 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import net.fortuna.ical4j.vcard.AbstractFactory;
-import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,6 +66,7 @@ public final class Type extends Parameter {
     /**
      * Pref type parameter.
      */
+    @Deprecated
     public static final Type PREF = new Type("pref");
 
     private final String[] types;
@@ -73,7 +75,7 @@ public final class Type extends Parameter {
      * @param value string representation of type parameter
      */
     public Type(String value) {
-        super(Id.TYPE);
+        super(ParameterName.TYPE.toString());
         this.types = value.split(",");
     }
 
@@ -81,7 +83,7 @@ public final class Type extends Parameter {
      * @param types string representations of multiple nested types
      */
     public Type(String... types) {
-        super(Id.TYPE);
+        super(ParameterName.TYPE.toString());
         this.types = types;
     }
 
@@ -89,7 +91,7 @@ public final class Type extends Parameter {
      * @param types multiple nested types
      */
     public Type(Type... types) {
-        super(Id.TYPE);
+        super(ParameterName.TYPE.toString());
         final List<String> typeList = new ArrayList<>();
         for (Type type : types) {
             typeList.addAll(Arrays.asList(type.getTypes()));
@@ -119,32 +121,21 @@ public final class Type extends Parameter {
         return b.toString();
     }
 
-    public static class Factory extends AbstractFactory implements ParameterFactory<Type> {
+    public static class Factory extends Content.Factory implements ParameterFactory<Type> {
         public Factory() {
-            super(Id.TYPE.toString(), "HOME", "WORK", "MSG",
-                    "VOICE", "FAX", "CELL", "VIDEO", "PAGER", "BBS", "MODEM",
-                    "CAR", "ISDN", "PCS", "INTERNET", "X400", "DOM", "INTL",
-                    "POSTAL", "PARCEL");
+            super(ParameterName.TYPE.toString());
         }
 
-        public Type createParameter(String name, String value) {
+        public Type createParameter(String value) {
             Type parameter = null;
-            try {
-                if (Id.valueOf(name.toUpperCase()) == Id.TYPE) {
-                    if (Type.HOME.getValue().equals(value)) {
-                        parameter = Type.HOME;
-                    } else if (Type.PREF.getValue().equals(value)) {
-                        parameter = Type.PREF;
-                    } else if (Type.WORK.getValue().equals(value)) {
-                        parameter = Type.WORK;
-                    } else {
-                        parameter = new Type(value);
-                    }
-                } else {
-                    parameter = new Type(name);
-                }
-            } catch (IllegalArgumentException iae) {
-                parameter = new Type(name);
+            if (Type.HOME.getValue().equals(value)) {
+                parameter = Type.HOME;
+            } else if (Type.PREF.getValue().equals(value)) {
+                parameter = Type.PREF;
+            } else if (Type.WORK.getValue().equals(value)) {
+                parameter = Type.WORK;
+            } else {
+                parameter = new Type(value);
             }
             return parameter;
         }

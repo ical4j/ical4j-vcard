@@ -31,43 +31,37 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import org.apache.commons.codec.DecoderException;
-
-import java.net.URISyntaxException;
-import java.text.ParseException;
-import java.util.List;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 
 /**
  * @param <T> the property type created by the factory
- *
+ *            <p>
  *            $Id$
- *
+ *            <p>
  *            Created on: 30/10/2008
  * @author fortuna
  */
-public interface PropertyFactory<T extends Property> {
-
-    /**
-     * @param params property parameters used to construct a new instance
-     * @param value  a property value used to construct a new instance
-     * @return a new property instance
-     * @throws URISyntaxException where an invalid URL is specified in the property value
-     * @throws ParseException     where an invalid date string is specified in the property value
-     * @throws DecoderException   where an invalid encoded value is specified in the property value
-     */
-    T createProperty(List<Parameter> params, String value) throws URISyntaxException, ParseException, DecoderException;
+public interface PropertyFactory<T extends Property> extends net.fortuna.ical4j.model.PropertyFactory<T> {
 
     /**
      * @param group  the property group
      * @param params property parameters used to construct a new instance
      * @param value  a property value used to construct a new instance
      * @return a new property instance
-     * @throws URISyntaxException where an invalid URL is specified in the property value
-     * @throws ParseException     where an invalid date string is specified in the property value
-     * @throws DecoderException   where an invalid encoded value is specified in the property value
+     * @throws IllegalArgumentException where an invalid encoded value is specified in the property value
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
-    T createProperty(Group group, List<Parameter> params, String value) throws URISyntaxException,
-            ParseException, DecoderException;
+    @Deprecated
+    default T createProperty(Group group, ParameterList params, String value) {
+        T property = createProperty(params, value);
+        if (property instanceof GroupProperty) {
+            ((GroupProperty) property).setGroup(group);
+        }
+        return property;
+    }
 
-    boolean supports(String id);
+    default T createProperty() {
+        throw new UnsupportedOperationException();
+    }
 }

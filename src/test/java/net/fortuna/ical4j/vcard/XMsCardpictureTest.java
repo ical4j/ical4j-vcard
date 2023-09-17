@@ -32,6 +32,7 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
 import org.apache.commons.codec.DecoderException;
@@ -44,10 +45,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Optional;
 
 /**
  * VCards generated with Outlook 12 often contain a certain extended property
- * X-MS-CARDPICTURE. ical4j-vcard includes a generic facility to write {@link Property}
+ * X-MS-CARDPICTURE. ical4j-vcard includes a generic facility to write {@link GroupProperty}
  * subclasses for extended property. This facility cannot be used though if the
  * builder skips those lines in the first place.
  * <p>
@@ -86,9 +88,9 @@ public class XMsCardpictureTest {
 
         VCard card = builder.build();
 
-        Property prop = card.getExtendedProperty("X-MS-CARDPICTURE");
+        Optional<Property> prop = card.getProperty("X-MS-CARDPICTURE");
 
-        String value = prop.getValue();
+        String value = prop.get().getValue();
         // the value starts with a correct string (it is Base64)
         Assert.assertTrue(value.startsWith("/9j/4AAQSkZJRgABAQIAAAAAAAD/2"));
         // the value has been unfolded correctly and doesn't contain any linebreaks

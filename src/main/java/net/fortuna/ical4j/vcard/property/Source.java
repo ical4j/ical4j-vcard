@@ -31,13 +31,18 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
-import net.fortuna.ical4j.vcard.parameter.Value;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 /**
  * SOURCE property.
@@ -48,17 +53,17 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Source extends Property {
+public class Source extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = -8097388189864368448L;
 
-    private final URI uri;
+    private URI uri;
 
     /**
      * @param uri a URI specifying a source location
      */
     public Source(URI uri) {
-        super(Id.SOURCE);
+        super(PropertyName.SOURCE.toString());
         this.uri = uri;
     }
 
@@ -67,11 +72,10 @@ public final class Source extends Property {
      *
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws URISyntaxException where the specified string is not a valid URI
      */
-    public Source(List<Parameter> params, String value) throws URISyntaxException {
-        super(Id.SOURCE, params);
-        this.uri = new URI(value);
+    public Source(ParameterList params, String value) {
+        super(PropertyName.SOURCE.toString(), params);
+        setValue(value);
     }
 
     /**
@@ -89,36 +93,44 @@ public final class Source extends Property {
         return uri.toString();
     }
 
+    @Override
+    public void setValue(String value) {
+        try {
+            this.uri = new URI(value);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        // ; Only source parameters allowed
-        for (Parameter param : getParameters()) {
-            if (!Value.URI.equals(param) && !Parameter.Id.EXTENDED.equals(param.getId())
-                    && !Parameter.Id.PID.equals(param.getId())) {
-                throw new ValidationException("Illegal parameter [" + param.getId() + "]");
-            }
-        }
+    public ValidationResult validate() throws ValidationException {
+        return SOURCE.validate(this);
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Source> {
+    @Override
+    protected PropertyFactory<Source> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Source> {
         public Factory() {
-            super(Id.SOURCE.toString());
+            super(PropertyName.SOURCE.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Source createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
+        public Source createProperty(final ParameterList params, final String value) {
             return new Source(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Source createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Source createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

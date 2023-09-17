@@ -31,16 +31,16 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-
-import org.junit.runners.Parameterized.Parameters;
 
 public class NTest extends PropertyTest {
 
@@ -51,21 +51,21 @@ public class NTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { new N("", "", new String[0], new String[0], new String[0]), Id.N.toString(), ";;;;",
-                new Parameter[] {} });
-        params.add(new Object[] { new N("Fortuna", "Ben", new String[0], new String[0], new String[0]),
-                Id.N.toString(), "Fortuna;Ben;;;", new Parameter[] {} });
-        params.add(new Object[] {
-                new N("Public", "John", new String[] { "Quinlan" }, new String[] { "Mr." }, new String[] { "Esq." }),
-                Id.N.toString(), "Public;John;Quinlan;Mr.;Esq.", new Parameter[] {} });
-        params.add(new Object[] {
-                new N("Stevenson", "John", new String[] { "Philip", "Paul" }, new String[] { "Dr." }, new String[] {
-                        "Jr.", "M.D.", "A.C.P." }), Id.N.toString(), "Stevenson;John;Philip,Paul;Dr.;Jr.,M.D.,A.C.P.",
-                new Parameter[] {} });
-        params.add(new Object[] { new N(new ArrayList<Parameter>(), "dirk"), Id.N.toString(), "dirk;;;;",
-                new Parameter[] {} });
-        params.add(new Object[] { new N(new ArrayList<Parameter>(), "Ruhsert;Patrick;;;"), Id.N.toString(),
-                "Ruhsert;Patrick;;;", new Parameter[] {} });
+        params.add(new Object[]{new N("", "", new String[0], new String[0], new String[0]), PropertyName.N.toString(), ";;;;",
+                new Parameter[]{}});
+        params.add(new Object[]{new N("Fortuna", "Ben", new String[0], new String[0], new String[0]),
+                PropertyName.N.toString(), "Fortuna;Ben;;;", new Parameter[]{}});
+        params.add(new Object[]{
+                new N("Public", "John", new String[]{"Quinlan"}, new String[]{"Mr."}, new String[]{"Esq."}),
+                PropertyName.N.toString(), "Public;John;Quinlan;Mr.;Esq.", new Parameter[]{}});
+        params.add(new Object[]{
+                new N("Stevenson", "John", new String[]{"Philip", "Paul"}, new String[]{"Dr."}, new String[]{
+                        "Jr.", "M.D.", "A.C.P."}), PropertyName.N.toString(), "Stevenson;John;Philip,Paul;Dr.;Jr.,M.D.,A.C.P.",
+                new Parameter[]{}});
+        params.add(new Object[]{new N(new ParameterList(), "dirk"), PropertyName.N.toString(), "dirk;;;;",
+                new Parameter[]{}});
+        params.add(new Object[]{new N(new ParameterList(), "Ruhsert;Patrick;;;"), PropertyName.N.toString(),
+                "Ruhsert;Patrick;;;", new Parameter[]{}});
 
         return params;
     }

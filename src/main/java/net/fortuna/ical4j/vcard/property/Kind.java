@@ -31,12 +31,15 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.property.immutable.ImmutableKind;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.*;
 
 /**
  * KIND property.
@@ -47,45 +50,17 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Kind extends Property {
+public class Kind extends Property implements PropertyValidatorSupport, GroupProperty {
 
     private static final long serialVersionUID = -3114221975393833838L;
 
-    /**
-     * Standard kind.
-     */
-    public static final Kind INDIVIDUAL = new Kind(
-            Collections.unmodifiableList(new ArrayList<Parameter>()), "individual");
-
-    /**
-     * Standard kind.
-     */
-    public static final Kind GROUP = new Kind(Collections.unmodifiableList(new ArrayList<Parameter>()), "group");
-
-    /**
-     * Standard kind.
-     */
-    public static final Kind ORG = new Kind(Collections.unmodifiableList(new ArrayList<Parameter>()), "org");
-
-    /**
-     * Standard kind.
-     */
-    public static final Kind LOCATION = new Kind(
-            Collections.unmodifiableList(new ArrayList<Parameter>()), "location");
-
-    /**
-     * Standard kind.
-     */
-    public static final Kind THING = new Kind(
-            Collections.unmodifiableList(new ArrayList<Parameter>()), "thing");
-
-    private final String value;
+    private String value;
 
     /**
      * @param value a string representation of a kind value
      */
     public Kind(String value) {
-        super(Id.KIND);
+        super(PropertyName.KIND.toString());
         this.value = value;
     }
 
@@ -95,9 +70,21 @@ public final class Kind extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Kind(List<Parameter> params, String value) {
-        super(Id.KIND, params);
-        this.value = value;
+    public Kind(ParameterList params, String value) {
+        super(PropertyName.KIND.toString(), params);
+        setValue(value);
+    }
+
+    /**
+     * @param group
+     * @param parameters
+     * @param value
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
+     */
+    @Deprecated
+    public Kind(Group group, ParameterList parameters, String value) {
+        this(parameters, value);
+        setGroup(group);
     }
 
     /**
@@ -108,33 +95,56 @@ public final class Kind extends Property {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) {
+        this.value = aValue;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        // ; No parameters allowed
-        assertParametersEmpty();
+    public ValidationResult validate() throws ValidationException {
+        return KIND.validate(this);
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Kind> {
+    @Override
+    protected PropertyFactory<Kind> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Kind> {
         public Factory() {
-            super(Id.KIND.toString());
+            super(PropertyName.KIND.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Kind createProperty(final List<Parameter> params, final String value) {
+        public Kind createProperty(final ParameterList params, final String value) {
+            if (params.getAll().isEmpty()) {
+                if (GROUP.getValue().equalsIgnoreCase(value)) {
+                    return GROUP;
+                } else if (INDIVIDUAL.getValue().equalsIgnoreCase(value)) {
+                    return INDIVIDUAL;
+                } else if (ImmutableKind.ORG.getValue().equalsIgnoreCase(value)) {
+                    return ImmutableKind.ORG;
+                } else if (ImmutableKind.LOCATION.getValue().equalsIgnoreCase(value)) {
+                    return ImmutableKind.LOCATION;
+                } else if (APPLICATION.getValue().equalsIgnoreCase(value)) {
+                    return APPLICATION;
+                } else if (DEVICE.getValue().equalsIgnoreCase(value)) {
+                    return DEVICE;
+                }
+            }
             return new Kind(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Kind createProperty(final Group group, final List<Parameter> params, final String value) {
-            // TODO Auto-generated method stub
-            return null;
+        public Kind createProperty(final Group group, final ParameterList params, final String value) {
+            return new Kind(group, params, value);
         }
     }
 }

@@ -31,7 +31,14 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static junit.framework.Assert.assertEquals;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.property.Org;
+import org.apache.commons.codec.DecoderException;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -39,22 +46,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.fortuna.ical4j.vcard.property.Org;
-import net.fortuna.ical4j.vcard.property.Version;
-
-import org.apache.commons.codec.DecoderException;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import static junit.framework.Assert.assertEquals;
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion.VERSION_4_0;
 
 @RunWith(Parameterized.class)
 public class PropertyFactoryRegistryTest {
 
     private final PropertyFactoryRegistry registry;
-    
+
     private final Group group;
-    
+
     private final String propertyName;
     
     private final String propertyValue;
@@ -79,30 +80,29 @@ public class PropertyFactoryRegistryTest {
     /**
      * @throws URISyntaxException
      * @throws ParseException
-     * @throws DecoderException 
+     * @throws DecoderException
      */
     @Test
-    public void testGetFactoryCreateProperty() throws URISyntaxException, ParseException, DecoderException {
+    public void testGetFactoryCreateProperty() {
         PropertyFactory<? extends Property> factory = registry.getFactory(propertyName);
         if (group != null) {
-            assertEquals(expectedProperty, factory.createProperty(group, new ArrayList<Parameter>(), propertyValue));
-        }
-        else {
-            assertEquals(expectedProperty, factory.createProperty(new ArrayList<Parameter>(), propertyValue));
+            assertEquals(expectedProperty, factory.createProperty(group, new ParameterList(), propertyValue));
+        } else {
+            assertEquals(expectedProperty, factory.createProperty(new ParameterList(), propertyValue));
         }
     }
 
     @Parameters
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
-        
+
         PropertyFactoryRegistry registry = new PropertyFactoryRegistry();
-        params.add(new Object[] {registry, null, Version.VERSION_4_0.getId().toString(),
-                Version.VERSION_4_0.getValue(), Version.VERSION_4_0});
-        
+        params.add(new Object[]{registry, null, VERSION_4_0.getName(),
+                VERSION_4_0.getValue(), VERSION_4_0});
+
         Org org = new Org(Group.WORK, "iCal4j");
-        params.add(new Object[] {registry, org.getGroup(), org.getId().toString(), org.getValue(), org});
-        
+        params.add(new Object[]{registry, org.getGroup(), org.getName(), org.getValue(), org});
+
         return params;
     }
 }

@@ -31,9 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import net.fortuna.ical4j.vcard.AbstractFactory;
-import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 /**
  * VALUE parameter.
@@ -54,73 +55,78 @@ public final class Value extends Parameter {
     /**
      * Text value parameter.
      */
-    public static final Value TEXT = new Value("text");
+    public static final Value TEXT = new Value("TEXT");
 
     /**
      * URI value parameter.
      */
-    public static final Value URI = new Value("uri");
+    public static final Value URI = new Value("URI");
+
+    @Deprecated
+    public static final Value URL = new Value("URL");
 
     /**
      * Date value parameter.
      */
-    public static final Value DATE = new Value("date");
+    public static final Value DATE = new Value("DATE");
 
     /**
      * Time value parameter.
      */
-    public static final Value TIME = new Value("time");
+    public static final Value TIME = new Value("TIME");
 
     /**
      * date-time value parameter.
      */
-    public static final Value DATE_TIME = new Value("date-time");
+    public static final Value DATE_TIME = new Value("DATE-TIME");
 
     /**
      * date-and-or-time value parameter.
      */
-    public static final Value DATE_AND_OR_TIME = new Value("date-and-or-time");
+    public static final Value DATE_AND_OR_TIME = new Value("DATE-AND-OR-TIME");
 
     /**
      * Timestamp value parameter.
      */
-    public static final Value TIMESTAMP = new Value("timestamp");
+    public static final Value TIMESTAMP = new Value("TIMESTAMP");
 
     /**
      * Boolean value parameter.
      */
-    public static final Value BOOLEAN = new Value("boolean");
+    public static final Value BOOLEAN = new Value("BOOLEAN");
 
     /**
      * Integer value parameter.
      */
-    public static final Value INTEGER = new Value("integer");
+    public static final Value INTEGER = new Value("INTEGER");
 
     /**
      * Float value parameter.
      */
-    public static final Value FLOAT = new Value("float");
+    public static final Value FLOAT = new Value("FLOAT");
 
     /**
      * Binary value parameter.
      */
-    public static final Value BINARY = new Value("binary");
+    @Deprecated
+    public static final Value BINARY = new Value("BINARY");
 
     /**
      * language-tag value parameter.
      */
-    public static final Value LANGUAGE_TAG = new Value("language-tag");
+    public static final Value LANGUAGE_TAG = new Value("LANGUAGE-TAG");
 
     /**
      * utc-offset value parameter.
      */
-    public static final Value UTC_OFFSET = new Value("utc-offset");
+    public static final Value UTC_OFFSET = new Value("UTC-OFFSET");
 
     /**
      * Resource
      * duration value parameter.
      */
-    public static final Value DURATION = new Value("duration");
+    @Deprecated
+    public static final Value DURATION = new Value("DURATION");
 
     private final String value;
 
@@ -128,7 +134,7 @@ public final class Value extends Parameter {
      * @param value string representation of a value parameter
      */
     public Value(String value) {
-        super(Id.VALUE);
+        super(ParameterName.VALUE.toString());
         this.value = value;
     }
 
@@ -140,12 +146,12 @@ public final class Value extends Parameter {
         return value;
     }
 
-    public static class Factory extends AbstractFactory implements ParameterFactory<Value> {
+    public static class Factory extends Content.Factory implements ParameterFactory<Value> {
         public Factory() {
-            super(Id.VALUE.toString());
+            super(ParameterName.VALUE.toString());
         }
 
-        public Value createParameter(String name, String value) {
+        public Value createParameter(String value) {
             Value parameter = null;
 
             if (Value.TEXT.getValue().equals(value)) {

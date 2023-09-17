@@ -30,6 +30,10 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package net.fortuna.ical4j.vcard.property
+
+
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.*
+
 /**
  * $Id$
  *
@@ -37,7 +41,9 @@ package net.fortuna.ical4j.vcard.property
  *
  * @author fortuna
  *
+ * @deprecated use {@link net.fortuna.ical4j.model.PropertyFactoryWrapper} instead
  */
+@Deprecated
 class KindFactory extends AbstractPropertyFactory {
 
 
@@ -48,31 +54,35 @@ class KindFactory extends AbstractPropertyFactory {
         } else {
             String kindValue = attributes.remove('value')
             if (kindValue != null) {
-                if (Kind.GROUP.getValue().equalsIgnoreCase(kindValue)) {
-                    kind = Kind.GROUP
-                } else if (Kind.INDIVIDUAL.getValue().equalsIgnoreCase(kindValue)) {
-                    kind = Kind.INDIVIDUAL
-                } else if (Kind.ORG.getValue().equalsIgnoreCase(kindValue)) {
-                    kind = Kind.ORG
-                } else if (Kind.LOCATION.getValue().equalsIgnoreCase(kindValue)) {
-                    kind = Kind.LOCATION
-                } else if (Kind.THING.getValue().equalsIgnoreCase(kindValue)) {
-                    kind = Kind.THING
+                if (GROUP.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = GROUP
+                } else if (INDIVIDUAL.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = INDIVIDUAL
+                } else if (ORG.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = ORG
+                } else if (LOCATION.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = LOCATION
+                } else if (APPLICATION.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = APPLICATION
+                } else if (DEVICE.getValue().equalsIgnoreCase(kindValue)) {
+                    kind = DEVICE
                 } else {
                     attributes.put('value', kindValue)
                     kind = super.newInstance(builder, name, value, attributes)
                 }
             } else {
-                if (Kind.GROUP.getValue().equalsIgnoreCase(value)) {
-                    kind = Kind.GROUP
-                } else if (Kind.INDIVIDUAL.getValue().equalsIgnoreCase(value)) {
-                    kind = Kind.INDIVIDUAL
-                } else if (Kind.ORG.getValue().equalsIgnoreCase(value)) {
-                    kind = Kind.ORG
-                } else if (Kind.LOCATION.getValue().equalsIgnoreCase(value)) {
-                    kind = Kind.LOCATION
-                } else if (Kind.THING.getValue().equalsIgnoreCase(value)) {
-                    kind = Kind.THING
+                if (GROUP.getValue().equalsIgnoreCase(value)) {
+                    kind = GROUP
+                } else if (INDIVIDUAL.getValue().equalsIgnoreCase(value)) {
+                    kind = INDIVIDUAL
+                } else if (ORG.getValue().equalsIgnoreCase(value)) {
+                    kind = ORG
+                } else if (LOCATION.getValue().equalsIgnoreCase(value)) {
+                    kind = LOCATION
+                } else if (APPLICATION.getValue().equalsIgnoreCase(value)) {
+                    kind = APPLICATION
+                } else if (DEVICE.getValue().equalsIgnoreCase(value)) {
+                    kind = DEVICE
                 } else {
                     kind = super.newInstance(builder, name, value, attributes)
                 }

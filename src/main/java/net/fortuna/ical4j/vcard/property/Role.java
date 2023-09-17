@@ -31,10 +31,15 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
-
-import java.util.List;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 /**
  * ROLE property.
@@ -45,17 +50,17 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Role extends Property {
+public class Role extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = -2967228242683105498L;
 
-    private final String value;
+    private String value;
 
     /**
      * @param value a role string value
      */
     public Role(String value) {
-        super(Id.ROLE);
+        super(PropertyName.ROLE.toString());
         this.value = value;
     }
 
@@ -65,8 +70,8 @@ public final class Role extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Role(List<Parameter> params, String value) {
-        super(Id.ROLE, params);
+    public Role(ParameterList params, String value) {
+        super(PropertyName.ROLE.toString(), params);
         this.value = value;
     }
 
@@ -78,37 +83,40 @@ public final class Role extends Property {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) {
+        this.value = aValue;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        // ; Text parameters allowed
-        for (Parameter param : getParameters()) {
-            try {
-                assertTextParameter(param);
-            } catch (ValidationException ve) {
-                assertPidParameter(param);
-            }
-        }
+    public ValidationResult validate() throws ValidationException {
+        return ROLE.validate(this);
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Role> {
+    @Override
+    protected PropertyFactory<Role> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Role> {
         public Factory() {
-            super(Id.ROLE.toString());
+            super(PropertyName.ROLE.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Role createProperty(final List<Parameter> params, final String value) {
+        public Role createProperty(final ParameterList params, final String value) {
             return new Role(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Role createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Role createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

@@ -31,10 +31,15 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
-
-import java.util.List;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 /**
  * NICKNAME property.
@@ -45,17 +50,17 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Nickname extends Property {
+public class Nickname extends Property implements PropertyValidatorSupport {
 
     private static final long serialVersionUID = 2512809288464680577L;
 
-    private final String[] names;
+    private String[] names;
 
     /**
      * @param names one or more nickname values
      */
     public Nickname(String... names) {
-        super(Id.NICKNAME);
+        super(PropertyName.NICKNAME.toString());
         if (names.length == 0) {
             throw new IllegalArgumentException("Must specify at least one nickname");
         }
@@ -68,8 +73,8 @@ public final class Nickname extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Nickname(List<Parameter> params, String value) {
-        super(Id.NICKNAME, params);
+    public Nickname(ParameterList params, String value) {
+        super(PropertyName.NICKNAME.toString(), params);
         this.names = value.split(",");
     }
 
@@ -95,37 +100,40 @@ public final class Nickname extends Property {
         return b.toString();
     }
 
+    @Override
+    public void setValue(String value) {
+        this.names = value.split(",");
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        // ; Text parameters allowed
-        for (Parameter param : getParameters()) {
-            try {
-                assertTextParameter(param);
-            } catch (ValidationException ve) {
-                assertPidParameter(param);
-            }
-        }
+    public ValidationResult validate() throws ValidationException {
+        return NICKNAME.validate(this);
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Nickname> {
+    @Override
+    protected PropertyFactory<Nickname> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Nickname> {
         public Factory() {
-            super(Id.NICKNAME.toString());
+            super(PropertyName.NICKNAME.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Nickname createProperty(final List<Parameter> params, final String value) {
+        public Nickname createProperty(final ParameterList params, final String value) {
             return new Nickname(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Nickname createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Nickname createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

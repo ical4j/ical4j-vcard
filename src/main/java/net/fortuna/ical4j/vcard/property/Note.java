@@ -31,11 +31,16 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Encodable;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
-
-import java.util.List;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -48,17 +53,17 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
-public final class Note extends Property implements Encodable {
+public class Note extends Property implements Encodable, PropertyValidatorSupport {
 
     private static final long serialVersionUID = -1435219426295284759L;
 
-    private final String value;
+    private String value;
 
     /**
      * @param value a note value
      */
     public Note(String value) {
-        super(Id.NOTE);
+        super(PropertyName.NOTE.toString());
         this.value = value;
     }
 
@@ -68,8 +73,8 @@ public final class Note extends Property implements Encodable {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Note(List<Parameter> params, String value) {
-        super(Id.NOTE, params);
+    public Note(ParameterList params, String value) {
+        super(PropertyName.NOTE.toString(), params);
         this.value = value;
     }
 
@@ -81,37 +86,40 @@ public final class Note extends Property implements Encodable {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) {
+        this.value = aValue;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        // ; Text parameters allowed
-        for (Parameter param : getParameters()) {
-            try {
-                assertTextParameter(param);
-            } catch (ValidationException ve) {
-                assertPidParameter(param);
-            }
-        }
+    public ValidationResult validate() throws ValidationException {
+        return NOTE.validate(this);
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Note> {
+    @Override
+    protected PropertyFactory<Note> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Note> {
         public Factory() {
-            super(Id.NOTE.toString());
+            super(PropertyName.NOTE.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Note createProperty(final List<Parameter> params, final String value) {
+        public Note createProperty(final ParameterList params, final String value) {
             return new Note(params, unescape(value));
         }
 
         /**
          * {@inheritDoc}
          */
-        public Note createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Note createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

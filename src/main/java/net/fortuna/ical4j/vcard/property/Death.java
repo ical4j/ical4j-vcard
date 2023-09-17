@@ -31,11 +31,16 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Encodable;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.vcard.*;
-
-import java.util.List;
+import net.fortuna.ical4j.validate.ValidationResult;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -48,17 +53,18 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
-public final class Death extends Property implements Encodable {
+@Deprecated
+public class Death extends Property implements Encodable, PropertyValidatorSupport {
 
     private static final long serialVersionUID = 3009228294165154307L;
 
-    private final String value;
+    private String value;
 
     /**
      * @param value a death string value
      */
     public Death(String value) {
-        super(Id.DEATH);
+        super(PropertyName.DEATH.toString());
         this.value = value;
     }
 
@@ -68,8 +74,8 @@ public final class Death extends Property implements Encodable {
      * @param params property parameters
      * @param value  string representation of a property value
      */
-    public Death(List<Parameter> params, String value) {
-        super(Id.DEATH, params);
+    public Death(ParameterList params, String value) {
+        super(PropertyName.DEATH.toString(), params);
         this.value = value;
     }
 
@@ -81,31 +87,40 @@ public final class Death extends Property implements Encodable {
         return value;
     }
 
+    @Override
+    public void setValue(String aValue) {
+        this.value = aValue;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        // TODO Auto-generated method stub
-
+    public ValidationResult validate() throws ValidationException {
+        return DEATH.validate(this);
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Death> {
+    @Override
+    protected PropertyFactory<Death> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Death> {
         public Factory() {
-            super(Id.DEATH.toString());
+            super(PropertyName.DEATH.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Death createProperty(final List<Parameter> params, final String value) {
+        public Death createProperty(final ParameterList params, final String value) {
             return new Death(params, unescape(value));
         }
 
         /**
          * {@inheritDoc}
          */
-        public Death createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Death createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

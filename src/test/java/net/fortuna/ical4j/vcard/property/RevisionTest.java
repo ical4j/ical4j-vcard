@@ -31,29 +31,29 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import static org.junit.Assert.assertEquals;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import org.junit.Test;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.text.ParseException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.fortuna.ical4j.model.Date;
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.assertEquals;
 
 public class RevisionTest extends PropertyTest {
 
     private final Revision revision;
 
-    private final Date expectedDate;
+    private final Instant expectedDate;
 
     public RevisionTest(Revision revision, String expectedName, String expectedValue, Parameter[] expectedParams,
-            Date expectedDate) {
+                        Instant expectedDate) {
         super(revision, expectedName, expectedValue, expectedParams);
         this.revision = revision;
         this.expectedDate = expectedDate;
@@ -67,10 +67,9 @@ public class RevisionTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() throws ParseException {
         final List<Object[]> params = new ArrayList<Object[]>();
-        Date date = new Date(0);
-        params.add(new Object[] { new Revision(date), Id.REV.toString(), "19700101", new Parameter[] {}, date });
-        params.add(new Object[] { new Revision(new ArrayList<Parameter>(), "19700101"), Id.REV.toString(), "19700101",
-                new Parameter[] {}, date });
+        params.add(new Object[]{new Revision(Instant.EPOCH), PropertyName.REV.toString(), "19700101T000000Z", new Parameter[]{}, Instant.EPOCH});
+        params.add(new Object[]{new Revision(new ParameterList(), "1970-01-01T00:00:00Z"), PropertyName.REV.toString(), "19700101T000000Z",
+                new Parameter[]{}, Instant.EPOCH});
         return params;
     }
 

@@ -31,13 +31,14 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import net.fortuna.ical4j.vcard.Property
+
+import net.fortuna.ical4j.vcard.PropertyName
 
 class BirthSpec extends AbstractPropertySpec {
 
     def 'validate string representation'() {
         expect: 'derived string representation equals expected'
-        factoryRegistry.getFactory(Property.Id.BIRTH as String).createProperty([], value).toString() == expectedString
+        factoryRegistry.getFactory(PropertyName.BIRTH as String).createProperty(value).toString() == expectedString
 
         where:
         value               | expectedString

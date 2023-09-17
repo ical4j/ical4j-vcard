@@ -35,14 +35,15 @@ import java.util.ServiceLoader;
 
 /**
  * A registry for standard and non-standard parameter factories.
- * 
+ * <p>
  * $Id$
- *
+ * <p>
  * Created on: 05/01/2009
  *
  * @author Ben
- *
+ * @deprecated use {@link VCardParameterFactorySupplier} instead.
  */
+@Deprecated
 public class ParameterFactoryRegistry extends AbstractFactoryRegistry<ParameterFactory> {
 
     public ParameterFactoryRegistry() {

@@ -1,9 +1,12 @@
 net.fortuna.ical4j.vcard.parameter.Altid$Factory
 net.fortuna.ical4j.vcard.parameter.Calscale$Factory
+net.fortuna.ical4j.vcard.parameter.CC$Factory
 net.fortuna.ical4j.vcard.parameter.Encoding$Factory
 net.fortuna.ical4j.vcard.parameter.Fmttype$Factory
 net.fortuna.ical4j.vcard.parameter.Geo$Factory
+net.fortuna.ical4j.vcard.parameter.Label$Factory
 net.fortuna.ical4j.vcard.parameter.Language$Factory
+net.fortuna.ical4j.vcard.parameter.MediaType$Factory
 net.fortuna.ical4j.vcard.parameter.Pid$Factory
 net.fortuna.ical4j.vcard.parameter.Pref$Factory
 net.fortuna.ical4j.vcard.parameter.SortAs$Factory

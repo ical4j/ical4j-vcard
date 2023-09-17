@@ -31,16 +31,19 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
-import net.fortuna.ical4j.model.Date;
-import net.fortuna.ical4j.model.DateTime;
+import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.Encodable;
-import net.fortuna.ical4j.util.Strings;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.TemporalAdapter;
+import net.fortuna.ical4j.model.property.DateProperty;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Value;
 
-import java.text.ParseException;
-import java.util.List;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.Temporal;
+import java.util.Optional;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -51,29 +54,27 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
-public final class BDay extends Property implements Encodable {
+public class BDay<T extends Temporal> extends DateProperty<T> implements Encodable, PropertyValidatorSupport {
 
     private static final long serialVersionUID = 4298026868242865633L;
-
-    private Date date;
 
     private String text;
 
     /**
      * @param date date of birth
      */
-    public BDay(Date date) {
-        super(Id.BDAY);
-        this.date = date;
+    public BDay(T date) {
+        super(PropertyName.BDAY.toString());
+        setDate(date);
     }
 
     /**
      * @param text non-structured date of birth
      */
     public BDay(String text) {
-        super(Id.BDAY);
+        super(PropertyName.BDAY.toString());
         this.text = text;
-        getParameters().add(Value.TEXT);
+        add(Value.TEXT);
     }
 
     /**
@@ -81,36 +82,11 @@ public final class BDay extends Property implements Encodable {
      *
      * @param params property parameters
      * @param value  string representation of a property value
-     * @throws ParseException if the property value is an invalid date
+     * @throws IllegalArgumentException if the property value is an invalid date
      */
-    public BDay(List<Parameter> params, String value) throws ParseException {
-        super(Id.BDAY, params);
-        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
-            this.text = value;
-        } else {
-
-            // try default patterns first, then fall back on vCard-specific patterns
-            try {
-                this.date = new Date(value);
-            } catch (ParseException e) {
-                try {
-                    this.date = new DateTime(value);
-                } catch (ParseException e2) {
-                    try {
-                        this.date = new Date(value, "yyyy'-'MM'-'dd");
-                    } catch (ParseException e3) {
-                        this.date = new DateTime(value, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", true);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * @return the date
-     */
-    public Date getDate() {
-        return date;
+    public BDay(ParameterList params, String value) {
+        super(PropertyName.BDAY.toString(), params);
+        setValue(value);
     }
 
     /**
@@ -125,48 +101,58 @@ public final class BDay extends Property implements Encodable {
      */
     @Override
     public String getValue() {
-        if (Value.TEXT.equals(getParameter(Parameter.Id.VALUE))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             return text;
         }
-        return Strings.valueOf(date);
+        return super.getValue();
+    }
+
+    @Override
+    public void setValue(String value) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+            this.text = value;
+        } else {
+            // try default patterns first, then fall back on vCard-specific patterns
+            try {
+                super.setValue(value);
+            } catch (DateTimeParseException e) {
+                setDate((T) TemporalAdapter.parse(value, DateFormatSupport.RELAXED_PARSE_FORMAT).getTemporal());
+            }
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        // ; Only value parameter allowed
-        assertOneOrLess(Parameter.Id.VALUE);
-
-        if (getParameters().size() > 1) {
-            throw new ValidationException("Illegal parameter count");
+    public ValidationResult validate() throws ValidationException {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+            return BDAY_TEXT.validate(this);
         }
-
-        for (Parameter param : getParameters()) {
-            if (!Value.TEXT.equals(param)) {
-                throw new ValidationException("Illegal parameter ["
-                        + param.getId() + "]");
-            }
-        }
+        return BDAY_DATE.validate(this);
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<BDay> {
+    @Override
+    protected PropertyFactory<BDay<T>> newFactory() {
+        return new Factory<>();
+    }
+
+    public static class Factory<T extends Temporal> extends Content.Factory implements PropertyFactory<BDay<T>> {
         public Factory() {
-            super(Id.BDAY.toString());
+            super(PropertyName.BDAY.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public BDay createProperty(final List<Parameter> params, final String value) throws ParseException {
-            return new BDay(params, unescape(value));
+        public BDay<T> createProperty(final ParameterList params, final String value) {
+            return new BDay<>(params, unescape(value));
         }
 
         /**
          * {@inheritDoc}
          */
-        public BDay createProperty(final Group group, final List<Parameter> params, final String value) {
+        public BDay<T> createProperty(final Group group, final ParameterList params, final String value) {
             // TODO Auto-generated method stub
             return null;
         }

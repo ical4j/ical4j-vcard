@@ -31,9 +31,10 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import net.fortuna.ical4j.vcard.AbstractFactory;
-import net.fortuna.ical4j.vcard.Parameter;
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterFactory;
+import net.fortuna.ical4j.vcard.ParameterName;
 
 /**
  * PID parameter.
@@ -65,7 +66,7 @@ public final class Pid extends Parameter {
      * @param pid integer representation of a PID
      */
     public Pid(Integer pid) {
-        super(Id.PID);
+        super(ParameterName.PID.toString());
         this.pid = pid;
     }
 
@@ -84,12 +85,12 @@ public final class Pid extends Parameter {
         return pid.toString();
     }
 
-    public static class Factory extends AbstractFactory implements ParameterFactory<Pid> {
+    public static class Factory extends Content.Factory implements ParameterFactory<Pid> {
         public Factory() {
-            super(Id.PID.toString());
+            super(ParameterName.PID.toString());
         }
 
-        public Pid createParameter(String name, String value) {
+        public Pid createParameter(String value) {
             return new Pid(Integer.valueOf(value));
         }
     }

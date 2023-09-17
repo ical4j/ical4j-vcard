@@ -31,16 +31,18 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.runners.Parameterized.Parameters;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.FEMALE;
+import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.MALE;
 
 public class GenderTest extends PropertyTest {
 
@@ -51,10 +53,10 @@ public class GenderTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] { Gender.FEMALE, Id.GENDER.toString(), "F", new Parameter[] {} });
-        params.add(new Object[] { Gender.MALE, Id.GENDER.toString(), "M", new Parameter[] {} });
+        params.add(new Object[]{FEMALE, PropertyName.GENDER.toString(), "F", new Parameter[]{}});
+        params.add(new Object[]{MALE, PropertyName.GENDER.toString(), "M", new Parameter[]{}});
         final String genderString = "Unknown";
-        params.add(new Object[] { new Gender(genderString), Id.GENDER.toString(), genderString, new Parameter[] {} });
+        params.add(new Object[]{new Gender(genderString), PropertyName.GENDER.toString(), genderString, new Parameter[]{}});
         return params;
     }
 

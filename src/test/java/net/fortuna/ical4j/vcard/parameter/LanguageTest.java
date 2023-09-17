@@ -31,18 +31,17 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import static org.junit.Assert.assertEquals;
+import net.fortuna.ical4j.vcard.ParameterName;
+import net.fortuna.ical4j.vcard.ParameterTest;
+import org.junit.Test;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-import net.fortuna.ical4j.vcard.ParameterTest;
-import net.fortuna.ical4j.vcard.Parameter.Id;
-
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.assertEquals;
 
 
 public class LanguageTest extends ParameterTest {
@@ -69,12 +68,12 @@ public class LanguageTest extends ParameterTest {
 
         final String englishString = "en";
         Locale locale = new Locale(englishString, "AU");
-        params.add(new Object[] {new Language(locale), Id.LANGUAGE.toString(), "en-AU", locale});
+        params.add(new Object[]{new Language(locale), ParameterName.LANGUAGE.toString(), "en-AU", locale});
 
         locale = new Locale("es", "ES", "Traditional_WIN");
-        params.add(new Object[] {new Language(locale), Id.LANGUAGE.toString(), "es-ES-Traditional_WIN", locale});
-        params.add(new Object[] {new Language(englishString), Id.LANGUAGE.toString(),
-                englishString, new Locale(englishString), });
+        params.add(new Object[]{new Language(locale), ParameterName.LANGUAGE.toString(), "es-ES-Traditional_WIN", locale});
+        params.add(new Object[]{new Language(englishString), ParameterName.LANGUAGE.toString(),
+                englishString, new Locale(englishString),});
         return params;
     }
 }

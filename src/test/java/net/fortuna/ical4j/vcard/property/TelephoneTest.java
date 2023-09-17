@@ -31,20 +31,20 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.PropertyTest;
+import net.fortuna.ical4j.vcard.parameter.Type;
+import net.fortuna.ical4j.vcard.parameter.Value;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.junit.runners.Parameterized.Parameters;
-
-import net.fortuna.ical4j.vcard.Parameter;
-import net.fortuna.ical4j.vcard.Property;
-import net.fortuna.ical4j.vcard.PropertyTest;
-import net.fortuna.ical4j.vcard.Property.Id;
-import net.fortuna.ical4j.vcard.parameter.Type;
-import net.fortuna.ical4j.vcard.parameter.Value;
 
 public class TelephoneTest extends PropertyTest {
 
@@ -55,30 +55,29 @@ public class TelephoneTest extends PropertyTest {
     @Parameters
     public static Collection<Object[]> parameters() throws URISyntaxException {
         final List<Object[]> params = new ArrayList<Object[]>();
-        
-        final List<Parameter> uriParams = new ArrayList<Parameter>();
-        uriParams.add(Value.URI);
-        
-        params.add(new Object[] { new Telephone(URI.create("")), Id.TEL.toString(), "",
-        		new Parameter[] { Value.URI } });
-        params.add(new Object[] { new Telephone(URI.create(""), Type.HOME), Id.TEL.toString(), "",
-                new Parameter[] { Value.URI, Type.HOME } });
-        params.add(new Object[] { new Telephone(uriParams, "+1 555 3423 2342"), Id.TEL.toString(),
-                "tel:+1-555-3423-2342", new Parameter[] { Value.URI } });
-        params.add(new Object[] { new Telephone(uriParams, "49 631 234 341"), Id.TEL.toString(),
-                "tel:49-631-234-341", new Parameter[] { Value.URI } });
-        params.add(new Object[] { new Telephone(uriParams, "+61 (0) 3 9283 8374"), Id.TEL.toString(),
-                "tel:+61-(0)-3-9283-8374", new Parameter[] { Value.URI } });
-        
+
+        final ParameterList uriParams = (ParameterList) new ParameterList().add(Value.URI);
+
+        params.add(new Object[]{new Telephone(URI.create("")), PropertyName.TEL.toString(), "",
+                new Parameter[]{Value.URI}});
+        params.add(new Object[]{new Telephone(URI.create(""), Type.HOME), PropertyName.TEL.toString(), "",
+                new Parameter[]{Value.URI, Type.HOME}});
+        params.add(new Object[]{new Telephone(uriParams, "+1 555 3423 2342"), PropertyName.TEL.toString(),
+                "tel:+1-555-3423-2342", new Parameter[]{Value.URI}});
+        params.add(new Object[]{new Telephone(uriParams, "49 631 234 341"), PropertyName.TEL.toString(),
+                "tel:49-631-234-341", new Parameter[]{Value.URI}});
+        params.add(new Object[]{new Telephone(uriParams, "+61 (0) 3 9283 8374"), PropertyName.TEL.toString(),
+                "tel:+61-(0)-3-9283-8374", new Parameter[]{Value.URI}});
+
         // vCard 3.0 style..
-        params.add(new Object[] { new Telephone("", Type.HOME), Id.TEL.toString(), "", new Parameter[] { Type.HOME } });
-        params.add(new Object[] { new Telephone(new ArrayList<Parameter>(), "+1 555 3423 2342"), Id.TEL.toString(),
-                "+1 555 3423 2342", new Parameter[] { } });
-        params.add(new Object[] { new Telephone(new ArrayList<Parameter>(), "49 631 234 341"), Id.TEL.toString(),
-                "49 631 234 341", new Parameter[] { } });
-        params.add(new Object[] { new Telephone(new ArrayList<Parameter>(), "+61 (0) 3 9283 8374"), Id.TEL.toString(),
-                "+61 (0) 3 9283 8374", new Parameter[] { } });
-        
+        params.add(new Object[]{new Telephone("", Type.HOME), PropertyName.TEL.toString(), "", new Parameter[]{Type.HOME}});
+        params.add(new Object[]{new Telephone(new ParameterList(), "+1 555 3423 2342"), PropertyName.TEL.toString(),
+                "+1 555 3423 2342", new Parameter[]{}});
+        params.add(new Object[]{new Telephone(new ParameterList(), "49 631 234 341"), PropertyName.TEL.toString(),
+                "49 631 234 341", new Parameter[]{}});
+        params.add(new Object[]{new Telephone(new ParameterList(), "+61 (0) 3 9283 8374"), PropertyName.TEL.toString(),
+                "+61 (0) 3 9283 8374", new Parameter[]{}});
+
         return params;
     }
 

@@ -33,8 +33,7 @@ package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.data.UnfoldingReader;
-import net.fortuna.ical4j.model.ParameterCodec;
-import net.fortuna.ical4j.model.PropertyCodec;
+import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.parameter.XParameter;
 import net.fortuna.ical4j.vcard.property.XProperty;
@@ -43,10 +42,12 @@ import org.apache.commons.codec.DecoderException;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,7 +63,7 @@ import java.util.regex.Pattern;
  */
 public final class VCardBuilder {
 
-    private static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+    private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
     private static final Pattern VCARD_BEGIN = Pattern.compile("^BEGIN:VCARD$", Pattern.CASE_INSENSITIVE);
     
@@ -83,17 +84,15 @@ public final class VCardBuilder {
     private static final Pattern PROPERTY_VALUE_PATTERN = Pattern.compile("(?<=[:]).*$");
 
     private static final Pattern PARAMETERS_PATTERN = Pattern.compile("(?<=[;])[^:]*(?=[:])");
-    
+
     private static final int BUFFER_SIZE = 1024;
-    
+
     private final BufferedReader reader;
-    
+
     private final GroupRegistry groupRegistry;
-    
-    private final PropertyFactoryRegistry propertyFactoryRegistry;
-    
-    private final ParameterFactoryRegistry parameterFactoryRegistry;
-    
+
+    private final VCardBuilderContext vCardBuilderContext;
+
     private final boolean relaxedParsing;
 
     /**
@@ -107,26 +106,36 @@ public final class VCardBuilder {
      * @param in a reader providing vCard data
      */
     public VCardBuilder(Reader in) {
-        this(in, new GroupRegistry(), new PropertyFactoryRegistry(), new ParameterFactoryRegistry());
+        this(in, new GroupRegistry(), new VCardBuilderContext());
     }
-    
+
     /**
-     * @param in a reader providing vCard data
-     * @param registry a group registry used to construct vCard objects
-     * @param propertyFactoryRegistry a property factory registry used to construct
-     * vCard objects
+     * @param in                       a reader providing vCard data
+     * @param registry                 a group registry used to construct vCard objects
+     * @param propertyFactoryRegistry  a property factory registry used to construct
+     *                                 vCard objects
      * @param parameterFactoryRegistry a parameter factory registry used to construct
-     * vCard objects
+     *                                 vCard objects
+     * @deprecated use {@link VCardBuilder#VCardBuilder(Reader, GroupRegistry, VCardBuilderContext)}
      */
+    @Deprecated
     public VCardBuilder(Reader in, GroupRegistry registry, PropertyFactoryRegistry propertyFactoryRegistry,
-            ParameterFactoryRegistry parameterFactoryRegistry) {
+                        ParameterFactoryRegistry parameterFactoryRegistry) {
+
+        this(in, registry, new VCardBuilderContext());
+    }
+
+    /**
+     * @param in       a reader providing vCard data
+     * @param registry a group registry used to construct vCard objects
+     */
+    public VCardBuilder(Reader in, GroupRegistry registry, VCardBuilderContext vCardBuilderContext) {
         this.reader = new BufferedReader(new UnfoldingReader(in, BUFFER_SIZE), BUFFER_SIZE);
         this.groupRegistry = registry;
-        this.propertyFactoryRegistry = propertyFactoryRegistry;
-        this.parameterFactoryRegistry = parameterFactoryRegistry;
+        this.vCardBuilderContext = vCardBuilderContext;
         this.relaxedParsing = CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING);
     }
-    
+
     /**
      * @return a new vCard object instance
      * @throws IOException where a problem occurs reading vCard data
@@ -138,20 +147,20 @@ public final class VCardBuilder {
     
     /**
      * @return a list of vCard object instances
-     * @throws IOException where a problem occurs reading vCard data
+     * @throws IOException     where a problem occurs reading vCard data
      * @throws ParserException where parsing vCard data fails
      */
-    public List<VCard> buildAll() throws IOException, ParserException {
-    	final List<VCard> cards = new ArrayList<>();
-    	while (true) {
-    	    final VCard card = build(false);
-    	    if (card == null) {
-    	        break;
-    	    } else {
-    	        cards.add(card);
-    	    }
-    	}
-        return Collections.unmodifiableList(cards);
+    public VCardList buildAll() throws IOException, ParserException {
+        final List<VCard> cards = new ArrayList<>();
+        while (true) {
+            final VCard card = build(false);
+            if (card == null) {
+                break;
+            } else {
+                cards.add(card);
+            }
+        }
+        return new VCardList(Collections.unmodifiableList(cards));
     }
     
     /**
@@ -194,12 +203,11 @@ public final class VCardBuilder {
                 Property property;
                 try {
                     property = parseProperty(line);
-                }
-                catch (URISyntaxException | ParseException | DecoderException e) {
+                } catch (URISyntaxException e) {
                     throw new ParserException("Error parsing line", totalLineNo, e);
                 }
                 if (property != null) {
-                	vcard.getProperties().add(property);
+                    vcard.add(property);
                 }
             } else if (endPattern.matcher(line).matches()) {
             	end = true;
@@ -215,29 +223,31 @@ public final class VCardBuilder {
         
         return vcard;
     }
-    
+
     /**
      * @param line
      * @return a property instance
-     * @throws ParseException 
-     * @throws URISyntaxException 
-     * @throws DecoderException 
+     * @throws ParseException
+     * @throws URISyntaxException
+     * @throws DecoderException
      */
-    private Property parseProperty(final String line) throws URISyntaxException, ParseException, DecoderException {
+    private Property parseProperty(final String line) throws URISyntaxException {
         Property property = null;
         Matcher matcher = PROPERTY_NAME_PATTERN.matcher(line);
         if (matcher.find()) {
-            PropertyFactory<?> factory = null;
+            Optional<PropertyFactory<?>> factory;
             Group group = null;
-            
+
             final String propertyName = matcher.group().toUpperCase();
             if (propertyName.indexOf('.') >= 0) {
                 final String[] groupProperty = propertyName.split("\\.");
                 group = groupRegistry.getGroup(groupProperty[0]);
-                factory = propertyFactoryRegistry.getFactory(groupProperty[1]);
+                factory = vCardBuilderContext.getPropertyFactorySupplier().get().stream()
+                        .filter(f -> f.supports(groupProperty[1])).findFirst();
             }
             else {
-                factory = propertyFactoryRegistry.getFactory(propertyName);
+                factory = vCardBuilderContext.getPropertyFactorySupplier().get().stream()
+                        .filter(f -> f.supports(propertyName)).findFirst();
             }
 
             matcher = PROPERTY_VALUE_PATTERN.matcher(line);
@@ -249,19 +259,16 @@ public final class VCardBuilder {
                 } catch (DecoderException e) {
                     decodedValue = propertyValue;
                 }
-                final List<Parameter> params = parseParameters(line);
-                if (factory != null) {
-                    if (group != null) {
-                        return factory.createProperty(group, params, decodedValue);
-                    } else {
-                        return factory.createProperty(params, decodedValue);
-                    }
+                final ParameterList params = parseParameters(line);
+
+                if (factory.isPresent()) {
+                    property = factory.get().createProperty(params, decodedValue);
                 } else if (isExtendedName(propertyName)) {
-                    if (group != null) {
-                        property = new XProperty(group, propertyName, params, decodedValue);
-                    } else {
-                        property = new XProperty(propertyName, params, decodedValue);
-                    }
+                    property = new XProperty(propertyName, params, decodedValue);
+                }
+
+                if (group != null && property instanceof GroupProperty) {
+                    ((GroupProperty) property).setGroup(group);
                 }
             }
         }
@@ -276,16 +283,18 @@ public final class VCardBuilder {
      * @param line
      * @return a list of parameters
      */
-    private List<Parameter> parseParameters(final String line) {
+    private ParameterList parseParameters(final String line) {
         final List<Parameter> parameters = new ArrayList<>();
         final Matcher matcher = PARAMETERS_PATTERN.matcher(line);
         if (matcher.find()) {
             final String[] params = matcher.group().split(";");
             for (String param : params) {
                 final String[] vals = param.split("=");
-                final ParameterFactory factory = parameterFactoryRegistry.getFactory(vals[0].toUpperCase());
+                final List<ParameterFactory<?>> factories = vCardBuilderContext.getParameterFactorySupplier().get();
+                Optional<ParameterFactory<?>> factory = factories.stream()
+                        .filter(f -> f.supports(vals[0])).findFirst();
 
-                if (factory != null) {
+                if (factory.isPresent()) {
                     if (vals.length > 1) {
                         String decodedValue;
                         try {
@@ -293,9 +302,9 @@ public final class VCardBuilder {
                         } catch (DecoderException e) {
                             decodedValue = vals[1];
                         }
-                        parameters.add(factory.createParameter(vals[0], decodedValue));
+                        parameters.add(factory.get().createParameter(decodedValue));
                     } else {
-                        parameters.add(factory.createParameter(vals[0], null));
+                        parameters.add(factory.get().createParameter());
                     }
                 } else if (isExtendedName(vals[0])) {
                     if (vals.length > 1) {
@@ -312,6 +321,6 @@ public final class VCardBuilder {
                 }
             }
         }
-        return parameters;
+        return new ParameterList(parameters);
     }
 }

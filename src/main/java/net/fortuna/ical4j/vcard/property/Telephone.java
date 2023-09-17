@@ -31,8 +31,12 @@
  */
 package net.fortuna.ical4j.vcard.property;
 
+import net.fortuna.ical4j.model.Content;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
+import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
@@ -40,8 +44,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.MessageFormat;
-import java.util.List;
+import java.util.Optional;
 
 /**
  * TEL property.
@@ -52,9 +55,23 @@ import java.util.List;
  *
  * @author Ben
  */
-public final class Telephone extends Property {
+public class Telephone extends Property implements PropertyValidatorSupport, GroupProperty {
 
     private static final long serialVersionUID = -7747040131815077325L;
+
+    public static Type TYPE_TEXT = new Type("text");
+
+    public static Type TYPE_VOICE = new Type("voice");
+
+    public static Type TYPE_FAX = new Type("fax");
+
+    public static Type TYPE_CELL = new Type("cell");
+
+    public static Type TYPE_VIDEO = new Type("video");
+
+    public static Type TYPE_PAGER = new Type("pager");
+
+    public static Type TYPE_TEXTPHONE = new Type("textphone");
 
     private static final String TEL_SCHEME = "tel";
 
@@ -67,21 +84,24 @@ public final class Telephone extends Property {
      * @param types optional parameter types
      */
     public Telephone(URI uri, Type... types) {
-        this(null, uri, types);
+        super(PropertyName.TEL.toString());
+        this.uri = normalise(uri);
+        add(Value.URI);
+        for (Type type : types) {
+            add(type);
+        }
     }
 
     /**
      * @param group a property group
      * @param uri   specifies the URI of a telephone definition
      * @param types optional parameter types
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
+    @Deprecated
     public Telephone(Group group, URI uri, Type... types) {
-        super(group, Id.TEL);
-        this.uri = normalise(uri);
-        getParameters().add(Value.URI);
-        for (Type type : types) {
-            getParameters().add(type);
-        }
+        this(uri, types);
+        setGroup(group);
     }
 
     /**
@@ -91,10 +111,10 @@ public final class Telephone extends Property {
      * @param types optional parameter types
      */
     public Telephone(String value, Type... types) {
-        super(null, Id.TEL);
+        super(PropertyName.TEL.toString());
         this.value = value;
         for (Type type : types) {
-            getParameters().add(type);
+            add(type);
         }
     }
 
@@ -105,8 +125,9 @@ public final class Telephone extends Property {
      * @param value  string representation of a property value
      * @throws URISyntaxException where the specified value is not a valid URI
      */
-    public Telephone(List<Parameter> params, String value) throws URISyntaxException {
-        this(null, params, value);
+    public Telephone(ParameterList params, String value) {
+        super(PropertyName.TEL.toString(), params);
+        setValue(value);
     }
 
     /**
@@ -116,14 +137,12 @@ public final class Telephone extends Property {
      * @param params property parameters
      * @param value  string representation of a property value
      * @throws URISyntaxException where the specified value is not a valid URI
+     * @deprecated use {@link GroupProperty#setGroup(Group)}
      */
-    public Telephone(Group group, List<Parameter> params, String value) throws URISyntaxException {
-        super(group, Id.TEL, params);
-        if (Value.URI.equals(getParameter(Parameter.Id.VALUE))) {
-            this.uri = normalise(new URI(value.trim().replaceAll("\\s+", "-")));
-        } else {
-            this.value = value;
-        }
+    @Deprecated
+    public Telephone(Group group, ParameterList params, String value) {
+        this(params, value);
+        setGroup(group);
     }
 
     private URI normalise(URI uri) {
@@ -159,40 +178,51 @@ public final class Telephone extends Property {
         }
     }
 
+    @Override
+    public void setValue(String value) {
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString()))) {
+            try {
+                this.uri = normalise(new URI(value.trim().replaceAll("\\s+", "-")));
+            } catch (URISyntaxException e) {
+                throw new IllegalArgumentException(e);
+            }
+        } else {
+            this.value = value;
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void validate() throws ValidationException {
-        for (Parameter param : getParameters()) {
-            final Parameter.Id id = param.getId();
-
-            if (!Parameter.Id.PID.equals(id) &&
-                    !Parameter.Id.PREF.equals(id) &&
-                    !Parameter.Id.TYPE.equals(id)) {
-                throw new ValidationException(MessageFormat.format(ILLEGAL_PARAMETER_MESSAGE, id));
-            }
+    public ValidationResult validate() throws ValidationException {
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString()))) {
+            return TEL_URI.validate(this);
         }
+        return TEL_TEXT.validate(this);
     }
 
-    public static class Factory extends AbstractFactory implements PropertyFactory<Telephone> {
+    @Override
+    protected PropertyFactory<Telephone> newFactory() {
+        return new Factory();
+    }
+
+    public static class Factory extends Content.Factory implements PropertyFactory<Telephone> {
         public Factory() {
-            super(Id.TEL.toString());
+            super(PropertyName.TEL.toString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Telephone createProperty(final List<Parameter> params, final String value)
-                throws URISyntaxException {
-
+        public Telephone createProperty(final ParameterList params, final String value) {
             return new Telephone(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Telephone createProperty(final Group group, final List<Parameter> params, final String value) throws URISyntaxException {
+        public Telephone createProperty(final Group group, final ParameterList params, final String value) {
             return new Telephone(group, params, value);
         }
     }
