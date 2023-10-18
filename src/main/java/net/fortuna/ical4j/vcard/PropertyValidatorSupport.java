@@ -305,7 +305,7 @@ public interface PropertyValidatorSupport {
     Validator<Version> VERSION = new PropertyValidator<>(PropertyName.VERSION.toString(), TEXT_VALUE,
             new ValidationRule<>(ValueMatch, "(?i)" + ImmutableVersion.VERSION_4_0.getValue()));
 
-    Validator<Xml> XML = new PropertyValidator<>(PropertyName.XML.toString(),
+    Validator<Xml> XML_VALIDATOR = new PropertyValidator<>(PropertyName.XML.toString(),
             new ValidationRule<>(OneOrLess, ParameterName.ALTID.toString()),
             TEXT_VALUE);
 }
