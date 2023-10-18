@@ -91,7 +91,7 @@ public class VCardTest {
         for (Property p : vCard.getProperties()) {
             assertNotNull(vCard.getProperty(p.getName()));
         }
-        assertFalse(vCard.getProperty(null).isPresent());
+        assertFalse(vCard.getProperty((String) null).isPresent());
     }
 
     @Test
@@ -109,7 +109,7 @@ public class VCardTest {
         for (Property p : vCard.getProperties(PropertyName.EXTENDED.toString())) {
             assertNotNull(vCard.getProperty(p.getName()));
         }
-        assertFalse(vCard.getProperty(null).isPresent());
+        assertFalse(vCard.getProperty((String) null).isPresent());
     }
 
     @Test

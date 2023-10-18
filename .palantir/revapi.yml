@@ -1,6 +1,12 @@
 acceptedBreaks:
   "1.0.7":
     org.mnode.ical4j:ical4j-vcard:
+      - code: "java.annotation.added"
+        old: "parameter <T extends net.fortuna.ical4j.vcard.Property> T net.fortuna.ical4j.vcard.VCard::getProperty(===net.fortuna.ical4j.vcard.Property.Id===)"
+        new: "parameter <T extends net.fortuna.ical4j.model.Property> java.util.Optional<T>\
+        \ net.fortuna.ical4j.model.PropertyListAccessor::getProperty(===java.lang.Enum<?>===)\
+        \ @ net.fortuna.ical4j.vcard.VCard"
+        justification: "align_with_ical4j_property_accessor"
       - code: "java.class.finalClassInheritsFromNewClass"
         old: "class net.fortuna.ical4j.vcard.parameter.Altid"
         new: "class net.fortuna.ical4j.vcard.parameter.Altid"
@@ -1242,6 +1248,12 @@ acceptedBreaks:
         \ net.fortuna.ical4j.model.PropertyContainer::getProperty(java.lang.String)\
         \ @ net.fortuna.ical4j.vcard.VCard"
         justification: "major_refactor"
+      - code: "java.generics.formalTypeParameterChanged"
+        old: "method <T extends net.fortuna.ical4j.vcard.Property> T net.fortuna.ical4j.vcard.VCard::getProperty(net.fortuna.ical4j.vcard.Property.Id)"
+        new: "method <T extends net.fortuna.ical4j.model.Property> java.util.Optional<T>\
+        \ net.fortuna.ical4j.model.PropertyListAccessor::getProperty(java.lang.Enum<?>)\
+        \ @ net.fortuna.ical4j.vcard.VCard"
+        justification: "align_with_ical4j_property_accessor"
       - code: "java.generics.formalTypeParameterChanged"
         old: "method <T extends net.fortuna.ical4j.vcard.Property> T net.fortuna.ical4j.vcard.VCard::getProperty(net.fortuna.ical4j.vcard.Property.Id)"
         new: "method <T extends net.fortuna.ical4j.model.Property> java.util.Optional<T>\
@@ -3192,6 +3204,12 @@ acceptedBreaks:
       - code: "java.method.parameterTypeChanged"
         old: "parameter <T extends net.fortuna.ical4j.vcard.Property> T net.fortuna.ical4j.vcard.VCard::getProperty(===net.fortuna.ical4j.vcard.Property.Id===)"
         new: "parameter <T extends net.fortuna.ical4j.model.Property> java.util.Optional<T>\
+        \ net.fortuna.ical4j.model.PropertyListAccessor::getProperty(===java.lang.Enum<?>===)\
+        \ @ net.fortuna.ical4j.vcard.VCard"
+        justification: "align_with_ical4j_property_accessor"
+      - code: "java.method.parameterTypeChanged"
+        old: "parameter <T extends net.fortuna.ical4j.vcard.Property> T net.fortuna.ical4j.vcard.VCard::getProperty(===net.fortuna.ical4j.vcard.Property.Id===)"
+        new: "parameter <T extends net.fortuna.ical4j.model.Property> java.util.Optional<T>\
         \ net.fortuna.ical4j.model.PropertyListAccessor::getProperty(===java.lang.String===)\
         \ @ net.fortuna.ical4j.vcard.VCard"
         justification: "refactoring_properties"
@@ -3578,6 +3596,12 @@ acceptedBreaks:
         \ net.fortuna.ical4j.model.PropertyContainer::getProperty(java.lang.String)\
         \ @ net.fortuna.ical4j.vcard.VCard"
         justification: "major_refactor"
+      - code: "java.method.returnTypeChanged"
+        old: "method <T extends net.fortuna.ical4j.vcard.Property> T net.fortuna.ical4j.vcard.VCard::getProperty(net.fortuna.ical4j.vcard.Property.Id)"
+        new: "method <T extends net.fortuna.ical4j.model.Property> java.util.Optional<T>\
+        \ net.fortuna.ical4j.model.PropertyListAccessor::getProperty(java.lang.Enum<?>)\
+        \ @ net.fortuna.ical4j.vcard.VCard"
+        justification: "align_with_ical4j_property_accessor"
       - code: "java.method.returnTypeChanged"
         old: "method <T extends net.fortuna.ical4j.vcard.Property> T net.fortuna.ical4j.vcard.VCard::getProperty(net.fortuna.ical4j.vcard.Property.Id)"
         new: "method <T extends net.fortuna.ical4j.model.Property> java.util.Optional<T>\
