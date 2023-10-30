@@ -1952,6 +1952,11 @@ acceptedBreaks:
       - code: "java.method.exception.checkedRemoved"
         old: "method void net.fortuna.ical4j.vcard.property.Uid::<init>(java.util.List<net.fortuna.ical4j.vcard.Parameter>,\
         \ java.lang.String) throws java.net.URISyntaxException"
+        new: "method void net.fortuna.ical4j.vcard.property.Uid::<init>(java.lang.String)"
+        justification: "support_text_uid_value"
+      - code: "java.method.exception.checkedRemoved"
+        old: "method void net.fortuna.ical4j.vcard.property.Uid::<init>(java.util.List<net.fortuna.ical4j.vcard.Parameter>,\
+        \ java.lang.String) throws java.net.URISyntaxException"
         new: "method void net.fortuna.ical4j.vcard.property.Uid::<init>(net.fortuna.ical4j.model.ParameterList,\
         \ java.lang.String)"
         justification: "major_version_update"
@@ -3195,6 +3200,11 @@ acceptedBreaks:
         \ java.lang.String) throws java.net.URISyntaxException"
         new: "method void net.fortuna.ical4j.vcard.property.Member::<init>(net.fortuna.ical4j.vcard.VCard)"
         justification: "extend_constructor_signatures"
+      - code: "java.method.numberOfParametersChanged"
+        old: "method void net.fortuna.ical4j.vcard.property.Uid::<init>(java.util.List<net.fortuna.ical4j.vcard.Parameter>,\
+        \ java.lang.String) throws java.net.URISyntaxException"
+        new: "method void net.fortuna.ical4j.vcard.property.Uid::<init>(java.lang.String)"
+        justification: "support_text_uid_value"
       - code: "java.method.parameterTypeChanged"
         old: "parameter <T extends net.fortuna.ical4j.vcard.Property> T net.fortuna.ical4j.vcard.VCard::getProperty(===net.fortuna.ical4j.vcard.Property.Id===)"
         new: "parameter <T extends net.fortuna.ical4j.model.Property> java.util.Optional<T>\
