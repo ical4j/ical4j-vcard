@@ -66,7 +66,7 @@ public class CalAdrUri extends Property implements PropertyValidatorSupport {
      * @param types options calendar types
      */
     public CalAdrUri(URI uri, Type... types) {
-        super(PropertyName.CALADRURI.toString());
+        super(PropertyName.CALADRURI);
         this.uri = uri;
         for (Type type : types) {
             add(type);
@@ -79,7 +79,7 @@ public class CalAdrUri extends Property implements PropertyValidatorSupport {
      * @throws URISyntaxException where the specified value is not a valid URI
      */
     public CalAdrUri(ParameterList params, String value) {
-        super(PropertyName.CALADRURI.toString(), params);
+        super(PropertyName.CALADRURI, params);
         setValue(value);
     }
 

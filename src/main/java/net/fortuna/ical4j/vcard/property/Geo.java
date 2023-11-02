@@ -65,7 +65,7 @@ public class Geo extends Property implements PropertyValidatorSupport, GroupProp
      * @param longitude a longitude value
      */
     public Geo(BigDecimal latitude, BigDecimal longitude) {
-        super(PropertyName.GEO.toString());
+        super(PropertyName.GEO);
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -77,7 +77,7 @@ public class Geo extends Property implements PropertyValidatorSupport, GroupProp
      * @param value  string representation of a property value
      */
     public Geo(ParameterList params, String value) {
-        super(PropertyName.GEO.toString(), params);
+        super(PropertyName.GEO, params);
         setValue(value);
     }
 

@@ -63,7 +63,7 @@ public class Revision extends DateProperty<Instant> implements UtcProperty, Prop
      * @param date a revision date
      */
     public Revision(Instant date) {
-        super(PropertyName.REV.toString(), CalendarDateFormat.UTC_DATE_TIME_FORMAT, Value.DATE_TIME);
+        super(PropertyName.REV, CalendarDateFormat.UTC_DATE_TIME_FORMAT, Value.DATE_TIME);
         setDate(date);
     }
 
@@ -75,7 +75,7 @@ public class Revision extends DateProperty<Instant> implements UtcProperty, Prop
      * @throws ParseException if the specified string is not a valid date
      */
     public Revision(ParameterList params, String value) {
-        super(PropertyName.REV.toString(), params, CalendarDateFormat.UTC_DATE_TIME_FORMAT, Value.DATE_TIME);
+        super(PropertyName.REV, params, CalendarDateFormat.UTC_DATE_TIME_FORMAT, Value.DATE_TIME);
         setValue(value);
     }
 

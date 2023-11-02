@@ -61,7 +61,7 @@ public class TwoVcardsInAFileTest {
 
 		VCardList cards = builder.buildAll();
 		assertEquals(2, cards.getAll().size());
-		assertEquals("Frank Dawson", cards.getAll().get(0).getRequiredProperty(PropertyName.FN.toString()).getValue());
-		assertEquals("Tim Howes", cards.getAll().get(1).getRequiredProperty(PropertyName.FN.toString()).getValue());
+		assertEquals("Frank Dawson", cards.getAll().get(0).getRequiredProperty(PropertyName.FN).getValue());
+		assertEquals("Tim Howes", cards.getAll().get(1).getRequiredProperty(PropertyName.FN).getValue());
 	}
 }

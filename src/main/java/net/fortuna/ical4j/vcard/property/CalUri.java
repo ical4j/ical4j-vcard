@@ -66,7 +66,7 @@ public class CalUri extends Property implements PropertyValidatorSupport {
      * @param types optional classifiers
      */
     public CalUri(URI uri, Type... types) {
-        super(PropertyName.CALURI.toString());
+        super(PropertyName.CALURI);
         this.uri = uri;
         for (Type type : types) {
             add(type);
@@ -80,7 +80,7 @@ public class CalUri extends Property implements PropertyValidatorSupport {
      * @param value  string representation of a property value
      */
     public CalUri(ParameterList params, String value) {
-        super(PropertyName.CALURI.toString());
+        super(PropertyName.CALURI);
         setValue(value);
     }
 

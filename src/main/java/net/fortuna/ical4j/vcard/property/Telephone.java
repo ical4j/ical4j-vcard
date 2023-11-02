@@ -84,7 +84,7 @@ public class Telephone extends Property implements PropertyValidatorSupport, Gro
      * @param types optional parameter types
      */
     public Telephone(URI uri, Type... types) {
-        super(PropertyName.TEL.toString());
+        super(PropertyName.TEL);
         this.uri = normalise(uri);
         add(Value.URI);
         for (Type type : types) {
@@ -111,7 +111,7 @@ public class Telephone extends Property implements PropertyValidatorSupport, Gro
      * @param types optional parameter types
      */
     public Telephone(String value, Type... types) {
-        super(PropertyName.TEL.toString());
+        super(PropertyName.TEL);
         this.value = value;
         for (Type type : types) {
             add(type);
@@ -126,7 +126,7 @@ public class Telephone extends Property implements PropertyValidatorSupport, Gro
      * @throws URISyntaxException where the specified value is not a valid URI
      */
     public Telephone(ParameterList params, String value) {
-        super(PropertyName.TEL.toString(), params);
+        super(PropertyName.TEL, params);
         setValue(value);
     }
 

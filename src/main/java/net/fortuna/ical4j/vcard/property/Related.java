@@ -89,8 +89,8 @@ public class Related extends Property implements PropertyValidatorSupport {
      * @param types optional types of the text value
      */
     public Related(VCard card, Type... types) {
-        super(PropertyName.RELATED.toString());
-        Uid cardUid = card.getRequiredProperty(PropertyName.UID.toString());
+        super(PropertyName.RELATED);
+        Uid cardUid = card.getRequiredProperty(PropertyName.UID);
         this.uri = cardUid.getUri();
         add(Value.URI);
         Arrays.stream(types).forEach(this::add);
@@ -101,7 +101,7 @@ public class Related extends Property implements PropertyValidatorSupport {
      * @param types optional types of the text value
      */
     public Related(String text, Type... types) {
-        super(PropertyName.RELATED.toString());
+        super(PropertyName.RELATED);
         this.text = text;
         add(Value.TEXT);
         Arrays.stream(types).forEach(this::add);
@@ -112,7 +112,7 @@ public class Related extends Property implements PropertyValidatorSupport {
      * @param types optional types of the URI value
      */
     public Related(URI uri, Type... types) {
-        super(PropertyName.RELATED.toString());
+        super(PropertyName.RELATED);
         this.uri = uri;
         Arrays.stream(types).forEach(this::add);
     }
@@ -124,7 +124,7 @@ public class Related extends Property implements PropertyValidatorSupport {
      * @param value  string representation of a property value
      */
     public Related(ParameterList params, String value) {
-        super(PropertyName.RELATED.toString(), params);
+        super(PropertyName.RELATED, params);
         setValue(value);
     }
 

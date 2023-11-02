@@ -61,13 +61,13 @@ public class Member extends Property implements PropertyValidatorSupport {
      * @param uri a URI that represents a member
      */
     public Member(URI uri) {
-        super(PropertyName.MEMBER.toString());
+        super(PropertyName.MEMBER);
         this.uri = uri;
     }
 
     public Member(VCard card) {
-        super(PropertyName.MEMBER.toString());
-        Uid uid = card.getRequiredProperty(PropertyName.UID.toString());
+        super(PropertyName.MEMBER);
+        Uid uid = card.getRequiredProperty(PropertyName.UID);
         setUri(uid.getUri());
     }
 
@@ -78,7 +78,7 @@ public class Member extends Property implements PropertyValidatorSupport {
      * @param value  string representation of a property value
      */
     public Member(ParameterList params, String value) {
-        super(PropertyName.MEMBER.toString(), params);
+        super(PropertyName.MEMBER, params);
         setValue(value);
     }
 

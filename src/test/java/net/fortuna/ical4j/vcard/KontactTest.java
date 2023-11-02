@@ -93,7 +93,7 @@ public class KontactTest {
 		VCardBuilder builder = new VCardBuilder(reader);
 
 		VCard card = builder.build();
-		assertEquals("Antoni Mylka", card.getRequiredProperty(PropertyName.FN.toString()).getValue());
+        assertEquals("Antoni Mylka", card.getRequiredProperty(PropertyName.FN).getValue());
 
 
 	}

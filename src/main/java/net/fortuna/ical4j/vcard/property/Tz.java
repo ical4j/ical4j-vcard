@@ -65,7 +65,7 @@ public class Tz extends Property implements PropertyValidatorSupport {
      * @param offset the offset from UTC for the timezone
      */
     public Tz(ZoneOffset offset) {
-        super(PropertyName.TZ.toString());
+        super(PropertyName.TZ);
         this.offset = new ZoneOffsetAdapter(offset);
     }
 
@@ -73,7 +73,7 @@ public class Tz extends Property implements PropertyValidatorSupport {
      * @param text an unstructured timezone value
      */
     public Tz(String text) {
-        super(PropertyName.TZ.toString());
+        super(PropertyName.TZ);
         this.text = text;
         add(Value.TEXT);
     }
@@ -85,7 +85,7 @@ public class Tz extends Property implements PropertyValidatorSupport {
      * @param value  string representation of a property value
      */
     public Tz(ParameterList params, String value) {
-        super(PropertyName.TZ.toString(), params);
+        super(PropertyName.TZ, params);
         if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
             this.text = value;
         } else {

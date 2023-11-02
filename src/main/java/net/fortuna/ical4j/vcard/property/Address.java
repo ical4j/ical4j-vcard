@@ -84,7 +84,7 @@ public class Address extends Property implements PropertyValidatorSupport, Group
     public Address(String poBox, String extended, String street, String locality,
                    String region, String postcode, String country, Type... types) {
 
-        super(PropertyName.ADR.toString());
+        super(PropertyName.ADR);
         this.poBox = poBox;
         this.extended = extended;
         this.street = street;
@@ -122,7 +122,7 @@ public class Address extends Property implements PropertyValidatorSupport, Group
      * @param value  string representation of an address value
      */
     public Address(ParameterList params, String value) {
-        super(PropertyName.ADR.toString(), params);
+        super(PropertyName.ADR, params);
         if (CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING)) {
             parseValueRelaxed(value);
         } else {
@@ -149,7 +149,7 @@ public class Address extends Property implements PropertyValidatorSupport, Group
      * Support for builder.
      */
     private Address() {
-        super(PropertyName.ADR.toString());
+        super(PropertyName.ADR);
     }
 
     @Override

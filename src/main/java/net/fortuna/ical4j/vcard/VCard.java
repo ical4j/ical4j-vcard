@@ -115,7 +115,7 @@ public class VCard implements Serializable, PropertyContainer {
         }
 
         for (Property property : getProperties()) {
-            if (!isKindGroup && (property.getName().equals(PropertyName.MEMBER.toString()))) {
+            if (!isKindGroup && (property.getName().equals(PropertyName.MEMBER))) {
                 result.getEntries().add(new ValidationEntry("Property [" + PropertyName.MEMBER +
                         "] can only be specified if the KIND property value is \"group\".",
                         ValidationEntry.Severity.ERROR, "VCARD"));
