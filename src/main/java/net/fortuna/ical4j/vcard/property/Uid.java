@@ -42,6 +42,7 @@ import net.fortuna.ical4j.vcard.parameter.Value;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -59,12 +60,19 @@ public class Uid extends Property implements PropertyValidatorSupport {
 
     private URI uri;
 
+    private String text;
+
     /**
      * @param uri a URI for a uid definition
      */
     public Uid(URI uri) {
-        super(PropertyName.UID.toString());
+        super(PropertyName.UID);
         this.uri = uri;
+    }
+
+    public Uid(String text) {
+        super(PropertyName.UID, new ParameterList(Collections.singletonList(Value.TEXT)));
+        this.text = text;
     }
 
     /**
@@ -74,7 +82,7 @@ public class Uid extends Property implements PropertyValidatorSupport {
      * @param value  string representation of a property value
      */
     public Uid(ParameterList params, String value) {
-        super(PropertyName.UID.toString(), params);
+        super(PropertyName.UID, params);
         setValue(value);
     }
 
@@ -90,7 +98,11 @@ public class Uid extends Property implements PropertyValidatorSupport {
      */
     @Override
     public String getValue() {
-        return Strings.valueOf(uri);
+        if (uri != null) {
+            return Strings.valueOf(uri);
+        } else {
+            return text;
+        }
     }
 
     @Override
