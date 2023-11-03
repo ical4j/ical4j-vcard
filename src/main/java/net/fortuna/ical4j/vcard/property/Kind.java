@@ -60,7 +60,7 @@ public class Kind extends Property implements PropertyValidatorSupport, GroupPro
      * @param value a string representation of a kind value
      */
     public Kind(String value) {
-        super(PropertyName.KIND.toString());
+        super(PropertyName.KIND);
         this.value = value;
     }
 
@@ -71,7 +71,7 @@ public class Kind extends Property implements PropertyValidatorSupport, GroupPro
      * @param value  string representation of a property value
      */
     public Kind(ParameterList params, String value) {
-        super(PropertyName.KIND.toString(), params);
+        super(PropertyName.KIND, params);
         setValue(value);
     }
 

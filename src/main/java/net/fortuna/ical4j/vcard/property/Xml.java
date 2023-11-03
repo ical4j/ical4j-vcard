@@ -96,7 +96,7 @@ public class Xml extends Property implements Encodable, PropertyValidatorSupport
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return XML.validate(this);
+        return XML_VALIDATOR.validate(this);
     }
 
     @Override

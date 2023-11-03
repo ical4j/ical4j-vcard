@@ -77,7 +77,7 @@ public class Logo extends Property implements PropertyValidatorSupport {
      * @param uri a URI that specifies the location of a logo
      */
     public Logo(URI uri) {
-        super(PropertyName.LOGO.toString());
+        super(PropertyName.LOGO);
         this.uri = uri;
         add(Value.URI);
     }
@@ -94,7 +94,7 @@ public class Logo extends Property implements PropertyValidatorSupport {
      * @param contentType the MIME type of the logo data
      */
     public Logo(byte[] binary, Type contentType) {
-        super(PropertyName.LOGO.toString());
+        super(PropertyName.LOGO);
         this.binary = binary;
         add(Encoding.B);
         if (contentType != null) {
@@ -111,7 +111,7 @@ public class Logo extends Property implements PropertyValidatorSupport {
      * @throws DecoderException   where the specified logo data value cannot be decoded
      */
     public Logo(ParameterList params, String value) {
-        super(PropertyName.LOGO.toString(), params);
+        super(PropertyName.LOGO, params);
         setValue(value);
     }
 

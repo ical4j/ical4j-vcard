@@ -95,7 +95,7 @@ public class IncompleteNPropertyTest {
                 new VCardBuilder(reader, groupRegistry, propReg, parReg);
 
         VCard card = builder.build();
-        N n = card.getRequiredProperty(PropertyName.N.toString());
+        N n = card.getRequiredProperty(PropertyName.N);
         assertEquals("Mylka", n.getFamilyName());
         assertEquals("Antoni", n.getGivenName());
         Assert.assertArrayEquals(new String[]{""}, n.getAdditionalNames());

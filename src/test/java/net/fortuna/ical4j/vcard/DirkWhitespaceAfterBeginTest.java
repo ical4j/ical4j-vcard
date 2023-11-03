@@ -127,7 +127,7 @@ public class DirkWhitespaceAfterBeginTest {
             VCardBuilder builder =
                     new VCardBuilder(reader, groupRegistry, propReg, parReg);
             VCard card = builder.build();
-            Optional<Property> prop = card.getProperty(PropertyName.ADR.toString());
+            Optional<Property> prop = card.getProperty(PropertyName.ADR);
             Assert.assertTrue(prop.isPresent());
             Address adr = (Address) prop.get();
             assertEquals("Szczecin", adr.getExtended());
