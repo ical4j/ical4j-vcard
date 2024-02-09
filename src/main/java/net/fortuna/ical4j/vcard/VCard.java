@@ -61,7 +61,7 @@ public class VCard implements Serializable, PropertyContainer {
     /**
      * Smart merging of properties that identifies whether to add or replace existing properties.
      */
-    BiFunction<PropertyContainer, List<Property>, PropertyContainer> MERGE = (c, list) -> {
+    public static final BiFunction<PropertyContainer, List<Property>, PropertyContainer> MERGE = (c, list) -> {
         if (list != null && !list.isEmpty()) {
             list.forEach(p -> {
                 switch (p.getName()) {
@@ -78,7 +78,6 @@ public class VCard implements Serializable, PropertyContainer {
                 }
             });
         }
-        ;
         return c;
     };
 
