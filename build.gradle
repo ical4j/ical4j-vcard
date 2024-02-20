@@ -9,11 +9,11 @@ plugins {
     id "com.palantir.revapi" version "1.7.0"
     id "net.ltgt.errorprone" version "2.0.2" apply false
     id "biz.aQute.bnd.builder" version "$bndVersion"
-    id 'org.javamodularity.moduleplugin' version '1.7.0' apply false
+    id 'org.javamodularity.moduleplugin' version '1.8.13' apply false
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 
 repositories {
     mavenCentral()
@@ -56,12 +56,29 @@ dependencies {
 
 test {
     useJUnitPlatform()
+
+    finalizedBy jacocoTestCoverageVerification, jacocoTestReport // Ensure Jacoco is run after tests have completed
+
+    jvmArgs = ["-Duser.timezone=UTC"] // Some tests require default timezone to be UTC
+}
+
+jacocoTestCoverageVerification {
+    dependsOn test
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.7
+            }
+            failOnViolation = false
+        }
+    }
 }
 
 jacocoTestReport {
+    dependsOn test
     reports {
-        xml.enabled true
-        html.enabled 'true' == jacoco_htmlReport
+        xml.required = true
+        html.required = jacoco_htmlReport == 'true'
     }
 }
 
