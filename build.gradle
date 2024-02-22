@@ -7,13 +7,12 @@ plugins {
     id 'signing'
     id "pl.allegro.tech.build.axion-release" version "1.13.6"
     id "com.palantir.revapi" version "1.7.0"
-    id "net.ltgt.errorprone" version "2.0.2" apply false
-    id "biz.aQute.bnd.builder" version "$bndVersion"
-    id 'org.javamodularity.moduleplugin' version '1.8.13' apply false
+//    id "net.ltgt.errorprone" version "2.0.2" apply false
+//    id "biz.aQute.bnd.builder" version "$bndVersion"
+    id 'org.javamodularity.moduleplugin' version '1.8.13'
 }
 
-sourceCompatibility = 11
-targetCompatibility = 11
+modularity.standardJavaRelease 11
 
 repositories {
     mavenCentral()
@@ -32,6 +31,8 @@ java {
     }
 }
 
+sourcesJar.dependsOn ':compileModuleInfoJava'
+
 dependencies {
     api "org.mnode.ical4j:ical4j:$ical4jVersion",
             "commons-io:commons-io:$commonsIoVersion",
@@ -40,7 +41,7 @@ dependencies {
     groovyDslImplementation "org.codehaus.groovy:groovy:$groovyVersion"
 
     // junit
-    testImplementation 'org.junit.vintage:junit-vintage-engine:5.8.2'
+    testImplementation "org.junit.vintage:junit-vintage-engine:$junitVintageVersion"
 
     // groovy-test
     testImplementation "org.codehaus.groovy:groovy-test:$groovyVersion"
@@ -54,7 +55,17 @@ dependencies {
     testRuntimeOnly "org.jparsec:jparsec:$jparsecVersion"
 }
 
+compileTestJava {
+    moduleOptions {
+        compileOnClasspath = true
+    }
+}
+
 test {
+    moduleOptions {
+        runOnClasspath = true
+    }
+
     useJUnitPlatform()
 
     finalizedBy jacocoTestCoverageVerification, jacocoTestReport // Ensure Jacoco is run after tests have completed
