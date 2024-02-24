@@ -43,6 +43,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.function.BiFunction;
 
 import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.GROUP;
 
@@ -56,6 +57,29 @@ import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.GROUP;
  * @author Ben
  */
 public class VCard implements Serializable, PropertyContainer {
+
+    /**
+     * Smart merging of properties that identifies whether to add or replace existing properties.
+     */
+    public static final BiFunction<PropertyContainer, List<Property>, PropertyContainer> MERGE = (c, list) -> {
+        if (list != null && !list.isEmpty()) {
+            list.forEach(p -> {
+                switch (p.getName()) {
+                    case "KIND":
+                    case "N":
+                    case "BDAY":
+                    case "ANNIVERSARY":
+                    case "GENDER":
+                    case "REV":
+                    case "UID":
+                        c.replace(p);
+                    default:
+                        c.add(p);
+                }
+            });
+        }
+        return c;
+    };
 
     /**
      *

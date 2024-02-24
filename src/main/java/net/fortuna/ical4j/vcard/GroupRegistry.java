@@ -32,8 +32,8 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.vcard.Group.Id;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +52,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Deprecated
 public class GroupRegistry {
 
-    private static final Log LOG = LogFactory.getLog(GroupRegistry.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GroupRegistry.class);
     
     private final Map<Id, Group> defaultGroups;
     
