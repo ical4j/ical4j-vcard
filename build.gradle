@@ -8,7 +8,7 @@ plugins {
     id "pl.allegro.tech.build.axion-release" version "1.13.6"
     id "com.palantir.revapi" version "1.7.0"
 //    id "net.ltgt.errorprone" version "2.0.2" apply false
-//    id "biz.aQute.bnd.builder" version "$bndVersion"
+    id "biz.aQute.bnd.builder" version "$bndVersion"
     id 'org.javamodularity.moduleplugin' version '1.8.14'
 }
 
