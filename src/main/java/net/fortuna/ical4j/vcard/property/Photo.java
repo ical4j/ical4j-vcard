@@ -47,8 +47,8 @@ import org.apache.commons.codec.BinaryEncoder;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -67,7 +67,7 @@ public class Photo extends Property implements PropertyValidatorSupport, GroupPr
 
     private static final long serialVersionUID = 5927040228596008262L;
 
-    private final Log log = LogFactory.getLog(Photo.class);
+    private final Logger log = LoggerFactory.getLogger(Photo.class);
 
     private URI uri;
 

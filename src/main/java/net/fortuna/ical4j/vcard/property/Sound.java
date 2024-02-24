@@ -47,8 +47,8 @@ import org.apache.commons.codec.BinaryEncoder;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -71,7 +71,7 @@ public class Sound extends Property implements PropertyValidatorSupport {
 
     private byte[] binary;
 
-    private final Log log = LogFactory.getLog(Sound.class);
+    private final Logger log = LoggerFactory.getLogger(Sound.class);
 
     /**
      * @param uri a URI specifying a sound location

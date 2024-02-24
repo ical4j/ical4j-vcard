@@ -4,9 +4,9 @@ module ical4j.vcard {
     requires ical4j.core;
 
     requires org.apache.commons.codec;
-    requires org.apache.commons.logging;
-    requires org.apache.commons.io;
+    requires org.slf4j;
     requires org.apache.commons.lang3;
+    requires org.apache.commons.io;
 
     // optional dependencies..
     requires static org.codehaus.groovy;
