@@ -35,8 +35,6 @@ import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.data.UnfoldingReader;
 import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.util.CompatibilityHints;
-import net.fortuna.ical4j.vcard.parameter.XParameter;
-import net.fortuna.ical4j.vcard.property.XProperty;
 import org.apache.commons.codec.DecoderException;
 
 import java.io.*;
@@ -47,7 +45,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -189,7 +186,7 @@ public final class VCardBuilder {
         
         while ((single || !end) && (line = reader.readLine()) != null) {
         	totalLineNo++;
-        	if (line.trim().length() == 0) {
+            if (line.trim().isEmpty()) {
         		continue; // ignore blank lines
         	}
             nonBlankLineNo++;
@@ -212,7 +209,7 @@ public final class VCardBuilder {
             } else if (endPattern.matcher(line).matches()) {
             	end = true;
             }
-            if (line.trim().length() > 0) {
+            if (!line.trim().isEmpty()) {
                 lastLine = line;
             }
         }
@@ -232,47 +229,21 @@ public final class VCardBuilder {
      * @throws DecoderException
      */
     private Property parseProperty(final String line) throws URISyntaxException {
-        Property property = null;
+        PropertyBuilder propertyBuilder = new PropertyBuilder(vCardBuilderContext.getPropertyFactorySupplier().get());
         Matcher matcher = PROPERTY_NAME_PATTERN.matcher(line);
         if (matcher.find()) {
-            Optional<PropertyFactory<?>> factory;
-            Group group = null;
-
-            final String propertyName = matcher.group().toUpperCase();
-            if (propertyName.indexOf('.') >= 0) {
-                final String[] groupProperty = propertyName.split("\\.");
-                group = groupRegistry.getGroup(groupProperty[0]);
-                factory = vCardBuilderContext.getPropertyFactorySupplier().get().stream()
-                        .filter(f -> f.supports(groupProperty[1])).findFirst();
-            }
-            else {
-                factory = vCardBuilderContext.getPropertyFactorySupplier().get().stream()
-                        .filter(f -> f.supports(propertyName)).findFirst();
-            }
+            propertyBuilder.name(matcher.group().toUpperCase());
 
             matcher = PROPERTY_VALUE_PATTERN.matcher(line);
             if (matcher.find()) {
-                final String propertyValue = matcher.group(0);
-                String decodedValue;
-                try {
-                    decodedValue = PropertyCodec.INSTANCE.decode(propertyValue);
-                } catch (DecoderException e) {
-                    decodedValue = propertyValue;
-                }
+                propertyBuilder.value(matcher.group(0));
+
                 final ParameterList params = parseParameters(line);
-
-                if (factory.isPresent()) {
-                    property = factory.get().createProperty(params, decodedValue);
-                } else if (isExtendedName(propertyName)) {
-                    property = new XProperty(propertyName, params, decodedValue);
-                }
-
-                if (group != null && property instanceof GroupProperty) {
-                    ((GroupProperty) property).setGroup(group);
-                }
+                params.get().forEach(propertyBuilder::parameter);
             }
+            return propertyBuilder.build();
         }
-        return property;
+        return null;
     }
 
     private boolean isExtendedName(String name) {
@@ -287,38 +258,17 @@ public final class VCardBuilder {
         final List<Parameter> parameters = new ArrayList<>();
         final Matcher matcher = PARAMETERS_PATTERN.matcher(line);
         if (matcher.find()) {
+            ParameterBuilder parameterBuilder = new ParameterBuilder(
+                    vCardBuilderContext.getParameterFactorySupplier().get());
+
             final String[] params = matcher.group().split(";");
             for (String param : params) {
                 final String[] vals = param.split("=");
-                final List<ParameterFactory<?>> factories = vCardBuilderContext.getParameterFactorySupplier().get();
-                Optional<ParameterFactory<?>> factory = factories.stream()
-                        .filter(f -> f.supports(vals[0])).findFirst();
-
-                if (factory.isPresent()) {
-                    if (vals.length > 1) {
-                        String decodedValue;
-                        try {
-                            decodedValue = ParameterCodec.INSTANCE.decode(vals[1]);
-                        } catch (DecoderException e) {
-                            decodedValue = vals[1];
-                        }
-                        parameters.add(factory.get().createParameter(decodedValue));
-                    } else {
-                        parameters.add(factory.get().createParameter());
-                    }
-                } else if (isExtendedName(vals[0])) {
-                    if (vals.length > 1) {
-                        String decodedValue;
-                        try {
-                            decodedValue = ParameterCodec.INSTANCE.decode(vals[1]);
-                        } catch (DecoderException e) {
-                            decodedValue = vals[1];
-                        }
-                        parameters.add(new XParameter(vals[0], decodedValue));
-                    } else {
-                        parameters.add(new XParameter(vals[0], null));
-                    }
+                parameterBuilder.name(vals[0]);
+                if (vals.length > 1) {
+                    parameterBuilder.value(vals[1]);
                 }
+                parameters.add(parameterBuilder.build());
             }
         }
         return new ParameterList(parameters);
