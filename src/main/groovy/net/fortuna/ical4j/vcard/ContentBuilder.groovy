@@ -49,7 +49,16 @@ class ContentBuilder extends FactoryBuilderSupport {
     ContentBuilder(boolean init = true) {
         super(init)
     }
-    
+
+    @Override
+    protected Factory resolveFactory(Object name, Map attributes, Object value) {
+        def factory = super.resolveFactory(name, attributes, value)
+        if (!factory) {
+            factory = new XPropertyFactory(name)
+        }
+        factory
+    }
+
     def registerVCard() {
         registerFactory('vcard', new VCardFactory())
     }
@@ -103,6 +112,8 @@ class ContentBuilder extends FactoryBuilderSupport {
                 new net.fortuna.ical4j.vcard.property.Version.Factory()))
         // RFC2426 factories..
         registerFactory('mailer', new PropertyFactoryWrapper(Mailer, new Mailer.Factory()))
+
+        registerFactory('xproperty', new XPropertyFactory())
     }
     
     def registerParameters() {

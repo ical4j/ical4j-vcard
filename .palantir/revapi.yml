@@ -3205,6 +3205,17 @@ acceptedBreaks:
         \ java.lang.String) throws java.net.URISyntaxException"
         new: "method void net.fortuna.ical4j.vcard.property.Uid::<init>(java.lang.String)"
         justification: "support_text_uid_value"
+      - code: "java.method.numberOfParametersChanged"
+        old: "method void net.fortuna.ical4j.vcard.property.XProperty::<init>(java.lang.String,\
+        \ java.util.List<net.fortuna.ical4j.vcard.Parameter>, java.lang.String)"
+        new: "method void net.fortuna.ical4j.vcard.property.XProperty::<init>(java.lang.String)"
+        justification: "improved_xproperty_support"
+      - code: "java.method.numberOfParametersChanged"
+        old: "method void net.fortuna.ical4j.vcard.property.XProperty::<init>(net.fortuna.ical4j.vcard.Group,\
+        \ java.lang.String, java.util.List<net.fortuna.ical4j.vcard.Parameter>, java.lang.String)"
+        new: "method void net.fortuna.ical4j.vcard.property.XProperty::<init>(java.lang.String,\
+        \ net.fortuna.ical4j.model.ParameterList, java.lang.String)"
+        justification: "improved_xproperty_support"
       - code: "java.method.parameterTypeChanged"
         old: "parameter <T extends net.fortuna.ical4j.vcard.Property> T net.fortuna.ical4j.vcard.VCard::getProperty(===net.fortuna.ical4j.vcard.Property.Id===)"
         new: "parameter <T extends net.fortuna.ical4j.model.Property> java.util.Optional<T>\
