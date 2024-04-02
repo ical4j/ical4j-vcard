@@ -71,7 +71,13 @@ public final class Uid extends Property {
      */
     public Uid(List<Parameter> params, String value) throws URISyntaxException {
         super(Id.UID, params);
-        this.uri = new URI(value);
+        try {
+            this.uri = new URI(value);
+        } catch (URISyntaxException e) {
+            if (value.contains("\\,")) {
+                this.uri = new URI(value.substring(value.lastIndexOf("\\,") + 2));
+            }
+        }
     }
 
     /**
