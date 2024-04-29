@@ -50,6 +50,7 @@ public class PrefTest extends ParameterTest {
     public static Collection<Object[]> parameters() {
         final List<Object[]> params = new ArrayList<Object[]>();
         params.add(new Object[]{new Pref(1), ParameterName.PREF.toString(), "1"});
+        params.add(new Object[]{new Pref(""), ParameterName.PREF.toString(), null});
         return params;
     }
 
