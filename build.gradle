@@ -35,8 +35,7 @@ java {
 sourcesJar.dependsOn ':compileModuleInfoJava'
 
 dependencies {
-    api "org.mnode.ical4j:ical4j:$ical4jVersion", "commons-io:commons-io:$commonsIoVersion",
-            "org.slf4j:slf4j-api:$slf4jVersion"
+    api "org.mnode.ical4j:ical4j:$ical4jVersion", "commons-io:commons-io:$commonsIoVersion"
 
     groovyDslImplementation "org.codehaus.groovy:groovy:$groovyVersion"
 
@@ -49,10 +48,13 @@ dependencies {
     // spock
     testImplementation platform("org.spockframework:spock-bom:$spockVersion"),
             "org.spockframework:spock-core",
-            "org.slf4j:slf4j-log4j12:$slf4jVersion",
-            "org.apache.logging.log4j:log4j:$log4jVersion"
+            "org.apache.logging.log4j:log4j-core:$log4jVersion"
 
-    testRuntimeOnly "org.jparsec:jparsec:$jparsecVersion"
+    testRuntimeOnly("org.mnode.ical4j:ical4j:$ical4jVersion") {
+        capabilities {
+            requireCapability("org.mnode.ical4j:ical4j-filter-expressions")
+        }
+    }
 }
 
 //compileTestJava {
