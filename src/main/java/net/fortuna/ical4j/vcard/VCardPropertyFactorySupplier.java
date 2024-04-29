@@ -8,10 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class VCardPropertyFactorySupplier implements Supplier<List<PropertyFactory<? extends Property>>> {
+public class VCardPropertyFactorySupplier implements Supplier<List<net.fortuna.ical4j.model.PropertyFactory<? extends Property>>> {
 
     @Override
-    public List<PropertyFactory<? extends Property>> get() {
+    public List<net.fortuna.ical4j.model.PropertyFactory<? extends Property>> get() {
         List<PropertyFactory<? extends Property>> rfc6350 = Arrays.asList(
                 new Address.Factory(), new Agent.Factory(), new BDay.Factory(), new Birth.Factory(),
                 new CalAdrUri.Factory(), new CalUri.Factory(), new Categories.Factory(),
@@ -26,7 +26,7 @@ public class VCardPropertyFactorySupplier implements Supplier<List<PropertyFacto
                 new Title.Factory(), new Tz.Factory(), new Uid.Factory(), new Url.Factory(), new Version.Factory()
         );
 
-        List<PropertyFactory<? extends Property>> factories = new ArrayList<>(rfc6350);
+        List<net.fortuna.ical4j.model.PropertyFactory<? extends Property>> factories = new ArrayList<>(rfc6350);
 
         return factories;
     }
