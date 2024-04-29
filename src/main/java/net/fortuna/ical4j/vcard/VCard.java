@@ -44,6 +44,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import java.io.Serializable;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.GROUP;
 
@@ -159,6 +160,11 @@ public class VCard implements Serializable, PropertyContainer {
         if (properties.size() != 1) {
             throw new ValidationException("Property [" + propertyId + "] must be specified once");
         }
+    }
+
+    public VCard copy() {
+        return new VCard(new PropertyList(getProperties().parallelStream()
+                .map(Property::copy).collect(Collectors.toList())));
     }
 
     /**
