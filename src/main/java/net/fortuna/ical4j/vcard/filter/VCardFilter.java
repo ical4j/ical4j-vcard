@@ -9,6 +9,8 @@ import net.fortuna.ical4j.model.ParameterFactory;
 import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.PropertyFactory;
 import net.fortuna.ical4j.vcard.VCard;
+import net.fortuna.ical4j.vcard.VCardParameterFactorySupplier;
+import net.fortuna.ical4j.vcard.VCardPropertyFactorySupplier;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -29,6 +31,7 @@ import java.util.function.Supplier;
 public class VCardFilter extends AbstractFilter<VCard> {
 
     public VCardFilter() {
+        this(new VCardPropertyFactorySupplier(), new VCardParameterFactorySupplier());
     }
 
     public VCardFilter(Supplier<List<PropertyFactory<?>>> propertyFactorySupplier, Supplier<List<ParameterFactory<?>>> parameterFactorySupplier) {
