@@ -66,6 +66,8 @@ class XPropertyFactory extends net.fortuna.ical4j.model.property.AbstractPropert
 
     @Override
     protected Object newInstance(parameters, value) {
-        return new XProperty(propertyName, new ParameterList((List) parameters), value)
+        def property = new XProperty(propertyName, new ParameterList((List) parameters), value)
+        property.prefix = propertyPrefix
+        return property
     }
 }
