@@ -31,8 +31,11 @@
  */
 package net.fortuna.ical4j.vcard
 
+
 import net.fortuna.ical4j.vcard.parameter.Encoding
 import net.fortuna.ical4j.vcard.property.Clazz
+import net.fortuna.ical4j.vcard.property.Source
+import net.fortuna.ical4j.vcard.property.XProperty
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -134,6 +137,18 @@ class ContentBuilderSpec extends Specification {
 	def 'build ADR parameter and assert the result'() {
 		expect:
 		assert builder.adr(';;;;;;') as String == 'ADR:;;;;;;;\r\n'
+	}
+
+	def 'test build non-standard/experimental props'() {
+		expect:
+		def property = builder."$propertyName"('https://example.com/test.vcf')
+		assert property.class == expectedType && property as String == expectedString
+
+		where:
+		propertyName   | expectedType | expectedString
+		'experimental' | XProperty    | 'experimental:https://example.com/test.vcf\r\n'
+		'X-FACTOR'     | XProperty    | 'X-FACTOR:https://example.com/test.vcf\r\n'
+		'source'       | Source       | 'SOURCE:https://example.com/test.vcf\r\n'
 	}
 }
 

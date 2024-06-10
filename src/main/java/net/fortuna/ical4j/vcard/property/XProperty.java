@@ -15,6 +15,10 @@ public class XProperty extends Property implements GroupProperty {
 
     private String value;
 
+    public XProperty(String aName) {
+        super(aName);
+    }
+
     public XProperty(String name, String value) {
         super(name);
         this.value = value;

@@ -61,7 +61,7 @@ public final class Pref extends Parameter {
      * @param value a string representation of a pref parameter value
      */
     public Pref(String value) {
-        this(Integer.valueOf(value));
+        this(value.isEmpty() ? null : Integer.valueOf(value));
     }
 
     /**
@@ -69,7 +69,7 @@ public final class Pref extends Parameter {
      */
     public Pref(Integer level) {
         super(ParameterName.PREF.toString());
-        if (level <= 0) {
+        if (level != null && level <= 0) {
             throw new IllegalArgumentException("The level of preferredness must be a positive integer");
         }
         this.level = level;

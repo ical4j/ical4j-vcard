@@ -49,7 +49,24 @@ class ContentBuilder extends FactoryBuilderSupport {
     ContentBuilder(boolean init = true) {
         super(init)
     }
-    
+
+    @Override
+    protected Factory resolveFactory(name, Map attributes, value) {
+        def prefix = name.substring(0, Math.max(0, name.lastIndexOf('.')))
+        def propName = name.split('\\.')[-1]
+        def factory = super.resolveFactory(propName, attributes, value)
+        if (!factory) {
+            factory = new XPropertyFactory(propName)
+        }
+
+        if (factory.class.isAssignableFrom(net.fortuna.ical4j.model.property.AbstractPropertyFactory) ||
+                factory.class.equals(PropertyFactoryWrapper) ||
+                factory.class.equals(XPropertyFactory)) {
+            factory.propertyPrefix = !prefix.empty ? prefix : null
+        }
+        return factory
+    }
+
     def registerVCard() {
         registerFactory('vcard', new VCardFactory())
     }
@@ -103,6 +120,8 @@ class ContentBuilder extends FactoryBuilderSupport {
                 new net.fortuna.ical4j.vcard.property.Version.Factory()))
         // RFC2426 factories..
         registerFactory('mailer', new PropertyFactoryWrapper(Mailer, new Mailer.Factory()))
+
+        registerFactory('xproperty', new XPropertyFactory())
     }
     
     def registerParameters() {

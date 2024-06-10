@@ -51,7 +51,14 @@ public interface GroupProperty {
     }
 
     default Group getGroup() {
-//        return Group.Id.valueOf(getPrefix());
+        if (getPrefix() != null) {
+            switch (Group.Id.valueOf(getPrefix())) {
+                case WORK:
+                    return Group.WORK;
+                case HOME:
+                    return Group.HOME;
+            }
+        }
         return null;
     }
 }

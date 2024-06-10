@@ -31,33 +31,43 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-import net.fortuna.ical4j.util.CompatibilityHints
-import net.fortuna.ical4j.vcard.PropertyName
-import net.fortuna.ical4j.vcard.VCard
-import net.fortuna.ical4j.vcard.VCardBuilder
 
-class AddressSpec extends AbstractPropertySpec {
+import net.fortuna.ical4j.model.ParameterList
 
-    def setup() {
-        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false)
+/**
+ * $Id$
+ *
+ * Created on: 02/08/2009
+ *
+ * @author fortuna
+ *
+ */
+class XPropertyFactory extends net.fortuna.ical4j.model.property.AbstractPropertyFactory {
+
+    final def propertyName
+
+    XPropertyFactory(propertyName) {
+        this.propertyName = propertyName
     }
 
-    def 'validate string representation'() {
-        expect: 'derived string representation equals expected'
-        factoryRegistry.getFactory(PropertyName.ADR as String).createProperty(value).toString() == expectedString
-
-        where:
-        value                                                        | expectedString
-        ';;41 Roxbury Work\\nOne Street;Commack;NY;171725;Argentina' | 'ADR:;;41 Roxbury Work\\nOne Street;Commack;NY;171725;Argentina;\r\n'
-        ';;Lierstr. 20a;München;;80639;Deutschland'                  | 'ADR:;;Lierstr. 20a;München;;80639;Deutschland;\r\n'
+    @Override
+    Object newInstance(FactoryBuilderSupport builder, name, value, Map attributes) throws InstantiationException,
+            IllegalAccessException {
+        def property
+        if (FactoryBuilderSupport.checkValueIsTypeNotString(value, name, XProperty)) {
+            property = value.copy()
+        } else if (attributes['value']) {
+            property = super.newInstance(builder, name, attributes.remove('value'), attributes)
+        } else {
+            property = super.newInstance(builder, name, value, attributes)
+        }
+        return property
     }
 
-    def 'test parse'() {
-        given: 'a vcard'
-        VCard card = new VCardBuilder(new FileReader('src/test/resources/samples/valid/Frank_Dawson.vcf')).build()
-
-        expect: 'the address components match expected'
-        Address address = card.getProperty(PropertyName.ADR).get()
-        address.validate()
+    @Override
+    protected Object newInstance(parameters, value) {
+        def property = new XProperty(propertyName, new ParameterList((List) parameters), value)
+        property.prefix = propertyPrefix
+        return property
     }
 }
