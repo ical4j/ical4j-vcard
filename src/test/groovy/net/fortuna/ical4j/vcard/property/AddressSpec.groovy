@@ -31,10 +31,16 @@
  */
 package net.fortuna.ical4j.vcard.property
 
-
+import net.fortuna.ical4j.util.CompatibilityHints
 import net.fortuna.ical4j.vcard.PropertyName
+import net.fortuna.ical4j.vcard.VCard
+import net.fortuna.ical4j.vcard.VCardBuilder
 
 class AddressSpec extends AbstractPropertySpec {
+
+    def setup() {
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false)
+    }
 
     def 'validate string representation'() {
         expect: 'derived string representation equals expected'
@@ -44,5 +50,14 @@ class AddressSpec extends AbstractPropertySpec {
         value                                                        | expectedString
         ';;41 Roxbury Work\\nOne Street;Commack;NY;171725;Argentina' | 'ADR:;;41 Roxbury Work\\nOne Street;Commack;NY;171725;Argentina;\r\n'
         ';;Lierstr. 20a;München;;80639;Deutschland'                  | 'ADR:;;Lierstr. 20a;München;;80639;Deutschland;\r\n'
+    }
+
+    def 'test parse'() {
+        given: 'a vcard'
+        VCard card = new VCardBuilder(new FileReader('src/test/resources/samples/valid/Frank_Dawson.vcf')).build()
+
+        expect: 'the address components match expected'
+        Address address = card.getProperty(PropertyName.ADR).get()
+        address.validate()
     }
 }

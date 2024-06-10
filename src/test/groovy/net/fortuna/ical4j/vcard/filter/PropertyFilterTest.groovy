@@ -32,7 +32,7 @@ class PropertyFilterTest extends Specification {
 
     def 'test filter expression equals parameter'() {
         given: 'a filter expression'
-        def filter = FilterExpression.equalTo('type', () -> Type.HOME.value)
+        def filter = FilterExpression.equalTo('type', Type.HOME.value)
 
         and: 'a vcard'
         def card = new ContentBuilder().vcard() {
