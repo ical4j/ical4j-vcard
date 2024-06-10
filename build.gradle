@@ -9,7 +9,7 @@ plugins {
     id "com.palantir.revapi" version "1.7.0"
 //    id "net.ltgt.errorprone" version "2.0.2" apply false
     id "biz.aQute.bnd.builder" version "$bndVersion"
-    id 'org.javamodularity.moduleplugin' version '1.8.14'
+    id 'org.javamodularity.moduleplugin' version '1.8.15'
 }
 
 sourceCompatibility = 11
@@ -57,11 +57,11 @@ dependencies {
     }
 }
 
-//compileTestJava {
-//    moduleOptions {
-//        compileOnClasspath = true
-//    }
-//}
+compileTestJava {
+    moduleOptions {
+        compileOnClasspath = true
+    }
+}
 
 test {
     moduleOptions {
@@ -132,6 +132,8 @@ jar {
                 'Implementation-Vendor': 'Ben Fortuna'
         )
     }
+
+    duplicatesStrategy = DuplicatesStrategy.WARN
 }
 
 revapi {
