@@ -57,7 +57,10 @@ import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.GROUP;
  *
  * @author Ben
  */
-public class VCard implements Serializable, PropertyContainer {
+public class VCard implements Serializable, PropertyContainer, AddressPropertyAccessor,
+        CalendarPropertyAccessor, CommunicationsPropertyAccessor, ExplanatoryPropertyAccessor, GeneralPropertyAccessor,
+        GeographicalPropertyAccessor, IdentificationPropertyAccessor, OrganizationalPropertyAccessor,
+        SecurityPropertyAccessor {
 
     /**
      * Smart merging of properties that identifies whether to add or replace existing properties.

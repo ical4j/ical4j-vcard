@@ -57,7 +57,6 @@ class AddressSpec extends AbstractPropertySpec {
         VCard card = new VCardBuilder(new FileReader('src/test/resources/samples/valid/Frank_Dawson.vcf')).build()
 
         expect: 'the address components match expected'
-        Address address = card.getProperty(PropertyName.ADR).get()
-        address.validate()
+        card.addresses[0].validate()
     }
 }
