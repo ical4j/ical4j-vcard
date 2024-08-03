@@ -39,8 +39,8 @@ import org.junit.Test;
 import org.junit.runners.Parameterized.Parameters;
 
 import java.text.ParseException;
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -50,11 +50,11 @@ import static org.junit.Assert.*;
 
 public class BDayTest extends PropertyTest {
 
-    private final BDay property;
+    private final BDay<?> property;
 
     private final Class<?> expectedDateType;
 
-    public BDayTest(BDay property, String expectedName, String expectedValue, Parameter[] expectedParams,
+    public BDayTest(BDay<?> property, String expectedName, String expectedValue, Parameter[] expectedParams,
                     Class<?> expectedDateType) {
 
         super(property, expectedName, expectedValue, expectedParams);
@@ -84,22 +84,22 @@ public class BDayTest extends PropertyTest {
         final List<Object[]> params = new ArrayList<Object[]>();
 
         String dateString = "19690415";
-        params.add(new Object[]{new BDay(TemporalAdapter.parse(dateString).getTemporal()), PropertyName.BDAY.toString(), dateString,
+        params.add(new Object[]{new BDay<>(TemporalAdapter.parse(dateString).getTemporal()), PropertyName.BDAY.toString(), dateString,
                 new Parameter[]{Value.DATE}, LocalDate.class,});
         dateString = "15730125T180322Z";
-        params.add(new Object[]{new BDay(TemporalAdapter.parse(dateString).getTemporal()), PropertyName.BDAY.toString(),
-                dateString, new Parameter[]{}, Instant.class,});
+        params.add(new Object[]{new BDay<>(TemporalAdapter.parse(dateString).getTemporal()), PropertyName.BDAY.toString(),
+                dateString, new Parameter[]{}, OffsetDateTime.class,});
 
         dateString = "19690416";
-        params.add(new Object[]{new BDay(new ParameterList(), dateString), PropertyName.BDAY.toString(), dateString,
+        params.add(new Object[]{new BDay<>(new ParameterList(), dateString), PropertyName.BDAY.toString(), dateString,
                 new Parameter[]{}, LocalDate.class,});
         dateString = "15730125T180323Z";
-        params.add(new Object[]{new BDay(new ParameterList(), dateString), PropertyName.BDAY.toString(),
-                dateString, new Parameter[]{}, Instant.class,});
-        params.add(new Object[]{new BDay(""), PropertyName.BDAY.toString(), "", new Parameter[]{Value.TEXT}, null});
+        params.add(new Object[]{new BDay<>(new ParameterList(), dateString), PropertyName.BDAY.toString(),
+                dateString, new Parameter[]{}, OffsetDateTime.class,});
+        params.add(new Object[]{new BDay<>(""), PropertyName.BDAY.toString(), "", new Parameter[]{Value.TEXT}, null});
         final ParameterList bdayParams = new ParameterList(Collections.singletonList(Value.TEXT));
         final String bdayString = "Circa 400, bce";
-        params.add(new Object[]{new BDay(bdayParams, bdayString), PropertyName.BDAY.toString(), bdayString,
+        params.add(new Object[]{new BDay<>(bdayParams, bdayString), PropertyName.BDAY.toString(), bdayString,
                 new Parameter[]{Value.TEXT}, null,});
         return params;
     }
