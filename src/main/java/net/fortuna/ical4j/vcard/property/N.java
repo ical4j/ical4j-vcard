@@ -135,7 +135,7 @@ public class N extends Property implements PropertyValidatorSupport {
      */
     @Override
     public String getValue() {
-        final StringBuilder b = new StringBuilder();
+        final var b = new StringBuilder();
         if (isNotEmpty(familyName)) {
             b.append(familyName);
         }
@@ -180,7 +180,7 @@ public class N extends Property implements PropertyValidatorSupport {
 
     @Override
     public void setValue(String value) {
-        final String[] names = value.split(";", -1);
+        final var names = value.split(";", -1);
         this.familyName = names[0];
         if (names.length >= 2) {
             this.givenName = names[1];

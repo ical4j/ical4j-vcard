@@ -45,7 +45,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -150,7 +149,7 @@ public final class VCardBuilder {
     public VCardList buildAll() throws IOException, ParserException {
         final List<VCard> cards = new ArrayList<>();
         while (true) {
-            final VCard card = build(false);
+            final var card = build(false);
             if (card == null) {
                 break;
             } else {
@@ -229,8 +228,8 @@ public final class VCardBuilder {
      * @throws DecoderException
      */
     private Property parseProperty(final String line) throws URISyntaxException {
-        PropertyBuilder propertyBuilder = new PropertyBuilder(vCardBuilderContext.getPropertyFactorySupplier().get());
-        Matcher matcher = PROPERTY_NAME_PATTERN.matcher(line);
+        var propertyBuilder = new PropertyBuilder(vCardBuilderContext.getPropertyFactorySupplier().get());
+        var matcher = PROPERTY_NAME_PATTERN.matcher(line);
         if (matcher.find()) {
             propertyBuilder.name(matcher.group().toUpperCase());
 
@@ -238,7 +237,7 @@ public final class VCardBuilder {
             if (matcher.find()) {
                 propertyBuilder.value(matcher.group(0));
 
-                final ParameterList params = parseParameters(line);
+                final var params = parseParameters(line);
                 params.get().forEach(propertyBuilder::parameter);
             }
             return propertyBuilder.build();
@@ -256,14 +255,14 @@ public final class VCardBuilder {
      */
     private ParameterList parseParameters(final String line) {
         final List<Parameter> parameters = new ArrayList<>();
-        final Matcher matcher = PARAMETERS_PATTERN.matcher(line);
+        final var matcher = PARAMETERS_PATTERN.matcher(line);
         if (matcher.find()) {
-            ParameterBuilder parameterBuilder = new ParameterBuilder(
+            var parameterBuilder = new ParameterBuilder(
                     vCardBuilderContext.getParameterFactorySupplier().get());
 
-            final String[] params = matcher.group().split(";");
-            for (String param : params) {
-                final String[] vals = param.split("=");
+            final var params = matcher.group().split(";");
+            for (var param : params) {
+                final var vals = param.split("=");
                 parameterBuilder.name(vals[0]);
                 if (vals.length > 1) {
                     parameterBuilder.value(vals[1]);

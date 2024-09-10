@@ -45,6 +45,7 @@ import net.fortuna.ical4j.vcard.parameter.Type;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 
 /**
  * CALADRURI property.
@@ -68,9 +69,7 @@ public class CalAdrUri extends Property implements PropertyValidatorSupport {
     public CalAdrUri(URI uri, Type... types) {
         super(PropertyName.CALADRURI);
         this.uri = uri;
-        for (Type type : types) {
-            add(type);
-        }
+        Arrays.stream(types).forEach(this::add);
     }
 
     /**

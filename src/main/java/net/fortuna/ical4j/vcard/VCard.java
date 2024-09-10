@@ -34,6 +34,7 @@ package net.fortuna.ical4j.vcard;
 import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.PropertyContainer;
 import net.fortuna.ical4j.model.PropertyList;
+import net.fortuna.ical4j.model.Prototype;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationEntry;
 import net.fortuna.ical4j.validate.ValidationException;
@@ -57,7 +58,7 @@ import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.GROUP;
  *
  * @author Ben
  */
-public class VCard implements Serializable, PropertyContainer, AddressPropertyAccessor,
+public class VCard implements Serializable, Prototype<VCard>, PropertyContainer, AddressPropertyAccessor,
         CalendarPropertyAccessor, CommunicationsPropertyAccessor, ExplanatoryPropertyAccessor, GeneralPropertyAccessor,
         GeographicalPropertyAccessor, IdentificationPropertyAccessor, OrganizationalPropertyAccessor,
         SecurityPropertyAccessor {
@@ -125,7 +126,7 @@ public class VCard implements Serializable, PropertyContainer, AddressPropertyAc
      * @throws ValidationException where validation fails
      */
     public ValidationResult validate() throws ValidationException {
-        ValidationResult result = new ValidationResult();
+        var result = new ValidationResult();
 
         // ;A vCard object MUST include the VERSION and FN properties.
         assertOne(PropertyName.VERSION);
@@ -142,7 +143,7 @@ public class VCard implements Serializable, PropertyContainer, AddressPropertyAc
             isKindGroup = properties.iterator().next().getValue().equals(GROUP.getValue());
         }
 
-        for (Property property : getProperties()) {
+        for (var property : getProperties()) {
             if (!isKindGroup && (property.getName().equals(PropertyName.MEMBER))) {
                 result.getEntries().add(new ValidationEntry("Property [" + PropertyName.MEMBER +
                         "] can only be specified if the KIND property value is \"group\".",
@@ -167,7 +168,7 @@ public class VCard implements Serializable, PropertyContainer, AddressPropertyAc
 
     public VCard copy() {
         return new VCard(new PropertyList(getProperties().parallelStream()
-                .map(Property::copy).collect(Collectors.toList())));
+                .map(Property::<Property>copy).collect(Collectors.toList())));
     }
 
     /**
@@ -182,7 +183,7 @@ public class VCard implements Serializable, PropertyContainer, AddressPropertyAc
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof VCard) {
-            VCard card = (VCard) obj;
+            var card = (VCard) obj;
             return new EqualsBuilder().append(getProperties(), card.getProperties()).isEquals();
         }
         return super.equals(obj);

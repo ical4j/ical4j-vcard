@@ -40,6 +40,8 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Type;
 
+import java.util.Arrays;
+
 import static net.fortuna.ical4j.util.Strings.escape;
 import static net.fortuna.ical4j.util.Strings.unescape;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -92,9 +94,7 @@ public class Address extends Property implements PropertyValidatorSupport, Group
         this.region = region;
         this.postcode = postcode;
         this.country = country;
-        for (Type type : types) {
-            add(type);
-        }
+        Arrays.stream(types).forEach(this::add);
     }
 
     /**
@@ -158,7 +158,7 @@ public class Address extends Property implements PropertyValidatorSupport, Group
     }
 
     private void parseValue(String value) {
-        final String[] components = value.split(";", 8);
+        final var components = value.split(";", 8);
         if (components.length < 6) {
             throw new IllegalArgumentException("ADR value must have all address components");
         }
@@ -175,7 +175,7 @@ public class Address extends Property implements PropertyValidatorSupport, Group
     }
 
     private void parseValueRelaxed(String value) {
-        final String[] components = value.split(";");
+        final var components = value.split(";");
         final int length = components.length;
         if (length >= 1) {
             this.poBox = components[0];
@@ -276,7 +276,7 @@ public class Address extends Property implements PropertyValidatorSupport, Group
      */
     @Override
     public String getValue() {
-        final StringBuilder b = new StringBuilder();
+        final var b = new StringBuilder();
         if (isNotEmpty(poBox)) {
             b.append(escape(poBox));
         }
@@ -394,7 +394,7 @@ public class Address extends Property implements PropertyValidatorSupport, Group
         }
 
         public Address build() {
-            Address address = new Address();
+            var address = new Address();
             address.poBox = poBox;
             address.extended = extended;
             address.street = street;

@@ -34,11 +34,13 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.model.Content;
 import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 
-import static net.fortuna.ical4j.util.Strings.escape;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * ORG property.
@@ -119,15 +121,7 @@ public class Org extends Property implements PropertyValidatorSupport, GroupProp
      */
     @Override
     public String getValue() {
-        final StringBuilder b = new StringBuilder();
-        for (int i = 0; i < values.length; i++) {
-            b.append(escape(values[i]));
-            if (i < values.length - 1) {
-                b.append(';');
-            }
-
-        }
-        return b.toString();
+        return Arrays.stream(values).map(Strings::escape).collect(Collectors.joining(";"));
     }
 
     @Override
