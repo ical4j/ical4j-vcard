@@ -38,7 +38,7 @@ package net.fortuna.ical4j.vcard
  * @author fortuna
  *
  */
-public class ContentBuilderTest extends GroovyTestCase {
+class ContentBuilderTest extends GroovyTestCase {
 
     void testBuildCard() {
         def builder = new ContentBuilder()

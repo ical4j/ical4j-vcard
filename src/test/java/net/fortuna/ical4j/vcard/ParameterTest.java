@@ -42,7 +42,6 @@ import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
 public class ParameterTest {
@@ -86,7 +85,7 @@ public class ParameterTest {
 
     @Test
     public void testEquals() {
-        assertTrue(parameter.equals(expectedEqualTo));
+        assertEquals(parameter, expectedEqualTo);
     }
     
     /**

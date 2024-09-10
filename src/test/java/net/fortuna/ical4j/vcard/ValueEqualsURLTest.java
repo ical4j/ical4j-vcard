@@ -98,7 +98,7 @@ public class ValueEqualsURLTest {
 
         Key key = card.getRequiredProperty(PropertyName.KEY);
         assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.key",
-                key.getValue().toString());
+                key.getValue());
 
     }
 }

@@ -31,7 +31,7 @@
  */
 package net.fortuna.ical4j.vcard
 
-import spock.lang.Specification;
+import spock.lang.Specification
 
 /**
  * $Id$

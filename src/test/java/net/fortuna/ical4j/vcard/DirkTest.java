@@ -113,7 +113,7 @@ public class DirkTest {
      * @throws DecoderException
      */
     private String getDecodedPropertyalue(Property prop) throws DecoderException {
-        Encoding enc = (Encoding) prop.getRequiredParameter(ParameterName.ENCODING.toString());
+        Encoding enc = prop.getRequiredParameter(ParameterName.ENCODING.toString());
         String val = prop.getValue();
         if (enc != null && enc.getValue().equalsIgnoreCase("QUOTED-PRINTABLE")) {
 			
