@@ -42,7 +42,6 @@ import org.junit.runners.Parameterized.Parameters;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -74,24 +73,24 @@ public class VCardOutputterTest {
     
     @Test
     public void testOutput() throws IOException, ValidationException {
-        StringWriter out = new StringWriter();
+        var out = new StringWriter();
         outputter.output(card, out);
         assertEquals(expectedOutput, out.toString().replaceAll("\\r\\n ", ""));
     }
 
     @Parameters
     public static Collection<Object[]> parameters() throws IOException, ParserException {
-        VCardOutputter outputter = new VCardOutputter(false, 1000);
+        var outputter = new VCardOutputter(false, 1000);
         VCardBuilder builder = null;
-        List<Object[]> params = new ArrayList<Object[]>();
-        File[] testFiles = new File("src/test/resources/samples/valid").listFiles(
+        var params = new ArrayList<Object[]>();
+        var testFiles = new File("src/test/resources/samples/valid").listFiles(
                 (FileFilter) VCardFileFilter.INSTANCE);
         // enable relaxed parsing for non-standard GEO support..
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
-        for (int i = 0; i < testFiles.length; i++) {
-            builder = new VCardBuilder(new FileReader(testFiles[i]));
-            VCard card = builder.build();
-            params.add(new Object[] {outputter, card, card.toString()});
+        for (var testFile : testFiles) {
+            builder = new VCardBuilder(new FileReader(testFile));
+            var card = builder.build();
+            params.add(new Object[]{outputter, card, card.toString()});
         }
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
         return params;
