@@ -7,7 +7,7 @@ import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
 
-class VCardFilterTest extends Specification {
+class EntityFilterTest extends Specification {
 
     @Shared
     ContentBuilder builder
@@ -20,13 +20,13 @@ class VCardFilterTest extends Specification {
         given: 'a filter expression'
         def expression = FilterExpression.equalTo('fn', 'Joe Bloggs')
 
-        and: 'a card'
-        def card = builder.vcard {
+        and: 'an entity'
+        def card = builder.entity {
             fn 'Joe Bloggs'
         }
 
         expect: 'filter matches the event'
-        new VCardFilter().predicate(expression).test(card)
+        new EntityFilter().predicate(expression).test(card)
     }
 
     @Ignore('unsupported test')
@@ -35,14 +35,14 @@ class VCardFilterTest extends Specification {
         def filter = FilterExpression.lessThanEqual('bday',
                 TemporalAdapter.parse('19750101').temporal)
 
-        and: 'a card'
-        def card = builder.vcard {
+        and: 'an entity'
+        def card = builder.entity {
             fn 'Joe Bloggs'
             bday '19740101'
         }
 
         expect: 'filter matches the event'
-        new VCardFilter().predicate(filter).test(card)
+        new EntityFilter().predicate(filter).test(card)
     }
 
     @Ignore('unsupported test')
@@ -51,86 +51,86 @@ class VCardFilterTest extends Specification {
         def filter = FilterExpression.lessThanEqual('bday',
                 TemporalFunctions.NOW.apply('-P936W'))
 
-        and: 'a card'
-        def card = builder.vcard {
+        and: 'an entity'
+        def card = builder.entity {
             fn 'Sally Cap'
             bday '19980609'
         }
 
         expect: 'filter matches the event'
-        new VCardFilter().predicate(filter).test(card)
+        new EntityFilter().predicate(filter).test(card)
     }
 
     def 'test filter expression in'() {
         given: 'a filter expression'
         def filter = FilterExpression.in('member', ['fred@example.com'])
 
-        and: 'a card'
-        def card = builder.vcard {
+        and: 'an entity'
+        def card = builder.entity {
             fn 'Calendar Experts'
             kind 'group'
             member 'fred@example.com'
         }
 
         expect: 'filter matches the event'
-        new VCardFilter().predicate(filter).test(card)
+        new EntityFilter().predicate(filter).test(card)
     }
 
     def 'test filter expression contains'() {
         given: 'a filter expression'
         def filter = FilterExpression.contains('email', 'example.com')
 
-        and: 'a card'
-        def card = builder.vcard {
+        and: 'an entity'
+        def card = builder.entity {
             fn 'Fred Savage'
             kind 'individual'
             email 'fred@example.com'
         }
 
         expect: 'filter matches the event'
-        new VCardFilter().predicate(filter).test(card)
+        new EntityFilter().predicate(filter).test(card)
     }
 
     def 'test filter expression missing'() {
         given: 'a filter expression'
         def filter = FilterExpression.notExists('tel')
 
-        and: 'a card'
-        def card = builder.vcard {
+        and: 'an entity'
+        def card = builder.entity {
             fn 'Fred Savage'
             kind 'individual'
             email 'fred@example.com'
         }
 
         expect: 'filter matches the event'
-        new VCardFilter().predicate(filter).test(card)
+        new EntityFilter().predicate(filter).test(card)
     }
 
     def 'test filter expression not missing'() {
         given: 'a filter expression'
         def filter = FilterExpression.exists('email')
 
-        and: 'a card'
-        def card = builder.vcard {
+        and: 'an entity'
+        def card = builder.entity {
             fn 'Fred Savage'
             kind 'individual'
             email 'fred@example.com'
         }
 
         expect: 'filter matches the event'
-        new VCardFilter().predicate(filter).test(card)
+        new EntityFilter().predicate(filter).test(card)
     }
 
     def 'test filter expression parsing'() {
-        given: 'a card'
-        def card = builder.vcard {
+        given: 'an entity'
+        def card = builder.entity {
             fn 'Fred Savage'
             kind 'individual'
             email 'fred@example.com'
         }
 
         expect: 'filter matches the event'
-        new VCardFilter().predicate(FilterExpression.parse(expression)).test(card) == expectedResult
+        new EntityFilter().predicate(FilterExpression.parse(expression)).test(card) == expectedResult
 
         where: 'filter expression'
         expression                                            | expectedResult
@@ -146,15 +146,15 @@ class VCardFilterTest extends Specification {
         given: 'a filter expression using sets'
         def filter = FilterExpression.in('kind', ['individual'] as Set)
 
-        and: 'a card'
-        def card = builder.vcard {
+        and: 'an entity'
+        def card = builder.entity {
             fn 'Fred Savage'
             kind 'individual'
             email 'fred@example.com'
         }
 
         expect: 'filter matches the event'
-        new VCardFilter().predicate(filter).test(card)
+        new EntityFilter().predicate(filter).test(card)
     }
 
 }

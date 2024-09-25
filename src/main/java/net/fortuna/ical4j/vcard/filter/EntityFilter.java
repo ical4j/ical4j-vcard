@@ -28,13 +28,13 @@ import java.util.function.Supplier;
  *   .forEach(System.out::println);
  * </pre>
  */
-public class VCardFilter extends AbstractFilter<VCard> {
+public class EntityFilter extends AbstractFilter<VCard> {
 
-    public VCardFilter() {
+    public EntityFilter() {
         this(new VCardPropertyFactorySupplier(), new VCardParameterFactorySupplier());
     }
 
-    public VCardFilter(Supplier<List<PropertyFactory<?>>> propertyFactorySupplier, Supplier<List<ParameterFactory<?>>> parameterFactorySupplier) {
+    public EntityFilter(Supplier<List<PropertyFactory<?>>> propertyFactorySupplier, Supplier<List<ParameterFactory<?>>> parameterFactorySupplier) {
         super(propertyFactorySupplier, parameterFactorySupplier);
     }
 

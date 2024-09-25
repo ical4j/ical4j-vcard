@@ -51,24 +51,24 @@ class VCardBuilderSpec extends Specification {
 		and: 'parse input file'
 		InputStreamReader input = [VCardBuilderSpec.getResourceAsStream('/samples/valid/vcard-group.vcf')]
 		VCardBuilder builder = [input, groupRegistry, new PropertyFactoryRegistry(), new ParameterFactoryRegistry()]
-		VCard vcard = builder.build()
+        def entity = builder.build()
 		
 		expect:
-		vcard.propertyList.all.size() == 2
-		
-		println vcard
+        entity.propertyList.all.size() == 2
+
+        println entity
 	}
 	
 	def 'verify URL parsing'() {
 		setup: 'parse input file'
 		InputStreamReader input = [VCardBuilderSpec.getResourceAsStream('/samples/valid/vcard-url.vcf')]
 		VCardBuilder builder = [input]
-		VCard vcard = builder.build()
+        def entity = builder.build()
 		
 		expect:
-        vcard.propertyList.all.size() == 2
-		
-		println vcard
+        entity.propertyList.all.size() == 2
+
+        println entity
 	}
 
 	def 'assert empty address parsing'() {
@@ -79,10 +79,10 @@ END:VCARD
 ''')]
 
         when: 'the string is parsed'
-        VCard vcard = builder.build()
+        def entity = builder.build()
 
         then: 'an adr property is created'
-        vcard.propertyList.all.size() == 1
-        vcard.propertyList.all[0] as String == 'ADR;TYPE=WORK:;;;;;;;\r\n'
+        entity.propertyList.all.size() == 1
+        entity.propertyList.all[0] as String == 'ADR;TYPE=WORK:;;;;;;;\r\n'
     }
 }

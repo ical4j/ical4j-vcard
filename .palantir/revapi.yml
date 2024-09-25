@@ -1121,6 +1121,9 @@ acceptedBreaks:
       - code: "java.class.removed"
         old: "class net.fortuna.ical4j.vcard.Property"
         justification: "major_refactor"
+      - code: "java.class.removed"
+        old: "class net.fortuna.ical4j.vcard.VCardFactory"
+        justification: "refactoring_entity"
       - code: "java.element.nowDeprecated"
         old: "class net.fortuna.ical4j.vcard.property.Agent"
         new: "class net.fortuna.ical4j.vcard.property.Agent"
@@ -3668,6 +3671,12 @@ acceptedBreaks:
         \ throws java.net.URISyntaxException @ net.fortuna.ical4j.vcard.PropertyFactory<T\
         \ extends net.fortuna.ical4j.vcard.GroupProperty>"
         justification: "major_refactor"
+      - code: "java.method.returnTypeChanged"
+        old: "method java.util.List<net.fortuna.ical4j.vcard.VCard> net.fortuna.ical4j.vcard.VCardBuilder::buildAll()\
+        \ throws java.io.IOException, net.fortuna.ical4j.data.ParserException"
+        new: "method net.fortuna.ical4j.vcard.EntityList net.fortuna.ical4j.vcard.VCardBuilder::buildAll()\
+        \ throws java.io.IOException, net.fortuna.ical4j.data.ParserException"
+        justification: "refactoring_entity"
       - code: "java.method.returnTypeChanged"
         old: "method java.util.List<net.fortuna.ical4j.vcard.VCard> net.fortuna.ical4j.vcard.VCardBuilder::buildAll()\
         \ throws java.io.IOException, net.fortuna.ical4j.data.ParserException"

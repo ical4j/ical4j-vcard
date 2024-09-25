@@ -6,7 +6,7 @@ class VCardSpec extends Specification {
 
     def 'test vcard equality'() {
         given: 'a vcard instance'
-        def card = new ContentBuilder().vcard() {
+        def card = new ContentBuilder().entity {
             version '4.0'
             fn 'test'
             n('example') {
@@ -16,7 +16,7 @@ class VCardSpec extends Specification {
         }
 
         and: 'an identical vcard'
-        def card2 = new ContentBuilder().vcard() {
+        def card2 = new ContentBuilder().entity {
             version '4.0'
             fn 'test'
             n('example') {

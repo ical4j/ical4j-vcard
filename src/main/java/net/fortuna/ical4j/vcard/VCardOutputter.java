@@ -76,29 +76,29 @@ public class VCardOutputter extends AbstractOutputter {
 
     /**
      * Outputs a vCard string to the specified output stream.
-     * @param card a vCard object to output as a string
+     * @param entity a vCard object to output as a string
      * @param out an output stream the output stream to write the vCard string to
      * @throws IOException thrown when unable to write to output stream
      * @throws ValidationException where the specified vCard is not valid
      */
-    public final void output(final VCard card, final OutputStream out) throws IOException, ValidationException {
-        output(card, new OutputStreamWriter(out, DEFAULT_CHARSET));
+    public final void output(final VCard entity, final OutputStream out) throws IOException, ValidationException {
+        output(entity, new OutputStreamWriter(out, DEFAULT_CHARSET));
     }
 
     /**
      * Outputs an vCard string to the specified writer.
-     * @param card a vCard object to output as a string
+     * @param entity a vCard object to output as a string
      * @param out a writer to write the output string to
      * @throws IOException thrown when unable to write to writer
      * @throws ValidationException where the specified vCard is not valid
      */
-    public final void output(final VCard card, final Writer out) throws IOException, ValidationException {
+    public final void output(final VCard entity, final Writer out) throws IOException, ValidationException {
         if (isValidating()) {
-            card.validate();
+            entity.validate();
         }
 
         try (FoldingWriter writer = new FoldingWriter(out, foldLength)) {
-            writer.write(card.toString());
+            writer.write(entity.toString());
         }
     }
 
@@ -110,7 +110,7 @@ public class VCardOutputter extends AbstractOutputter {
      * @throws IOException         thrown when unable to write to output stream
      * @throws ValidationException where the specified vCard is not valid
      */
-    public final void output(final VCardList cards, final OutputStream out) throws IOException, ValidationException {
+    public final void output(final EntityList cards, final OutputStream out) throws IOException, ValidationException {
         output(cards, new OutputStreamWriter(out, DEFAULT_CHARSET));
     }
 
@@ -122,7 +122,7 @@ public class VCardOutputter extends AbstractOutputter {
      * @throws IOException         thrown when unable to write to writer
      * @throws ValidationException where the specified vCard is not valid
      */
-    public final void output(final VCardList cards, final Writer out) throws IOException, ValidationException {
+    public final void output(final EntityList cards, final Writer out) throws IOException, ValidationException {
         if (isValidating()) {
             cards.getAll().forEach(VCard::validate);
         }

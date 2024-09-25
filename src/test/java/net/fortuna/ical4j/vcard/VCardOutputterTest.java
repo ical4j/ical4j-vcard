@@ -55,26 +55,26 @@ import static junit.framework.Assert.assertEquals;
 public class VCardOutputterTest {
 
     private final VCardOutputter outputter;
-    
-    private final VCard card;
+
+    private final VCard entity;
     
     private final String expectedOutput;
     
     /**
      * @param outputter
-     * @param card
+     * @param entity
      * @param expectedOutput
      */
-    public VCardOutputterTest(VCardOutputter outputter, VCard card, String expectedOutput) {
+    public VCardOutputterTest(VCardOutputter outputter, VCard entity, String expectedOutput) {
         this.outputter = outputter;
-        this.card = card;
+        this.entity = entity;
         this.expectedOutput = expectedOutput;
     }
     
     @Test
     public void testOutput() throws IOException, ValidationException {
         var out = new StringWriter();
-        outputter.output(card, out);
+        outputter.output(entity, out);
         assertEquals(expectedOutput, out.toString().replaceAll("\\r\\n ", ""));
     }
 

@@ -101,10 +101,10 @@ public class DirkTest {
         VCardBuilder builder =
                 new VCardBuilder(reader, groupRegistry, propReg, parReg);
 
-        VCard card = builder.build();
-        assertEquals("Dirk", card.getRequiredProperty(PropertyName.FN).getValue());
+        var entity = builder.build();
+        assertEquals("Dirk", entity.getRequiredProperty(PropertyName.FN).getValue());
         assertEquals("The canonical Dirk\r\n",
-                getDecodedPropertyalue(card.getRequiredProperty(PropertyName.NOTE)));
+                getDecodedPropertyalue(entity.getRequiredProperty(PropertyName.NOTE)));
     }
 
     /**

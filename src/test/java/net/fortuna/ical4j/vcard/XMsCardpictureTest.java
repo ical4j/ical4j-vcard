@@ -86,9 +86,9 @@ public class XMsCardpictureTest {
         VCardBuilder builder =
                 new VCardBuilder(reader, groupRegistry, propReg, parReg);
 
-        VCard card = builder.build();
+        var entity = builder.build();
 
-        Optional<Property> prop = card.getProperty("X-MS-CARDPICTURE");
+        Optional<Property> prop = entity.getProperty("X-MS-CARDPICTURE");
 
         String value = prop.get().getValue();
         // the value starts with a correct string (it is Base64)

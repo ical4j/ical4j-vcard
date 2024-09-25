@@ -123,10 +123,9 @@ public class DirkWhitespaceAfterBeginTest {
         ParameterFactoryRegistry parReg = new ParameterFactoryRegistry();
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
         try {
-            VCardBuilder builder =
-                    new VCardBuilder(reader, groupRegistry, propReg, parReg);
-            VCard card = builder.build();
-            List<Address> addresses = card.getAddresses();
+            var builder = new VCardBuilder(reader, groupRegistry, propReg, parReg);
+            var entity = builder.build();
+            List<Address> addresses = entity.getAddresses();
             Assert.assertFalse(addresses.isEmpty());
             assertEquals("Szczecin", addresses.get(0).getExtended());
         } finally {

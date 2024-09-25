@@ -35,7 +35,7 @@ class PropertyFilterTest extends Specification {
         def filter = FilterExpression.equalTo('type', Type.HOME.value)
 
         and: 'a vcard'
-        def card = new ContentBuilder().vcard() {
+        def card = new ContentBuilder().entity {
             version '4.0'
             fn 'test'
             n('example') {
@@ -55,8 +55,8 @@ class PropertyFilterTest extends Specification {
         given: 'a filter expression'
         def filter = FilterExpression.notExists('MEDIATYPE')
 
-        and: 'a card'
-        def card = new ContentBuilder().vcard() {
+        and: 'an entity'
+        def card = new ContentBuilder().entity {
             version '4.0'
             fn 'test'
             n('example') {

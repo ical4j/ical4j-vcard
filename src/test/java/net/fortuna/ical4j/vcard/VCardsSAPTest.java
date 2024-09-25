@@ -75,7 +75,7 @@ public class VCardsSAPTest {
 		VCardBuilder builder =
 				new VCardBuilder(reader);
 
-		VCardList cards = builder.buildAll();
+        EntityList cards = builder.buildAll();
 		assertEquals(30, cards.getAll().size());
 	}
 }

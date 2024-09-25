@@ -41,16 +41,16 @@ import net.fortuna.ical4j.model.Property
  * @author fortuna
  *
  */
-class VCardFactory extends groovy.util.AbstractFactory {
+class EntityFactory extends groovy.util.AbstractFactory {
 
     Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
-        VCard card
+        VCard entity
         if (FactoryBuilderSupport.checkValueIsType(value, name, VCard.class)) {
-            card = (VCard) value
+            entity = (VCard) value
         } else {
-            card = new VCard()
+            entity = new VCard()
         }
-        return card
+        return entity
     }
 
     void setChild(FactoryBuilderSupport build, Object parent, Object child) {

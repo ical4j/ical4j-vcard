@@ -59,7 +59,7 @@ public class TwoVcardsInAFileTest {
 		File file = new File("src/test/resources/samples/vcard-rfc2426.vcf");
 		VCardBuilder builder = new VCardBuilder(new FileReader(file));
 
-		VCardList cards = builder.buildAll();
+        EntityList cards = builder.buildAll();
 		assertEquals(2, cards.getAll().size());
 		assertEquals("Frank Dawson", cards.getAll().get(0).getRequiredProperty(PropertyName.FN).getValue());
 		assertEquals("Tim Howes", cards.getAll().get(1).getRequiredProperty(PropertyName.FN).getValue());

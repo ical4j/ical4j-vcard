@@ -42,7 +42,7 @@ class ContentBuilderTest extends GroovyTestCase {
 
     void testBuildCard() {
         def builder = new ContentBuilder()
-        def card = builder.vcard() {
+        def card = builder.entity {
             version '4.0'
             fn 'test'
             n('example') {
@@ -65,7 +65,7 @@ class ContentBuilderTest extends GroovyTestCase {
     
     void testAttachPhoto() {
         def builder = new ContentBuilder()
-        def card = builder.vcard() {
+        def card = builder.entity {
             version '4.0'
             fn 'test'
             n('example') {

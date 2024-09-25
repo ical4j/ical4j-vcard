@@ -3,31 +3,31 @@ package net.fortuna.ical4j.vcard;
 /**
  * Provides mutator methods for {@link VCard} collections.
  */
-public interface VCardContainer {
+public interface EntityContainer {
 
-    VCardList getVCardList();
+    EntityList getEntityList();
 
-    void setVCardList(VCardList cards);
+    void setEntityList(EntityList cards);
 
     /**
      * Add a subcomponent to this component.
      *
-     * @param component the subcomponent to add
+     * @param entity the subcomponent to add
      * @return a reference to this component to support method chaining
      */
-    default VCardContainer add(VCard component) {
-        setVCardList(getVCardList().add(component));
+    default EntityContainer add(VCard entity) {
+        setEntityList(getEntityList().add(entity));
         return this;
     }
 
     /**
      * Remove a subcomponent from this component.
      *
-     * @param component the subcomponent to remove
+     * @param entity the subcomponent to remove
      * @return a reference to this component to support method chaining
      */
-    default VCardContainer remove(VCard component) {
-        setVCardList(getVCardList().remove(component));
+    default EntityContainer remove(VCard entity) {
+        setEntityList(getEntityList().remove(entity));
         return this;
     }
 }

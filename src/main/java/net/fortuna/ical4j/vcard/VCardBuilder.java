@@ -146,17 +146,17 @@ public final class VCardBuilder {
      * @throws IOException     where a problem occurs reading vCard data
      * @throws ParserException where parsing vCard data fails
      */
-    public VCardList buildAll() throws IOException, ParserException {
-        final List<VCard> cards = new ArrayList<>();
+    public EntityList buildAll() throws IOException, ParserException {
+        final List<VCard> entities = new ArrayList<>();
         while (true) {
-            final var card = build(false);
-            if (card == null) {
+            final var entity = build(false);
+            if (entity == null) {
                 break;
             } else {
-                cards.add(card);
+                entities.add(entity);
             }
         }
-        return new VCardList(Collections.unmodifiableList(cards));
+        return new EntityList(Collections.unmodifiableList(entities));
     }
     
     /**
@@ -165,7 +165,7 @@ public final class VCardBuilder {
      * @throws ParserException 
      */
     private VCard build(boolean single) throws IOException, ParserException {
-        VCard vcard = null;
+        VCard entity = null;
         
         String line = null;
         String lastLine = null;
@@ -193,7 +193,7 @@ public final class VCardBuilder {
                 if (!beginPattern.matcher(line).matches()) {
                     throw new ParserException(nonBlankLineNo);
                 }
-                vcard = new VCard();
+                entity = new VCard();
             }
             else if (!endPattern.matcher(line).matches()) {
                 Property property;
@@ -203,7 +203,7 @@ public final class VCardBuilder {
                     throw new ParserException("Error parsing line", totalLineNo, e);
                 }
                 if (property != null) {
-                    vcard.add(property);
+                    entity.add(property);
                 }
             } else if (endPattern.matcher(line).matches()) {
             	end = true;
@@ -216,8 +216,8 @@ public final class VCardBuilder {
         if (single && (nonBlankLineNo <= 1 || !endPattern.matcher(lastLine).matches())) {
             throw new ParserException(totalLineNo);
         }
-        
-        return vcard;
+
+        return entity;
     }
 
     /**

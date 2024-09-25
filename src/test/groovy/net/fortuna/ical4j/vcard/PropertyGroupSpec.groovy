@@ -7,11 +7,11 @@ class PropertyGroupSpec extends Specification {
 
     def 'test property group filter'() {
         given: 'a vcard'
-        VCard card = new VCardBuilder(new FileReader(
+        def entity = new VCardBuilder(new FileReader(
                 'src/test/resources/samples/valid/Simon_Perreault.vcf')).build()
 
         and: 'a property group'
-        PropertyGroup group = [card.propertyList.all, Group.WORK.toString()]
+        PropertyGroup group = [entity.propertyList.all, Group.WORK.toString()]
 
         expect: 'vcard properties are filtered by group'
         group.propertyList.all.size() == 8
