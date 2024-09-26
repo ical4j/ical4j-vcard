@@ -65,9 +65,9 @@ public class Member extends Property implements PropertyValidatorSupport {
         this.uri = uri;
     }
 
-    public Member(VCard card) {
+    public Member(Entity entity) {
         super(PropertyName.MEMBER);
-        Uid uid = card.getRequiredProperty(PropertyName.UID);
+        Uid uid = entity.getRequiredProperty(PropertyName.UID);
         setUri(uid.getUri());
     }
 

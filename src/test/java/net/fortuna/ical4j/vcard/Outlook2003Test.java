@@ -97,9 +97,9 @@ public class Outlook2003Test {
         VCardBuilder builder =
                 new VCardBuilder(reader, groupRegistry, propReg, parReg);
 
-        VCard card = builder.build();
+        var card = builder.build();
         assertEquals("Antoni Jozef Mylka jun.",
-                card.getRequiredProperty(PropertyName.FN).getValue());
+                card.getEntities().get(0).getRequiredProperty(PropertyName.FN).getValue());
 		
 		/*
 		 * To test whether the file has really been parsed correctly, we
@@ -125,7 +125,7 @@ public class Outlook2003Test {
 		 * the crappy Outlook 2003 folding, but we would still like to
 		 * get something. 
 		 */
-        Property labelProperty = card.getRequiredProperty(PropertyName.LABEL);
+        Property labelProperty = card.getEntities().get(0).getRequiredProperty(PropertyName.LABEL);
         String labelvalue = labelProperty.getValue();
         assertEquals(
                 "3.10=0D=0ATrippstadter Str. 122=0D=0AKaiserslautern, " +
@@ -149,7 +149,7 @@ public class Outlook2003Test {
 		 * value is not converted to a date, and te BDay.getDate() method
 		 * returns null.
 		 */
-        BDay bday = card.getRequiredProperty(PropertyName.BDAY);
+        BDay bday = card.getEntities().get(0).getRequiredProperty(PropertyName.BDAY);
         assertNotNull(bday.getDate());
         assertEquals("19800118", bday.getValue());
 		
@@ -158,7 +158,7 @@ public class Outlook2003Test {
 		 * property was invalid. There should be TWO values for this file
 		 * and the org property.
 		 */
-        String[] vals = ((Org) card.getRequiredProperty(PropertyName.ORG)).getValues();
+        String[] vals = ((Org) card.getEntities().get(0).getRequiredProperty(PropertyName.ORG)).getValues();
         assertEquals(2, vals.length);
         assertEquals("DFKI", vals[0]);
         assertEquals("Knowledge-Management", vals[1]);
@@ -170,7 +170,7 @@ public class Outlook2003Test {
      * @throws DecoderException
      */
     private String getDecodedPropertyalue(Property prop) throws DecoderException {
-        Encoding enc = (Encoding) prop.getRequiredParameter(ParameterName.ENCODING.toString());
+        Encoding enc = prop.getRequiredParameter(ParameterName.ENCODING.toString());
         String val = prop.getValue();
         if (enc != null && enc.getValue().equalsIgnoreCase("QUOTED-PRINTABLE")) {
 			

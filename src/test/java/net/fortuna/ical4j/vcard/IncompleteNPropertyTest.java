@@ -91,11 +91,10 @@ public class IncompleteNPropertyTest {
          * The custom registry allows the file to be parsed correctly. It's the
 		 * first workaround for the Outlook problem.
 		 */
-        VCardBuilder builder =
-                new VCardBuilder(reader, groupRegistry, propReg, parReg);
+        var builder = new VCardBuilder(reader, groupRegistry, propReg, parReg);
 
-        VCard card = builder.build();
-        N n = card.getRequiredProperty(PropertyName.N);
+        var card = builder.build();
+        N n = card.getEntities().get(0).getRequiredProperty(PropertyName.N);
         assertEquals("Mylka", n.getFamilyName());
         assertEquals("Antoni", n.getGivenName());
         Assert.assertArrayEquals(new String[]{""}, n.getAdditionalNames());

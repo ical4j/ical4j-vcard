@@ -31,22 +31,14 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import net.fortuna.ical4j.model.Property;
-import net.fortuna.ical4j.model.PropertyContainer;
-import net.fortuna.ical4j.model.PropertyList;
-import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.validate.ValidationEntry;
+import net.fortuna.ical4j.model.Prototype;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
-
-import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.GROUP;
 
 /**
  * vCard object.
@@ -57,117 +49,53 @@ import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.GROUP;
  *
  * @author Ben
  */
-public class VCard implements Serializable, PropertyContainer, AddressPropertyAccessor,
-        CalendarPropertyAccessor, CommunicationsPropertyAccessor, ExplanatoryPropertyAccessor, GeneralPropertyAccessor,
-        GeographicalPropertyAccessor, IdentificationPropertyAccessor, OrganizationalPropertyAccessor,
-        SecurityPropertyAccessor {
+public class VCard implements Serializable, Prototype<VCard>, EntityContainer {
 
-    /**
-     * Smart merging of properties that identifies whether to add or replace existing properties.
-     */
-    public static final BiFunction<PropertyContainer, List<Property>, PropertyContainer> MERGE = (c, list) -> {
-        if (list != null && !list.isEmpty()) {
-            list.forEach(p -> {
-                switch (p.getName()) {
-                    case "KIND":
-                    case "N":
-                    case "BDAY":
-                    case "ANNIVERSARY":
-                    case "GENDER":
-                    case "REV":
-                    case "UID":
-                        c.replace(p);
-                    default:
-                        c.add(p);
-                }
-            });
-        }
-        return c;
-    };
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = -4784034340843199392L;
-
-    private PropertyList properties;
+    private EntityList entities;
 
     /**
      * Default constructor.
      */
     public VCard() {
-        this(new PropertyList());
+        this(new EntityList());
     }
 
     /**
-     * @param properties a list of properties
+     * @param entities a list of properties
      */
-    public VCard(PropertyList properties) {
-        this.properties = properties;
+    public VCard(EntityList entities) {
+        this.entities = entities;
     }
 
     /**
-     * Returns a reference to the list of properties for the VCard instance. Note that
-     * any changes to this list are reflected in the VCard object list.
+     * Returns a reference to the list of entities for the VCard instance.
      *
-     * @return the properties
+     * @return the entities
      */
-    public PropertyList getPropertyList() {
-        return properties;
+    @Override
+    public EntityList getEntityList() {
+        return entities;
     }
 
     @Override
-    public void setPropertyList(PropertyList properties) {
-        this.properties = properties;
+    public void setEntityList(EntityList entities) {
+        this.entities = entities;
     }
 
     /**
      * @throws ValidationException where validation fails
      */
     public ValidationResult validate() throws ValidationException {
-        ValidationResult result = new ValidationResult();
+        var result = new ValidationResult();
 
-        // ;A vCard object MUST include the VERSION and FN properties.
-        assertOne(PropertyName.VERSION);
-        assertOne(PropertyName.FN);
-        //assertOne(Property.Id.N);
-
-        boolean isKindGroup = false;
-
-        final List<Property> properties = getProperties(PropertyName.KIND.toString());
-        if (properties.size() > 1) {
-            result.getEntries().add(new ValidationEntry("Property [" + PropertyName.KIND + "] must be specified zero or once",
-                    ValidationEntry.Severity.ERROR, "VCARD"));
-        } else if (properties.size() == 1) {
-            isKindGroup = properties.iterator().next().getValue().equals(GROUP.getValue());
-        }
-
-        for (Property property : getProperties()) {
-            if (!isKindGroup && (property.getName().equals(PropertyName.MEMBER))) {
-                result.getEntries().add(new ValidationEntry("Property [" + PropertyName.MEMBER +
-                        "] can only be specified if the KIND property value is \"group\".",
-                        ValidationEntry.Severity.ERROR, "VCARD"));
-            }
-            result.merge(property.validate());
-        }
+        getEntityList().getAll().forEach(e -> result.merge(e.validate()));
         return result;
     }
 
-
-    /**
-     * @param propertyId
-     * @throws ValidationException
-     */
-    private void assertOne(final PropertyName propertyId) throws ValidationException {
-        final List<Property> properties = getProperties(propertyId.toString());
-        if (properties.size() != 1) {
-            throw new ValidationException("Property [" + propertyId + "] must be specified once");
-        }
-    }
-
+    @Override
     public VCard copy() {
-        return new VCard(new PropertyList(getProperties().parallelStream()
-                .map(Property::copy).collect(Collectors.toList())));
+        return new VCard(new EntityList(getEntityList().getAll().parallelStream()
+                .map(Entity::copy).collect(Collectors.toList())));
     }
 
     /**
@@ -175,21 +103,20 @@ public class VCard implements Serializable, PropertyContainer, AddressPropertyAc
      */
     @Override
     public String toString() {
-        return "BEGIN:VCARD" + Strings.LINE_SEPARATOR + properties + "END:VCARD" +
-                Strings.LINE_SEPARATOR;
+        return getEntityList().toString();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof VCard) {
-            VCard card = (VCard) obj;
-            return new EqualsBuilder().append(getProperties(), card.getProperties()).isEquals();
+            var card = (VCard) obj;
+            return new EqualsBuilder().append(getEntityList(), card.getEntityList()).isEquals();
         }
         return super.equals(obj);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(getProperties()).toHashCode();
+        return new HashCodeBuilder().append(getEntityList()).toHashCode();
     }
 }

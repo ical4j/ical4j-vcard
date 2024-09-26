@@ -75,7 +75,7 @@ public class VCardOutputter extends AbstractOutputter {
     }
 
     /**
-     * Outputs an iCalender string to the specified output stream.
+     * Outputs a vCard string to the specified output stream.
      * @param card a vCard object to output as a string
      * @param out an output stream the output stream to write the vCard string to
      * @throws IOException thrown when unable to write to output stream
@@ -86,7 +86,7 @@ public class VCardOutputter extends AbstractOutputter {
     }
 
     /**
-     * Outputs an iCalender string to the specified writer.
+     * Outputs an vCard string to the specified writer.
      * @param card a vCard object to output as a string
      * @param out a writer to write the output string to
      * @throws IOException thrown when unable to write to writer
@@ -101,5 +101,4 @@ public class VCardOutputter extends AbstractOutputter {
             writer.write(card.toString());
         }
     }
-
 }

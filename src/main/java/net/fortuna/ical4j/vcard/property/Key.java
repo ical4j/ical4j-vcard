@@ -42,10 +42,7 @@ import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
-import org.apache.commons.codec.BinaryDecoder;
-import org.apache.commons.codec.BinaryEncoder;
 import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -152,12 +149,8 @@ public class Key extends Property implements PropertyValidatorSupport, GroupProp
         if (valueParameter.isPresent() && "URL".equalsIgnoreCase(valueParameter.get().getValue())) {
             stringValue = Strings.valueOf(uri);
         } else if (binary != null) {
-            try {
-                final BinaryEncoder encoder = new Base64();
-                stringValue = new String(encoder.encode(binary));
-            } catch (EncoderException ee) {
-                log.error("Error encoding binary data", ee);
-            }
+            final var encoder = new Base64();
+            stringValue = new String(encoder.encode(binary));
         }
         return stringValue;
     }
@@ -176,12 +169,8 @@ public class Key extends Property implements PropertyValidatorSupport, GroupProp
                 throw new IllegalArgumentException(e);
             }
         } else {
-            final BinaryDecoder decoder = new Base64();
-            try {
-                this.binary = decoder.decode(value.getBytes());
-            } catch (DecoderException e) {
-                throw new IllegalArgumentException(e);
-            }
+            final var decoder = new Base64();
+            this.binary = decoder.decode(value.getBytes());
         }
     }
 

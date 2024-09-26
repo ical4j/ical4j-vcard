@@ -101,10 +101,10 @@ public class DirkTest {
         VCardBuilder builder =
                 new VCardBuilder(reader, groupRegistry, propReg, parReg);
 
-        VCard card = builder.build();
-        assertEquals("Dirk", card.getRequiredProperty(PropertyName.FN).getValue());
+        var card = builder.build();
+        assertEquals("Dirk", card.getEntities().get(0).getRequiredProperty(PropertyName.FN).getValue());
         assertEquals("The canonical Dirk\r\n",
-                getDecodedPropertyalue(card.getRequiredProperty(PropertyName.NOTE)));
+                getDecodedPropertyalue(card.getEntities().get(0).getRequiredProperty(PropertyName.NOTE)));
     }
 
     /**
@@ -113,7 +113,7 @@ public class DirkTest {
      * @throws DecoderException
      */
     private String getDecodedPropertyalue(Property prop) throws DecoderException {
-        Encoding enc = (Encoding) prop.getRequiredParameter(ParameterName.ENCODING.toString());
+        Encoding enc = prop.getRequiredParameter(ParameterName.ENCODING.toString());
         String val = prop.getValue();
         if (enc != null && enc.getValue().equalsIgnoreCase("QUOTED-PRINTABLE")) {
 			

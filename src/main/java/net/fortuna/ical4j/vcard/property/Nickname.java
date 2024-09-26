@@ -90,14 +90,7 @@ public class Nickname extends Property implements PropertyValidatorSupport {
      */
     @Override
     public String getValue() {
-        final StringBuilder b = new StringBuilder();
-        for (int i = 0; i < names.length; i++) {
-            if (i > 0) {
-                b.append(',');
-            }
-            b.append(names[i]);
-        }
-        return b.toString();
+        return String.join(",", names);
     }
 
     @Override

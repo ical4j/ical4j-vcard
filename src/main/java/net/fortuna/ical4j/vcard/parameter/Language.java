@@ -85,15 +85,13 @@ public final class Language extends Parameter {
      */
     @Override
     public String getValue() {
-        final StringBuilder b = new StringBuilder();
+        final var b = new StringBuilder();
         b.append(locale.getLanguage());
         if (!StringUtils.isEmpty(locale.getCountry())) {
-            b.append('-');
-            b.append(locale.getCountry());
+            b.append('-').append(locale.getCountry());
         }
         if (!StringUtils.isEmpty(locale.getVariant())) {
-            b.append('-');
-            b.append(locale.getVariant());
+            b.append('-').append(locale.getVariant());
         }
         return b.toString();
     }

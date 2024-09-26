@@ -44,6 +44,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -87,9 +88,7 @@ public class Telephone extends Property implements PropertyValidatorSupport, Gro
         super(PropertyName.TEL);
         this.uri = normalise(uri);
         add(Value.URI);
-        for (Type type : types) {
-            add(type);
-        }
+        Arrays.stream(types).forEach(this::add);
     }
 
     /**
@@ -113,9 +112,7 @@ public class Telephone extends Property implements PropertyValidatorSupport, Gro
     public Telephone(String value, Type... types) {
         super(PropertyName.TEL);
         this.value = value;
-        for (Type type : types) {
-            add(type);
-        }
+        Arrays.stream(types).forEach(this::add);
     }
 
     /**

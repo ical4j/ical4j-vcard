@@ -54,32 +54,32 @@ import static org.junit.Assert.*;
 
 
 @RunWith(Parameterized.class)
-public class VCardTest {
+public class EntityTest {
     
     private static final Pattern VCARD_PATTERN = Pattern.compile("^BEGIN:VCARD.*END:VCARD(\\r?\\n)*$", Pattern.DOTALL);
-    
-    private final VCard vCard;
+
+    private final Entity entity;
     
     private final int expectedPropertyCount;
     
     /**
-     * @param vCard
+     * @param entity
      * @param expectedPropertyCount
      */
-    public VCardTest(VCard vCard, int expectedPropertyCount) {
-        this.vCard = vCard;
+    public EntityTest(Entity entity, int expectedPropertyCount) {
+        this.entity = entity;
         this.expectedPropertyCount = expectedPropertyCount;
     }
 
     @Test
     public void testGetProperties() {
-        assertEquals(expectedPropertyCount, vCard.getProperties().size());
+        assertEquals(expectedPropertyCount, entity.getProperties().size());
     }
 
     @Test
     public void testGetPropertiesName() {
-        for (Property p : vCard.getProperties()) {
-            List<Property> matches = vCard.getProperties(p.getName());
+        for (Property p : entity.getProperties()) {
+            List<Property> matches = entity.getProperties(p.getName());
             assertNotNull(matches);
             assertTrue(matches.size() >= 1);
             assertTrue(matches.contains(p));
@@ -88,16 +88,16 @@ public class VCardTest {
 
     @Test
     public void testGetPropertyName() {
-        for (Property p : vCard.getProperties()) {
-            assertNotNull(vCard.getProperty(p.getName()));
+        for (Property p : entity.getProperties()) {
+            assertNotNull(entity.getProperty(p.getName()));
         }
-        assertFalse(vCard.getProperty((String) null).isPresent());
+        assertFalse(entity.getProperty((String) null).isPresent());
     }
 
     @Test
     public void testGetExtendedPropertiesName() {
-        for (Property p : vCard.getProperties(PropertyName.EXTENDED.toString())) {
-            List<Property> matches = vCard.getProperties(p.getName());
+        for (Property p : entity.getProperties(PropertyName.EXTENDED.toString())) {
+            List<Property> matches = entity.getProperties(p.getName());
             assertNotNull(matches);
             assertTrue(matches.size() >= 1);
             assertTrue(matches.contains(p));
@@ -106,15 +106,15 @@ public class VCardTest {
 
     @Test
     public void testGetExtendedPropertyName() {
-        for (Property p : vCard.getProperties(PropertyName.EXTENDED.toString())) {
-            assertNotNull(vCard.getProperty(p.getName()));
+        for (Property p : entity.getProperties(PropertyName.EXTENDED.toString())) {
+            assertNotNull(entity.getProperty(p.getName()));
         }
-        assertFalse(vCard.getProperty((String) null).isPresent());
+        assertFalse(entity.getProperty((String) null).isPresent());
     }
 
     @Test
     public void testToString() {
-        assertTrue(VCARD_PATTERN.matcher(vCard.toString()).matches());
+        assertTrue(VCARD_PATTERN.matcher(entity.toString()).matches());
     }
     
     @SuppressWarnings("serial")
@@ -122,7 +122,7 @@ public class VCardTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
 
-        params.add(new Object[]{new VCard(), 0});
+        params.add(new Object[]{new Entity(), 0});
 
         List<Property> props = new ArrayList<>();
         props.add(new Source(URI.create("ldap://ldap.example.com/cn=Babs%20Jensen,%20o=Babsco,%20c=US")));
@@ -149,8 +149,8 @@ public class VCardTest {
                 return null;
             }
         });
-        VCard vcard = new VCard(new PropertyList(props));
-        params.add(new Object[] {vcard, props.size()});
+        var entity = new Entity(new PropertyList(props));
+        params.add(new Object[]{entity, props.size()});
         
         return params;
     }

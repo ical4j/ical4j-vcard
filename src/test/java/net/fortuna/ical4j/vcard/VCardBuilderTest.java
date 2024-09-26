@@ -31,21 +31,8 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.util.CompatibilityHints;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -53,6 +40,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created on: 02/11/2008
@@ -94,9 +89,9 @@ public class VCardBuilderTest {
     @Test
     public void testBuild() throws IOException {
         try {
-            VCard vcard = builder.build();
-            assertNotNull(vcard);
-            assertFalse(vcard.getProperties().isEmpty());
+            var card = builder.build();
+            assertNotNull(card);
+            assertFalse(card.getEntities().get(0).getProperties().isEmpty());
         }
         catch (ParserException e) {
             Assert.fail(String.format("File [%s] is not valid", filename));

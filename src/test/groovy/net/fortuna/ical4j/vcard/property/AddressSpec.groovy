@@ -33,7 +33,6 @@ package net.fortuna.ical4j.vcard.property
 
 import net.fortuna.ical4j.util.CompatibilityHints
 import net.fortuna.ical4j.vcard.PropertyName
-import net.fortuna.ical4j.vcard.VCard
 import net.fortuna.ical4j.vcard.VCardBuilder
 
 class AddressSpec extends AbstractPropertySpec {
@@ -54,9 +53,9 @@ class AddressSpec extends AbstractPropertySpec {
 
     def 'test parse'() {
         given: 'a vcard'
-        VCard card = new VCardBuilder(new FileReader('src/test/resources/samples/valid/Frank_Dawson.vcf')).build()
+        def card = new VCardBuilder(new FileReader('src/test/resources/samples/valid/Frank_Dawson.vcf')).build()
 
         expect: 'the address components match expected'
-        card.addresses[0].validate()
+        card.entities[0].addresses[0].validate()
     }
 }

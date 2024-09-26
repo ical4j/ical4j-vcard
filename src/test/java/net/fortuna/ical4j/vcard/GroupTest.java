@@ -31,17 +31,16 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.assertEquals;
 
 
 @RunWith(Parameterized.class)
@@ -70,7 +69,7 @@ public class GroupTest {
     
     @Test
     public void testEquals() {
-        assertTrue(group.equals(expectedEqualTo));
+        assertEquals(group, expectedEqualTo);
     }
     
     @Parameters

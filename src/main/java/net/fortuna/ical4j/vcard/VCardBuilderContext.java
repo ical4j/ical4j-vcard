@@ -21,7 +21,7 @@ public class VCardBuilderContext {
     private List<String> ignoredPropertyNames = Collections.emptyList();
 
     public VCardBuilderContext withParameterFactorySupplier(Supplier<List<net.fortuna.ical4j.model.ParameterFactory<?>>> parameterFactorySupplier) {
-        VCardBuilderContext context = new VCardBuilderContext();
+        var context = new VCardBuilderContext();
         context.parameterFactorySupplier = parameterFactorySupplier;
         context.propertyFactorySupplier = this.propertyFactorySupplier;
         context.ignoredPropertyNames = this.ignoredPropertyNames;
@@ -29,7 +29,7 @@ public class VCardBuilderContext {
     }
 
     public VCardBuilderContext withPropertyFactorySupplier(Supplier<List<net.fortuna.ical4j.model.PropertyFactory<?>>> propertyFactorySupplier) {
-        VCardBuilderContext context = new VCardBuilderContext();
+        var context = new VCardBuilderContext();
         context.parameterFactorySupplier = this.parameterFactorySupplier;
         context.propertyFactorySupplier = propertyFactorySupplier;
         context.ignoredPropertyNames = this.ignoredPropertyNames;
@@ -37,7 +37,7 @@ public class VCardBuilderContext {
     }
 
     public VCardBuilderContext withIgnoredPropertyNames(List<String> ignoredPropertyNames) {
-        VCardBuilderContext context = new VCardBuilderContext();
+        var context = new VCardBuilderContext();
         context.parameterFactorySupplier = this.parameterFactorySupplier;
         context.propertyFactorySupplier = this.propertyFactorySupplier;
         context.ignoredPropertyNames = ignoredPropertyNames;

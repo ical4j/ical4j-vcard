@@ -71,7 +71,7 @@ public class Gender extends Property implements PropertyValidatorSupport, GroupP
      */
     public Gender(String value) {
         super(PropertyName.GENDER.toString());
-        String[] components = value.split(";");
+        var components = value.split(";");
         this.sex = components[0];
         if (components.length > 1) {
             this.text = components[1];
@@ -126,7 +126,7 @@ public class Gender extends Property implements PropertyValidatorSupport, GroupP
 
     @Override
     public void setValue(String aValue) {
-        String[] components = aValue.split(";");
+        var components = aValue.split(";");
         this.sex = components[0];
         if (components.length > 1) {
             this.text = components[1];

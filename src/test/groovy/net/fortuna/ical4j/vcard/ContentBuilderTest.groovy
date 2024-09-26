@@ -38,11 +38,11 @@ package net.fortuna.ical4j.vcard
  * @author fortuna
  *
  */
-public class ContentBuilderTest extends GroovyTestCase {
+class ContentBuilderTest extends GroovyTestCase {
 
     void testBuildCard() {
         def builder = new ContentBuilder()
-        def card = builder.vcard() {
+        def entity = builder.entity {
             version '4.0'
             fn 'test'
             n('example') {
@@ -50,11 +50,11 @@ public class ContentBuilderTest extends GroovyTestCase {
             }
             photo(value: 'http://example.com', parameters: [value('uri')])
         }
-        card.validate()
-        
-        assert card.getPropertyList().all.size() == 4
-        
-        println card
+        entity.validate()
+
+        assert entity.getPropertyList().all.size() == 4
+
+        println entity
     }
     
     void testBuildEmail() {
@@ -65,7 +65,7 @@ public class ContentBuilderTest extends GroovyTestCase {
     
     void testAttachPhoto() {
         def builder = new ContentBuilder()
-        def card = builder.vcard() {
+        def entity = builder.entity {
             version '4.0'
             fn 'test'
             n('example') {
@@ -73,7 +73,7 @@ public class ContentBuilderTest extends GroovyTestCase {
             }
             photo(new File('etc/logo.png').bytes.encodeBase64() as String)
         }
-        println card
-        card.validate()
+        println entity
+        entity.validate()
     }
 }

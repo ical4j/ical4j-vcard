@@ -93,7 +93,7 @@ public final class Type extends Parameter {
     public Type(Type... types) {
         super(ParameterName.TYPE.toString());
         final List<String> typeList = new ArrayList<>();
-        for (Type type : types) {
+        for (var type : types) {
             typeList.addAll(Arrays.asList(type.getTypes()));
         }
         this.types = typeList.toArray(new String[typeList.size()]);
@@ -111,7 +111,7 @@ public final class Type extends Parameter {
      */
     @Override
     public String getValue() {
-        final StringBuilder b = new StringBuilder();
+        final var b = new StringBuilder();
         for (int i = 0; i < types.length; i++) {
             b.append(types[i]);
             if (i < types.length - 1) {

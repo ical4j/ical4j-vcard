@@ -84,21 +84,21 @@ public class ValueEqualsURLTest {
         VCardBuilder builder =
                 new VCardBuilder(reader, groupRegistry, propReg, parReg);
 
-        VCard card = builder.build();
-        Photo photo = card.getRequiredProperty(PropertyName.PHOTO);
+        var card = builder.build();
+        Photo photo = card.getEntities().get(0).getRequiredProperty(PropertyName.PHOTO);
         assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.jpg",
                 photo.getUri().toString());
 
-        Sound sound = card.getRequiredProperty(PropertyName.SOUND);
+        Sound sound = card.getEntities().get(0).getRequiredProperty(PropertyName.SOUND);
         assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.wav",
                 sound.getUri().toString());
 
-        Logo logo = card.getRequiredProperty(PropertyName.LOGO);
+        Logo logo = card.getEntities().get(0).getRequiredProperty(PropertyName.LOGO);
         assertEquals("http://www.dfki.de/web/logo.jpg", logo.getUri().toString());
 
-        Key key = card.getRequiredProperty(PropertyName.KEY);
+        Key key = card.getEntities().get(0).getRequiredProperty(PropertyName.KEY);
         assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.key",
-                key.getValue().toString());
+                key.getValue());
 
     }
 }

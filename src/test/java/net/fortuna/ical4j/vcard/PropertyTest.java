@@ -151,7 +151,7 @@ public class PropertyTest {
 
     @Test
     public void testEquals() {
-        assertTrue(property.equals(expectedEqualTo));
+        assertEquals(property, expectedEqualTo);
     }
     
     @SuppressWarnings("serial")

@@ -39,7 +39,6 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 
 import static org.junit.Assert.assertEquals;
 
@@ -67,15 +66,11 @@ public class VCardsSAPTest {
 	 * @throws DecoderException 
 	 */
 	@Test
-	public void testVcardsSAPExample() throws IOException, ParserException,
-			ValidationException, DecoderException {
-		File file = new File(
-				"src/test/resources/samples/vcard-vCards-SAP.vcf");
-		Reader reader = new FileReader(file);
-		VCardBuilder builder =
-				new VCardBuilder(reader);
-
-		VCardList cards = builder.buildAll();
-		assertEquals(30, cards.getAll().size());
+	public void testVcardsSAPExample() throws IOException, ParserException, ValidationException {
+		var file = new File("src/test/resources/samples/vcard-vCards-SAP.vcf");
+		var reader = new FileReader(file);
+		var builder = new VCardBuilder(reader);
+		var card = builder.build();
+		assertEquals(30, card.getEntities().size());
 	}
 }

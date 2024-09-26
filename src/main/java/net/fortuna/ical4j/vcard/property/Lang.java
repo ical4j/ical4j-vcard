@@ -93,7 +93,7 @@ public class Lang extends Property implements PropertyValidatorSupport {
      */
     @Override
     public String getValue() {
-        final StringBuilder b = new StringBuilder();
+        final var b = new StringBuilder();
         for (int i = 0; i < locales.length; i++) {
             if (i > 0) {
                 b.append(',');

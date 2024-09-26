@@ -48,7 +48,8 @@ dependencies {
     // spock
     testImplementation platform("org.spockframework:spock-bom:$spockVersion"),
             "org.spockframework:spock-core",
-            "org.apache.logging.log4j:log4j-core:$log4jVersion"
+            "org.apache.logging.log4j:log4j-core:$log4jVersion",
+            "org.apache.logging.log4j:log4j-slf4j2-impl:$log4jVersion"
 
     testRuntimeOnly("org.mnode.ical4j:ical4j:$ical4jVersion") {
         capabilities {

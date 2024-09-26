@@ -90,10 +90,10 @@ public class KontactTest {
 		File file = new File(
 				"src/test/resources/samples/vcard-antoni-kontact.vcf");
 		Reader reader = new FileReader(file);
-		VCardBuilder builder = new VCardBuilder(reader);
+		var builder = new VCardBuilder(reader);
 
-		VCard card = builder.build();
-        assertEquals("Antoni Mylka", card.getRequiredProperty(PropertyName.FN).getValue());
+		var card = builder.build();
+		assertEquals("Antoni Mylka", card.getEntities().get(0).getRequiredProperty(PropertyName.FN).getValue());
 
 
 	}

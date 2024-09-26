@@ -43,9 +43,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -139,25 +137,16 @@ public final class VCardBuilder {
      * @throws ParserException where parsing vCard data fails
      */
     public VCard build() throws IOException, ParserException {
-    	return build(true);
-    }
-    
-    /**
-     * @return a list of vCard object instances
-     * @throws IOException     where a problem occurs reading vCard data
-     * @throws ParserException where parsing vCard data fails
-     */
-    public VCardList buildAll() throws IOException, ParserException {
-        final List<VCard> cards = new ArrayList<>();
+        final List<Entity> entities = new ArrayList<>();
         while (true) {
-            final VCard card = build(false);
-            if (card == null) {
+            final var entity = build(false);
+            if (entity == null) {
                 break;
             } else {
-                cards.add(card);
+                entities.add(entity);
             }
         }
-        return new VCardList(Collections.unmodifiableList(cards));
+        return new VCard(new EntityList(entities));
     }
     
     /**
@@ -165,8 +154,8 @@ public final class VCardBuilder {
      * @throws IOException 
      * @throws ParserException 
      */
-    private VCard build(boolean single) throws IOException, ParserException {
-        VCard vcard = null;
+    private Entity build(boolean single) throws IOException, ParserException {
+        Entity entity = null;
         
         String line = null;
         String lastLine = null;
@@ -194,7 +183,7 @@ public final class VCardBuilder {
                 if (!beginPattern.matcher(line).matches()) {
                     throw new ParserException(nonBlankLineNo);
                 }
-                vcard = new VCard();
+                entity = new Entity();
             }
             else if (!endPattern.matcher(line).matches()) {
                 Property property;
@@ -204,7 +193,7 @@ public final class VCardBuilder {
                     throw new ParserException("Error parsing line", totalLineNo, e);
                 }
                 if (property != null) {
-                    vcard.add(property);
+                    entity.add(property);
                 }
             } else if (endPattern.matcher(line).matches()) {
             	end = true;
@@ -217,8 +206,8 @@ public final class VCardBuilder {
         if (single && (nonBlankLineNo <= 1 || !endPattern.matcher(lastLine).matches())) {
             throw new ParserException(totalLineNo);
         }
-        
-        return vcard;
+
+        return entity;
     }
 
     /**
@@ -229,8 +218,8 @@ public final class VCardBuilder {
      * @throws DecoderException
      */
     private Property parseProperty(final String line) throws URISyntaxException {
-        PropertyBuilder propertyBuilder = new PropertyBuilder(vCardBuilderContext.getPropertyFactorySupplier().get());
-        Matcher matcher = PROPERTY_NAME_PATTERN.matcher(line);
+        var propertyBuilder = new PropertyBuilder(vCardBuilderContext.getPropertyFactorySupplier().get());
+        var matcher = PROPERTY_NAME_PATTERN.matcher(line);
         if (matcher.find()) {
             propertyBuilder.name(matcher.group().toUpperCase());
 
@@ -238,7 +227,7 @@ public final class VCardBuilder {
             if (matcher.find()) {
                 propertyBuilder.value(matcher.group(0));
 
-                final ParameterList params = parseParameters(line);
+                final var params = parseParameters(line);
                 params.get().forEach(propertyBuilder::parameter);
             }
             return propertyBuilder.build();
@@ -256,14 +245,14 @@ public final class VCardBuilder {
      */
     private ParameterList parseParameters(final String line) {
         final List<Parameter> parameters = new ArrayList<>();
-        final Matcher matcher = PARAMETERS_PATTERN.matcher(line);
+        final var matcher = PARAMETERS_PATTERN.matcher(line);
         if (matcher.find()) {
-            ParameterBuilder parameterBuilder = new ParameterBuilder(
+            var parameterBuilder = new ParameterBuilder(
                     vCardBuilderContext.getParameterFactorySupplier().get());
 
-            final String[] params = matcher.group().split(";");
-            for (String param : params) {
-                final String[] vals = param.split("=");
+            final var params = matcher.group().split(";");
+            for (var param : params) {
+                final var vals = param.split("=");
                 parameterBuilder.name(vals[0]);
                 if (vals.length > 1) {
                     parameterBuilder.value(vals[1]);

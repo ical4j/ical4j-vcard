@@ -44,6 +44,7 @@ import net.fortuna.ical4j.vcard.parameter.Type;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 
 /**
  * <pre>
@@ -88,9 +89,7 @@ public class ContactUri extends Property implements PropertyValidatorSupport {
     public ContactUri(URI uri, Type... types) {
         super(PropertyName.CALURI.toString());
         this.uri = uri;
-        for (Type type : types) {
-            add(type);
-        }
+        Arrays.stream(types).forEach(this::add);
     }
 
     /**
