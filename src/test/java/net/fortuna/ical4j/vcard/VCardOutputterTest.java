@@ -56,25 +56,25 @@ public class VCardOutputterTest {
 
     private final VCardOutputter outputter;
 
-    private final VCard entity;
+    private final VCard card;
     
     private final String expectedOutput;
     
     /**
      * @param outputter
-     * @param entity
+     * @param card
      * @param expectedOutput
      */
-    public VCardOutputterTest(VCardOutputter outputter, VCard entity, String expectedOutput) {
+    public VCardOutputterTest(VCardOutputter outputter, VCard card, String expectedOutput) {
         this.outputter = outputter;
-        this.entity = entity;
+        this.card = card;
         this.expectedOutput = expectedOutput;
     }
     
     @Test
     public void testOutput() throws IOException, ValidationException {
         var out = new StringWriter();
-        outputter.output(entity, out);
+        outputter.output(card, out);
         assertEquals(expectedOutput, out.toString().replaceAll("\\r\\n ", ""));
     }
 
