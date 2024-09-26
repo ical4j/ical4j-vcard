@@ -14,7 +14,7 @@ public class EntityGroup implements EntityContainer {
 
     private EntityList entityList;
 
-    private final Predicate<VCard> entityPredicate;
+    private final Predicate<Entity> entityPredicate;
 
     public EntityGroup(Uid uid) {
         this(uid, new EntityList());
@@ -35,16 +35,16 @@ public class EntityGroup implements EntityContainer {
         this.entityList = cards;
     }
 
-    public List<VCard> getRevisions() {
+    public List<Entity> getRevisions() {
         return entityList.getAll().stream().filter(entityPredicate).sorted().collect(Collectors.toList());
     }
 
-    public VCard getLatestRevision() {
+    public Entity getLatestRevision() {
         return getRevisions().get(0);
     }
 
     @Override
-    public EntityContainer add(VCard revision) {
+    public EntityContainer add(Entity revision) {
         if (!entityPredicate.test(revision)) {
             throw new IllegalArgumentException("Invalid entity for this group");
         }

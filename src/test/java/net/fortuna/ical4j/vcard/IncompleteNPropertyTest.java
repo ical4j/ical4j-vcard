@@ -93,8 +93,8 @@ public class IncompleteNPropertyTest {
 		 */
         var builder = new VCardBuilder(reader, groupRegistry, propReg, parReg);
 
-        var entity = builder.build();
-        N n = entity.getRequiredProperty(PropertyName.N);
+        var card = builder.build();
+        N n = card.getEntities().get(0).getRequiredProperty(PropertyName.N);
         assertEquals("Mylka", n.getFamilyName());
         assertEquals("Antoni", n.getGivenName());
         Assert.assertArrayEquals(new String[]{""}, n.getAdditionalNames());

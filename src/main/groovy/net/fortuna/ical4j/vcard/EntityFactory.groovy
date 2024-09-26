@@ -44,11 +44,11 @@ import net.fortuna.ical4j.model.Property
 class EntityFactory extends groovy.util.AbstractFactory {
 
     Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
-        VCard entity
-        if (FactoryBuilderSupport.checkValueIsType(value, name, VCard.class)) {
-            entity = (VCard) value
+        Entity entity
+        if (FactoryBuilderSupport.checkValueIsType(value, name, Entity.class)) {
+            entity = (Entity) value
         } else {
-            entity = new VCard()
+            entity = new Entity()
         }
         return entity
     }

@@ -12,40 +12,40 @@ import java.util.stream.Collectors;
  */
 public class EntityList {
 
-    private final List<VCard> entities;
+    private final List<Entity> entities;
 
     public EntityList() {
         this(new ArrayList<>());
     }
 
-    public EntityList(List<VCard> entities) {
+    public EntityList(List<Entity> entities) {
         this.entities = entities;
     }
 
-    public EntityList add(VCard entity) {
-        List<VCard> copy = new ArrayList<>(entities);
+    public EntityList add(Entity entity) {
+        List<Entity> copy = new ArrayList<>(entities);
         copy.add(entity);
         return new EntityList(copy);
     }
 
-    public EntityList addAll(Collection<VCard> content) {
-        List<VCard> copy = new ArrayList<>(entities);
+    public EntityList addAll(Collection<Entity> content) {
+        List<Entity> copy = new ArrayList<>(entities);
         copy.addAll(content);
         return new EntityList(copy);
     }
 
-    public EntityList remove(VCard entity) {
-        List<VCard> copy = new ArrayList<>(entities);
+    public EntityList remove(Entity entity) {
+        List<Entity> copy = new ArrayList<>(entities);
         copy.remove(entity);
         return new EntityList(copy);
     }
 
-    public List<VCard> getAll() {
+    public List<Entity> getAll() {
         return entities;
     }
 
     @Override
     public String toString() {
-        return entities.stream().map(VCard::toString).collect(Collectors.joining(Strings.LINE_SEPARATOR));
+        return entities.stream().map(Entity::toString).collect(Collectors.joining(Strings.LINE_SEPARATOR));
     }
 }

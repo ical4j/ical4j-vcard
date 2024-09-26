@@ -1,7 +1,9 @@
 package net.fortuna.ical4j.vcard;
 
+import java.util.List;
+
 /**
- * Provides mutator methods for {@link VCard} collections.
+ * Provides mutator methods for {@link Entity} collections.
  */
 public interface EntityContainer {
 
@@ -15,7 +17,7 @@ public interface EntityContainer {
      * @param entity the subcomponent to add
      * @return a reference to this component to support method chaining
      */
-    default EntityContainer add(VCard entity) {
+    default EntityContainer add(Entity entity) {
         setEntityList(getEntityList().add(entity));
         return this;
     }
@@ -26,8 +28,12 @@ public interface EntityContainer {
      * @param entity the subcomponent to remove
      * @return a reference to this component to support method chaining
      */
-    default EntityContainer remove(VCard entity) {
+    default EntityContainer remove(Entity entity) {
         setEntityList(getEntityList().remove(entity));
         return this;
+    }
+
+    default List<Entity> getEntities() {
+        return getEntityList().getAll();
     }
 }

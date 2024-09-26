@@ -92,8 +92,8 @@ public class KontactTest {
 		Reader reader = new FileReader(file);
 		var builder = new VCardBuilder(reader);
 
-		var entity = builder.build();
-		assertEquals("Antoni Mylka", entity.getRequiredProperty(PropertyName.FN).getValue());
+		var card = builder.build();
+		assertEquals("Antoni Mylka", card.getEntities().get(0).getRequiredProperty(PropertyName.FN).getValue());
 
 
 	}

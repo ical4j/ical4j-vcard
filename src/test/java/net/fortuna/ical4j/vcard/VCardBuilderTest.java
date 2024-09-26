@@ -89,9 +89,9 @@ public class VCardBuilderTest {
     @Test
     public void testBuild() throws IOException {
         try {
-            var entity = builder.build();
-            assertNotNull(entity);
-            assertFalse(entity.getProperties().isEmpty());
+            var card = builder.build();
+            assertNotNull(card);
+            assertFalse(card.getEntities().get(0).getProperties().isEmpty());
         }
         catch (ParserException e) {
             Assert.fail(String.format("File [%s] is not valid", filename));

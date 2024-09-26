@@ -54,11 +54,11 @@ import static org.junit.Assert.*;
 
 
 @RunWith(Parameterized.class)
-public class VCardTest {
+public class EntityTest {
     
     private static final Pattern VCARD_PATTERN = Pattern.compile("^BEGIN:VCARD.*END:VCARD(\\r?\\n)*$", Pattern.DOTALL);
 
-    private final VCard entity;
+    private final Entity entity;
     
     private final int expectedPropertyCount;
     
@@ -66,7 +66,7 @@ public class VCardTest {
      * @param entity
      * @param expectedPropertyCount
      */
-    public VCardTest(VCard entity, int expectedPropertyCount) {
+    public EntityTest(Entity entity, int expectedPropertyCount) {
         this.entity = entity;
         this.expectedPropertyCount = expectedPropertyCount;
     }
@@ -122,7 +122,7 @@ public class VCardTest {
     public static Collection<Object[]> parameters() {
         List<Object[]> params = new ArrayList<Object[]>();
 
-        params.add(new Object[]{new VCard(), 0});
+        params.add(new Object[]{new Entity(), 0});
 
         List<Property> props = new ArrayList<>();
         props.add(new Source(URI.create("ldap://ldap.example.com/cn=Babs%20Jensen,%20o=Babsco,%20c=US")));
@@ -149,7 +149,7 @@ public class VCardTest {
                 return null;
             }
         });
-        var entity = new VCard(new PropertyList(props));
+        var entity = new Entity(new PropertyList(props));
         params.add(new Object[]{entity, props.size()});
         
         return params;

@@ -53,9 +53,9 @@ class AddressSpec extends AbstractPropertySpec {
 
     def 'test parse'() {
         given: 'a vcard'
-        def entity = new VCardBuilder(new FileReader('src/test/resources/samples/valid/Frank_Dawson.vcf')).build()
+        def card = new VCardBuilder(new FileReader('src/test/resources/samples/valid/Frank_Dawson.vcf')).build()
 
         expect: 'the address components match expected'
-        entity.addresses[0].validate()
+        card.entities[0].addresses[0].validate()
     }
 }

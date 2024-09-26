@@ -4,14 +4,14 @@ import spock.lang.Specification
 
 class VCardOutputterSpec extends Specification {
 
-    def 'test output of vcard list'() {
-        given: 'a list of cards'
-        def list = new VCardBuilder(getClass().getResourceAsStream('/samples/vcard-rfc2426.vcf'))
-                .buildAll()
+    def 'test output of vcard'() {
+        given: 'a vcard of multiple entities'
+        def card = new VCardBuilder(getClass().getResourceAsStream('/samples/vcard-rfc2426.vcf'))
+                .build()
 
         expect: 'string output matches expected'
         StringWriter w = []
-        new VCardOutputter(true).output(list, w)
+        new VCardOutputter(true).output(card, w)
         w as String == '''BEGIN:VCARD\r
 VERSION:3.0\r
 FN:Frank Dawson\r

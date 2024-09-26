@@ -43,7 +43,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -138,16 +137,7 @@ public final class VCardBuilder {
      * @throws ParserException where parsing vCard data fails
      */
     public VCard build() throws IOException, ParserException {
-    	return build(true);
-    }
-    
-    /**
-     * @return a list of vCard object instances
-     * @throws IOException     where a problem occurs reading vCard data
-     * @throws ParserException where parsing vCard data fails
-     */
-    public EntityList buildAll() throws IOException, ParserException {
-        final List<VCard> entities = new ArrayList<>();
+        final List<Entity> entities = new ArrayList<>();
         while (true) {
             final var entity = build(false);
             if (entity == null) {
@@ -156,7 +146,7 @@ public final class VCardBuilder {
                 entities.add(entity);
             }
         }
-        return new EntityList(Collections.unmodifiableList(entities));
+        return new VCard(new EntityList(entities));
     }
     
     /**
@@ -164,8 +154,8 @@ public final class VCardBuilder {
      * @throws IOException 
      * @throws ParserException 
      */
-    private VCard build(boolean single) throws IOException, ParserException {
-        VCard entity = null;
+    private Entity build(boolean single) throws IOException, ParserException {
+        Entity entity = null;
         
         String line = null;
         String lastLine = null;
@@ -193,7 +183,7 @@ public final class VCardBuilder {
                 if (!beginPattern.matcher(line).matches()) {
                     throw new ParserException(nonBlankLineNo);
                 }
-                entity = new VCard();
+                entity = new Entity();
             }
             else if (!endPattern.matcher(line).matches()) {
                 Property property;

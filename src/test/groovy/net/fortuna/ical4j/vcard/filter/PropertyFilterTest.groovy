@@ -35,7 +35,7 @@ class PropertyFilterTest extends Specification {
         def filter = FilterExpression.equalTo('type', Type.HOME.value)
 
         and: 'a vcard'
-        def card = new ContentBuilder().entity {
+        def entity = new ContentBuilder().entity {
             version '4.0'
             fn 'test'
             n('example') {
@@ -47,7 +47,7 @@ class PropertyFilterTest extends Specification {
         }
 
         expect: 'a filtered list of addresses matches expected'
-        card.getProperties('adr').stream()
+        entity.getProperties('adr').stream()
                 .filter(propertyFilter.predicate(filter)).collect(Collectors.toList()).size() == 1
     }
 
@@ -56,7 +56,7 @@ class PropertyFilterTest extends Specification {
         def filter = FilterExpression.notExists('MEDIATYPE')
 
         and: 'an entity'
-        def card = new ContentBuilder().entity {
+        def entity = new ContentBuilder().entity {
             version '4.0'
             fn 'test'
             n('example') {

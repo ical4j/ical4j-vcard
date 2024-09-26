@@ -124,8 +124,8 @@ public class DirkWhitespaceAfterBeginTest {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
         try {
             var builder = new VCardBuilder(reader, groupRegistry, propReg, parReg);
-            var entity = builder.build();
-            List<Address> addresses = entity.getAddresses();
+            var card = builder.build();
+            List<Address> addresses = card.getEntities().get(0).getAddresses();
             Assert.assertFalse(addresses.isEmpty());
             assertEquals("Szczecin", addresses.get(0).getExtended());
         } finally {

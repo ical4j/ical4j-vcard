@@ -84,19 +84,19 @@ public class ValueEqualsURLTest {
         VCardBuilder builder =
                 new VCardBuilder(reader, groupRegistry, propReg, parReg);
 
-        var entity = builder.build();
-        Photo photo = entity.getRequiredProperty(PropertyName.PHOTO);
+        var card = builder.build();
+        Photo photo = card.getEntities().get(0).getRequiredProperty(PropertyName.PHOTO);
         assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.jpg",
                 photo.getUri().toString());
 
-        Sound sound = entity.getRequiredProperty(PropertyName.SOUND);
+        Sound sound = card.getEntities().get(0).getRequiredProperty(PropertyName.SOUND);
         assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.wav",
                 sound.getUri().toString());
 
-        Logo logo = entity.getRequiredProperty(PropertyName.LOGO);
+        Logo logo = card.getEntities().get(0).getRequiredProperty(PropertyName.LOGO);
         assertEquals("http://www.dfki.de/web/logo.jpg", logo.getUri().toString());
 
-        Key key = entity.getRequiredProperty(PropertyName.KEY);
+        Key key = card.getEntities().get(0).getRequiredProperty(PropertyName.KEY);
         assertEquals("https://sourceforge.net/apps/trac/aperture/raw-attachment/wiki/MiscWikiFiles/gunnar.key",
                 key.getValue());
 

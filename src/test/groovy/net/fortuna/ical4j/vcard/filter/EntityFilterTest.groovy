@@ -21,12 +21,12 @@ class EntityFilterTest extends Specification {
         def expression = FilterExpression.equalTo('fn', 'Joe Bloggs')
 
         and: 'an entity'
-        def card = builder.entity {
+        def entity = builder.entity {
             fn 'Joe Bloggs'
         }
 
         expect: 'filter matches the event'
-        new EntityFilter().predicate(expression).test(card)
+        new EntityFilter().predicate(expression).test(entity)
     }
 
     @Ignore('unsupported test')
@@ -36,13 +36,13 @@ class EntityFilterTest extends Specification {
                 TemporalAdapter.parse('19750101').temporal)
 
         and: 'an entity'
-        def card = builder.entity {
+        def entity = builder.entity {
             fn 'Joe Bloggs'
             bday '19740101'
         }
 
         expect: 'filter matches the event'
-        new EntityFilter().predicate(filter).test(card)
+        new EntityFilter().predicate(filter).test(entity)
     }
 
     @Ignore('unsupported test')
@@ -52,13 +52,13 @@ class EntityFilterTest extends Specification {
                 TemporalFunctions.NOW.apply('-P936W'))
 
         and: 'an entity'
-        def card = builder.entity {
+        def entity = builder.entity {
             fn 'Sally Cap'
             bday '19980609'
         }
 
         expect: 'filter matches the event'
-        new EntityFilter().predicate(filter).test(card)
+        new EntityFilter().predicate(filter).test(entity)
     }
 
     def 'test filter expression in'() {
@@ -66,14 +66,14 @@ class EntityFilterTest extends Specification {
         def filter = FilterExpression.in('member', ['fred@example.com'])
 
         and: 'an entity'
-        def card = builder.entity {
+        def entity = builder.entity {
             fn 'Calendar Experts'
             kind 'group'
             member 'fred@example.com'
         }
 
         expect: 'filter matches the event'
-        new EntityFilter().predicate(filter).test(card)
+        new EntityFilter().predicate(filter).test(entity)
     }
 
     def 'test filter expression contains'() {
@@ -81,14 +81,14 @@ class EntityFilterTest extends Specification {
         def filter = FilterExpression.contains('email', 'example.com')
 
         and: 'an entity'
-        def card = builder.entity {
+        def entity = builder.entity {
             fn 'Fred Savage'
             kind 'individual'
             email 'fred@example.com'
         }
 
         expect: 'filter matches the event'
-        new EntityFilter().predicate(filter).test(card)
+        new EntityFilter().predicate(filter).test(entity)
     }
 
     def 'test filter expression missing'() {
@@ -96,14 +96,14 @@ class EntityFilterTest extends Specification {
         def filter = FilterExpression.notExists('tel')
 
         and: 'an entity'
-        def card = builder.entity {
+        def entity = builder.entity {
             fn 'Fred Savage'
             kind 'individual'
             email 'fred@example.com'
         }
 
         expect: 'filter matches the event'
-        new EntityFilter().predicate(filter).test(card)
+        new EntityFilter().predicate(filter).test(entity)
     }
 
     def 'test filter expression not missing'() {
@@ -111,26 +111,26 @@ class EntityFilterTest extends Specification {
         def filter = FilterExpression.exists('email')
 
         and: 'an entity'
-        def card = builder.entity {
+        def entity = builder.entity {
             fn 'Fred Savage'
             kind 'individual'
             email 'fred@example.com'
         }
 
         expect: 'filter matches the event'
-        new EntityFilter().predicate(filter).test(card)
+        new EntityFilter().predicate(filter).test(entity)
     }
 
     def 'test filter expression parsing'() {
         given: 'an entity'
-        def card = builder.entity {
+        def entity = builder.entity {
             fn 'Fred Savage'
             kind 'individual'
             email 'fred@example.com'
         }
 
         expect: 'filter matches the event'
-        new EntityFilter().predicate(FilterExpression.parse(expression)).test(card) == expectedResult
+        new EntityFilter().predicate(FilterExpression.parse(expression)).test(entity) == expectedResult
 
         where: 'filter expression'
         expression                                            | expectedResult
@@ -147,14 +147,14 @@ class EntityFilterTest extends Specification {
         def filter = FilterExpression.in('kind', ['individual'] as Set)
 
         and: 'an entity'
-        def card = builder.entity {
+        def entity = builder.entity {
             fn 'Fred Savage'
             kind 'individual'
             email 'fred@example.com'
         }
 
         expect: 'filter matches the event'
-        new EntityFilter().predicate(filter).test(card)
+        new EntityFilter().predicate(filter).test(entity)
     }
 
 }

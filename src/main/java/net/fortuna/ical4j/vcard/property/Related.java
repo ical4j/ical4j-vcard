@@ -88,7 +88,7 @@ public class Related extends Property implements PropertyValidatorSupport {
      * @param entity  a related card entity
      * @param types optional types of the text value
      */
-    public Related(VCard entity, Type... types) {
+    public Related(Entity entity, Type... types) {
         super(PropertyName.RELATED);
         Uid cardUid = entity.getRequiredProperty(PropertyName.UID);
         this.uri = cardUid.getUri();

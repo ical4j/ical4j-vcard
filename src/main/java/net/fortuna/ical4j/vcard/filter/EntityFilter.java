@@ -8,7 +8,7 @@ import net.fortuna.ical4j.model.Component;
 import net.fortuna.ical4j.model.ParameterFactory;
 import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.PropertyFactory;
-import net.fortuna.ical4j.vcard.VCard;
+import net.fortuna.ical4j.vcard.Entity;
 import net.fortuna.ical4j.vcard.VCardParameterFactorySupplier;
 import net.fortuna.ical4j.vcard.VCardPropertyFactorySupplier;
 
@@ -28,7 +28,7 @@ import java.util.function.Supplier;
  *   .forEach(System.out::println);
  * </pre>
  */
-public class EntityFilter extends AbstractFilter<VCard> {
+public class EntityFilter extends AbstractFilter<Entity> {
 
     public EntityFilter() {
         this(new VCardPropertyFactorySupplier(), new VCardParameterFactorySupplier());
@@ -38,19 +38,19 @@ public class EntityFilter extends AbstractFilter<VCard> {
         super(propertyFactorySupplier, parameterFactorySupplier);
     }
 
-    public Predicate<VCard> predicate(UnaryExpression expression) {
+    public Predicate<Entity> predicate(UnaryExpression expression) {
         switch (expression.operator) {
             case not:
                 return predicate(expression.operand).negate();
             case exists:
                 return new PropertyExistsRule<>(property(expression));
             case notExists:
-                return new PropertyExistsRule<VCard>(property(expression)).negate();
+                return new PropertyExistsRule<Entity>(property(expression)).negate();
         }
         throw new IllegalArgumentException("Not a valid filter");
     }
 
-    public Predicate<VCard> predicate(BinaryExpression expression) {
+    public Predicate<Entity> predicate(BinaryExpression expression) {
         switch (expression.operator) {
             case and:
                 return predicate(expression.left).and(predicate(expression.right));
@@ -59,11 +59,11 @@ public class EntityFilter extends AbstractFilter<VCard> {
             case equalTo:
                 return new PropertyEqualToRule<>(property(expression));
             case notEqualTo:
-                return new PropertyEqualToRule<VCard>(property(expression)).negate();
+                return new PropertyEqualToRule<Entity>(property(expression)).negate();
             case in:
                 return new PropertyInRule<>(properties(expression));
             case notIn:
-                return new PropertyInRule<VCard>(properties(expression)).negate();
+                return new PropertyInRule<Entity>(properties(expression)).negate();
             case greaterThan:
                 return new PropertyGreaterThanRule<>(property(expression));
             case greaterThanEqual:

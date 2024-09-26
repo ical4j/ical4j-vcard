@@ -6,7 +6,7 @@ class VCardSpec extends Specification {
 
     def 'test vcard equality'() {
         given: 'a vcard instance'
-        def card = new ContentBuilder().entity {
+        def entity = new ContentBuilder().entity {
             version '4.0'
             fn 'test'
             n('example') {
@@ -16,7 +16,7 @@ class VCardSpec extends Specification {
         }
 
         and: 'an identical vcard'
-        def card2 = new ContentBuilder().entity {
+        def entity2 = new ContentBuilder().entity {
             version '4.0'
             fn 'test'
             n('example') {
@@ -26,15 +26,15 @@ class VCardSpec extends Specification {
         }
 
         expect: 'vcards are equal'
-        card == card2
+        entity == entity2
 
         and: 'hashcodes are equal'
-        card.hashCode() == card2.hashCode()
+        entity.hashCode() == entity2.hashCode()
 
         and: 'null comparison is supported'
-        !card.equals(null)
+        !entity.equals(null)
 
         and: 'comparison with any type is supported'
-        !card.equals(new Object())
+        !entity.equals(new Object())
     }
 }
