@@ -5,6 +5,7 @@ import net.fortuna.ical4j.util.Strings;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -47,5 +48,18 @@ public class EntityList {
     @Override
     public String toString() {
         return entities.stream().map(Entity::toString).collect(Collectors.joining(Strings.LINE_SEPARATOR));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EntityList that = (EntityList) o;
+        return Objects.equals(entities, that.entities);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(entities);
     }
 }
