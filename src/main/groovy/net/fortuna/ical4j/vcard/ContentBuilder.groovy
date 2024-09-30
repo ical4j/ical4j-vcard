@@ -68,6 +68,7 @@ class ContentBuilder extends FactoryBuilderSupport {
     }
 
     def registerVCard() {
+        registerFactory('vcard', new VCardFactory())
         registerFactory('entity', new EntityFactory())
     }
     

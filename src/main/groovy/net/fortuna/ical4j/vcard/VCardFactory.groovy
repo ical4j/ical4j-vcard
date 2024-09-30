@@ -33,49 +33,26 @@ package net.fortuna.ical4j.vcard
 /**
  * $Id$
  *
- * Created on: 02/08/2009
+ * Created on: 03/08/2009
  *
  * @author fortuna
  *
  */
-class ContentBuilderTest extends GroovyTestCase {
+class VCardFactory extends groovy.util.AbstractFactory {
 
-    void testBuildCard() {
-        def builder = new ContentBuilder()
-        def card = builder.vcard {
-            entity {
-                version '4.0'
-                fn 'test'
-                n('example') {
-                    value 'text'
-                }
-                photo(value: 'http://example.com', parameters: [value('uri')])
-            }
+    Object newInstance(FactoryBuilderSupport builder, name, value, Map attributes) throws InstantiationException,
+            IllegalAccessException {
+        VCard card
+        if (FactoryBuilderSupport.checkValueIsType(value, name, VCard)) {
+            card = value
+        } else {
+            card = []
         }
-        card.validate()
-
-        assert card.entities[0].getPropertyList().all.size() == 4
-
-        println card
+        return card
     }
-    
-    void testBuildEmail() {
-        def email = new ContentBuilder().email('test@example.com')
-        assert email.value == 'test@example.com'
-        println(email)
-    }
-    
-    void testAttachPhoto() {
-        def builder = new ContentBuilder()
-        def entity = builder.entity {
-            version '4.0'
-            fn 'test'
-            n('example') {
-                value 'text'
-            }
-            photo(new File('etc/logo.png').bytes.encodeBase64() as String)
-        }
-        println entity
-        entity.validate()
+
+    void setChild(FactoryBuilderSupport build, Object parent, Object child) {
+        parent.add(child)
     }
 }
+
