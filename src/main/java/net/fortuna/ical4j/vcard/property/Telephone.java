@@ -49,6 +49,9 @@ import java.util.Optional;
 
 /**
  * TEL property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.4.1">vCard - TEL</a>
+ * 
  * <p>
  * $Id$
  * <p>

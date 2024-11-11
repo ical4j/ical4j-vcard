@@ -48,6 +48,9 @@ import java.time.format.DateTimeParseException;
 
 /**
  * REVISION property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.4">vCard - REV</a>
+ * 
  * <p>
  * $Id$
  * <p>

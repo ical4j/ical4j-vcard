@@ -49,6 +49,9 @@ import java.util.Arrays;
 
 /**
  * CALADRURI property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.9.2">vCard - CALADRURI</a>
+ * 
  * <p>
  * $Id$
  * <p>

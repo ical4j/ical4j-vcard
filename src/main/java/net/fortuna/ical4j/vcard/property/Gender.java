@@ -41,6 +41,9 @@ import net.fortuna.ical4j.vcard.property.immutable.ImmutableGender;
 
 /**
  * GENDER property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.2.7">vCard - GENDER</a>
+ * 
  * <p>
  * $Id$
  * <p>

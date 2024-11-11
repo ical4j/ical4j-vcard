@@ -46,6 +46,9 @@ import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
  * TITLE property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.6.1">vCard - TITLE</a>
+ * 
  * <p>
  * $Id$
  * <p>

@@ -43,6 +43,9 @@ import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 /**
  * FN property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.2.1">vCard - FN</a>
+ * 
  * <p>
  * $Id$
  * <p>

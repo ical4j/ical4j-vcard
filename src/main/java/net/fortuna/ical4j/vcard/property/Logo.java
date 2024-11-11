@@ -53,6 +53,9 @@ import java.util.Optional;
 
 /**
  * LOGO property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.6.3">vCard - LOGO</a>
+ * 
  * <p>
  * $Id$
  * <p>

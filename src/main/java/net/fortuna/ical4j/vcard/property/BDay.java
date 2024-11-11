@@ -49,6 +49,9 @@ import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
  * BDAY property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.2.5">vCard - BDAY</a>
+ * 
  * <p>
  * $Id$ Created on 23/08/2008
  *

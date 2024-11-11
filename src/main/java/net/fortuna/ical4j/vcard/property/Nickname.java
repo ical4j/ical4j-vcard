@@ -43,6 +43,9 @@ import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 /**
  * NICKNAME property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.2.3">vCard - NICKNAME</a>
+ * 
  * <p>
  * $Id$
  * <p>

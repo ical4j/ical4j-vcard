@@ -46,6 +46,9 @@ import java.util.Optional;
 
 /**
  * TZ property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.5.1">vCard - TZ</a>
+ * 
  * <p>
  * $Id$
  * <p>

@@ -53,6 +53,9 @@ import java.util.Optional;
 
 /**
  * KEY property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.8.1">vCard - KEY</a>
+ * 
  * <p>
  * $Id$
  * <p>

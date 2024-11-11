@@ -46,6 +46,9 @@ import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
  * NOTE property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.2">vCard - NOTE</a>
+ * 
  * <p>
  * $Id$
  * <p>

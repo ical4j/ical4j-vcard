@@ -49,6 +49,9 @@ import java.util.Arrays;
 
 /**
  * IMPP property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.4.3">vCard - IMPP</a>
+ * 
  * <p>
  * $Id$
  * <p>

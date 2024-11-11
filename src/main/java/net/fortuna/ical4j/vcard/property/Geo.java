@@ -43,6 +43,9 @@ import java.math.BigDecimal;
 
 /**
  * GEO property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.5.2">vCard - GEO</a>
+ * 
  * <p>
  * $Id$
  * <p>

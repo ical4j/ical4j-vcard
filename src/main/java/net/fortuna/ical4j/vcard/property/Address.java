@@ -48,6 +48,9 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * ADDRESS property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.3.1">vCard - ADR</a>
+ * 
  * <p>
  * $Id$
  * <p>

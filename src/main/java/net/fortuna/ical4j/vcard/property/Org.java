@@ -44,6 +44,9 @@ import java.util.stream.Collectors;
 
 /**
  * ORG property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.6.4">vCard - ORG</a>
+ * 
  * <p>
  * $Id$
  * <p>

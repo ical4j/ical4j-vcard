@@ -46,6 +46,9 @@ import java.util.Locale;
 
 /**
  * LANG property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.4.4">vCard - LANG</a>
+ * 
  * <p>
  * $Id$
  * <p>

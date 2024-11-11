@@ -47,6 +47,9 @@ import java.net.URISyntaxException;
 
 /**
  * URL property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.8">vCard - URL</a>
+ * 
  * <p>
  * $Id$
  * <p>

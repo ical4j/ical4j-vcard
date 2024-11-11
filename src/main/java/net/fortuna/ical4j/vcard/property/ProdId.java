@@ -43,6 +43,9 @@ import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 /**
  * PRODID property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.3">vCard - PRODID</a>
+ * 
  * <p>
  * $Id$
  * <p>

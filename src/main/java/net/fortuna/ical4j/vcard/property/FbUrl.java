@@ -49,6 +49,9 @@ import java.util.Arrays;
 
 /**
  * FBURL property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.9.1">vCard - FBURL</a>
+ * 
  * <p>
  * $Id$
  * <p>

@@ -49,6 +49,9 @@ import java.util.Arrays;
 
 /**
  * CALURI property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.9.3">vCard - CALURI</a>
+ * 
  * <p>
  * $Id$
  * <p>

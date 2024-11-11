@@ -44,6 +44,9 @@ import java.net.URISyntaxException;
 
 /**
  * MEMBER property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.6.5">vCard - MEMBER</a>
+ * 
  * <p>
  * $Id$
  * <p>

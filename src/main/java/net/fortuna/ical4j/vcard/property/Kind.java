@@ -43,6 +43,9 @@ import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.*;
 
 /**
  * KIND property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.1.4">vCard - KIND</a>
+ * 
  * <p>
  * $Id$
  * <p>

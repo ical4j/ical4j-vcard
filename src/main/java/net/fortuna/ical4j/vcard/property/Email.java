@@ -40,6 +40,9 @@ import net.fortuna.ical4j.vcard.*;
 
 /**
  * EMAIL property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.4.2">vCard - EMAIL</a>
+ * 
  * <p>
  * $Id$
  * <p>

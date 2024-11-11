@@ -42,7 +42,8 @@ import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 /**
- * FN property.
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.7">vCard - CLIENTPIDMAP</a>
+ *
  * <p>
  * $Id$
  * <p>

@@ -43,6 +43,9 @@ import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 
 /**
  * ROLE property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.6.2">vCard - ROLE</a>
+ * 
  * <p>
  * $Id$
  * <p>

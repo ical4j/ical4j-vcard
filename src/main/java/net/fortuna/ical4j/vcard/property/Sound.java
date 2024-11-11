@@ -52,6 +52,9 @@ import java.util.Optional;
 
 /**
  * SOUND property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.5">vCard - SOUND</a>
+ * 
  * <p>
  * $Id$
  * <p>
