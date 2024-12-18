@@ -40,8 +40,8 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 import net.fortuna.ical4j.vcard.parameter.Type;
+import net.fortuna.ical4j.vcard.validate.CalendarPropertyValidators;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -49,6 +49,9 @@ import java.util.Arrays;
 
 /**
  * CALADRURI property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.9.2">vCard - CALADRURI</a>
+ * 
  * <p>
  * $Id$
  * <p>
@@ -56,7 +59,7 @@ import java.util.Arrays;
  *
  * @author Ben
  */
-public class CalAdrUri extends Property implements PropertyValidatorSupport {
+public class CalAdrUri extends Property {
 
     private static final long serialVersionUID = -6507220241297111022L;
 
@@ -111,7 +114,7 @@ public class CalAdrUri extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return CALADRURI.validate(this);
+        return CalendarPropertyValidators.CALADRURI.validate(this);
     }
 
     @Override

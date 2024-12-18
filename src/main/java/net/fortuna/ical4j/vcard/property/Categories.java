@@ -40,10 +40,13 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
+import net.fortuna.ical4j.vcard.validate.ExplanatoryPropertyValidators;
 
 /**
  * CATEGORIES property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.1">vCard - CATEGORIES</a>
+ * 
  * <p>
  * $Id$
  * <p>
@@ -51,7 +54,7 @@ import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
  *
  * @author Ben
  */
-public class Categories extends Property implements PropertyValidatorSupport {
+public class Categories extends Property {
 
     private static final long serialVersionUID = -3233034210546002366L;
 
@@ -114,7 +117,7 @@ public class Categories extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return PropertyValidatorSupport.CATEGORIES.validate(this);
+        return ExplanatoryPropertyValidators.CATEGORIES.validate(this);
     }
 
     @Override

@@ -40,13 +40,16 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
+import net.fortuna.ical4j.vcard.validate.IdentificationPropertyValidators;
 import org.apache.commons.lang3.ArrayUtils;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * N property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.2.2">vCard - N</a>
+ * 
  * <p>
  * $Id$
  * <p>
@@ -54,7 +57,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  *
  * @author Ben
  */
-public class N extends Property implements PropertyValidatorSupport {
+public class N extends Property {
 
     private static final long serialVersionUID = 1117450875931318523L;
 
@@ -230,7 +233,7 @@ public class N extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return N.validate(this);
+        return IdentificationPropertyValidators.N.validate(this);
     }
 
     @Override

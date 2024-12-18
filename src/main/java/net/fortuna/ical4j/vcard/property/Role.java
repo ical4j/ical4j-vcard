@@ -39,10 +39,13 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
+import net.fortuna.ical4j.vcard.validate.OrganizationalPropertyValidators;
 
 /**
  * ROLE property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.6.2">vCard - ROLE</a>
+ * 
  * <p>
  * $Id$
  * <p>
@@ -50,7 +53,7 @@ import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
  *
  * @author Ben
  */
-public class Role extends Property implements PropertyValidatorSupport {
+public class Role extends Property {
 
     private static final long serialVersionUID = -2967228242683105498L;
 
@@ -93,7 +96,7 @@ public class Role extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return ROLE.validate(this);
+        return OrganizationalPropertyValidators.ROLE.validate(this);
     }
 
     @Override

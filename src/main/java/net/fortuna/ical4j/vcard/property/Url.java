@@ -40,13 +40,16 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
+import net.fortuna.ical4j.vcard.validate.ExplanatoryPropertyValidators;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
  * URL property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.8">vCard - URL</a>
+ * 
  * <p>
  * $Id$
  * <p>
@@ -54,7 +57,7 @@ import java.net.URISyntaxException;
  *
  * @author Ben
  */
-public class Url extends Property implements PropertyValidatorSupport {
+public class Url extends Property {
 
     private static final long serialVersionUID = -6689531541656904891L;
 
@@ -108,7 +111,7 @@ public class Url extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return PropertyValidatorSupport.URL.validate(this);
+        return ExplanatoryPropertyValidators.URL.validate(this);
     }
 
     @Override

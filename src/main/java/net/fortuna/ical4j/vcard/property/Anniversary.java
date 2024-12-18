@@ -37,8 +37,12 @@ import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.model.property.DateProperty;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.ParameterName;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.parameter.Value;
+import net.fortuna.ical4j.vcard.validate.IdentificationPropertyValidators;
 
 import java.time.temporal.Temporal;
 import java.util.Optional;
@@ -47,6 +51,9 @@ import static net.fortuna.ical4j.util.Strings.unescape;
 
 /**
  * DEATH property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.2.6">vCard - ANNIVERSARY</a>
+ *
  * <p>
  * $Id$
  * <p>
@@ -54,7 +61,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
-public class Anniversary<T extends Temporal> extends DateProperty<T> implements Encodable, PropertyValidatorSupport {
+public class Anniversary<T extends Temporal> extends DateProperty<T> implements Encodable {
 
     private static final long serialVersionUID = 3009228294165154307L;
 
@@ -98,9 +105,9 @@ public class Anniversary<T extends Temporal> extends DateProperty<T> implements 
     @Override
     public ValidationResult validate() throws ValidationException {
         if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
-            return ANNIVERSARY_TEXT.validate(this);
+            return IdentificationPropertyValidators.ANNIVERSARY_TEXT.validate(this);
         }
-        return ANNIVERSARY_DATE.validate(this);
+        return IdentificationPropertyValidators.ANNIVERSARY_DATE.validate(this);
     }
 
     @Override

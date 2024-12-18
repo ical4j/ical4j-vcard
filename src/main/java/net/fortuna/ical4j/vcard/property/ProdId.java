@@ -39,10 +39,13 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
+import net.fortuna.ical4j.vcard.validate.ExplanatoryPropertyValidators;
 
 /**
  * PRODID property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.3">vCard - PRODID</a>
+ * 
  * <p>
  * $Id$
  * <p>
@@ -50,7 +53,7 @@ import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
  *
  * @author Ben
  */
-public class ProdId extends Property implements PropertyValidatorSupport {
+public class ProdId extends Property {
 
     private static final long serialVersionUID = 8104072716649404803L;
 
@@ -93,7 +96,7 @@ public class ProdId extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return PropertyValidatorSupport.PRODID.validate(this);
+        return ExplanatoryPropertyValidators.PRODID.validate(this);
     }
 
     @Override

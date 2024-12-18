@@ -39,10 +39,11 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
+import net.fortuna.ical4j.vcard.validate.ExplanatoryPropertyValidators;
 
 /**
- * FN property.
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.7">vCard - CLIENTPIDMAP</a>
+ *
  * <p>
  * $Id$
  * <p>
@@ -50,7 +51,7 @@ import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
  *
  * @author Ben
  */
-public class ClientPidMap extends Property implements PropertyValidatorSupport {
+public class ClientPidMap extends Property {
 
     private static final long serialVersionUID = -3576886478408668365L;
 
@@ -93,7 +94,7 @@ public class ClientPidMap extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return CLIENTPIDMAP.validate(this);
+        return ExplanatoryPropertyValidators.CLIENTPIDMAP.validate(this);
     }
 
     @Override

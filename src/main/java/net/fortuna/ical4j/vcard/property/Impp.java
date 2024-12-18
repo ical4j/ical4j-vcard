@@ -40,8 +40,8 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 import net.fortuna.ical4j.vcard.parameter.Type;
+import net.fortuna.ical4j.vcard.validate.CommunicationsPropertyValidators;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -49,6 +49,9 @@ import java.util.Arrays;
 
 /**
  * IMPP property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.4.3">vCard - IMPP</a>
+ * 
  * <p>
  * $Id$
  * <p>
@@ -56,7 +59,7 @@ import java.util.Arrays;
  *
  * @author Ben
  */
-public class Impp extends Property implements PropertyValidatorSupport {
+public class Impp extends Property {
 
     private static final long serialVersionUID = 4042305605468586600L;
 
@@ -110,7 +113,7 @@ public class Impp extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return IMPP.validate(this);
+        return CommunicationsPropertyValidators.IMPP.validate(this);
     }
 
     @Override

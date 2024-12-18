@@ -37,12 +37,19 @@ import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.validate.GeographicalPropertyValidators;
 
 import java.math.BigDecimal;
 
 /**
  * GEO property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.5.2">vCard - GEO</a>
+ * 
  * <p>
  * $Id$
  * <p>
@@ -50,7 +57,7 @@ import java.math.BigDecimal;
  *
  * @author Ben
  */
-public class Geo extends Property implements PropertyValidatorSupport, GroupProperty {
+public class Geo extends Property implements GroupProperty {
 
     private static final long serialVersionUID = 1533383111522264554L;
 
@@ -135,7 +142,7 @@ public class Geo extends Property implements PropertyValidatorSupport, GroupProp
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return PropertyValidatorSupport.GEO.validate(this);
+        return GeographicalPropertyValidators.GEO.validate(this);
     }
 
     @Override

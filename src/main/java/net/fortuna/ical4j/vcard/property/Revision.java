@@ -40,7 +40,11 @@ import net.fortuna.ical4j.model.property.DateProperty;
 import net.fortuna.ical4j.model.property.UtcProperty;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.DateFormatSupport;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.validate.ExplanatoryPropertyValidators;
 
 import java.text.ParseException;
 import java.time.Instant;
@@ -48,6 +52,9 @@ import java.time.format.DateTimeParseException;
 
 /**
  * REVISION property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.4">vCard - REV</a>
+ * 
  * <p>
  * $Id$
  * <p>
@@ -55,7 +62,7 @@ import java.time.format.DateTimeParseException;
  *
  * @author Ben
  */
-public class Revision extends DateProperty<Instant> implements UtcProperty, PropertyValidatorSupport {
+public class Revision extends DateProperty<Instant> implements UtcProperty {
 
     private static final long serialVersionUID = -1342640230576672871L;
 
@@ -94,7 +101,7 @@ public class Revision extends DateProperty<Instant> implements UtcProperty, Prop
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return REV.validate(this);
+        return ExplanatoryPropertyValidators.REV.validate(this);
     }
 
     @Override

@@ -37,8 +37,12 @@ import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.parameter.Type;
+import net.fortuna.ical4j.vcard.validate.DeliveryPropertyValidators;
 
 import java.util.Arrays;
 
@@ -48,6 +52,9 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * ADDRESS property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.3.1">vCard - ADR</a>
+ * 
  * <p>
  * $Id$
  * <p>
@@ -55,7 +62,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  *
  * @author Ben
  */
-public class Address extends Property implements PropertyValidatorSupport, GroupProperty {
+public class Address extends Property implements GroupProperty {
 
     private static final long serialVersionUID = 6538745668985015384L;
 
@@ -313,7 +320,7 @@ public class Address extends Property implements PropertyValidatorSupport, Group
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return ADDRESS.validate(this);
+        return DeliveryPropertyValidators.ADDRESS.validate(this);
     }
 
     @Override

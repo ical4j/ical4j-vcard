@@ -16,6 +16,7 @@ module ical4j.vcard {
     exports net.fortuna.ical4j.vcard.property.immutable;
     exports net.fortuna.ical4j.vcard.filter;
     exports net.fortuna.ical4j.vcard.parameter;
+    exports net.fortuna.ical4j.vcard.validate;
 
     uses net.fortuna.ical4j.vcard.ParameterFactory;
     uses net.fortuna.ical4j.vcard.PropertyFactory;

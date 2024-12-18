@@ -42,6 +42,7 @@ import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
+import net.fortuna.ical4j.vcard.validate.SecurityPropertyValidators;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -53,6 +54,9 @@ import java.util.Optional;
 
 /**
  * KEY property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.8.1">vCard - KEY</a>
+ * 
  * <p>
  * $Id$
  * <p>
@@ -60,7 +64,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Key extends Property implements PropertyValidatorSupport, GroupProperty {
+public class Key extends Property implements GroupProperty {
 
     private static final long serialVersionUID = -6645173064940148955L;
 
@@ -180,9 +184,9 @@ public class Key extends Property implements PropertyValidatorSupport, GroupProp
     @Override
     public ValidationResult validate() throws ValidationException {
         if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
-            return KEY_TEXT.validate(this);
+            return SecurityPropertyValidators.KEY_TEXT.validate(this);
         }
-        return KEY_URI.validate(this);
+        return SecurityPropertyValidators.KEY_URI.validate(this);
     }
 
     @Override

@@ -36,11 +36,18 @@ import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.property.immutable.ImmutableGender;
+import net.fortuna.ical4j.vcard.validate.IdentificationPropertyValidators;
 
 /**
  * GENDER property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.2.7">vCard - GENDER</a>
+ * 
  * <p>
  * $Id$
  * <p>
@@ -48,7 +55,7 @@ import net.fortuna.ical4j.vcard.property.immutable.ImmutableGender;
  *
  * @author Ben
  */
-public class Gender extends Property implements PropertyValidatorSupport, GroupProperty {
+public class Gender extends Property implements GroupProperty {
 
     private static final long serialVersionUID = -2739534182576803750L;
 
@@ -138,7 +145,7 @@ public class Gender extends Property implements PropertyValidatorSupport, GroupP
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return GENDER.validate(this);
+        return IdentificationPropertyValidators.GENDER.validate(this);
     }
 
     @Override

@@ -37,13 +37,20 @@ import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Entity;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.validate.OrganizationalPropertyValidators;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
  * MEMBER property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.6.5">vCard - MEMBER</a>
+ * 
  * <p>
  * $Id$
  * <p>
@@ -51,7 +58,7 @@ import java.net.URISyntaxException;
  *
  * @author Ben
  */
-public class Member extends Property implements PropertyValidatorSupport {
+public class Member extends Property {
 
     private static final long serialVersionUID = 6622845049765958916L;
 
@@ -115,7 +122,7 @@ public class Member extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return MEMBER.validate(this);
+        return OrganizationalPropertyValidators.MEMBER.validate(this);
     }
 
     @Override

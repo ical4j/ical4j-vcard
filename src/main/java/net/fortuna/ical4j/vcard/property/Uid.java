@@ -37,8 +37,12 @@ import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.ParameterName;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.parameter.Value;
+import net.fortuna.ical4j.vcard.validate.ExplanatoryPropertyValidators;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -47,6 +51,9 @@ import java.util.Optional;
 
 /**
  * UID property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.6">vCard - UID</a>
+ * 
  * <p>
  * $Id$
  * <p>
@@ -54,7 +61,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Uid extends Property implements PropertyValidatorSupport {
+public class Uid extends Property {
 
     private static final long serialVersionUID = -7120539613021006347L;
 
@@ -120,9 +127,9 @@ public class Uid extends Property implements PropertyValidatorSupport {
     @Override
     public ValidationResult validate() throws ValidationException {
         if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
-            return UID_TEXT.validate(this);
+            return ExplanatoryPropertyValidators.UID_TEXT.validate(this);
         }
-        return UID_URI.validate(this);
+        return ExplanatoryPropertyValidators.UID_URI.validate(this);
     }
 
     @Override
