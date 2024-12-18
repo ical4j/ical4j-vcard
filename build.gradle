@@ -88,7 +88,7 @@ javadoc {
     }
     options {
         links 'https://docs.oracle.com/en/java/javase/11/docs/api/',
-                'http://ical4j.github.io/docs/ical4j/api/4.0.0-beta6/'
+                'https://javadoc.io/doc/org.mnode.ical4j/ical4j/latest'
     }
 }
 
