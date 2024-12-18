@@ -40,6 +40,7 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
+import net.fortuna.ical4j.vcard.validate.OrganizationalPropertyValidators;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -58,7 +59,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Related extends Property implements PropertyValidatorSupport {
+public class Related extends Property {
 
     private static final long serialVersionUID = -3319959600372278036L;
 
@@ -168,9 +169,9 @@ public class Related extends Property implements PropertyValidatorSupport {
     @Override
     public ValidationResult validate() throws ValidationException {
         if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
-            return RELATED_TEXT.validate(this);
+            return OrganizationalPropertyValidators.RELATED_TEXT.validate(this);
         }
-        return RELATED_URI.validate(this);
+        return OrganizationalPropertyValidators.RELATED_URI.validate(this);
     }
 
     @Override

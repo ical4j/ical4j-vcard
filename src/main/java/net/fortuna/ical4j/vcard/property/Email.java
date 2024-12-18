@@ -36,7 +36,11 @@ import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.validate.CommunicationsPropertyValidators;
 
 /**
  * EMAIL property.
@@ -50,7 +54,7 @@ import net.fortuna.ical4j.vcard.*;
  *
  * @author Ben
  */
-public class Email extends Property implements PropertyValidatorSupport, GroupProperty {
+public class Email extends Property implements GroupProperty {
 
     private static final long serialVersionUID = 6134254373259957228L;
 
@@ -116,7 +120,7 @@ public class Email extends Property implements PropertyValidatorSupport, GroupPr
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return EMAIL.validate(this);
+        return CommunicationsPropertyValidators.EMAIL.validate(this);
     }
 
     @Override

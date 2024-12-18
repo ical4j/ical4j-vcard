@@ -40,7 +40,7 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
+import net.fortuna.ical4j.vcard.validate.GeneralPropertyValidators;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 
@@ -56,7 +56,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
-public class Xml extends Property implements Encodable, PropertyValidatorSupport {
+public class Xml extends Property implements Encodable {
 
     private static final long serialVersionUID = -1435219426295284759L;
 
@@ -99,7 +99,7 @@ public class Xml extends Property implements Encodable, PropertyValidatorSupport
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return XML_VALIDATOR.validate(this);
+        return GeneralPropertyValidators.XML_VALIDATOR.validate(this);
     }
 
     @Override

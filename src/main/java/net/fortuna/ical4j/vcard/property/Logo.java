@@ -38,10 +38,14 @@ import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.ParameterName;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
+import net.fortuna.ical4j.vcard.validate.OrganizationalPropertyValidators;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -63,7 +67,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Logo extends Property implements PropertyValidatorSupport {
+public class Logo extends Property {
 
     private static final long serialVersionUID = 7255763733402012595L;
 
@@ -168,7 +172,7 @@ public class Logo extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return LOGO.validate(this);
+        return OrganizationalPropertyValidators.LOGO.validate(this);
     }
 
     @Override

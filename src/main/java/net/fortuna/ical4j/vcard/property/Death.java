@@ -40,7 +40,7 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
+import net.fortuna.ical4j.vcard.validate.PropertyValidatorSupport;
 
 import static net.fortuna.ical4j.util.Strings.unescape;
 

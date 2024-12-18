@@ -40,6 +40,7 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
+import net.fortuna.ical4j.vcard.validate.CommunicationsPropertyValidators;
 import org.apache.commons.lang3.StringUtils;
 
 import java.net.URI;
@@ -59,7 +60,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Telephone extends Property implements PropertyValidatorSupport, GroupProperty {
+public class Telephone extends Property implements GroupProperty {
 
     private static final long serialVersionUID = -7747040131815077325L;
 
@@ -197,9 +198,9 @@ public class Telephone extends Property implements PropertyValidatorSupport, Gro
     @Override
     public ValidationResult validate() throws ValidationException {
         if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString()))) {
-            return TEL_URI.validate(this);
+            return CommunicationsPropertyValidators.TEL_URI.validate(this);
         }
-        return TEL_TEXT.validate(this);
+        return CommunicationsPropertyValidators.TEL_TEXT.validate(this);
     }
 
     @Override

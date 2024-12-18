@@ -39,7 +39,7 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
+import net.fortuna.ical4j.vcard.validate.ExplanatoryPropertyValidators;
 
 import static net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion.VERSION_4_0;
 
@@ -55,7 +55,7 @@ import static net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion.VERSI
  *
  * @author Ben
  */
-public class Version extends Property implements PropertyValidatorSupport {
+public class Version extends Property {
 
     private static final long serialVersionUID = -4345025177285348717L;
 
@@ -98,7 +98,7 @@ public class Version extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return PropertyValidatorSupport.VERSION.validate(this);
+        return ExplanatoryPropertyValidators.VERSION.validate(this);
     }
 
     @Override

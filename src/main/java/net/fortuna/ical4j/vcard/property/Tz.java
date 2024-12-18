@@ -37,8 +37,12 @@ import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.ZoneOffsetAdapter;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.ParameterName;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.parameter.Value;
+import net.fortuna.ical4j.vcard.validate.GeographicalPropertyValidators;
 
 import java.time.DateTimeException;
 import java.time.ZoneOffset;
@@ -56,7 +60,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Tz extends Property implements PropertyValidatorSupport {
+public class Tz extends Property {
 
     private static final long serialVersionUID = 930436197799477318L;
 
@@ -143,11 +147,11 @@ public class Tz extends Property implements PropertyValidatorSupport {
     @Override
     public ValidationResult validate() throws ValidationException {
         if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString()))) {
-            return TZ_URI.validate(this);
+            return GeographicalPropertyValidators.TZ_URI.validate(this);
         } else if (Optional.of(Value.UTC_OFFSET).equals(getParameter(ParameterName.VALUE.toString()))) {
-            return TZ_UTC_OFFSET.validate(this);
+            return GeographicalPropertyValidators.TZ_UTC_OFFSET.validate(this);
         }
-        return TZ_TEXT.validate(this);
+        return GeographicalPropertyValidators.TZ_TEXT.validate(this);
     }
 
     @Override

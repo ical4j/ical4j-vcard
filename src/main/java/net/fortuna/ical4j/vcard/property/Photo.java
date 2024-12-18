@@ -42,6 +42,7 @@ import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
+import net.fortuna.ical4j.vcard.validate.IdentificationPropertyValidators;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +63,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Photo extends Property implements PropertyValidatorSupport, GroupProperty {
+public class Photo extends Property implements GroupProperty {
 
     private static final long serialVersionUID = 5927040228596008262L;
 
@@ -178,7 +179,7 @@ public class Photo extends Property implements PropertyValidatorSupport, GroupPr
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return PHOTO.validate(this);
+        return IdentificationPropertyValidators.PHOTO.validate(this);
     }
 
     @Override

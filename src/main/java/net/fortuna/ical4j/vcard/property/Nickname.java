@@ -39,7 +39,7 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
+import net.fortuna.ical4j.vcard.validate.IdentificationPropertyValidators;
 
 /**
  * NICKNAME property.
@@ -53,7 +53,7 @@ import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
  *
  * @author Ben
  */
-public class Nickname extends Property implements PropertyValidatorSupport {
+public class Nickname extends Property {
 
     private static final long serialVersionUID = 2512809288464680577L;
 
@@ -106,7 +106,7 @@ public class Nickname extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return NICKNAME.validate(this);
+        return IdentificationPropertyValidators.NICKNAME.validate(this);
     }
 
     @Override

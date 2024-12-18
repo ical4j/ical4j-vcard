@@ -37,7 +37,11 @@ import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
+import net.fortuna.ical4j.vcard.validate.OrganizationalPropertyValidators;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -54,7 +58,7 @@ import java.util.stream.Collectors;
  *
  * @author Ben
  */
-public class Org extends Property implements PropertyValidatorSupport, GroupProperty {
+public class Org extends Property implements GroupProperty {
 
     private static final long serialVersionUID = -1435956318814896568L;
 
@@ -137,7 +141,7 @@ public class Org extends Property implements PropertyValidatorSupport, GroupProp
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return ORG.validate(this);
+        return OrganizationalPropertyValidators.ORG.validate(this);
     }
 
     @Override

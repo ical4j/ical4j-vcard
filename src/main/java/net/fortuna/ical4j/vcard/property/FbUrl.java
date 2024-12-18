@@ -40,8 +40,8 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 import net.fortuna.ical4j.vcard.parameter.Type;
+import net.fortuna.ical4j.vcard.validate.CalendarPropertyValidators;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -59,7 +59,7 @@ import java.util.Arrays;
  *
  * @author Ben
  */
-public class FbUrl extends Property implements PropertyValidatorSupport {
+public class FbUrl extends Property {
 
     private static final long serialVersionUID = 7406097765207265428L;
 
@@ -115,7 +115,7 @@ public class FbUrl extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return FBURL.validate(this);
+        return CalendarPropertyValidators.FBURL.validate(this);
     }
 
     @Override

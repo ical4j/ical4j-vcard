@@ -38,10 +38,14 @@ import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.Strings;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.ParameterName;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
+import net.fortuna.ical4j.vcard.validate.ExplanatoryPropertyValidators;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +66,7 @@ import java.util.Optional;
  *
  * @author Ben
  */
-public class Sound extends Property implements PropertyValidatorSupport {
+public class Sound extends Property {
 
     private static final long serialVersionUID = -3293436282728289163L;
 
@@ -166,7 +170,7 @@ public class Sound extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return SOUND.validate(this);
+        return ExplanatoryPropertyValidators.SOUND.validate(this);
     }
 
     @Override

@@ -36,8 +36,12 @@ import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.*;
+import net.fortuna.ical4j.vcard.Group;
+import net.fortuna.ical4j.vcard.GroupProperty;
+import net.fortuna.ical4j.vcard.PropertyFactory;
+import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.property.immutable.ImmutableKind;
+import net.fortuna.ical4j.vcard.validate.GeneralPropertyValidators;
 
 import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.*;
 
@@ -53,7 +57,7 @@ import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.*;
  *
  * @author Ben
  */
-public class Kind extends Property implements PropertyValidatorSupport, GroupProperty {
+public class Kind extends Property implements GroupProperty {
 
     private static final long serialVersionUID = -3114221975393833838L;
 
@@ -108,7 +112,7 @@ public class Kind extends Property implements PropertyValidatorSupport, GroupPro
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return KIND.validate(this);
+        return GeneralPropertyValidators.KIND.validate(this);
     }
 
     @Override

@@ -39,7 +39,7 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
+import net.fortuna.ical4j.vcard.validate.CommunicationsPropertyValidators;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -56,7 +56,7 @@ import java.util.Locale;
  *
  * @author Ben
  */
-public class Lang extends Property implements PropertyValidatorSupport {
+public class Lang extends Property {
 
     private static final long serialVersionUID = 1863658302945551760L;
 
@@ -117,7 +117,7 @@ public class Lang extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return LANG.validate(this);
+        return CommunicationsPropertyValidators.LANG.validate(this);
     }
 
     @Override

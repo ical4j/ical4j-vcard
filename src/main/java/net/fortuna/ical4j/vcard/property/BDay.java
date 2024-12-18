@@ -40,6 +40,7 @@ import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.*;
 import net.fortuna.ical4j.vcard.parameter.Value;
+import net.fortuna.ical4j.vcard.validate.IdentificationPropertyValidators;
 
 import java.time.format.DateTimeParseException;
 import java.time.temporal.Temporal;
@@ -57,7 +58,7 @@ import static net.fortuna.ical4j.util.Strings.unescape;
  *
  * @author Ben
  */
-public class BDay<T extends Temporal> extends DateProperty<T> implements Encodable, PropertyValidatorSupport {
+public class BDay<T extends Temporal> extends DateProperty<T> implements Encodable {
 
     private static final long serialVersionUID = 4298026868242865633L;
 
@@ -130,9 +131,9 @@ public class BDay<T extends Temporal> extends DateProperty<T> implements Encodab
     @Override
     public ValidationResult validate() throws ValidationException {
         if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
-            return BDAY_TEXT.validate(this);
+            return IdentificationPropertyValidators.BDAY_TEXT.validate(this);
         }
-        return BDAY_DATE.validate(this);
+        return IdentificationPropertyValidators.BDAY_DATE.validate(this);
     }
 
     @Override

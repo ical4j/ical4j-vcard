@@ -40,8 +40,8 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.PropertyFactory;
 import net.fortuna.ical4j.vcard.PropertyName;
-import net.fortuna.ical4j.vcard.PropertyValidatorSupport;
 import net.fortuna.ical4j.vcard.parameter.Type;
+import net.fortuna.ical4j.vcard.validate.CalendarPropertyValidators;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -59,7 +59,7 @@ import java.util.Arrays;
  *
  * @author Ben
  */
-public class CalUri extends Property implements PropertyValidatorSupport {
+public class CalUri extends Property {
 
     private static final long serialVersionUID = 4821378252642288695L;
 
@@ -115,7 +115,7 @@ public class CalUri extends Property implements PropertyValidatorSupport {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        return CALURI.validate(this);
+        return CalendarPropertyValidators.CALURI.validate(this);
     }
 
     @Override
