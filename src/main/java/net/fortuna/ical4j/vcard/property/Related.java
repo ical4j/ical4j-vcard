@@ -144,7 +144,7 @@ public class Related extends Property {
      */
     @Override
     public String getValue() {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             return text;
         }
         return Strings.valueOf(uri);
@@ -152,7 +152,7 @@ public class Related extends Property {
 
     @Override
     public void setValue(String value) {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             this.text = value;
         } else {
             try {
@@ -168,7 +168,7 @@ public class Related extends Property {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             return OrganizationalPropertyValidators.RELATED_TEXT.validate(this);
         }
         return OrganizationalPropertyValidators.RELATED_URI.validate(this);

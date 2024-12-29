@@ -93,7 +93,7 @@ public class Tz extends Property {
      */
     public Tz(ParameterList params, String value) {
         super(PropertyName.TZ, params);
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             this.text = value;
         } else {
             this.offset = new ZoneOffsetAdapter(ZoneOffset.of(value));
@@ -120,7 +120,7 @@ public class Tz extends Property {
     @Override
     public String getValue() {
         String value = null;
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             value = text;
         } else if (offset != null) {
             value = offset.toString();
@@ -146,9 +146,9 @@ public class Tz extends Property {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE))) {
             return GeographicalPropertyValidators.TZ_URI.validate(this);
-        } else if (Optional.of(Value.UTC_OFFSET).equals(getParameter(ParameterName.VALUE.toString()))) {
+        } else if (Optional.of(Value.UTC_OFFSET).equals(getParameter(ParameterName.VALUE))) {
             return GeographicalPropertyValidators.TZ_UTC_OFFSET.validate(this);
         }
         return GeographicalPropertyValidators.TZ_TEXT.validate(this);

@@ -134,7 +134,7 @@ public final class Value extends Parameter {
      * @param value string representation of a value parameter
      */
     public Value(String value) {
-        super(ParameterName.VALUE.toString());
+        super(ParameterName.VALUE);
         this.value = value;
     }
 

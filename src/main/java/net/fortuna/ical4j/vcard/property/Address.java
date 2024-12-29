@@ -66,19 +66,7 @@ public class Address extends Property implements GroupProperty {
 
     private static final long serialVersionUID = 6538745668985015384L;
 
-    private String poBox;
-
-    private String extended;
-
-    private String street;
-
-    private String locality;
-
-    private String region;
-
-    private String postcode;
-
-    private String country;
+    private String poBox, extended, street, locality, region, postcode, country;
 
     /**
      * @param poBox    post office box address component
@@ -284,35 +272,21 @@ public class Address extends Property implements GroupProperty {
     @Override
     public String getValue() {
         final var b = new StringBuilder();
-        if (isNotEmpty(poBox)) {
-            b.append(escape(poBox));
-        }
-        b.append(';');
-        if (isNotEmpty(extended)) {
-            b.append(escape(extended));
-        }
-        b.append(';');
-        if (isNotEmpty(street)) {
-            b.append(escape(street));
-        }
-        b.append(';');
-        if (isNotEmpty(locality)) {
-            b.append(escape(locality));
-        }
-        b.append(';');
-        if (isNotEmpty(region)) {
-            b.append(escape(region));
-        }
-        b.append(';');
-        if (isNotEmpty(postcode)) {
-            b.append(escape(postcode));
-        }
-        b.append(';');
-        if (isNotEmpty(country)) {
-            b.append(escape(country));
-        }
-        b.append(';');
+        appendValue(b, poBox);
+        appendValue(b, extended);
+        appendValue(b, street);
+        appendValue(b, locality);
+        appendValue(b, region);
+        appendValue(b, postcode);
+        appendValue(b, country);
         return b.toString();
+    }
+
+    private void appendValue(StringBuilder b, String value) {
+        if (isNotEmpty(value)) {
+            b.append(escape(value));
+        }
+        b.append(';');
     }
 
     /**

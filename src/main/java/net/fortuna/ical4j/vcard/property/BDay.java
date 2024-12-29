@@ -105,7 +105,7 @@ public class BDay<T extends Temporal> extends DateProperty<T> implements Encodab
      */
     @Override
     public String getValue() {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             return text;
         }
         return super.getValue();
@@ -113,7 +113,7 @@ public class BDay<T extends Temporal> extends DateProperty<T> implements Encodab
 
     @Override
     public void setValue(String value) {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             this.text = value;
         } else {
             // try default patterns first, then fall back on vCard-specific patterns
@@ -130,7 +130,7 @@ public class BDay<T extends Temporal> extends DateProperty<T> implements Encodab
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             return IdentificationPropertyValidators.BDAY_TEXT.validate(this);
         }
         return IdentificationPropertyValidators.BDAY_DATE.validate(this);

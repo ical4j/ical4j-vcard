@@ -126,7 +126,7 @@ public class Uid extends Property {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             return ExplanatoryPropertyValidators.UID_TEXT.validate(this);
         }
         return ExplanatoryPropertyValidators.UID_URI.validate(this);

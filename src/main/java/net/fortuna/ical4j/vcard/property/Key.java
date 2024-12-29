@@ -144,7 +144,7 @@ public class Key extends Property implements GroupProperty {
      */
     @Override
     public String getValue() {
-        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE.toString());
+        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE);
         String stringValue = null;
         
         /*
@@ -161,7 +161,7 @@ public class Key extends Property implements GroupProperty {
 
     @Override
     public void setValue(String value) {
-        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE.toString());
+        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE);
 
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
@@ -183,7 +183,7 @@ public class Key extends Property implements GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             return SecurityPropertyValidators.KEY_TEXT.validate(this);
         }
         return SecurityPropertyValidators.KEY_URI.validate(this);

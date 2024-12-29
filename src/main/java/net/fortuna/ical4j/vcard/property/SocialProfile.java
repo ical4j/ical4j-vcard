@@ -34,7 +34,7 @@ public class SocialProfile extends Property implements PropertyValidatorSupport 
 
     @Override
     public void setValue(String aValue) {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             this.value = aValue;
         } else {
             try {
@@ -47,7 +47,7 @@ public class SocialProfile extends Property implements PropertyValidatorSupport 
 
     @Override
     public ValidationResult validate() throws ValidationException {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             return SOCIAL_PROFILE_TEXT_VALIDATOR.validate(this);
         } else {
             return SOCIAL_PROFILE_URI_VALIDATOR.validate(this);

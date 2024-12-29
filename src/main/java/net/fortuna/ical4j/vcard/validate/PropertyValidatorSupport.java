@@ -74,7 +74,7 @@ public interface PropertyValidatorSupport {
 
     @Deprecated
     Validator<DDay> DDAY = new PropertyValidator<>(PropertyName.DDAY.toString(),
-            new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString()));
+            new ValidationRule<>(OneOrLess, ParameterName.VALUE));
 
     @Deprecated
     Validator<Death> DEATH = new PropertyValidator<>(PropertyName.DEATH.toString());
@@ -103,15 +103,15 @@ public interface PropertyValidatorSupport {
 
 
     Validator<SocialProfile> SOCIAL_PROFILE_TEXT_VALIDATOR = new PropertyValidator<>(PropertyName.TEL.toString(),
-            new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString()),
+            new ValidationRule<>(OneOrLess, ParameterName.VALUE),
             TEXT_VALUE);
 
     Validator<SocialProfile> SOCIAL_PROFILE_URI_VALIDATOR = new PropertyValidator<>(PropertyName.TEL.toString(),
-            new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString()),
+            new ValidationRule<>(OneOrLess, ParameterName.VALUE),
             URI_VALUE);
 
     @Deprecated
     Validator<SortString> SORT_STRING = new PropertyValidator<>(PropertyName.SORT_STRING.toString(),
-            new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString()));
+            new ValidationRule<>(OneOrLess, ParameterName.VALUE));
 
 }
