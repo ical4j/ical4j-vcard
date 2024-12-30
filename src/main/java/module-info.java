@@ -1,6 +1,4 @@
 module ical4j.vcard {
-    requires java.base;
-
     requires ical4j.core;
 
     requires org.apache.commons.codec;

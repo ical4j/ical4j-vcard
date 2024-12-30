@@ -25,7 +25,7 @@ public class Pronouns extends Property implements PropertyValidatorSupport {
 
     @Override
     public void setValue(String aValue) {
-        this.value = value;
+        this.value = aValue;
     }
 
     @Override

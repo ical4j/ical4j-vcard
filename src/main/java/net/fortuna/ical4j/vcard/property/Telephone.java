@@ -224,7 +224,9 @@ public class Telephone extends Property implements GroupProperty {
          * {@inheritDoc}
          */
         public Telephone createProperty(final Group group, final ParameterList params, final String value) {
-            return new Telephone(group, params, value);
+            Telephone telephone = createProperty(params, value);
+            telephone.setGroup(group);
+            return telephone;
         }
     }
 }

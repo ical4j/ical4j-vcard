@@ -210,7 +210,9 @@ public class Key extends Property implements GroupProperty {
          * {@inheritDoc}
          */
         public Key createProperty(final Group group, final ParameterList params, final String value) {
-            return new Key(group, params, value);
+            Key key = createProperty(params, value);
+            key.setGroup(group);
+            return key;
         }
     }
 }

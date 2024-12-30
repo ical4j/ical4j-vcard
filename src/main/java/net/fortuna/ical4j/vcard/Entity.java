@@ -168,7 +168,7 @@ public class Entity implements Serializable, Prototype<Entity>, PropertyContaine
 
     public Entity copy() {
         return new Entity(new PropertyList(getProperties().parallelStream()
-                .map(Property::<Property>copy).collect(Collectors.toList())));
+                .map(Property::copy).collect(Collectors.toList())));
     }
 
     /**
