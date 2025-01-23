@@ -108,11 +108,7 @@ public final class Url extends Property {
          * {@inheritDoc}
          */
         public Url createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
-            try {
-               return new URI(value);
-            } catch (URISyntaxException e) {
-                throw new IllegalArgumentException(e);
-            }
+            return new Url(params, value);
         }
 
         /**
