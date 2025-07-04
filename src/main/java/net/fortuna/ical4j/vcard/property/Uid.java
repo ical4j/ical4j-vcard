@@ -37,6 +37,9 @@ import net.fortuna.ical4j.vcard.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -62,6 +65,15 @@ public final class Uid extends Property {
         this.uri = uri;
     }
 
+
+    /**
+     * @param uid a uid definition
+     */
+    public Uid(String uid) throws URISyntaxException {
+        super(Id.UID);
+        this.uri = resolve(uid);
+    }
+
     /**
      * Factory constructor.
      *
@@ -76,10 +88,11 @@ public final class Uid extends Property {
 
     private URI resolve(String value) throws URISyntaxException {
         try {
-            return new URI(value);
+            return new URI(URLEncoder.encode(value, StandardCharsets.UTF_8));
         } catch (URISyntaxException e) {
             if (value.contains("\\,")) {
-                return new URI(value.substring(value.lastIndexOf("\\,") + 2));
+                String substringValue = value.substring(value.lastIndexOf("\\,") + 2);
+                return new URI(URLEncoder.encode(substringValue, StandardCharsets.UTF_8));
             } else {
                 throw e;
             }
@@ -98,7 +111,7 @@ public final class Uid extends Property {
      */
     @Override
     public String getValue() {
-        return Strings.valueOf(uri);
+        return URLDecoder.decode(uri.getPath(), StandardCharsets.UTF_8);
     }
 
     /**
