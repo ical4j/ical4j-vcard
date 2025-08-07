@@ -11,6 +11,18 @@ import net.fortuna.ical4j.vcard.validate.PropertyValidatorSupport;
 
 import java.util.Locale;
 
+/**
+ * Default language property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.8">vCard - DEFLANGUAGE</a>
+ *
+ * <p>
+ * $Id$
+ * <p>
+ * Created on 23/08/2008
+ *
+ * @author Ben
+ */
 public class DefLanguage extends Property implements PropertyValidatorSupport {
 
     private Locale locale;

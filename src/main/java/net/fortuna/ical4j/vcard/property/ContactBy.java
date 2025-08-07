@@ -10,6 +10,18 @@ import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.property.immutable.ImmutableContactBy;
 import net.fortuna.ical4j.vcard.validate.PropertyValidatorSupport;
 
+/**
+ * CONTACT-BY property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.8.1">vCard - CONTACT-BY</a>
+ *
+ * <p>
+ * $Id$
+ * <p>
+ * Created on 21/10/2008
+ *
+ * @author Ben
+ */
 public class ContactBy extends Property implements PropertyValidatorSupport {
 
     public static final String ADR = "ADR";

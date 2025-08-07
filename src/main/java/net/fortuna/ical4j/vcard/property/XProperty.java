@@ -9,6 +9,14 @@ import net.fortuna.ical4j.vcard.Group;
 import net.fortuna.ical4j.vcard.GroupProperty;
 
 /**
+ * Custom property for vCard that allows for arbitrary properties
+ * to be defined. This is useful for extensions or properties that
+ * do not have a predefined structure in the vCard specification.
+ * * <p>
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.10">vCard - X-Property</a>
+ * <p>
+ * <p> * $Id$
+ * <p>
  * Created by fortuna on 1/10/14.
  */
 public class XProperty extends Property implements GroupProperty {

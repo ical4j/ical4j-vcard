@@ -9,6 +9,18 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.validate.PropertyValidatorSupport;
 
+/**
+ * PRONOUNS property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.4">vCard - PRONOUNS</a>
+ *
+ * <p>
+ * $Id$
+ * <p>
+ * Created on 21/10/2008
+ *
+ * @author Ben
+ */
 public class Pronouns extends Property implements PropertyValidatorSupport {
 
     private String value;

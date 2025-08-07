@@ -16,6 +16,18 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
+/**
+ * SOCIALPROFILE property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.5">vCard - SOCIALPROFILE</a>
+ *
+ * <p>
+ * $Id$
+ * <p>
+ * Created on 21/10/2008
+ *
+ * @author Ben
+ */
 public class SocialProfile extends Property implements PropertyValidatorSupport {
 
     private URI uri;
