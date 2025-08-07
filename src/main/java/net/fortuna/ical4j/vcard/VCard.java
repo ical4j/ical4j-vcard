@@ -46,7 +46,38 @@ import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 /**
- * vCard object.
+ * Represents a vCard object, which is a collection of entities (properties) that
+ * can be used to represent contact information, events, or other structured data.
+ * <p>
+ * This class provides methods to validate, copy, merge, and split vCard objects,
+ * as well as to retrieve unique identifiers (UIDs) and manage the list of entities
+ * associated with the vCard. It implements the {@link Prototype} interface to allow
+ * for cloning of vCard instances, and the {@link EntityContainer} interface to manage
+ * a collection of entities within the vCard.
+ * <p>
+ * The vCard class is designed to be flexible and extensible, allowing for the addition
+ * of new properties and entities as needed. It provides a structured way to manage
+ * contact information and other related data, making it suitable for applications
+ * that require handling of vCard data formats.
+ * <p> * This class is serializable, allowing vCard objects to be easily saved and restored,
+ * making it suitable for use in applications that need to persist vCard data.
+ * <p>
+ * This class is designed to be used in a variety of applications, including
+ * web applications, desktop applications, and mobile applications. It provides
+ * a consistent and reliable way to handle vCard data, making it suitable for
+ * applications that require contact management, event scheduling, and other
+ * related functionalities. The vCard class can be easily extended and customized
+ * to meet the specific needs of different applications, allowing developers
+ * to create tailored solutions for managing vCard data.
+ * <p>
+ * The vCard class is a fundamental part of the iCal4j library, providing a
+ * solid foundation for working with vCard data in Java. It is designed to be
+ * easy to use, efficient, and flexible, making it a valuable tool for developers
+ * who need to manage contact information and other structured data in their
+ * applications. Whether you are building a simple contact management system
+ * or a complex application that requires advanced vCard functionalities, the
+ * VCard class provides the necessary tools and capabilities to handle
+ * vCard data effectively.
  * <p>
  * $Id$
  * <p>

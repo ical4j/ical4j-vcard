@@ -5,6 +5,10 @@ import net.fortuna.ical4j.vcard.property.*;
 
 import java.util.List;
 
+/**
+ * An interface for accessing organizational properties of a vCard entity.
+ * This includes titles, roles, logos, organizations, members, and related entities.
+ */
 public interface OrganizationalPropertyAccessor extends PropertyContainer {
 
     default List<Title> getTitles() {

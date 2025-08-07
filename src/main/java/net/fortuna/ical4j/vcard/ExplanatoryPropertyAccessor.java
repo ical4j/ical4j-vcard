@@ -6,6 +6,10 @@ import net.fortuna.ical4j.vcard.property.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * An interface for accessing properties that provide additional explanatory information about a vCard entity.
+ * This includes categories, notes, product ID, revision, sounds, unique identifier, client PID maps, URLs, and version.
+ */
 public interface ExplanatoryPropertyAccessor extends PropertyContainer {
 
     default List<Categories> getCategories() {

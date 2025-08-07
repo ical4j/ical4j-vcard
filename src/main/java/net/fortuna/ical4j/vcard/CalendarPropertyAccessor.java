@@ -7,6 +7,10 @@ import net.fortuna.ical4j.vcard.property.FbUrl;
 
 import java.util.List;
 
+/**
+ * CalendarPropertyAccessor provides access to calendar-related properties in a vCard.
+ * It extends PropertyContainer to allow retrieval of calendar-related properties.
+ */
 public interface CalendarPropertyAccessor extends PropertyContainer {
 
     default List<FbUrl> getFbUrls() {

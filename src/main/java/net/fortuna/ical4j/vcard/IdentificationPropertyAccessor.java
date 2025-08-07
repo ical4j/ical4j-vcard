@@ -6,6 +6,10 @@ import net.fortuna.ical4j.vcard.property.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * An interface for accessing identification properties of a vCard entity.
+ * This includes names, nicknames, photos, birthdays, anniversaries
+ */
 public interface IdentificationPropertyAccessor extends PropertyContainer {
 
     default List<Fn> getFns() {

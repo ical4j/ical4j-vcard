@@ -9,6 +9,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * Provides a list of vCard parameter factories.
+ * This is used to create parameters for vCard objects.
+ * The factories are based on RFC 6350 and include various parameter types.
+ *
+ * @see <a href="https://datatracker.ietf.org/doc/html/rfc6350">RFC 6350</a>
+ */
 public class VCardParameterFactorySupplier implements Supplier<List<net.fortuna.ical4j.model.ParameterFactory<? extends Parameter>>> {
 
     @Override

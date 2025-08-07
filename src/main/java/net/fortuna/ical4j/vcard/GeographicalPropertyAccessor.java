@@ -6,6 +6,10 @@ import net.fortuna.ical4j.vcard.property.Tz;
 
 import java.util.List;
 
+/**
+ * An interface for accessing geographical properties of a vCard entity.
+ * This includes time zones (Tz) and geographical coordinates (Geo).
+ */
 public interface GeographicalPropertyAccessor extends PropertyContainer {
 
     default List<Tz> getTzs() {

@@ -8,6 +8,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * Provides a list of vCard property factories.
+ * This is used to create properties for vCard objects.
+ * The factories are based on RFC 6350 and include various property types.
+ *
+ * @see <a href="https://datatracker.ietf.org/doc/html/rfc6350">RFC 6350</a>
+ */
 public class VCardPropertyFactorySupplier implements Supplier<List<net.fortuna.ical4j.model.PropertyFactory<? extends Property>>> {
 
     @Override
