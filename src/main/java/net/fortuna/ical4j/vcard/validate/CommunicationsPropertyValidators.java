@@ -12,6 +12,13 @@ import net.fortuna.ical4j.vcard.property.Telephone;
 import static net.fortuna.ical4j.validate.ValidationRule.ValidationType.OneOrLess;
 import static net.fortuna.ical4j.vcard.ParameterName.*;
 
+/**
+ * Provides validators for communication-related properties in vCard objects.
+ * These validators ensure that properties like EMAIL, IMPP, LANG, and TEL
+ * conform to the expected structure and rules defined in RFC 6350.
+ *
+ * @see <a href="https://datatracker.ietf.org/doc/html/rfc6350">RFC 6350</a>
+ */
 public interface CommunicationsPropertyValidators extends PropertyValidatorSupport {
 
     Validator<Email> EMAIL = new PropertyValidator<>(PropertyName.EMAIL.toString(),

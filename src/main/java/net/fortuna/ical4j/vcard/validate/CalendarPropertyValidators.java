@@ -11,6 +11,13 @@ import net.fortuna.ical4j.vcard.property.FbUrl;
 import static net.fortuna.ical4j.validate.ValidationRule.ValidationType.OneOrLess;
 import static net.fortuna.ical4j.vcard.ParameterName.*;
 
+/**
+ * Provides validators for calendar-related properties in vCard objects.
+ * These validators ensure that properties like CALADRURI, CALURI, and FBURL
+ * conform to the expected structure and rules defined in RFC 6350.
+ *
+ * @see <a href="https://datatracker.ietf.org/doc/html/rfc6350">RFC 6350</a>
+ */
 public interface CalendarPropertyValidators extends PropertyValidatorSupport {
 
     Validator<CalAdrUri> CALADRURI = new PropertyValidator<>(PropertyName.CALADRURI.toString(),

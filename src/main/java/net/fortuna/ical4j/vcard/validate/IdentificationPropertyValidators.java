@@ -10,6 +10,11 @@ import static net.fortuna.ical4j.validate.ValidationRule.ValidationType.OneOrLes
 import static net.fortuna.ical4j.validate.ValidationRule.ValidationType.ValueMatch;
 import static net.fortuna.ical4j.vcard.ParameterName.*;
 
+/**
+ * Provides validators for identification properties in vCard objects.
+ * These validators ensure that properties like ANNIVERSARY, BDAY, FN,
+ *
+ */
 public interface IdentificationPropertyValidators extends PropertyValidatorSupport {
 
     Validator<Anniversary<?>> ANNIVERSARY_DATE = new PropertyValidator<>(PropertyName.ANNIVERSARY.toString(),

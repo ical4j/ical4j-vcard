@@ -9,6 +9,13 @@ import net.fortuna.ical4j.vcard.property.Key;
 import static net.fortuna.ical4j.validate.ValidationRule.ValidationType.OneOrLess;
 import static net.fortuna.ical4j.vcard.ParameterName.*;
 
+/**
+ * Provides validators for security-related properties in vCard objects.
+ * These validators ensure that properties like KEY conform to the expected
+ * structure and rules defined in RFC 6350.
+ *
+ * @see <a href="https://datatracker.ietf.org/doc/html/rfc6350">RFC 6350</a>
+ */
 public interface SecurityPropertyValidators extends PropertyValidatorSupport {
 
     Validator<Key> KEY_URI = new PropertyValidator<>(PropertyName.KEY.toString(),
