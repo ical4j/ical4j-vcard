@@ -150,7 +150,9 @@ public class N extends Property {
         b.append(';');
 
         appendArrayValue(b, additionalNames);
+        b.append(';');
         appendArrayValue(b, prefixes);
+        b.append(';');
         appendArrayValue(b, suffixes);
 
         return b.toString();
@@ -165,7 +167,6 @@ public class N extends Property {
                 b.append(value[i]);
             }
         }
-        b.append(';');
     }
 
     @Override
