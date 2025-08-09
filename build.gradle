@@ -31,23 +31,20 @@ java {
 }
 
 dependencies {
-    api "org.mnode.ical4j:ical4j:$ical4jVersion", "commons-io:commons-io:$commonsIoVersion"
+    api libs.ical4j, libs.commons.io
 
-    groovyDslImplementation "org.codehaus.groovy:groovy:$groovyVersion"
+    groovyDslImplementation libs.groovy
 
     // junit
-    testImplementation "org.junit.vintage:junit-vintage-engine:$junitVintageVersion"
+    testImplementation libs.junit.jupiter
 
     // groovy-test
-    testImplementation "org.codehaus.groovy:groovy-test:$groovyVersion"
+    testImplementation libs.groovy.test
 
     // spock
-    testImplementation platform("org.spockframework:spock-bom:$spockVersion"),
-            "org.spockframework:spock-core",
-            "org.apache.logging.log4j:log4j-core:$log4jVersion",
-            "org.apache.logging.log4j:log4j-slf4j2-impl:$log4jVersion"
+    testImplementation platform(libs.spock.bom), libs.spock.core, libs.log4j.core, libs.log4j.slf4j2
 
-    testRuntimeOnly("org.mnode.ical4j:ical4j:$ical4jVersion") {
+    testRuntimeOnly(libs.ical4j) {
         capabilities {
             requireCapability("org.mnode.ical4j:ical4j-filter-expressions")
         }

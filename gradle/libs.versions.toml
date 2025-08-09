@@ -1,0 +1,23 @@
+[versions]
+ical4j = "4.0.8"
+commons-io = "2.16.1"
+groovy = "3.0.22"
+log4j = "2.23.1"
+spock = "2.4-M4-groovy-3.0"
+junitVintage = "5.10.2"
+
+
+[libraries]
+ical4j = { module = "org.mnode.ical4j:ical4j", version.ref = "ical4j" }
+commons-io = { module = "commons-io:commons-io", version.ref = "commons-io"}
+
+groovy = { module = "org.codehaus.groovy:groovy", version.ref = "groovy"}
+groovy-test = { module = "org.codehaus.groovy:groovy-test", version.ref = "groovy"}
+
+log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4j"}
+log4j-slf4j2 = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version.ref = "log4j"}
+
+spock-bom = { module = "org.spockframework:spock-bom", version.ref = "spock"}
+spock-core = { module = "org.spockframework:spock-core", version.ref = "spock"}
+
+junit-jupiter = { group = "org.junit.jupiter", name="junit-jupiter", version.ref = "junitVintage"}
