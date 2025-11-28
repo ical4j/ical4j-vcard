@@ -1,10 +1,10 @@
 [versions]
-ical4j = "4.0.8"
-commons-io = "2.16.1"
-groovy = "3.0.22"
-log4j = "2.23.1"
-spock = "2.4-M4-groovy-3.0"
-junitVintage = "5.10.2"
+ical4j = "4.2.1"
+commons-io = "2.21.0"
+groovy = "3.0.25"
+log4j = "2.25.2"
+spock = "2.4-M7-groovy-3.0"
+junitVintage = "5.14.1"
 
 
 [libraries]
