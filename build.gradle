@@ -10,9 +10,6 @@ plugins {
     id "biz.aQute.bnd.builder" version "$bndVersion"
 }
 
-sourceCompatibility = 11
-targetCompatibility = 11
-
 repositories {
     mavenCentral()
     mavenLocal()
@@ -22,6 +19,9 @@ repositories {
 }
 
 java {
+    sourceCompatibility = 11
+    targetCompatibility = 11
+
     withJavadocJar()
     withSourcesJar()
 
