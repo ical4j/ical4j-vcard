@@ -44,6 +44,8 @@ dependencies {
     // spock
     testImplementation platform(libs.spock.bom), libs.spock.core, libs.log4j.core, libs.log4j.slf4j2
 
+    testRuntimeOnly libs.junit.platform
+
     testRuntimeOnly(libs.ical4j) {
         capabilities {
             requireCapability("org.mnode.ical4j:ical4j-filter-expressions")

@@ -21,3 +21,4 @@ spock-bom = { module = "org.spockframework:spock-bom", version.ref = "spock"}
 spock-core = { module = "org.spockframework:spock-core", version.ref = "spock"}
 
 junit-jupiter = { group = "org.junit.jupiter", name="junit-jupiter", version.ref = "junitVintage"}
+junit-platform = { module = "org.junit.platform:junit-platform-launcher" }
