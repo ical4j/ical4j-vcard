@@ -139,7 +139,7 @@ public class Logo extends Property {
     @Override
     public String getValue() {
         String stringValue = null;
-        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE))) {
             stringValue = Strings.valueOf(uri);
         } else if (binary != null) {
             final var encoder = new Base64();
@@ -150,7 +150,7 @@ public class Logo extends Property {
 
     @Override
     public void setValue(String value) {
-        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE.toString());
+        final Optional<Parameter> valueParameter = getParameter(ParameterName.VALUE);
 
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter

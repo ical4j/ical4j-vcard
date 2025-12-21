@@ -50,7 +50,50 @@ import java.util.stream.Collectors;
 import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.GROUP;
 
 /**
- * vCard object.
+ * Represents a vCard object, which is a standard format for electronic business cards.
+ * This class provides methods to manage properties of the vCard, validate the vCard,
+ * and create a string representation of the vCard.
+ * <p>
+ *     This class implements various interfaces to provide access to different types of properties
+ *     such as address, calendar, communications, explanatory, general, geographical,
+ *     identification, organizational, and security properties.
+ * <p>
+ *     The {@link #MERGE} function allows for smart merging of properties, determining
+ *     whether to add or replace existing properties based on their names.
+ * <p>
+ *     The class also provides a default constructor and a constructor that accepts a list of properties
+ *     to initialize the vCard object. It includes methods for validation, copying, and
+ *     generating a string representation of the vCard.
+ * <p>
+ *     The vCard object must include the VERSION and FN properties, and it can optionally
+ *     include other properties such as KIND, N, BDAY, ANNIVERSARY,
+ *     GENDER, REV, and UID.
+ * <p>
+ *     The class overrides the {@link #equals(Object)} and {@link #hashCode()}
+ *     methods to ensure that two vCard objects are considered equal if their properties are the same.
+ * <p>
+ *     The {@link #toString()} method provides a vCard-compliant string representation
+ *     of the vCard object, which includes the BEGIN and END tags along with the properties.
+ * <p>
+ *     This class is part of the iCal4j library, which is a Java library for parsing and generating iCalendar data,
+ *     and it is used to handle vCard data structures in a convenient way.
+ * <p>
+ *     Note: This class is serializable, allowing vCard objects to be easily saved
+ *     and restored, which is useful for applications that need to persist vCard data.
+ * <p>
+ *     Example usage:
+ * <pre>
+ * Entity vCard = new Entity();
+ * vCard.add(new Property("FN", "John Doe"));
+ * vCard.add(new Property("EMAIL", "jdoe@example.com"));
+ * ValidationResult result = vCard.validate();
+ * if (result.isValid()) {
+ *     System.out.println(vCard);
+ * } else {
+ *     System.err.println("Validation failed: " + result.getEntries());
+ * }
+ * </pre>
+ *
  * <p>
  * $Id$
  * <p>
@@ -168,7 +211,7 @@ public class Entity implements Serializable, Prototype<Entity>, PropertyContaine
 
     public Entity copy() {
         return new Entity(new PropertyList(getProperties().parallelStream()
-                .map(Property::<Property>copy).collect(Collectors.toList())));
+                .map(Property::copy).collect(Collectors.toList())));
     }
 
     /**

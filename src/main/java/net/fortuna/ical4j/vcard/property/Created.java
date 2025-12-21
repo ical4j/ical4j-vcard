@@ -12,6 +12,18 @@ import net.fortuna.ical4j.vcard.validate.PropertyValidatorSupport;
 
 import java.time.Instant;
 
+/**
+ * Created property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.2.1">vCard - CREATED</a>
+ *
+ * <p>
+ * $Id$
+ * <p>
+ * Created on 23/08/2008
+ *
+ * @author Ben
+ */
 public class Created extends DateProperty<Instant> implements UtcProperty, PropertyValidatorSupport {
 
     public Created(String value) {

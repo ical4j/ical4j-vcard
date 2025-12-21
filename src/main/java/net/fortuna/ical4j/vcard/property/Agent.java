@@ -96,7 +96,7 @@ public class Agent extends Property implements Encodable, PropertyValidatorSuppo
      */
     public Agent(ParameterList params, String value) {
         super(PropertyName.AGENT.toString(), params);
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             this.text = value;
         } else {
             try {
@@ -126,7 +126,7 @@ public class Agent extends Property implements Encodable, PropertyValidatorSuppo
      */
     @Override
     public String getValue() {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             return text;
         }
         return Strings.valueOf(uri);

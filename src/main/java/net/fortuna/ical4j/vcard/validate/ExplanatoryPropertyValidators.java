@@ -11,6 +11,14 @@ import static net.fortuna.ical4j.validate.ValidationRule.ValidationType.*;
 import static net.fortuna.ical4j.vcard.ParameterName.*;
 import static net.fortuna.ical4j.vcard.PropertyName.UID;
 
+/**
+ * Provides validators for explanatory properties in vCard objects.
+ * These validators ensure that properties like CATEGORIES, CLIENTPIDMAP, NOTE,
+ * PRODID, REV, SOUND, UID, URL, and VERSION conform to the expected structure
+ * and rules defined in RFC 6350.
+ *
+ * @see <a href="https://datatracker.ietf.org/doc/html/rfc6350">RFC 6350</a>
+ */
 public interface ExplanatoryPropertyValidators extends PropertyValidatorSupport {
 
     Validator<Categories> CATEGORIES = new PropertyValidator<>(PropertyName.CATEGORIES.toString(),

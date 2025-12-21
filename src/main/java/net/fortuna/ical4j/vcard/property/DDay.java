@@ -113,7 +113,7 @@ public class DDay extends Property implements Encodable, PropertyValidatorSuppor
      */
     @Override
     public String getValue() {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             return text;
         }
         return Strings.valueOf(date);
@@ -121,7 +121,7 @@ public class DDay extends Property implements Encodable, PropertyValidatorSuppor
 
     @Override
     public void setValue(String value) {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             this.text = value;
         } else {
             try {

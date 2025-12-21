@@ -9,6 +9,18 @@ import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.validate.PropertyValidatorSupport;
 
+/**
+ * GramGender property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.2">vCard - GRAMGENDER</a>
+ *
+ * <p>
+ * $Id$
+ * <p>
+ * Created on 23/08/2008
+ *
+ * @author Ben
+ */
 public class GramGender extends Property implements PropertyValidatorSupport {
 
     public static final String ANIMATE = "animate";

@@ -22,5 +22,6 @@ class DefLanguageTest extends Specification {
 
         where:
         value | params
+        'en'    | []
     }
 }

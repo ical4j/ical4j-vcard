@@ -4,24 +4,24 @@ plugins {
     id 'maven-publish'
     id 'jacoco'
     id 'signing'
-    id "pl.allegro.tech.build.axion-release" version "1.13.6"
+    id "pl.allegro.tech.build.axion-release" version "1.20.1"
     id "com.palantir.revapi" version "1.7.0"
 //    id "net.ltgt.errorprone" version "2.0.2" apply false
     id "biz.aQute.bnd.builder" version "$bndVersion"
 }
 
-sourceCompatibility = 11
-targetCompatibility = 11
-
 repositories {
     mavenCentral()
     mavenLocal()
     maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots'
+        url 'https://central.sonatype.com/repository/maven-snapshots/'
     }
 }
 
 java {
+    sourceCompatibility = 11
+    targetCompatibility = 11
+
     withJavadocJar()
     withSourcesJar()
 
@@ -31,23 +31,22 @@ java {
 }
 
 dependencies {
-    api "org.mnode.ical4j:ical4j:$ical4jVersion", "commons-io:commons-io:$commonsIoVersion"
+    api libs.ical4j, libs.commons.io
 
-    groovyDslImplementation "org.codehaus.groovy:groovy:$groovyVersion"
+    groovyDslImplementation libs.groovy
 
     // junit
-    testImplementation "org.junit.vintage:junit-vintage-engine:$junitVintageVersion"
+    testImplementation libs.junit.jupiter
 
     // groovy-test
-    testImplementation "org.codehaus.groovy:groovy-test:$groovyVersion"
+    testImplementation libs.groovy.test
 
     // spock
-    testImplementation platform("org.spockframework:spock-bom:$spockVersion"),
-            "org.spockframework:spock-core",
-            "org.apache.logging.log4j:log4j-core:$log4jVersion",
-            "org.apache.logging.log4j:log4j-slf4j2-impl:$log4jVersion"
+    testImplementation platform(libs.spock.bom), libs.spock.core, libs.log4j.core, libs.log4j.slf4j2
 
-    testRuntimeOnly("org.mnode.ical4j:ical4j:$ical4jVersion") {
+    testRuntimeOnly libs.junit.platform
+
+    testRuntimeOnly(libs.ical4j) {
         capabilities {
             requireCapability("org.mnode.ical4j:ical4j-filter-expressions")
         }
@@ -58,8 +57,6 @@ test {
     useJUnitPlatform()
 
     finalizedBy jacocoTestCoverageVerification, jacocoTestReport // Ensure Jacoco is run after tests have completed
-
-    jvmArgs = ["-Duser.timezone=UTC"] // Some tests require default timezone to be UTC
 }
 
 jacocoTestCoverageVerification {
@@ -88,7 +85,7 @@ javadoc {
     }
     options {
         links 'https://docs.oracle.com/en/java/javase/11/docs/api/',
-                'http://ical4j.github.io/docs/ical4j/api/4.0.0-beta6/'
+                'https://javadoc.io/doc/org.mnode.ical4j/ical4j/latest'
     }
 }
 
@@ -115,7 +112,7 @@ jar {
     manifest {
         attributes(
                 'Implementation-Title': 'iCal4j vCard',
-                'Implementation-Version': archiveVersion,
+                'Implementation-Version': version,
                 'Implementation-Vendor': 'Ben Fortuna'
         )
     }
@@ -157,8 +154,8 @@ publishing {
 
     repositories {
         maven {
-            name = "OSSRH"
-            url = !isReleaseVersion ? "https://oss.sonatype.org/content/repositories/snapshots/" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            name = "MavenCentral"
+            url = !isReleaseVersion ? "https://central.sonatype.com/repository/maven-snapshots/" : "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/"
             credentials {
                 username = System.getenv("MAVEN_USERNAME")
                 password = System.getenv("MAVEN_PASSWORD")

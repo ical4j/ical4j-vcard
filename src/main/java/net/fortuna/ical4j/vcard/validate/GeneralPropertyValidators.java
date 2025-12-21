@@ -13,6 +13,13 @@ import static net.fortuna.ical4j.validate.ValidationRule.ValidationType.OneOrLes
 import static net.fortuna.ical4j.validate.ValidationRule.ValidationType.ValueMatch;
 import static net.fortuna.ical4j.vcard.ParameterName.*;
 
+/**
+ * Provides validators for general properties in vCard objects.
+ * These validators ensure that properties like SOURCE, KIND, and XML conform
+ * to the expected structure and rules defined in RFC 6350.
+ *
+ * @see <a href="https://datatracker.ietf.org/doc/html/rfc6350">RFC 6350</a>
+ */
 public interface GeneralPropertyValidators extends PropertyValidatorSupport {
 
     Validator<Source> SOURCE = new PropertyValidator<>(PropertyName.SOURCE.toString(),

@@ -147,38 +147,26 @@ public class N extends Property {
         if (isNotEmpty(givenName)) {
             b.append(givenName);
         }
-
         b.append(';');
-        if (!ArrayUtils.isEmpty(additionalNames)) {
-            for (int i = 0; i < additionalNames.length; i++) {
-                if (i > 0) {
-                    b.append(',');
-                }
-                b.append(additionalNames[i]);
-            }
-        }
 
+        appendArrayValue(b, additionalNames);
         b.append(';');
-        if (!ArrayUtils.isEmpty(prefixes)) {
-            for (int i = 0; i < prefixes.length; i++) {
-                if (i > 0) {
-                    b.append(',');
-                }
-                b.append(prefixes[i]);
-            }
-        }
-
+        appendArrayValue(b, prefixes);
         b.append(';');
-        if (!ArrayUtils.isEmpty(suffixes)) {
-            for (int i = 0; i < suffixes.length; i++) {
-                if (i > 0) {
-                    b.append(',');
-                }
-                b.append(suffixes[i]);
-            }
-        }
+        appendArrayValue(b, suffixes);
 
         return b.toString();
+    }
+
+    private void appendArrayValue(StringBuilder b, String[] value) {
+        if (!ArrayUtils.isEmpty(value)) {
+            for (int i = 0; i < value.length; i++) {
+                if (i > 0) {
+                    b.append(',');
+                }
+                b.append(value[i]);
+            }
+        }
     }
 
     @Override

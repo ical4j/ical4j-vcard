@@ -104,7 +104,7 @@ public class Anniversary<T extends Temporal> extends DateProperty<T> implements 
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             return IdentificationPropertyValidators.ANNIVERSARY_TEXT.validate(this);
         }
         return IdentificationPropertyValidators.ANNIVERSARY_DATE.validate(this);

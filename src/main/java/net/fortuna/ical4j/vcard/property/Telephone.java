@@ -181,7 +181,7 @@ public class Telephone extends Property implements GroupProperty {
 
     @Override
     public void setValue(String value) {
-        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE))) {
             try {
                 this.uri = normalise(new URI(value.trim().replaceAll("\\s+", "-")));
             } catch (URISyntaxException e) {
@@ -197,7 +197,7 @@ public class Telephone extends Property implements GroupProperty {
      */
     @Override
     public ValidationResult validate() throws ValidationException {
-        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE))) {
             return CommunicationsPropertyValidators.TEL_URI.validate(this);
         }
         return CommunicationsPropertyValidators.TEL_TEXT.validate(this);
@@ -224,7 +224,9 @@ public class Telephone extends Property implements GroupProperty {
          * {@inheritDoc}
          */
         public Telephone createProperty(final Group group, final ParameterList params, final String value) {
-            return new Telephone(group, params, value);
+            Telephone telephone = createProperty(params, value);
+            telephone.setGroup(group);
+            return telephone;
         }
     }
 }

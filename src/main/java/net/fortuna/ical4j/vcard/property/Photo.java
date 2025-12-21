@@ -160,9 +160,9 @@ public class Photo extends Property implements GroupProperty {
         /*
          * in the relaxed parsing mode we allow the vcard 2.1-style VALUE=URL parameter
          */
-        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE.toString())) ||
+        if (Optional.of(Value.URI).equals(getParameter(ParameterName.VALUE)) ||
                 CompatibilityHints.isHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING) &&
-                        Optional.of(Value.URL).equals(getParameter(ParameterName.VALUE.toString()))) {
+                        Optional.of(Value.URL).equals(getParameter(ParameterName.VALUE))) {
             try {
                 this.uri = new URI(value);
             } catch (URISyntaxException e) {

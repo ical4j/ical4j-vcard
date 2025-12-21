@@ -16,6 +16,18 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
+/**
+ * SOCIALPROFILE property.
+ *
+ * <a href="https://www.rfc-editor.org/rfc/rfc6350.html#section-6.7.5">vCard - SOCIALPROFILE</a>
+ *
+ * <p>
+ * $Id$
+ * <p>
+ * Created on 21/10/2008
+ *
+ * @author Ben
+ */
 public class SocialProfile extends Property implements PropertyValidatorSupport {
 
     private URI uri;
@@ -34,7 +46,7 @@ public class SocialProfile extends Property implements PropertyValidatorSupport 
 
     @Override
     public void setValue(String aValue) {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             this.value = aValue;
         } else {
             try {
@@ -47,7 +59,7 @@ public class SocialProfile extends Property implements PropertyValidatorSupport 
 
     @Override
     public ValidationResult validate() throws ValidationException {
-        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE.toString()))) {
+        if (Optional.of(Value.TEXT).equals(getParameter(ParameterName.VALUE))) {
             return SOCIAL_PROFILE_TEXT_VALIDATOR.validate(this);
         } else {
             return SOCIAL_PROFILE_URI_VALIDATOR.validate(this);

@@ -16,6 +16,13 @@ import java.util.stream.Collectors;
 import static net.fortuna.ical4j.model.Parameter.VALUE;
 import static net.fortuna.ical4j.validate.ValidationRule.ValidationType.*;
 
+/**
+ * Provides validators for various properties in vCard objects.
+ * These validators ensure that properties conform to the expected structure
+ * and rules defined in RFC 6350.
+ *
+ * @see <a href="https://datatracker.ietf.org/doc/html/rfc6350">RFC 6350</a>
+ */
 public interface PropertyValidatorSupport {
 
     ValidationRule<Property> TEXT_VALUE = new ValidationRule<>(prop -> {
@@ -74,7 +81,7 @@ public interface PropertyValidatorSupport {
 
     @Deprecated
     Validator<DDay> DDAY = new PropertyValidator<>(PropertyName.DDAY.toString(),
-            new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString()));
+            new ValidationRule<>(OneOrLess, ParameterName.VALUE));
 
     @Deprecated
     Validator<Death> DEATH = new PropertyValidator<>(PropertyName.DEATH.toString());
@@ -103,15 +110,15 @@ public interface PropertyValidatorSupport {
 
 
     Validator<SocialProfile> SOCIAL_PROFILE_TEXT_VALIDATOR = new PropertyValidator<>(PropertyName.TEL.toString(),
-            new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString()),
+            new ValidationRule<>(OneOrLess, ParameterName.VALUE),
             TEXT_VALUE);
 
     Validator<SocialProfile> SOCIAL_PROFILE_URI_VALIDATOR = new PropertyValidator<>(PropertyName.TEL.toString(),
-            new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString()),
+            new ValidationRule<>(OneOrLess, ParameterName.VALUE),
             URI_VALUE);
 
     @Deprecated
     Validator<SortString> SORT_STRING = new PropertyValidator<>(PropertyName.SORT_STRING.toString(),
-            new ValidationRule<>(OneOrLess, ParameterName.VALUE.toString()));
+            new ValidationRule<>(OneOrLess, ParameterName.VALUE));
 
 }

@@ -8,6 +8,10 @@ import net.fortuna.ical4j.vcard.property.Telephone;
 
 import java.util.List;
 
+/**
+ * CommunicationsPropertyAccessor provides access to communication-related properties in a vCard.
+ * It extends PropertyContainer to allow retrieval of telephone, email, IMPP, and language properties.
+ */
 public interface CommunicationsPropertyAccessor extends PropertyContainer {
 
     default List<Telephone> getTelephones() {
@@ -18,11 +22,11 @@ public interface CommunicationsPropertyAccessor extends PropertyContainer {
         return getProperties(PropertyName.EMAIL.toString());
     }
 
-    default List<Impp> getImpps() {
+    default List<Impp> getInstantMessaging() {
         return getProperties(PropertyName.IMPP.toString());
     }
 
-    default List<Lang> getLangs() {
+    default List<Lang> getLanguages() {
         return getProperties(PropertyName.LANG.toString());
     }
 }
