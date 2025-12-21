@@ -23,7 +23,7 @@ public interface OrganizationalPropertyAccessor extends PropertyContainer {
         return getProperties(PropertyName.LOGO.toString());
     }
 
-    default List<Org> getOrgs() {
+    default List<Org> getOrganizations() {
         return getProperties(PropertyName.ORG.toString());
     }
 

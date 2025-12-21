@@ -12,11 +12,11 @@ import java.util.List;
  */
 public interface GeographicalPropertyAccessor extends PropertyContainer {
 
-    default List<Tz> getTzs() {
+    default List<Tz> getTimezones() {
         return getProperties(PropertyName.TZ.toString());
     }
 
-    default List<Geo> getGeos() {
+    default List<Geo> getGeographicPositions() {
         return getProperties(PropertyName.GEO.toString());
     }
 }

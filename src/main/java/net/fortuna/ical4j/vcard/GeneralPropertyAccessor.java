@@ -18,11 +18,11 @@ public interface GeneralPropertyAccessor extends PropertyContainer {
         return getProperties(PropertyName.SOURCE.toString());
     }
 
-    default Optional<Kind> getKind() {
-        return getProperty(PropertyName.KIND);
+    default Kind getKind() {
+        return (Kind) getProperty(PropertyName.KIND).orElse(null);
     }
 
-    default List<Xml> getXmls() {
+    default List<Xml> getXml() {
         return getProperties(PropertyName.XML.toString());
     }
 }

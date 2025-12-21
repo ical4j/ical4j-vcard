@@ -4,7 +4,6 @@ import net.fortuna.ical4j.model.PropertyContainer;
 import net.fortuna.ical4j.vcard.property.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * An interface for accessing identification properties of a vCard entity.
@@ -12,12 +11,12 @@ import java.util.Optional;
  */
 public interface IdentificationPropertyAccessor extends PropertyContainer {
 
-    default List<Fn> getFns() {
+    default List<Fn> getFormattedNames() {
         return getProperties(PropertyName.FN.toString());
     }
 
-    default Optional<N> getN() {
-        return getProperty(PropertyName.N);
+    default N getName() {
+        return (N) getProperty(PropertyName.N).orElse(null);
     }
 
     default List<Nickname> getNicknames() {
@@ -28,15 +27,15 @@ public interface IdentificationPropertyAccessor extends PropertyContainer {
         return getProperties(PropertyName.PHOTO.toString());
     }
 
-    default Optional<BDay<?>> getBDay() {
-        return getProperty(PropertyName.BDAY);
+    default BDay<?> getBirthday() {
+        return (BDay<?>) getProperty(PropertyName.BDAY).orElse(null);
     }
 
-    default Optional<Anniversary<?>> getAnniversary() {
-        return getProperty(PropertyName.ANNIVERSARY);
+    default Anniversary<?> getAnniversary() {
+        return (Anniversary<?>) getProperty(PropertyName.ANNIVERSARY).orElse(null);
     }
 
-    default Optional<Gender> getGender() {
-        return getProperty(PropertyName.GENDER);
+    default Gender getGender() {
+        return (Gender) getProperty(PropertyName.GENDER).orElse(null);
     }
 }

@@ -22,11 +22,11 @@ public interface CommunicationsPropertyAccessor extends PropertyContainer {
         return getProperties(PropertyName.EMAIL.toString());
     }
 
-    default List<Impp> getImpps() {
+    default List<Impp> getInstantMessaging() {
         return getProperties(PropertyName.IMPP.toString());
     }
 
-    default List<Lang> getLangs() {
+    default List<Lang> getLanguages() {
         return getProperties(PropertyName.LANG.toString());
     }
 }

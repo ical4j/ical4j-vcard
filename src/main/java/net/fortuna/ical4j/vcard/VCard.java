@@ -41,7 +41,10 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -167,11 +170,11 @@ public class VCard implements Serializable, Prototype<VCard>, EntityContainer {
 
         final Map<Uid, VCard> cards = new HashMap<Uid, VCard>();
         for (final var c : getEntities()) {
-            final Optional<Uid> uid = c.getUid();
-            if (uid.isPresent()) {
-                var uidCal = cards.get(uid.get());
+            Uid uid= c.getUid();
+            if (uid != null) {
+                var uidCal = cards.get(uid);
                 if (uidCal == null) {
-                    cards.put(uid.get(), new VCard(new EntityList(Collections.singletonList(c))));
+                    cards.put(uid, new VCard(new EntityList(Collections.singletonList(c))));
                 } else {
                     uidCal.add(c);
                 }

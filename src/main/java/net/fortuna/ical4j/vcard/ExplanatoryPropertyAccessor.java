@@ -20,20 +20,20 @@ public interface ExplanatoryPropertyAccessor extends PropertyContainer {
         return getProperties(PropertyName.NOTE.toString());
     }
 
-    default Optional<ProdId> getProdId() {
-        return getProperty(PropertyName.PRODID);
+    default ProdId getProdId() {
+        return (ProdId) getProperty(PropertyName.PRODID).orElse(null);
     }
 
-    default Optional<Revision> getRevision() {
-        return getProperty(PropertyName.REV);
+    default Revision getRevision() {
+        return (Revision) getProperty(PropertyName.REV).orElse(null);
     }
 
     default List<Sound> getSounds() {
         return getProperties(PropertyName.SOUND.toString());
     }
 
-    default Optional<Uid> getUid() {
-        return getProperty(PropertyName.UID);
+    default Uid getUid() {
+        return (Uid) getProperty(PropertyName.UID).orElse(null);
     }
 
     default List<ClientPidMap> getClientPidMaps() {
@@ -45,6 +45,6 @@ public interface ExplanatoryPropertyAccessor extends PropertyContainer {
     }
 
     default Version getVersion() {
-        return getRequiredProperty(PropertyName.VERSION);
+        return (Version) getProperty(PropertyName.VERSION).orElse(null);
     }
 }

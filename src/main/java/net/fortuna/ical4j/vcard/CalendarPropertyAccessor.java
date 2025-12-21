@@ -13,15 +13,15 @@ import java.util.List;
  */
 public interface CalendarPropertyAccessor extends PropertyContainer {
 
-    default List<FbUrl> getFbUrls() {
+    default List<FbUrl> getFreeBusy() {
         return getProperties(PropertyName.FBURL.toString());
     }
 
-    default List<CalAdrUri> getCalAdrUris() {
+    default List<CalAdrUri> getCalendarAddresses() {
         return getProperties(PropertyName.CALADRURI.toString());
     }
 
-    default List<CalUri> getCalUris() {
+    default List<CalUri> getCalendars() {
         return getProperties(PropertyName.CALURI.toString());
     }
 }
