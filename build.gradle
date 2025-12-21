@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
     id 'jacoco'
     id 'signing'
-    id "pl.allegro.tech.build.axion-release" version "1.13.6"
+    id "pl.allegro.tech.build.axion-release" version "1.20.1"
     id "com.palantir.revapi" version "1.7.0"
 //    id "net.ltgt.errorprone" version "2.0.2" apply false
     id "biz.aQute.bnd.builder" version "$bndVersion"
@@ -57,8 +57,6 @@ test {
     useJUnitPlatform()
 
     finalizedBy jacocoTestCoverageVerification, jacocoTestReport // Ensure Jacoco is run after tests have completed
-
-    jvmArgs = ["-Duser.timezone=UTC"] // Some tests require default timezone to be UTC
 }
 
 jacocoTestCoverageVerification {
@@ -114,7 +112,7 @@ jar {
     manifest {
         attributes(
                 'Implementation-Title': 'iCal4j vCard',
-                'Implementation-Version': archiveVersion,
+                'Implementation-Version': version,
                 'Implementation-Vendor': 'Ben Fortuna'
         )
     }
