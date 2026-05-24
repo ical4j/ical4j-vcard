@@ -35,16 +35,16 @@ import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
 import org.apache.commons.codec.DecoderException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created on: 2009-02-26
@@ -53,21 +53,21 @@ import static org.junit.Assert.assertEquals;
  */
 public class KontactTest {
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		// enable relaxed parsing for non-standard GEO support..
 		CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
 	}
 
-	@After
+	@AfterEach
 	public void teardown() {
 		// enable relaxed parsing for non-standard GEO support..
 		CompatibilityHints.clearHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING);
 	}
 
 	/**
-	 * This example has been prepared with Kontact, it is OK, except for 
-	 * the BDAY date, that uses an extended format: 
+	 * This example has been prepared with Kontact, it is OK, except for
+	 * the BDAY date, that uses an extended format:
 	 *
 	 * 1985-01-28T00:00:00Z
 	 *
@@ -75,7 +75,7 @@ public class KontactTest {
 	 * but wasn't acceptable in RFC2445. Before this test was written
 	 * the implementation of the BDAY property from vcard used the
 	 * DateTime class from ical4j, which was much more restrictive and
-	 * didn't accept the above-mentioned date. 
+	 * didn't accept the above-mentioned date.
 	 *
 	 *
 	 * @throws ParserException
@@ -84,7 +84,7 @@ public class KontactTest {
 	 * @throws DecoderException
 	 */
 	@Test
-//	@Ignore
+//	@Disabled
 	public void testKontactExample() throws IOException, ParserException,
 			ValidationException, DecoderException {
 		File file = new File(
@@ -98,4 +98,4 @@ public class KontactTest {
 
 	}
 }
-	  	 
+

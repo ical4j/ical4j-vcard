@@ -40,14 +40,14 @@ import net.fortuna.ical4j.vcard.property.BDay;
 import net.fortuna.ical4j.vcard.property.Org;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.net.QuotedPrintableCodec;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Created on: 2009-02-26
@@ -56,12 +56,12 @@ import static org.junit.Assert.assertNotNull;
  */
 public class Outlook2003Test {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
     }
@@ -100,7 +100,7 @@ public class Outlook2003Test {
         var card = builder.build();
         assertEquals("Antoni Jozef Mylka jun.",
                 card.getEntities().get(0).getRequiredProperty(PropertyName.FN).getValue());
-		
+
 		/*
 		 * To test whether the file has really been parsed correctly, we
 		 * generate a string out of it. Before writing this test, the builder
@@ -110,20 +110,20 @@ public class Outlook2003Test {
 		 * didn't know it, it used to insert NULL into the property list. This
 		 * NULL yielded a NullPointerException when trying to serialize the file
 		 * back.
-		 * 
+		 *
 		 * If we can't preserve all data we should still have "something"
-		 * 
+		 *
 		 * note: we use non-validating outputter, since the ENCODING parameter
 		 * has been deprecated in the newest versions
 		 */
         VCardOutputter outputter = new VCardOutputter(false);
         StringWriter writer = new StringWriter();
         outputter.output(card, writer);
-		
+
 		/*
 		 * We don't support quoted printable, and we don't try to support
 		 * the crappy Outlook 2003 folding, but we would still like to
-		 * get something. 
+		 * get something.
 		 */
         Property labelProperty = card.getEntities().get(0).getRequiredProperty(PropertyName.LABEL);
         String labelvalue = labelProperty.getValue();
@@ -132,7 +132,7 @@ public class Outlook2003Test {
                         "Rheinland-Pfalz 67663=",
                 labelvalue
         );
-		
+
 		/*
 		 * A workaround for the limitation above, a utility method, that
 		 * checks the encoding of a property, and returns an un-encoded
@@ -143,16 +143,16 @@ public class Outlook2003Test {
                         "Rheinland-Pfalz 67663",
                 getDecodedPropertyalue(labelProperty)
         );
-		
+
 		/*
-		 * Another issue found, the BDAY property is parsed, but the 
+		 * Another issue found, the BDAY property is parsed, but the
 		 * value is not converted to a date, and te BDay.getDate() method
 		 * returns null.
 		 */
         BDay bday = card.getEntities().get(0).getRequiredProperty(PropertyName.BDAY);
         assertNotNull(bday.getDate());
         assertEquals("19800118", bday.getValue());
-		
+
 		/*
 		 * Yet another issue. The entry in PropertyFactoryRegistry for the ORG
 		 * property was invalid. There should be TWO values for this file
@@ -173,7 +173,7 @@ public class Outlook2003Test {
         Encoding enc = prop.getRequiredParameter(ParameterName.ENCODING.toString());
         String val = prop.getValue();
         if (enc != null && enc.getValue().equalsIgnoreCase("QUOTED-PRINTABLE")) {
-			
+
 			/*
 			 * A special Outlook2003 hack.
 			 */

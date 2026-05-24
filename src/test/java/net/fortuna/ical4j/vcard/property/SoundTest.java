@@ -32,35 +32,25 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import net.fortuna.ical4j.vcard.parameter.Value;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 public class SoundTest extends PropertyTest {
 
-    public SoundTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{new Sound(URI.create("")), PropertyName.SOUND.toString(), "", new Parameter[]{Value.URI}});
-        params.add(new Object[]{new Sound(new byte[0]), PropertyName.SOUND.toString(), "", new Parameter[]{Encoding.B}});
-
+    public static Stream<Arguments> parameters() {
         Type type = new Type("application/wav");
-        params.add(new Object[]{new Sound(new byte[0], type), PropertyName.SOUND.toString(), "",
-                new Parameter[]{Encoding.B, type}});
-        return params;
+        return Stream.of(
+                Arguments.of(new Sound(URI.create("")), PropertyName.SOUND.toString(), "", new Parameter[]{Value.URI}),
+                Arguments.of(new Sound(new byte[0]), PropertyName.SOUND.toString(), "", new Parameter[]{Encoding.B}),
+                Arguments.of(new Sound(new byte[0], type), PropertyName.SOUND.toString(), "",
+                        new Parameter[]{Encoding.B, type})
+        );
     }
-
 }

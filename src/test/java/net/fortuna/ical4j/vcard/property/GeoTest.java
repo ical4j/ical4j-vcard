@@ -33,39 +33,32 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class GeoTest extends PropertyTest {
 
-    public GeoTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
+    public static Stream<Arguments> parameters() {
+        final List<Arguments> params = new ArrayList<>();
         // enable relaxed parsing for non-standard GEO support..
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
-        params.add(new Object[]{new Geo(BigDecimal.ZERO, BigDecimal.ZERO), PropertyName.GEO.toString(), "0,0",
-                new Parameter[]{},});
+        params.add(Arguments.of(new Geo(BigDecimal.ZERO, BigDecimal.ZERO), PropertyName.GEO.toString(), "0,0",
+                new Parameter[]{}));
         final String geoString = "34.15345,-12.34523";
-        params.add(new Object[]{new Geo(new ParameterList(), geoString), PropertyName.GEO.toString(),
-                geoString, new Parameter[]{},});
+        params.add(Arguments.of(new Geo(new ParameterList(), geoString), PropertyName.GEO.toString(),
+                geoString, new Parameter[]{}));
 
-        params.add(new Object[]{new Geo(new ParameterList(), geoString), PropertyName.GEO.toString(),
-                geoString, new Parameter[]{},});
+        params.add(Arguments.of(new Geo(new ParameterList(), geoString), PropertyName.GEO.toString(),
+                geoString, new Parameter[]{}));
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
 
-        return params;
+        return params.stream();
     }
-
 }

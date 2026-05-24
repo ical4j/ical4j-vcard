@@ -33,47 +33,42 @@ package net.fortuna.ical4j.vcard.parameter;
 
 import net.fortuna.ical4j.vcard.ParameterName;
 import net.fortuna.ical4j.vcard.ParameterTest;
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LanguageTest extends ParameterTest {
 
-    private final Language language;
-    
-    private final Locale expectedLocale;
-    
-    public LanguageTest(Language language, String expectedName,
-            String expectedValue, Locale expectedLocale) {
-        super(language, expectedName, expectedValue);
-        this.language = language;
-        this.expectedLocale = expectedLocale;
-    }
-    
-    @Test
-    public void testGetLocale() {
-        assertEquals(expectedLocale, language.getLocale());
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-
+    public static Stream<Arguments> parameters() {
         final String englishString = "en";
-        Locale locale = new Locale(englishString, "AU");
-        params.add(new Object[]{new Language(locale), ParameterName.LANGUAGE.toString(), "en-AU", locale});
+        Locale localeAU = new Locale(englishString, "AU");
+        Locale localeES = new Locale("es", "ES", "Traditional_WIN");
+        return Stream.of(
+                Arguments.of(new Language(localeAU), ParameterName.LANGUAGE.toString(), "en-AU"),
+                Arguments.of(new Language(localeES), ParameterName.LANGUAGE.toString(), "es-ES-Traditional_WIN"),
+                Arguments.of(new Language(englishString), ParameterName.LANGUAGE.toString(), englishString)
+        );
+    }
 
-        locale = new Locale("es", "ES", "Traditional_WIN");
-        params.add(new Object[]{new Language(locale), ParameterName.LANGUAGE.toString(), "es-ES-Traditional_WIN", locale});
-        params.add(new Object[]{new Language(englishString), ParameterName.LANGUAGE.toString(),
-                englishString, new Locale(englishString),});
-        return params;
+    public static Stream<Arguments> localeParameters() {
+        final String englishString = "en";
+        Locale localeAU = new Locale(englishString, "AU");
+        Locale localeES = new Locale("es", "ES", "Traditional_WIN");
+        return Stream.of(
+                Arguments.of(new Language(localeAU), localeAU),
+                Arguments.of(new Language(localeES), localeES),
+                Arguments.of(new Language(englishString), new Locale(englishString))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("localeParameters")
+    public void testGetLocale(Language language, Locale expectedLocale) {
+        assertEquals(expectedLocale, language.getLocale());
     }
 }

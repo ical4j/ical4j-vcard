@@ -34,45 +34,38 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Value;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class DDayTest extends PropertyTest {
 
-    public DDayTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
+    public static Stream<Arguments> parameters() {
+        final List<Arguments> params = new ArrayList<>();
 
         try {
             String dateString = "20380415";
-            params.add(new Object[]{new DDay(new Date(dateString)), PropertyName.DDAY.toString(), dateString,
-                    new Parameter[]{},});
+            params.add(Arguments.of(new DDay(new Date(dateString)), PropertyName.DDAY.toString(), dateString,
+                    new Parameter[]{}));
             dateString = "19860125T081500";
-            params.add(new Object[]{new DDay(new DateTime(dateString)), PropertyName.DDAY.toString(), dateString,
-                    new Parameter[]{},});
+            params.add(Arguments.of(new DDay(new DateTime(dateString)), PropertyName.DDAY.toString(), dateString,
+                    new Parameter[]{}));
         } catch (ParseException pe) {
             pe.printStackTrace();
         }
-        params.add(new Object[]{new DDay(""), PropertyName.DDAY.toString(), "", new Parameter[]{Value.TEXT},});
+        params.add(Arguments.of(new DDay(""), PropertyName.DDAY.toString(), "", new Parameter[]{Value.TEXT}));
         String ddayString = "Unknown";
-        params.add(new Object[]{new DDay(ddayString), PropertyName.DDAY.toString(), ddayString,
-                new Parameter[]{Value.TEXT},});
+        params.add(Arguments.of(new DDay(ddayString), PropertyName.DDAY.toString(), ddayString,
+                new Parameter[]{Value.TEXT}));
         ddayString = "4pm, January 9th";
-        params.add(new Object[]{new DDay(ddayString), PropertyName.DDAY.toString(), ddayString,
-                new Parameter[]{Value.TEXT},});
-        return params;
+        params.add(Arguments.of(new DDay(ddayString), PropertyName.DDAY.toString(), ddayString,
+                new Parameter[]{Value.TEXT}));
+        return params.stream();
     }
-
 }

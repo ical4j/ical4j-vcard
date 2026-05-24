@@ -32,31 +32,22 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 public class DeathTest extends PropertyTest {
 
-    public DeathTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
+    public static Stream<Arguments> parameters() {
+        String deathString1 = "Somewhere in the Pacific Ocean";
+        String deathString2 = "Lunar expedition, Moon";
+        return Stream.of(
+                Arguments.of(new Death(deathString1), PropertyName.DEATH.toString(),
+                        deathString1, new Parameter[]{}),
+                Arguments.of(new Death(deathString2), PropertyName.DEATH.toString(), deathString2,
+                        new Parameter[]{})
+        );
     }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        String deathString = "Somewhere in the Pacific Ocean";
-        params.add(new Object[]{new Death(deathString), PropertyName.DEATH.toString(),
-                deathString, new Parameter[]{},});
-        deathString = "Lunar expedition, Moon";
-        params.add(new Object[]{new Death(deathString), PropertyName.DEATH.toString(), deathString,
-                new Parameter[]{},});
-        return params;
-    }
-
 }

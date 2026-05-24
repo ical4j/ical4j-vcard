@@ -32,32 +32,23 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Type;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 public class LabelTest extends PropertyTest {
 
-    public LabelTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
+    public static Stream<Arguments> parameters() {
+        return Stream.of(
+                Arguments.of(new Label(""), PropertyName.LABEL.toString(), "", new Parameter[]{}),
+                Arguments.of(
+                        new Label("Mr.John Q. Public, Esq." + "\nMail Drop: TNE QB" + "\n123 Main Street"
+                                + "\nAny Town, CA  91921-1234" + "\nU.S.A.", Type.HOME), PropertyName.LABEL.toString(),
+                        "Mr.John Q. Public, Esq.\nMail Drop: TNE QB\n123 Main Street\nAny Town, CA  91921-1234\nU.S.A.",
+                        new Parameter[]{Type.HOME})
+        );
     }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{new Label(""), PropertyName.LABEL.toString(), "", new Parameter[]{}});
-        params.add(new Object[]{
-                new Label("Mr.John Q. Public, Esq." + "\nMail Drop: TNE QB" + "\n123 Main Street"
-                        + "\nAny Town, CA  91921-1234" + "\nU.S.A.", Type.HOME), PropertyName.LABEL.toString(),
-                "Mr.John Q. Public, Esq.\nMail Drop: TNE QB\n123 Main Street\nAny Town, CA  91921-1234\nU.S.A.",
-                new Parameter[]{Type.HOME}});
-        return params;
-    }
-
 }

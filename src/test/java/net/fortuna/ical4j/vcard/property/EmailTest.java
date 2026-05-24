@@ -32,38 +32,19 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 public class EmailTest extends PropertyTest {
 
-    public EmailTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
+    public static Stream<Arguments> parameters() {
         final String emailString = "test@example.com";
-        params.add(new Object[]{new Email(emailString), PropertyName.EMAIL.toString(), emailString,
-                new Parameter[]{},});
-        // params.add(new Object[] {new Email("test@example.com", Type.HOME), Id.EMAIL.toString(), "test@example.com",
-        // new Parameter[] {Type.HOME}});
-        // params.add(new Object[] {new Email("test@example.com", Type.WORK), Id.EMAIL.toString(), "test@example.com",
-        // new Parameter[] {Type.WORK}});
-        // params.add(new Object[] {new Email("test@example.com", Type.WORK, Type.PREF), Id.EMAIL.toString(),
-        // "test@example.com", new Parameter[] {Type.WORK, Type.PREF}});
-
-        // Type type = new Type(Type.WORK, Type.PREF);
-        // params.add(new Object[] {new Email("test@example.com", type), Id.EMAIL.toString(), "test@example.com", new
-        // Parameter[] {type}});
-        return params;
+        return Stream.of(
+                Arguments.of(new Email(emailString), PropertyName.EMAIL.toString(), emailString,
+                        new Parameter[]{})
+        );
     }
-
 }

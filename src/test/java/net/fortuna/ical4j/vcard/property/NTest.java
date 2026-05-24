@@ -33,41 +33,31 @@ package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 public class NTest extends PropertyTest {
 
-    public NTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
+    public static Stream<Arguments> parameters() {
+        return Stream.of(
+                Arguments.of(new N("", "", new String[0], new String[0], new String[0]), PropertyName.N.toString(), ";;;;",
+                        new Parameter[]{}),
+                Arguments.of(new N("Fortuna", "Ben", new String[0], new String[0], new String[0]),
+                        PropertyName.N.toString(), "Fortuna;Ben;;;", new Parameter[]{}),
+                Arguments.of(
+                        new N("Public", "John", new String[]{"Quinlan"}, new String[]{"Mr."}, new String[]{"Esq."}),
+                        PropertyName.N.toString(), "Public;John;Quinlan;Mr.;Esq.", new Parameter[]{}),
+                Arguments.of(
+                        new N("Stevenson", "John", new String[]{"Philip", "Paul"}, new String[]{"Dr."}, new String[]{
+                                "Jr.", "M.D.", "A.C.P."}), PropertyName.N.toString(), "Stevenson;John;Philip,Paul;Dr.;Jr.,M.D.,A.C.P.",
+                        new Parameter[]{}),
+                Arguments.of(new N(new ParameterList(), "dirk"), PropertyName.N.toString(), "dirk;;;;",
+                        new Parameter[]{}),
+                Arguments.of(new N(new ParameterList(), "Ruhsert;Patrick;;;"), PropertyName.N.toString(),
+                        "Ruhsert;Patrick;;;", new Parameter[]{})
+        );
     }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{new N("", "", new String[0], new String[0], new String[0]), PropertyName.N.toString(), ";;;;",
-                new Parameter[]{}});
-        params.add(new Object[]{new N("Fortuna", "Ben", new String[0], new String[0], new String[0]),
-                PropertyName.N.toString(), "Fortuna;Ben;;;", new Parameter[]{}});
-        params.add(new Object[]{
-                new N("Public", "John", new String[]{"Quinlan"}, new String[]{"Mr."}, new String[]{"Esq."}),
-                PropertyName.N.toString(), "Public;John;Quinlan;Mr.;Esq.", new Parameter[]{}});
-        params.add(new Object[]{
-                new N("Stevenson", "John", new String[]{"Philip", "Paul"}, new String[]{"Dr."}, new String[]{
-                        "Jr.", "M.D.", "A.C.P."}), PropertyName.N.toString(), "Stevenson;John;Philip,Paul;Dr.;Jr.,M.D.,A.C.P.",
-                new Parameter[]{}});
-        params.add(new Object[]{new N(new ParameterList(), "dirk"), PropertyName.N.toString(), "dirk;;;;",
-                new Parameter[]{}});
-        params.add(new Object[]{new N(new ParameterList(), "Ruhsert;Patrick;;;"), PropertyName.N.toString(),
-                "Ruhsert;Patrick;;;", new Parameter[]{}});
-
-        return params;
-    }
-
 }

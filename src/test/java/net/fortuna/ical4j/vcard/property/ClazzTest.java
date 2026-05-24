@@ -32,32 +32,21 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import java.util.stream.Stream;
 
 public class ClazzTest extends PropertyTest {
 
-    public ClazzTest(Property property, String expectedName,
-                     String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{Clazz.CONFIDENTIAL, PropertyName.CLASS.toString(), "CONFIDENTIAL", new Parameter[]{}});
-        params.add(new Object[]{Clazz.PRIVATE, PropertyName.CLASS.toString(), "PRIVATE", new Parameter[]{}});
-        params.add(new Object[]{Clazz.PUBLIC, PropertyName.CLASS.toString(), "PUBLIC", new Parameter[]{}});
+    public static Stream<Arguments> parameters() {
         final String clazzString = "mammal";
-        params.add(new Object[]{new Clazz(clazzString), PropertyName.CLASS.toString(), clazzString, new Parameter[]{}});
-        return params;
+        return Stream.of(
+                Arguments.of(Clazz.CONFIDENTIAL, PropertyName.CLASS.toString(), "CONFIDENTIAL", new Parameter[]{}),
+                Arguments.of(Clazz.PRIVATE, PropertyName.CLASS.toString(), "PRIVATE", new Parameter[]{}),
+                Arguments.of(Clazz.PUBLIC, PropertyName.CLASS.toString(), "PUBLIC", new Parameter[]{}),
+                Arguments.of(new Clazz(clazzString), PropertyName.CLASS.toString(), clazzString, new Parameter[]{})
+        );
     }
-
 }

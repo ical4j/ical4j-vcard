@@ -32,58 +32,42 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Type;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 public class AddressTest extends PropertyTest {
 
     private static final String THREE_SEMIS = ";;;";
-    
-    public AddressTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
-    }
 
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-
+    public static Stream<Arguments> parameters() {
         final String country = "Australia";
-        params.add(new Object[]{new Address(null, null, null, null, null, null, country), PropertyName.ADR.toString(),
-                ";;;;;;" + country + ';', new Parameter[]{},});
-
         final String locality = "Brunswick";
-        params.add(new Object[]{new Address(null, null, null, locality, null, null, country), PropertyName.ADR.toString(),
-                THREE_SEMIS + locality + THREE_SEMIS + country + ';', new Parameter[]{},});
-
         final String region = "Melbourne";
-        params.add(new Object[]{new Address(null, null, null, locality, region, null, country), PropertyName.ADR.toString(),
-                THREE_SEMIS + locality + ';' + region + ";;" + country + ';', new Parameter[]{},});
-
         final String postcode = "3056";
-        params.add(new Object[]{new Address(null, null, null, locality, region, postcode, country),
-                PropertyName.ADR.toString(), THREE_SEMIS + locality + ';' + region + ';' + postcode + ';' + country + ';',
-                new Parameter[]{},});
-
-        params.add(new Object[]{new Address(null, null, null, locality, region, postcode, country, Type.HOME),
-                PropertyName.ADR.toString(), THREE_SEMIS + locality + ';' + region + ';' + postcode + ';' + country + ';',
-                new Parameter[]{Type.HOME},});
-        params.add(new Object[]{
-                new Address(null, null, null, locality, region, postcode, country, Type.HOME, Type.PREF),
-                PropertyName.ADR.toString(), THREE_SEMIS + locality + ';' + region + ';' + postcode + ';' + country + ';',
-                new Parameter[]{Type.HOME, Type.PREF},});
-
         final Type type = new Type(Type.HOME, Type.PREF);
-        params.add(new Object[]{new Address(null, null, null, locality, region, postcode, country, type),
-                PropertyName.ADR.toString(), THREE_SEMIS + locality + ';' + region + ';' + postcode + ';' + country + ';',
-                new Parameter[]{type},});
-
-        return params;
+        return Stream.of(
+                Arguments.of(new Address(null, null, null, null, null, null, country), PropertyName.ADR.toString(),
+                        ";;;;;;" + country + ';', new Parameter[]{}),
+                Arguments.of(new Address(null, null, null, locality, null, null, country), PropertyName.ADR.toString(),
+                        THREE_SEMIS + locality + THREE_SEMIS + country + ';', new Parameter[]{}),
+                Arguments.of(new Address(null, null, null, locality, region, null, country), PropertyName.ADR.toString(),
+                        THREE_SEMIS + locality + ';' + region + ";;" + country + ';', new Parameter[]{}),
+                Arguments.of(new Address(null, null, null, locality, region, postcode, country),
+                        PropertyName.ADR.toString(), THREE_SEMIS + locality + ';' + region + ';' + postcode + ';' + country + ';',
+                        new Parameter[]{}),
+                Arguments.of(new Address(null, null, null, locality, region, postcode, country, Type.HOME),
+                        PropertyName.ADR.toString(), THREE_SEMIS + locality + ';' + region + ';' + postcode + ';' + country + ';',
+                        new Parameter[]{Type.HOME}),
+                Arguments.of(new Address(null, null, null, locality, region, postcode, country, Type.HOME, Type.PREF),
+                        PropertyName.ADR.toString(), THREE_SEMIS + locality + ';' + region + ';' + postcode + ';' + country + ';',
+                        new Parameter[]{Type.HOME, Type.PREF}),
+                Arguments.of(new Address(null, null, null, locality, region, postcode, country, type),
+                        PropertyName.ADR.toString(), THREE_SEMIS + locality + ';' + region + ';' + postcode + ';' + country + ';',
+                        new Parameter[]{type})
+        );
     }
 }

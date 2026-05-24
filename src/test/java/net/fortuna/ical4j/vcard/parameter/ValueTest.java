@@ -31,31 +31,21 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterName;
 import net.fortuna.ical4j.vcard.ParameterTest;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import java.util.stream.Stream;
 
 public class ValueTest extends ParameterTest {
 
-    public ValueTest(Parameter parameter, String expectedName,
-                     String expectedValue) {
-        super(parameter, expectedName, expectedValue);
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{Value.BINARY, ParameterName.VALUE.toString(), "BINARY"});
-        params.add(new Object[]{Value.TEXT, ParameterName.VALUE.toString(), "TEXT"});
-        params.add(new Object[]{Value.URI, ParameterName.VALUE.toString(), "URI"});
+    public static Stream<Arguments> parameters() {
         final String valueString = "blah";
-        params.add(new Object[]{new Value(valueString), ParameterName.VALUE.toString(), valueString});
-        return params;
+        return Stream.of(
+                Arguments.of(Value.BINARY, ParameterName.VALUE.toString(), "BINARY"),
+                Arguments.of(Value.TEXT, ParameterName.VALUE.toString(), "TEXT"),
+                Arguments.of(Value.URI, ParameterName.VALUE.toString(), "URI"),
+                Arguments.of(new Value(valueString), ParameterName.VALUE.toString(), valueString)
+        );
     }
 }

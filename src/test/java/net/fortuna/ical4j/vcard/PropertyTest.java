@@ -34,75 +34,43 @@ package net.fortuna.ical4j.vcard;
 import net.fortuna.ical4j.model.Encodable;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.Property;
-import net.fortuna.ical4j.model.PropertyFactory;
 import net.fortuna.ical4j.util.Strings;
-import net.fortuna.ical4j.validate.ValidationException;
-import net.fortuna.ical4j.validate.ValidationResult;
-import net.fortuna.ical4j.vcard.parameter.Type;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static net.fortuna.ical4j.util.Strings.escape;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Parameterized.class)
-public class PropertyTest {
+public abstract class PropertyTest {
 
-    private final Property property;
-    
-    private final String expectedName;
-    
-    private final String expectedValue;
-    
-    private final Parameter[] expectedParams;
-    
-    private final Property expectedEqualTo;
-    
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     */
-    public PropertyTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        this.property = property;
-        this.expectedName = expectedName;
-        this.expectedValue = expectedValue;
-        this.expectedParams = expectedParams;
-        // XXX: insert proper copy here..
-        this.expectedEqualTo = property;
-    }
-
-    /**
-     * Test method for {@link Property#getParameters(String...)}.
-     */
-    @Test
-    public void testGetParameters() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testGetParameters(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         assertArrayEquals(expectedParams, property.getParameters().toArray());
     }
 
-    @Test
-    public void testGetParametersId() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testGetParametersId(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         for (Parameter p : expectedParams) {
             assertTrue(property.getParameters(p.getName()).contains(p));
         }
     }
 
-    @Test
-    public void testGetParameterId() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testGetParameterId(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         for (Parameter p : expectedParams) {
             assertTrue(property.getParameter(p.getName()).isPresent());
         }
     }
 
-    @Test
-    public void testGetExtendedParametersId() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testGetExtendedParametersId(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         for (Parameter p : expectedParams) {
             if (ParameterName.EXTENDED.toString().equals(p.getName())) {
                 assertTrue(property.getParameters(p.getName()).contains(p));
@@ -110,8 +78,9 @@ public class PropertyTest {
         }
     }
 
-    @Test
-    public void testGetExtendedParameterId() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testGetExtendedParameterId(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         for (Parameter p : expectedParams) {
             if (ParameterName.EXTENDED.toString().equals(p.getName())) {
                 assertNotNull(property.getRequiredParameter(p.getName()));
@@ -119,19 +88,15 @@ public class PropertyTest {
         }
     }
 
-    /**
-     * Test method for {@link GroupProperty#getValue()}.
-     */
-    @Test
-    public void testGetValue() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testGetValue(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         assertEquals(expectedValue, property.getValue());
     }
 
-    /**
-     * Test method for {@link GroupProperty#toString()}.
-     */
-    @Test
-    public void testToString() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testToString(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
         StringBuilder b = new StringBuilder();
         b.append(expectedName);
         for (Parameter p : expectedParams) {
@@ -145,82 +110,13 @@ public class PropertyTest {
             b.append(expectedValue);
         }
         b.append(Strings.LINE_SEPARATOR);
-        
+
         assertEquals(b.toString(), property.toString());
     }
 
-    @Test
-    public void testEquals() {
-        assertEquals(property, expectedEqualTo);
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testEquals(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
+        assertEquals(property, property);
     }
-    
-    @SuppressWarnings("serial")
-    @Parameters
-    public static Collection<Object[]> parameters() throws Exception {
-        List<Object[]> params = new ArrayList<Object[]>();
-
-        Property extended = new Property("X-extended") {
-            @Override
-            public String getValue() {
-                return "value";
-            }
-
-            @Override
-            public void setValue(String aValue) {
-
-            }
-
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.Property#validate()
-             */
-            @Override
-            public ValidationResult validate() throws ValidationException {
-                return null;
-            }
-
-            @Override
-            protected PropertyFactory<?> newFactory() {
-                return null;
-            }
-        };
-        params.add(new Object[] {extended, "X-extended", "value", new Parameter[] {}});
-
-        Parameter extendedParam = new Parameter("X-EXTENDED-PARAM") {
-            @Override
-            public String getValue() {
-                return null;
-            }
-        };
-
-        extended = new Property("X-extended2") {
-            @Override
-            public String getValue() {
-                return "value2";
-            }
-
-            @Override
-            public void setValue(String aValue) {
-
-            }
-
-            /* (non-Javadoc)
-             * @see net.fortuna.ical4j.vcard.Property#validate()
-             */
-            @Override
-            public ValidationResult validate() throws ValidationException {
-                return null;
-            }
-
-            @Override
-            protected PropertyFactory<?> newFactory() {
-                return null;
-            }
-        };
-        extended.add(Type.WORK);
-        extended.add(extendedParam);
-
-        params.add(new Object[]{extended, "X-extended2", "value2", new Parameter[]{Type.WORK, extendedParam}});
-        return params;
-    }
-
 }

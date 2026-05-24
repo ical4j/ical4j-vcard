@@ -31,34 +31,25 @@
  */
 package net.fortuna.ical4j.vcard.parameter;
 
-import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.ParameterName;
 import net.fortuna.ical4j.vcard.ParameterTest;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import java.util.stream.Stream;
 
 public class TypeTest extends ParameterTest {
 
-    public TypeTest(Parameter parameter, String expectedName, String expectedValue) {
-        super(parameter, expectedName, expectedValue);
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
+    public static Stream<Arguments> parameters() {
         final String homeString = "home";
-        params.add(new Object[]{Type.HOME, ParameterName.TYPE.toString(), homeString});
         final String prefString = "pref";
-        params.add(new Object[]{Type.PREF, ParameterName.TYPE.toString(), prefString});
-        params.add(new Object[]{Type.WORK, ParameterName.TYPE.toString(), "work"});
         final String homePrefString = "home,pref";
-        params.add(new Object[]{new Type(homePrefString), ParameterName.TYPE.toString(), homePrefString});
-        params.add(new Object[]{new Type(homeString, prefString), ParameterName.TYPE.toString(), homePrefString});
-        params.add(new Object[]{new Type(Type.HOME, Type.PREF), ParameterName.TYPE.toString(), homePrefString});
-        return params;
+        return Stream.of(
+                Arguments.of(Type.HOME, ParameterName.TYPE.toString(), homeString),
+                Arguments.of(Type.PREF, ParameterName.TYPE.toString(), prefString),
+                Arguments.of(Type.WORK, ParameterName.TYPE.toString(), "work"),
+                Arguments.of(new Type(homePrefString), ParameterName.TYPE.toString(), homePrefString),
+                Arguments.of(new Type(homeString, prefString), ParameterName.TYPE.toString(), homePrefString),
+                Arguments.of(new Type(Type.HOME, Type.PREF), ParameterName.TYPE.toString(), homePrefString)
+        );
     }
 }

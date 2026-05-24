@@ -32,37 +32,27 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.parameter.Type;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 public class KeyTest extends PropertyTest {
 
-    public KeyTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() throws DecoderException {
+    public static Stream<Arguments> parameters() throws DecoderException {
         final String keyString = "somekey";
-        final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{new Key(keyString.getBytes()), PropertyName.KEY.toString(),
-                new String(new Base64().encode(keyString.getBytes())), new Parameter[]{Encoding.B},});
-        params.add(new Object[]{new Key(new byte[0]), PropertyName.KEY.toString(), "", new Parameter[]{Encoding.B}});
-
         final Type type = new Type("application/pgp");
-        params.add(new Object[]{new Key(new byte[0], type), PropertyName.KEY.toString(), "",
-                new Parameter[]{Encoding.B, type},});
-        return params;
+        return Stream.of(
+                Arguments.of(new Key(keyString.getBytes()), PropertyName.KEY.toString(),
+                        new String(new Base64().encode(keyString.getBytes())), new Parameter[]{Encoding.B}),
+                Arguments.of(new Key(new byte[0]), PropertyName.KEY.toString(), "", new Parameter[]{Encoding.B}),
+                Arguments.of(new Key(new byte[0], type), PropertyName.KEY.toString(), "",
+                        new Parameter[]{Encoding.B, type})
+        );
     }
-
 }

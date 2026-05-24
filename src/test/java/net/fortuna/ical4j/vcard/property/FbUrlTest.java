@@ -32,33 +32,24 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Type;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 public class FbUrlTest extends PropertyTest {
 
-    public FbUrlTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
+    public static Stream<Arguments> parameters() {
+        String fburlString1 = "FTP://ftp.example.com/busy/project-a.ifb";
+        String fburlString2 = "http://www.example.com/busy/janedoe";
+        return Stream.of(
+                Arguments.of(new FbUrl(URI.create(fburlString1)),
+                        PropertyName.FBURL.toString(), fburlString1, new Parameter[]{}),
+                Arguments.of(new FbUrl(URI.create(fburlString2), Type.PREF),
+                        PropertyName.FBURL.toString(), fburlString2, new Parameter[]{Type.PREF})
+        );
     }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        String fburlString = "FTP://ftp.example.com/busy/project-a.ifb";
-        params.add(new Object[]{new FbUrl(URI.create(fburlString)),
-                PropertyName.FBURL.toString(), fburlString, new Parameter[]{},});
-        fburlString = "http://www.example.com/busy/janedoe";
-        params.add(new Object[]{new FbUrl(URI.create(fburlString), Type.PREF),
-                PropertyName.FBURL.toString(), fburlString, new Parameter[]{Type.PREF},});
-        return params;
-    }
-
 }

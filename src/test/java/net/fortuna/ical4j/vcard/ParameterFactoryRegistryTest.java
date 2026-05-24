@@ -34,62 +34,40 @@ package net.fortuna.ical4j.vcard;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.parameter.Pref;
 import net.fortuna.ical4j.vcard.parameter.Type;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created on: 05/01/2009
  *
  * @author Ben
  */
-@RunWith(Parameterized.class)
-@Ignore
+@Disabled
 public class ParameterFactoryRegistryTest {
 
-    private final ParameterFactoryRegistry registry;
-
-    private final String paramName;
-
-    private final String paramValue;
-
-    private final Parameter expectedParam;
-
-    /**
-     * @param registry
-     * @param paramName
-     * @param expectedParam
-     */
-    public ParameterFactoryRegistryTest(ParameterFactoryRegistry registry, String paramName,
-                                        String paramValue, Parameter expectedParam) {
-        this.registry = registry;
-        this.paramName = paramName;
-        this.paramValue = paramValue;
-        this.expectedParam = expectedParam;
-    }
-
-    @Test
-    public void testGetFactoryCreateParameter() throws URISyntaxException {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testGetFactoryCreateParameter(ParameterFactoryRegistry registry, String paramName,
+                                              String paramValue, Parameter expectedParam) throws URISyntaxException {
         ParameterFactory<? extends Parameter> factory = registry.getFactory(paramName);
         assertEquals(expectedParam, factory.createParameter(paramValue));
     }
 
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+    public static Stream<Arguments> parameters() {
+        List<Arguments> params = new ArrayList<>();
 
         ParameterFactoryRegistry registry = new ParameterFactoryRegistry();
-        params.add(new Object[]{registry, Type.PREF.getName(), Type.PREF.getValue(), Type.PREF});
-        params.add(new Object[]{registry, ParameterName.PREF.toString(), "1", new Pref(1)});
-        return params;
+        params.add(Arguments.of(registry, Type.PREF.getName(), Type.PREF.getValue(), Type.PREF));
+        params.add(Arguments.of(registry, ParameterName.PREF.toString(), "1", new Pref(1)));
+        return params.stream();
     }
 }

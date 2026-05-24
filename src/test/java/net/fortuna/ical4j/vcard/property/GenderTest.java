@@ -32,32 +32,23 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.FEMALE;
 import static net.fortuna.ical4j.vcard.property.immutable.ImmutableGender.MALE;
 
 public class GenderTest extends PropertyTest {
 
-    public GenderTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{FEMALE, PropertyName.GENDER.toString(), "F", new Parameter[]{}});
-        params.add(new Object[]{MALE, PropertyName.GENDER.toString(), "M", new Parameter[]{}});
+    public static Stream<Arguments> parameters() {
         final String genderString = "Unknown";
-        params.add(new Object[]{new Gender(genderString), PropertyName.GENDER.toString(), genderString, new Parameter[]{}});
-        return params;
+        return Stream.of(
+                Arguments.of(FEMALE, PropertyName.GENDER.toString(), "F", new Parameter[]{}),
+                Arguments.of(MALE, PropertyName.GENDER.toString(), "M", new Parameter[]{}),
+                Arguments.of(new Gender(genderString), PropertyName.GENDER.toString(), genderString, new Parameter[]{})
+        );
     }
-
 }

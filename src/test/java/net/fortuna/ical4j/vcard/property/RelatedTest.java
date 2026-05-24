@@ -32,31 +32,20 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Value;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import java.util.stream.Stream;
 
 public class RelatedTest extends PropertyTest {
 
-    public RelatedTest(Property property, String expectedName,
-                       String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
+    public static Stream<Arguments> parameters() {
+        return Stream.of(
+                Arguments.of(new Related(URI.create("")), PropertyName.RELATED.toString(), "", new Parameter[]{}),
+                Arguments.of(new Related(""), PropertyName.RELATED.toString(), "", new Parameter[]{Value.TEXT})
+        );
     }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{new Related(URI.create("")), PropertyName.RELATED.toString(), "", new Parameter[]{}});
-        params.add(new Object[]{new Related(""), PropertyName.RELATED.toString(), "", new Parameter[]{Value.TEXT}});
-        return params;
-    }
-
 }

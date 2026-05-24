@@ -34,13 +34,13 @@ package net.fortuna.ical4j.vcard;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.validate.ValidationException;
 import org.apache.commons.codec.DecoderException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created on: 2009-02-26
@@ -54,16 +54,16 @@ public class VCardsSAPTest {
 	 * The vcards file has been prepared for the Nepomuk Social Semantic
 	 * Desktop Project. The interesting thing about it is that it uses
 	 * the TYPE parameter written in lowercase. Even though the specification
-	 * 
+	 *
 	 *  draft-ietf-vcarddav-vcardrev-05.txt
-	 *  
-	 * says that property names and parameter names are case-insensitive 
+	 *
+	 * says that property names and parameter names are case-insensitive
 	 * (section 4.2)
-	 * 
-	 * @throws ParserException 
-	 * @throws IOException 
-	 * @throws ValidationException 
-	 * @throws DecoderException 
+	 *
+	 * @throws ParserException
+	 * @throws IOException
+	 * @throws ValidationException
+	 * @throws DecoderException
 	 */
 	@Test
 	public void testVcardsSAPExample() throws IOException, ParserException, ValidationException {

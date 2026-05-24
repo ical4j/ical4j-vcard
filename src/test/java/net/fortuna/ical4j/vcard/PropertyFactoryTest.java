@@ -36,41 +36,20 @@ import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import org.apache.commons.codec.DecoderException;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(Parameterized.class)
 public class PropertyFactoryTest {
-
-    private final PropertyFactory<Property> factory;
-
-    private final Group group;
-
-    private final String extendedName;
-
-    private final String value;
-
-    /**
-     * @param factory
-     * @param value
-     */
-    public PropertyFactoryTest(PropertyFactory<Property> factory, Group group, String name, String value) {
-        this.factory = factory;
-        this.group = group;
-        this.extendedName = name;
-        this.value = value;
-    }
 
     /**
      * Test method for {@link net.fortuna.ical4j.vcard.PropertyFactory#createProperty(ParameterList, String)} .
@@ -79,25 +58,28 @@ public class PropertyFactoryTest {
      * @throws URISyntaxException
      * @throws DecoderException
      */
-    @Test
-    public void testCreateProperty() throws URISyntaxException, ParseException, DecoderException {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testCreateProperty(PropertyFactory<Property> factory, Group group, String extendedName, String value)
+            throws URISyntaxException, ParseException, DecoderException {
         Property property = factory.createProperty(new ParameterList(), value);
         assertEquals(extendedName, property.getName());
         assertEquals(value, property.getValue());
     }
 
-    @Test
-    @Ignore
-    public void testCreateGroupProperty() throws URISyntaxException, ParseException, DecoderException {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    @Disabled
+    public void testCreateGroupProperty(PropertyFactory<Property> factory, Group group, String extendedName, String value)
+            throws URISyntaxException, ParseException, DecoderException {
         Property property = factory.createProperty(group, new ParameterList(), value);
         assertEquals(group, ((GroupProperty) property).getGroup());
         assertEquals(extendedName, property.getName());
         assertEquals(value, property.getValue());
     }
 
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+    public static Stream<Arguments> parameters() {
+        List<Arguments> params = new ArrayList<>();
 
         PropertyFactory<Property> factory = new PropertyFactory<Property>() {
             /*
@@ -169,8 +151,8 @@ public class PropertyFactoryTest {
             }
         };
 
-        params.add(new Object[]{factory, null, "extended", "value"});
-        params.add(new Object[]{factory, Group.HOME, "extended", "value"});
-        return params;
+        params.add(Arguments.of(factory, null, "extended", "value"));
+        params.add(Arguments.of(factory, Group.HOME, "extended", "value"));
+        return params.stream();
     }
 }

@@ -32,27 +32,19 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 public class BirthTest extends PropertyTest {
 
-    public BirthTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
+    public static Stream<Arguments> parameters() {
         final String birthString = "Mercy Hospital, Melbourne";
-        params.add(new Object[]{new Birth(birthString), PropertyName.BIRTH.toString(),
-                birthString, new Parameter[]{},});
-        return params;
+        return Stream.of(
+                Arguments.of(new Birth(birthString), PropertyName.BIRTH.toString(),
+                        birthString, new Parameter[]{})
+        );
     }
 }
