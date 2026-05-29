@@ -173,7 +173,7 @@ public class Entity implements Serializable, Prototype<Entity>, PropertyContaine
 
         // ;A vCard object MUST include the VERSION and FN properties.
         assertOne(PropertyName.VERSION);
-        assertOne(PropertyName.FN);
+        assertOneOrMore(PropertyName.FN);
         //assertOne(Property.Id.N);
 
         boolean isKindGroup = false;
@@ -206,6 +206,16 @@ public class Entity implements Serializable, Prototype<Entity>, PropertyContaine
         final List<Property> properties = getProperties(propertyId.toString());
         if (properties.size() != 1) {
             throw new ValidationException("Property [" + propertyId + "] must be specified once");
+        }
+    }
+
+    /**
+     * @param propertyId
+     * @throws ValidationException if the property is not specified at least once
+     */
+    private void assertOneOrMore(final PropertyName propertyId) throws ValidationException {
+        if (getProperties(propertyId.toString()).isEmpty()) {
+            throw new ValidationException("Property [" + propertyId + "] must be specified at least once");
         }
     }
 
