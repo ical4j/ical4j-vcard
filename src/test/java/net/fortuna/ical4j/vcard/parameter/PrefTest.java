@@ -33,25 +33,16 @@ package net.fortuna.ical4j.vcard.parameter;
 
 import net.fortuna.ical4j.vcard.ParameterName;
 import net.fortuna.ical4j.vcard.ParameterTest;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import java.util.stream.Stream;
 
 public class PrefTest extends ParameterTest {
 
-    public PrefTest(Pref parameter, String expectedName, String expectedValue) {
-        super(parameter, expectedName, expectedValue);
+    public static Stream<Arguments> parameters() {
+        return Stream.of(
+                Arguments.of(new Pref(1), ParameterName.PREF.toString(), "1"),
+                Arguments.of(new Pref(""), ParameterName.PREF.toString(), null)
+        );
     }
-    
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{new Pref(1), ParameterName.PREF.toString(), "1"});
-        params.add(new Object[]{new Pref(""), ParameterName.PREF.toString(), null});
-        return params;
-    }
-
 }

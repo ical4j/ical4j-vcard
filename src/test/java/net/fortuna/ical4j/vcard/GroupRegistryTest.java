@@ -31,59 +31,39 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import static junit.framework.Assert.assertEquals;
+import net.fortuna.ical4j.data.ParserException;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
-import net.fortuna.ical4j.data.ParserException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
-@RunWith(Parameterized.class)
 public class GroupRegistryTest {
 
-    private final GroupRegistry registry;
-    
-    private final String groupName;
-    
-    private final Group expectedGroup;
-    
     /**
-     * @param registry
-     * @param groupName
-     * @param expectedGroup
+     *
      */
-    public GroupRegistryTest(GroupRegistry registry, String groupName, Group expectedGroup) {
-        this.registry = registry;
-        this.groupName = groupName;
-        this.expectedGroup = expectedGroup;
-    }
-    
-    /**
-     * 
-     */
-    @Test
-    public void testGetGroup() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testGetGroup(GroupRegistry registry, String groupName, Group expectedGroup) {
         assertEquals(expectedGroup, registry.getGroup(groupName));
     }
 
 
-    @Parameters
-    public static Collection<Object[]> parameters() throws IOException, ParserException {
-        List<Object[]> params = new ArrayList<Object[]>();
-        
+    public static Stream<Arguments> parameters() throws IOException, ParserException {
+        List<Arguments> params = new ArrayList<>();
+
         GroupRegistry registry = new GroupRegistry();
         Group ext = new Group("EXT");
         registry.register("EXT", ext);
-        params.add(new Object[] {registry, "HOME", Group.HOME});
-        params.add(new Object[] {registry, "WORK", Group.WORK});
-        params.add(new Object[] {registry, "EXT", ext});
-        return params;
+        params.add(Arguments.of(registry, "HOME", Group.HOME));
+        params.add(Arguments.of(registry, "WORK", Group.WORK));
+        params.add(Arguments.of(registry, "EXT", ext));
+        return params.stream();
     }
 }

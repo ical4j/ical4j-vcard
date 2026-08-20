@@ -35,35 +35,64 @@ import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Value;
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BDayTest extends PropertyTest {
 
-    private final BDay<?> property;
-
-    private final Class<?> expectedDateType;
-
-    public BDayTest(BDay<?> property, String expectedName, String expectedValue, Parameter[] expectedParams,
-                    Class<?> expectedDateType) {
-
-        super(property, expectedName, expectedValue, expectedParams);
-        this.property = property;
-        this.expectedDateType = expectedDateType;
+    public static Stream<Arguments> parameters() {
+        String dateString1 = "19690415";
+        String dateString2 = "15730125T180322Z";
+        String dateString3 = "19690416";
+        String dateString4 = "15730125T180323Z";
+        final ParameterList bdayParams = new ParameterList(Collections.singletonList(Value.TEXT));
+        final String bdayString = "Circa 400, bce";
+        return Stream.of(
+                Arguments.of(new BDay<>(TemporalAdapter.parse(dateString1).getTemporal()), PropertyName.BDAY.toString(), dateString1,
+                        new Parameter[]{Value.DATE}),
+                Arguments.of(new BDay<>(TemporalAdapter.parse(dateString2).getTemporal()), PropertyName.BDAY.toString(),
+                        dateString2, new Parameter[]{}),
+                Arguments.of(new BDay<>(new ParameterList(), dateString3), PropertyName.BDAY.toString(), dateString3,
+                        new Parameter[]{}),
+                Arguments.of(new BDay<>(new ParameterList(), dateString4), PropertyName.BDAY.toString(),
+                        dateString4, new Parameter[]{}),
+                Arguments.of(new BDay<>(""), PropertyName.BDAY.toString(), "", new Parameter[]{Value.TEXT}),
+                Arguments.of(new BDay<>(bdayParams, bdayString), PropertyName.BDAY.toString(), bdayString,
+                        new Parameter[]{Value.TEXT})
+        );
     }
 
-    @Test
-    public void testDateType() {
+    public static Stream<Arguments> dateTypeParameters() {
+        String dateString1 = "19690415";
+        String dateString2 = "15730125T180322Z";
+        String dateString3 = "19690416";
+        String dateString4 = "15730125T180323Z";
+        final ParameterList bdayParams = new ParameterList(Collections.singletonList(Value.TEXT));
+        final String bdayString = "Circa 400, bce";
+        return Stream.of(
+                Arguments.of(new BDay<>(TemporalAdapter.parse(dateString1).getTemporal()), LocalDate.class),
+                Arguments.of(new BDay<>(TemporalAdapter.parse(dateString2).getTemporal()), OffsetDateTime.class),
+                Arguments.of(new BDay<>(new ParameterList(), dateString3), LocalDate.class),
+                Arguments.of(new BDay<>(new ParameterList(), dateString4), OffsetDateTime.class),
+                Arguments.of(new BDay<>(""), null),
+                Arguments.of(new BDay<>(bdayParams, bdayString), null)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("dateTypeParameters")
+    public void testDateType(BDay<?> property, Class<?> expectedDateType) {
         if (expectedDateType != null) {
             assertNull(property.getText());
             assertNotNull(property.getDate());
@@ -77,30 +106,5 @@ public class BDayTest extends PropertyTest {
             assertNull(property.getDate());
             assertNotNull(property.getText());
         }
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() throws ParseException {
-        final List<Object[]> params = new ArrayList<Object[]>();
-
-        String dateString = "19690415";
-        params.add(new Object[]{new BDay<>(TemporalAdapter.parse(dateString).getTemporal()), PropertyName.BDAY.toString(), dateString,
-                new Parameter[]{Value.DATE}, LocalDate.class,});
-        dateString = "15730125T180322Z";
-        params.add(new Object[]{new BDay<>(TemporalAdapter.parse(dateString).getTemporal()), PropertyName.BDAY.toString(),
-                dateString, new Parameter[]{}, OffsetDateTime.class,});
-
-        dateString = "19690416";
-        params.add(new Object[]{new BDay<>(new ParameterList(), dateString), PropertyName.BDAY.toString(), dateString,
-                new Parameter[]{}, LocalDate.class,});
-        dateString = "15730125T180323Z";
-        params.add(new Object[]{new BDay<>(new ParameterList(), dateString), PropertyName.BDAY.toString(),
-                dateString, new Parameter[]{}, OffsetDateTime.class,});
-        params.add(new Object[]{new BDay<>(""), PropertyName.BDAY.toString(), "", new Parameter[]{Value.TEXT}, null});
-        final ParameterList bdayParams = new ParameterList(Collections.singletonList(Value.TEXT));
-        final String bdayString = "Circa 400, bce";
-        params.add(new Object[]{new BDay<>(bdayParams, bdayString), PropertyName.BDAY.toString(), bdayString,
-                new Parameter[]{Value.TEXT}, null,});
-        return params;
     }
 }

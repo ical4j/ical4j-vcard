@@ -32,77 +32,32 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.model.Parameter;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.Assert.assertEquals;
+public abstract class ParameterTest {
 
-@RunWith(Parameterized.class)
-public class ParameterTest {
-
-    private final Parameter parameter;
-    
-    private final String expectedName;
-    
-    private final String expectedValue;
-    
-    private final Parameter expectedEqualTo;
-    
-    /**
-     * @param parameter
-     */
-    public ParameterTest(Parameter parameter, String expectedName, String expectedValue) {
-        this.parameter = parameter;
-        this.expectedName = expectedName;
-        this.expectedValue = expectedValue;
-        // XXX: insert proper copy here..
-        this.expectedEqualTo = parameter;
-    }
-
-    @Test
-    public void testGetValue() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testGetValue(Parameter parameter, String expectedName, String expectedValue) {
         assertEquals(expectedValue, parameter.getValue());
     }
 
-    /**
-     * Test method for {@link Parameter#toString()}.
-     */
-    @Test
-    public void testToString() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testToString(Parameter parameter, String expectedName, String expectedValue) {
         if (expectedValue != null) {
             assertEquals(expectedName + "=" + expectedValue, parameter.toString());
-        }
-        else {
+        } else {
             assertEquals(expectedName, parameter.toString());
         }
     }
 
-    @Test
-    public void testEquals() {
-        assertEquals(parameter, expectedEqualTo);
-    }
-    
-    /**
-     * @return
-     */
-    @SuppressWarnings("serial")
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
-
-        Parameter extended = new Parameter("X-extended") {
-            @Override
-            public String getValue() {
-                return "value";
-            }
-        };
-        params.add(new Object[] {extended, "X-extended", "value"});
-        return params;
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testEquals(Parameter parameter, String expectedName, String expectedValue) {
+        assertEquals(parameter, parameter);
     }
 }

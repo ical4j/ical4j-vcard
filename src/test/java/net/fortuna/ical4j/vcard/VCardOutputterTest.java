@@ -34,16 +34,16 @@ package net.fortuna.ical4j.vcard;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
+import java.util.stream.Stream;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created on: 29/12/2008
@@ -51,38 +51,20 @@ import static junit.framework.Assert.assertEquals;
  * @author Ben
  *
  */
-@RunWith(Parameterized.class)
 public class VCardOutputterTest {
 
-    private final VCardOutputter outputter;
-
-    private final VCard card;
-    
-    private final String expectedOutput;
-    
-    /**
-     * @param outputter
-     * @param card
-     * @param expectedOutput
-     */
-    public VCardOutputterTest(VCardOutputter outputter, VCard card, String expectedOutput) {
-        this.outputter = outputter;
-        this.card = card;
-        this.expectedOutput = expectedOutput;
-    }
-    
-    @Test
-    public void testOutput() throws IOException, ValidationException {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testOutput(VCardOutputter outputter, VCard card, String expectedOutput) throws IOException, ValidationException {
         var out = new StringWriter();
         outputter.output(card, out);
         assertEquals(expectedOutput, out.toString().replaceAll("\\r\\n ", ""));
     }
 
-    @Parameters
-    public static Collection<Object[]> parameters() throws IOException, ParserException {
+    public static Stream<Arguments> parameters() throws IOException, ParserException {
         var outputter = new VCardOutputter(false, 1000);
         VCardBuilder builder = null;
-        var params = new ArrayList<Object[]>();
+        List<Arguments> params = new ArrayList<>();
         var testFiles = new File("src/test/resources/samples/valid").listFiles(
                 (FileFilter) VCardFileFilter.INSTANCE);
         // enable relaxed parsing for non-standard GEO support..
@@ -90,9 +72,9 @@ public class VCardOutputterTest {
         for (var testFile : testFiles) {
             builder = new VCardBuilder(new FileReader(testFile));
             var card = builder.build();
-            params.add(new Object[]{outputter, card, card.toString()});
+            params.add(Arguments.of(outputter, card, card.toString()));
         }
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
-        return params;
+        return params.stream();
     }
 }

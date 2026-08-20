@@ -33,21 +33,20 @@ package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.util.CompatibilityHints;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Created on: 02/11/2008
@@ -55,63 +54,50 @@ import static org.junit.Assert.assertNotNull;
  * @author Ben
  *
  */
-@RunWith(Parameterized.class)
 public class VCardBuilderTest {
 
-    private final String filename;
-    
-    private final VCardBuilder builder;
-    
-    /**
-     * @param filename
-     * @throws FileNotFoundException
-     */
-    public VCardBuilderTest(String filename) throws FileNotFoundException {
-        this.filename = filename;
-        builder = new VCardBuilder(new FileReader(filename));
-    }
-
-    @Before
+    @BeforeEach
     public void setUp() {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
     }
-    
-    @After
+
+    @AfterEach
     public void tearDown() {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
     }
-    
+
     /**
      * Test method for {@link net.fortuna.ical4j.vcard.VCardBuilder#build()}.
-     * @throws ParserException 
-     * @throws IOException 
+     * @throws ParserException
+     * @throws IOException
      */
-    @Test
-    public void testBuild() throws IOException {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testBuild(String filename) throws IOException {
+        VCardBuilder builder = new VCardBuilder(new FileReader(filename));
         try {
             var card = builder.build();
             assertNotNull(card);
             assertFalse(card.getEntities().get(0).getProperties().isEmpty());
         }
         catch (ParserException e) {
-            Assert.fail(String.format("File [%s] is not valid", filename));
+            Assertions.fail(String.format("File [%s] is not valid", filename));
         }
     }
 
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
+    public static Stream<Arguments> parameters() {
+        final List<Arguments> params = new ArrayList<>();
         File[] testFiles = new File("src/test/resources/samples").listFiles(
                 (FileFilter) VCardFileFilter.INSTANCE);
         for (int i = 0; i < testFiles.length; i++) {
-            params.add(new Object[] {testFiles[i].getPath()});
+            params.add(Arguments.of(testFiles[i].getPath()));
         }
         testFiles = new File("src/test/resources/samples/valid").listFiles(
                 (FileFilter) VCardFileFilter.INSTANCE);
         for (int i = 0; i < testFiles.length; i++) {
-            params.add(new Object[] {testFiles[i].getPath()});
+            params.add(Arguments.of(testFiles[i].getPath()));
         }
-        return params;
+        return params.stream();
     }
-    
+
 }

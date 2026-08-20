@@ -32,13 +32,13 @@
 package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created on: 2009-02-25
@@ -49,10 +49,10 @@ import static org.junit.Assert.assertEquals;
 public class TwoVcardsInAFileTest {
 
 	/**
-	 * Tests the example file from the RFC2426, which contains TWO VCards in a 
+	 * Tests the example file from the RFC2426, which contains TWO VCards in a
 	 * single file. The VCardBuilder should be able to process it.
-	 * @throws ParserException 
-	 * @throws IOException 
+	 * @throws ParserException
+	 * @throws IOException
 	 */
 	@Test
 	public void testRfc2426Example() throws IOException, ParserException {

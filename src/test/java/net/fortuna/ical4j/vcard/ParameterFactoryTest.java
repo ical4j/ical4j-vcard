@@ -33,49 +33,31 @@ package net.fortuna.ical4j.vcard;
 
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.parameter.XParameter;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(Parameterized.class)
 public class ParameterFactoryTest {
-
-    private final ParameterFactory<Parameter> factory;
-
-    private final String extendedName;
-
-    private final String value;
-
-    /**
-     * @param factory
-     * @param value
-     */
-    public ParameterFactoryTest(ParameterFactory<Parameter> factory, String name, String value) {
-        this.factory = factory;
-        this.extendedName = name;
-        this.value = value;
-    }
 
     /**
      * Test method for {@link XParameter#XParameter(String, String)} .
      */
-    @Test
-    public void testCreateParameter() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testCreateParameter(ParameterFactory<Parameter> factory, String extendedName, String value) {
         Parameter param = new XParameter(extendedName, value);
         assertEquals(extendedName, param.getName());
         assertEquals(value, param.getValue());
     }
 
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
+    public static Stream<Arguments> parameters() {
+        List<Arguments> params = new ArrayList<>();
 
         ParameterFactory<Parameter> factory = new ParameterFactory<Parameter>() {
             /*
@@ -98,9 +80,9 @@ public class ParameterFactoryTest {
             }
         };
 
-        params.add(new Object[]{factory, "extended", "value"});
-        params.add(new Object[]{factory, "extended", null});
-        return params;
+        params.add(Arguments.of(factory, "extended", "value"));
+        params.add(Arguments.of(factory, "extended", null));
+        return params.stream();
     }
 
 }

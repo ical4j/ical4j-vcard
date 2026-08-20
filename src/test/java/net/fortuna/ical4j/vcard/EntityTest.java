@@ -38,46 +38,36 @@ import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.validate.ValidationResult;
 import net.fortuna.ical4j.vcard.property.Name;
 import net.fortuna.ical4j.vcard.property.Source;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.INDIVIDUAL;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-@RunWith(Parameterized.class)
 public class EntityTest {
-    
+
     private static final Pattern VCARD_PATTERN = Pattern.compile("^BEGIN:VCARD.*END:VCARD(\\r?\\n)*$", Pattern.DOTALL);
 
-    private final Entity entity;
-    
-    private final int expectedPropertyCount;
-    
-    /**
-     * @param entity
-     * @param expectedPropertyCount
-     */
-    public EntityTest(Entity entity, int expectedPropertyCount) {
-        this.entity = entity;
-        this.expectedPropertyCount = expectedPropertyCount;
-    }
-
-    @Test
-    public void testGetProperties() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testGetProperties(Entity entity, int expectedPropertyCount) {
         assertEquals(expectedPropertyCount, entity.getProperties().size());
     }
 
-    @Test
-    public void testGetPropertiesName() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testGetPropertiesName(Entity entity, int expectedPropertyCount) {
         for (Property p : entity.getProperties()) {
             List<Property> matches = entity.getProperties(p.getName());
             assertNotNull(matches);
@@ -86,16 +76,18 @@ public class EntityTest {
         }
     }
 
-    @Test
-    public void testGetPropertyName() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testGetPropertyName(Entity entity, int expectedPropertyCount) {
         for (Property p : entity.getProperties()) {
             assertNotNull(entity.getProperty(p.getName()));
         }
         assertFalse(entity.getProperty((String) null).isPresent());
     }
 
-    @Test
-    public void testGetExtendedPropertiesName() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testGetExtendedPropertiesName(Entity entity, int expectedPropertyCount) {
         for (Property p : entity.getProperties(PropertyName.EXTENDED.toString())) {
             List<Property> matches = entity.getProperties(p.getName());
             assertNotNull(matches);
@@ -104,25 +96,26 @@ public class EntityTest {
         }
     }
 
-    @Test
-    public void testGetExtendedPropertyName() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testGetExtendedPropertyName(Entity entity, int expectedPropertyCount) {
         for (Property p : entity.getProperties(PropertyName.EXTENDED.toString())) {
             assertNotNull(entity.getProperty(p.getName()));
         }
         assertFalse(entity.getProperty((String) null).isPresent());
     }
 
-    @Test
-    public void testToString() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testToString(Entity entity, int expectedPropertyCount) {
         assertTrue(VCARD_PATTERN.matcher(entity.toString()).matches());
     }
-    
-    @SuppressWarnings("serial")
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        List<Object[]> params = new ArrayList<Object[]>();
 
-        params.add(new Object[]{new Entity(), 0});
+    @SuppressWarnings("serial")
+    public static Stream<Arguments> parameters() {
+        List<Arguments> params = new ArrayList<>();
+
+        params.add(Arguments.of(new Entity(), 0));
 
         List<Property> props = new ArrayList<>();
         props.add(new Source(URI.create("ldap://ldap.example.com/cn=Babs%20Jensen,%20o=Babsco,%20c=US")));
@@ -150,8 +143,8 @@ public class EntityTest {
             }
         });
         var entity = new Entity(new PropertyList(props));
-        params.add(new Object[]{entity, props.size()});
-        
-        return params;
+        params.add(Arguments.of(entity, props.size()));
+
+        return params.stream();
     }
 }

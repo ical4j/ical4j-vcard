@@ -36,10 +36,10 @@ import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
 import org.apache.commons.codec.DecoderException;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileReader;
@@ -63,12 +63,12 @@ import java.util.Optional;
  */
 public class XMsCardpictureTest {
 
-    @Before
+    @BeforeEach
     public void setup() {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
     }
 
-    @After
+    @AfterEach
     public void cleanup() {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
     }
@@ -92,9 +92,9 @@ public class XMsCardpictureTest {
 
         String value = prop.get().getValue();
         // the value starts with a correct string (it is Base64)
-        Assert.assertTrue(value.startsWith("/9j/4AAQSkZJRgABAQIAAAAAAAD/2"));
+        Assertions.assertTrue(value.startsWith("/9j/4AAQSkZJRgABAQIAAAAAAAD/2"));
         // the value has been unfolded correctly and doesn't contain any linebreaks
-        Assert.assertFalse(value.contains("\r\n"));
+        Assertions.assertFalse(value.contains("\r\n"));
 
     }
 }

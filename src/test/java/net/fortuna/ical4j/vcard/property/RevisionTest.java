@@ -35,42 +35,36 @@ import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import java.text.ParseException;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RevisionTest extends PropertyTest {
 
-    private final Revision revision;
-
-    private final Instant expectedDate;
-
-    public RevisionTest(Revision revision, String expectedName, String expectedValue, Parameter[] expectedParams,
-                        Instant expectedDate) {
-        super(revision, expectedName, expectedValue, expectedParams);
-        this.revision = revision;
-        this.expectedDate = expectedDate;
+    public static Stream<Arguments> parameters() {
+        return Stream.of(
+                Arguments.of(new Revision(Instant.EPOCH), PropertyName.REV.toString(), "19700101T000000Z", new Parameter[]{}),
+                Arguments.of(new Revision(new ParameterList(), "1970-01-01T00:00:00Z"), PropertyName.REV.toString(), "19700101T000000Z",
+                        new Parameter[]{})
+        );
     }
 
-    @Test
-    public void testGetDate() {
+    public static Stream<Arguments> dateParameters() {
+        return Stream.of(
+                Arguments.of(new Revision(Instant.EPOCH), Instant.EPOCH),
+                Arguments.of(new Revision(new ParameterList(), "1970-01-01T00:00:00Z"), Instant.EPOCH)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("dateParameters")
+    public void testGetDate(Revision revision, Instant expectedDate) {
         assertEquals(expectedDate, revision.getDate());
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() throws ParseException {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{new Revision(Instant.EPOCH), PropertyName.REV.toString(), "19700101T000000Z", new Parameter[]{}, Instant.EPOCH});
-        params.add(new Object[]{new Revision(new ParameterList(), "1970-01-01T00:00:00Z"), PropertyName.REV.toString(), "19700101T000000Z",
-                new Parameter[]{}, Instant.EPOCH});
-        return params;
     }
 
 }

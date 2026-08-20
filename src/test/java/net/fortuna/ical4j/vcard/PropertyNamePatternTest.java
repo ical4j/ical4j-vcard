@@ -31,12 +31,12 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests certain improvements in the {@link VCardBuilder#PROPERTY_NAME_PATTERN}
- * 
+ *
  * $Id$
  *
  * Created on: 2010-04-01
@@ -48,13 +48,13 @@ public class PropertyNamePatternTest {
 
 	@Test
 	public void testPropertyNamePattern() {
-		
-	
+
+
 	    wrong(";"); // empty string is not allowed
-	   
+
 	    /*
 	     * The set of non-extended properties is predefined  as
-	     * 
+	     *
 	     * name  = "SOURCE" / "NAME" / "KIND" / "FN" / "N" / "NICKNAME"
 	     *            / "PHOTO" / "BDAY" / "DDAY" / "BIRTH" / "DEATH" / "SEX"
 	     *            / "ADR" / "LABEL" / "TEL" / "EMAIL" / "IMPP" / "LANG"
@@ -63,7 +63,7 @@ public class PropertyNamePatternTest {
 	     *            / "SORT-STRING" / "SOUND" / "UID" / "CLIENTPIDMAP" / "URL"
 	     *            / "VERSION" / "CLASS" / "KEY" / "FBURL" / "CALADRURI"
 	     *            / "CALURI" / iana-token / x-name
-	     *            
+	     *
 	     * they are case insensitive, but only contain letters
 	     */
 	    ok("ATTACH;");
@@ -71,11 +71,11 @@ public class PropertyNamePatternTest {
 	    wrong("ATTA342CH;");
 	    wrong("ATTACH_SOMETHIN;");
 	    wrong("ATTACH-Something;");  // dash is not allowed on normal properties
-	    
+
 	    /*
 	     * dash is only allowed on extended properties
 	     * as per:
-	     * 
+	     *
 	     * x-name = "x-" 1*(ALPHA / DIGIT / "-")
          *  ; Names that begin with "x-" or "X-" are
          *  ; reserved for experimental use, not intended for released
@@ -84,11 +84,11 @@ public class PropertyNamePatternTest {
 	    ok("X-ATTACH-Something;");
 	    ok("X-MS-CARDPICTURE;");
 	    wrong("X-ATTACH_SOMETHIN;");
-	                                  
+
 	    /*
 	     * The same rules are valid for properties inside groups though
 	     * an empty group is not allowed
-	     * 
+	     *
 	     * group = 1*(ALPHA / DIGIT / "-")
 	     */
 	    wrong("GROUP.;"); // empty name is not allowed
@@ -97,7 +97,7 @@ public class PropertyNamePatternTest {
 	    ok("GRO-UP.ATTACH;");
 	    // dash can come up in group name, but a non-extended property still can't have a dash
 	    wrong("GRO-UP.ATT-ACH;");
-	    wrong("X-GRO-UP.ATT-ACH;"); 
+	    wrong("X-GRO-UP.ATT-ACH;");
 		wrong(".ATTACH;"); //empty group is not allowed
 	    wrong("GROUP.ATTACH_SOMETHIN;");
 	    wrong("GROUP.X-ATTACH_SOMETHIN;");
@@ -105,10 +105,10 @@ public class PropertyNamePatternTest {
 	}
 
 	private void ok(String string) {
-		Assert.assertTrue(VCardBuilder.PROPERTY_NAME_PATTERN.matcher(string).find());	
+		Assertions.assertTrue(VCardBuilder.PROPERTY_NAME_PATTERN.matcher(string).find());
 	}
-	
+
 	private void wrong(String string) {
-		Assert.assertFalse(VCardBuilder.PROPERTY_NAME_PATTERN.matcher(string).find());
+		Assertions.assertFalse(VCardBuilder.PROPERTY_NAME_PATTERN.matcher(string).find());
 	}
 }

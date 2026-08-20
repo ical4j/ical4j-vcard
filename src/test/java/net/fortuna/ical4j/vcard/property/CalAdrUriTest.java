@@ -32,32 +32,24 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Type;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 public class CalAdrUriTest extends PropertyTest {
 
-    public CalAdrUriTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        String uriString = "http://example.com/calendar/jdoe";
-        params.add(new Object[]{new CalAdrUri(URI.create(uriString)),
-                PropertyName.CALADRURI.toString(), uriString, new Parameter[]{},});
-        uriString = "mailto:janedoe@example.com";
-        params.add(new Object[]{new CalAdrUri(URI.create(uriString), Type.PREF),
-                PropertyName.CALADRURI.toString(), uriString, new Parameter[]{Type.PREF},});
-        return params;
+    public static Stream<Arguments> parameters() {
+        String uriString1 = "http://example.com/calendar/jdoe";
+        String uriString2 = "mailto:janedoe@example.com";
+        return Stream.of(
+                Arguments.of(new CalAdrUri(URI.create(uriString1)),
+                        PropertyName.CALADRURI.toString(), uriString1, new Parameter[]{}),
+                Arguments.of(new CalAdrUri(URI.create(uriString2), Type.PREF),
+                        PropertyName.CALADRURI.toString(), uriString2, new Parameter[]{Type.PREF})
+        );
     }
 }

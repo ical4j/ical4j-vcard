@@ -39,16 +39,16 @@ import net.fortuna.ical4j.vcard.property.Logo;
 import net.fortuna.ical4j.vcard.property.Photo;
 import net.fortuna.ical4j.vcard.property.Sound;
 import org.apache.commons.codec.DecoderException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * This tests if the VALUE=URL parameter is treated correctly.
@@ -61,12 +61,12 @@ import static org.junit.Assert.assertEquals;
  */
 public class ValueEqualsURLTest {
 
-    @Before
+    @BeforeEach
     public void setup() {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
     }
 
-    @After
+    @AfterEach
     public void cleanup() {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
     }

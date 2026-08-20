@@ -36,14 +36,14 @@ import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.validate.ValidationException;
 import net.fortuna.ical4j.vcard.property.Address;
 import org.apache.commons.codec.DecoderException;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * The dirk example file has been prepared for the Nepomuk Social Semantic
@@ -76,7 +76,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class DirkWhitespaceAfterBeginTest {
 
-    @Before
+    @BeforeEach
     public void setup() {
         CompatibilityHints.clearHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING);
     }
@@ -100,12 +100,12 @@ public class DirkWhitespaceAfterBeginTest {
 
         try {
             builder.build();
-            Assert.fail();
+            Assertions.fail();
         } catch (ParserException pe) {
             assertEquals(1, pe.getLineNo());
             return;
         }
-        Assert.fail();
+        Assertions.fail();
     }
 
     /**
@@ -126,7 +126,7 @@ public class DirkWhitespaceAfterBeginTest {
             var builder = new VCardBuilder(reader, groupRegistry, propReg, parReg);
             var card = builder.build();
             List<Address> addresses = card.getEntities().get(0).getAddresses();
-            Assert.assertFalse(addresses.isEmpty());
+            Assertions.assertFalse(addresses.isEmpty());
             assertEquals("Szczecin", addresses.get(0).getExtended());
         } finally {
             CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);

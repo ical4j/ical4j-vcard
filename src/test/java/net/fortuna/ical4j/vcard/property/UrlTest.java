@@ -34,40 +34,35 @@ package net.fortuna.ical4j.vcard.property;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UrlTest extends PropertyTest {
 
-    private final Url url;
-    
-    private final URI expectedUri;
-
-    public UrlTest(Url url, String expectedName,
-                   String expectedValue, Parameter[] expectedParams, URI expectedUri) {
-        super(url, expectedName, expectedValue, expectedParams);
-        this.url = url;
-        this.expectedUri = expectedUri;
-    }
-    
-    @Test
-    public void testGetUri() {
-        assertEquals(expectedUri, url.getUri());
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
+    public static Stream<Arguments> parameters() {
         URI uri = URI.create("");
-        params.add(new Object[]{new Url(uri), PropertyName.URL.toString(), "", new Parameter[]{}, uri});
-        return params;
+        return Stream.of(
+                Arguments.of(new Url(uri), PropertyName.URL.toString(), "", new Parameter[]{})
+        );
+    }
+
+    public static Stream<Arguments> uriParameters() {
+        URI uri = URI.create("");
+        return Stream.of(
+                Arguments.of(new Url(uri), uri)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("uriParameters")
+    public void testGetUri(Url url, URI expectedUri) {
+        assertEquals(expectedUri, url.getUri());
     }
 
 }

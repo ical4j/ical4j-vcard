@@ -32,30 +32,20 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 import static net.fortuna.ical4j.vcard.property.immutable.ImmutableVersion.VERSION_4_0;
 
 public class VersionTest extends PropertyTest {
 
-    public VersionTest(Property property, String expectedName,
-                       String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
+    public static Stream<Arguments> parameters() {
+        return Stream.of(
+                Arguments.of(VERSION_4_0, PropertyName.VERSION.toString(), "4.0", new Parameter[]{}),
+                Arguments.of(new Version("3.0"), PropertyName.VERSION.toString(), "3.0", new Parameter[]{})
+        );
     }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{VERSION_4_0, PropertyName.VERSION.toString(), "4.0", new Parameter[]{}});
-        params.add(new Object[]{new Version("3.0"), PropertyName.VERSION.toString(), "3.0", new Parameter[]{}});
-        return params;
-    }
-
 }

@@ -5,3 +5,19 @@
  See the changelog report for further details:
 
  	http://m2.modularity.net.au/projects/ical4j-vcard/changelog.html
+
+ ------------------------------------------------------------------------
+
+ Tests migrated from JUnit 4 to JUnit 5 Jupiter. The vintage engine bridge
+ has been removed; all Java tests now use org.junit.jupiter.api and
+ org.junit.jupiter.params exclusively.
+
+ BREAKING (test sources only): the abstract base classes
+   net.fortuna.ical4j.vcard.PropertyTest
+   net.fortuna.ical4j.vcard.ParameterTest
+ no longer have a constructor or fields. Subclasses must now provide
+ `public static Stream<Arguments> parameters()` instead of the previous
+ JUnit 4 `@Parameters` Collection<Object[]> + constructor injection.
+ Test classes are not published in the main jar so external impact is
+ unlikely; downstream consumers depending on these test bases need the
+ same migration.

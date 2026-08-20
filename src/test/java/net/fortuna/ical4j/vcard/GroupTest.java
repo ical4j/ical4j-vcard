@@ -31,53 +31,36 @@
  */
 package net.fortuna.ical4j.vcard;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-@RunWith(Parameterized.class)
 public class GroupTest {
 
-    private final Group group;
-    
-    private final String expectedString;
-    
-    private final Group expectedEqualTo;
-    
-    /**
-     * @param group
-     * @param expectedString
-     */
-    public GroupTest(Group group, String expectedString, Group expectedEqualTo) {
-        this.group = group;
-        this.expectedString = expectedString;
-        this.expectedEqualTo = expectedEqualTo;
-    }
-    
-    @Test
-    public void testToString() {
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testToString(Group group, String expectedString, Group expectedEqualTo) {
         assertEquals(expectedString, group.toString());
     }
-    
-    @Test
-    public void testEquals() {
+
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testEquals(Group group, String expectedString, Group expectedEqualTo) {
         assertEquals(group, expectedEqualTo);
     }
-    
-    @Parameters
-    public static Collection<Object[]> parameters() throws Exception {
-        List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {Group.HOME, "HOME", new Group(Group.Id.HOME)});
-        params.add(new Object[] {Group.WORK, "WORK", new Group(Group.Id.WORK)});
-        params.add(new Object[] {new Group("test"), "test", new Group("test")});
-        return params;
+
+    public static Stream<Arguments> parameters() throws Exception {
+        List<Arguments> params = new ArrayList<>();
+        params.add(Arguments.of(Group.HOME, "HOME", new Group(Group.Id.HOME)));
+        params.add(Arguments.of(Group.WORK, "WORK", new Group(Group.Id.WORK)));
+        params.add(Arguments.of(new Group("test"), "test", new Group("test")));
+        return params.stream();
     }
 }

@@ -39,8 +39,8 @@ public interface IdentificationPropertyValidators extends PropertyValidatorSuppo
             TEXT_VALUE);
 
     Validator<Gender> GENDER = new PropertyValidator<>(PropertyName.GENDER.toString(), TEXT_VALUE,
-            new ValidationRule<>(ValueMatch, "(?i)" + String.join("|", Gender.NONE,
-                    Gender.FEMALE, Gender.MALE, Gender.OTHER, Gender.UNKNOWN)));
+            new ValidationRule<>(ValueMatch, "(?i)(" + String.join("|", Gender.NONE,
+                    Gender.FEMALE, Gender.MALE, Gender.OTHER, Gender.UNKNOWN) + ")?(;.*)?"));
 
     Validator<net.fortuna.ical4j.vcard.property.N> N = new PropertyValidator<>(PropertyName.N.toString(),
             new ValidationRule<>(OneOrLess, SORT_AS.toString(), LANGUAGE.toString(),

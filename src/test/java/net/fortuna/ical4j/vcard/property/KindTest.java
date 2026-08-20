@@ -32,33 +32,23 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 import static net.fortuna.ical4j.vcard.property.immutable.ImmutableKind.*;
 
 public class KindTest extends PropertyTest {
 
-    public KindTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[]{GROUP, PropertyName.KIND.toString(), "group", new Parameter[]{}});
-        params.add(new Object[]{INDIVIDUAL, PropertyName.KIND.toString(), "individual", new Parameter[]{}});
-        params.add(new Object[]{ORG, PropertyName.KIND.toString(), "org", new Parameter[]{}});
-
+    public static Stream<Arguments> parameters() {
         final String customKind = "couple";
-        params.add(new Object[]{new Kind(customKind), PropertyName.KIND.toString(), customKind, new Parameter[]{}});
-        return params;
+        return Stream.of(
+                Arguments.of(GROUP, PropertyName.KIND.toString(), "group", new Parameter[]{}),
+                Arguments.of(INDIVIDUAL, PropertyName.KIND.toString(), "individual", new Parameter[]{}),
+                Arguments.of(ORG, PropertyName.KIND.toString(), "org", new Parameter[]{}),
+                Arguments.of(new Kind(customKind), PropertyName.KIND.toString(), customKind, new Parameter[]{})
+        );
     }
-
 }

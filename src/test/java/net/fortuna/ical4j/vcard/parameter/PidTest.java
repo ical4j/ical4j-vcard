@@ -33,41 +33,35 @@ package net.fortuna.ical4j.vcard.parameter;
 
 import net.fortuna.ical4j.vcard.ParameterName;
 import net.fortuna.ical4j.vcard.ParameterTest;
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PidTest extends ParameterTest {
 
-    private final Pid pid;
-
-    private final Integer expectedPid;
-
-    public PidTest(Pid pid, String expectedName,
-                   String expectedValue, Integer expectedPid) {
-        super(pid, expectedName, expectedValue);
-        this.pid = pid;
-        this.expectedPid = expectedPid;
-    }
-    
-    @Test
-    public void testGetPid() {
-        assertEquals(expectedPid, pid.getPid());
-    }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
+    public static Stream<Arguments> parameters() {
         final String pidString = "1";
-        params.add(new Object[]{new Pid(1), ParameterName.PID.toString(), pidString, 1});
-        params.add(new Object[]{new Pid(pidString), ParameterName.PID.toString(), pidString, 1});
-//        params.add(new Object[] {new Pid("blah"), Id.PID.toString(), "1"});
-        return params;
+        return Stream.of(
+                Arguments.of(new Pid(1), ParameterName.PID.toString(), pidString),
+                Arguments.of(new Pid(pidString), ParameterName.PID.toString(), pidString)
+        );
+    }
+
+    public static Stream<Arguments> pidParameters() {
+        final String pidString = "1";
+        return Stream.of(
+                Arguments.of(new Pid(1), 1),
+                Arguments.of(new Pid(pidString), 1)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("pidParameters")
+    public void testGetPid(Pid pid, Integer expectedPid) {
+        assertEquals(expectedPid, pid.getPid());
     }
 }

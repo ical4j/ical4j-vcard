@@ -32,39 +32,24 @@
 package net.fortuna.ical4j.vcard.property;
 
 import net.fortuna.ical4j.model.Parameter;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.vcard.PropertyName;
 import net.fortuna.ical4j.vcard.PropertyTest;
 import net.fortuna.ical4j.vcard.parameter.Type;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.provider.Arguments;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 public class ImppTest extends PropertyTest {
 
-    /**
-     * @param property
-     * @param expectedName
-     * @param expectedValue
-     * @param expectedParams
-     */
-    public ImppTest(Property property, String expectedName, String expectedValue, Parameter[] expectedParams) {
-        super(property, expectedName, expectedValue, expectedParams);
+    public static Stream<Arguments> parameters() {
+        String imppString1 = "xmpp:alice@example.com";
+        String imppString2 = "xmpp:bob@example.com";
+        return Stream.of(
+                Arguments.of(new Impp(URI.create(imppString1)), PropertyName.IMPP.toString(),
+                        imppString1, new Parameter[]{}),
+                Arguments.of(new Impp(URI.create(imppString2), Type.WORK), PropertyName.IMPP.toString(),
+                        imppString2, new Parameter[]{Type.WORK})
+        );
     }
-
-    @Parameters
-    public static Collection<Object[]> parameters() {
-        final List<Object[]> params = new ArrayList<Object[]>();
-        String imppString = "xmpp:alice@example.com";
-        params.add(new Object[]{new Impp(URI.create(imppString)), PropertyName.IMPP.toString(),
-                imppString, new Parameter[]{},});
-        imppString = "xmpp:bob@example.com";
-        params.add(new Object[]{new Impp(URI.create(imppString), Type.WORK), PropertyName.IMPP.toString(),
-                imppString, new Parameter[]{Type.WORK},});
-        return params;
-    }
-
 }

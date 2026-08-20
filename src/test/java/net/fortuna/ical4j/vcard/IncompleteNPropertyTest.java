@@ -39,16 +39,16 @@ import net.fortuna.ical4j.vcard.parameter.Encoding;
 import net.fortuna.ical4j.vcard.property.N;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.net.QuotedPrintableCodec;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * The invalid/vcard-incompletenproperty.vcf has a wrong N property. It exhibits
@@ -68,12 +68,12 @@ import static org.junit.Assert.assertEquals;
  */
 public class IncompleteNPropertyTest {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, false);
     }
@@ -97,9 +97,9 @@ public class IncompleteNPropertyTest {
         N n = card.getEntities().get(0).getRequiredProperty(PropertyName.N);
         assertEquals("Mylka", n.getFamilyName());
         assertEquals("Antoni", n.getGivenName());
-        Assert.assertArrayEquals(new String[]{""}, n.getAdditionalNames());
-        Assert.assertArrayEquals(new String[]{"Mr."}, n.getPrefixes());
-        Assert.assertArrayEquals(null, n.getSuffixes());
+        Assertions.assertArrayEquals(new String[]{""}, n.getAdditionalNames());
+        Assertions.assertArrayEquals(new String[]{"Mr."}, n.getPrefixes());
+        Assertions.assertArrayEquals(null, n.getSuffixes());
     }
 
     /**
@@ -111,7 +111,7 @@ public class IncompleteNPropertyTest {
         Encoding enc = prop.getRequiredParameter(ParameterName.ENCODING.toString());
         String val = prop.getValue();
         if (enc != null && enc.getValue().equalsIgnoreCase("QUOTED-PRINTABLE")) {
-			
+
 			/*
 			 * A special Outlook2003 hack.
 			 */
